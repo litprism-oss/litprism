@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  ci:
+    name: ${{ matrix.package }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - litprism-pubmed
+          - litprism-europepmc
+          - litprism-semanticscholar
+          - litprism-crossref
+          - litprism-screen
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Install package and dependencies
+        run: uv sync --package ${{ matrix.package }}
+
+      - name: Lint (ruff check)
+        run: uv run --package ${{ matrix.package }} ruff check packages/${{ matrix.package }}/
+
+      - name: Format check (ruff format)
+        run: uv run --package ${{ matrix.package }} ruff format --check packages/${{ matrix.package }}/
+
+      - name: Test
+        run: uv run --package ${{ matrix.package }} pytest packages/${{ matrix.package }}/tests/ -v
