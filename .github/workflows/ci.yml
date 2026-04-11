@@ -6,19 +6,32 @@ on:
     branches: [main]
 
 jobs:
+  list-packages:
+    name: Discover packages
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.find.outputs.packages }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Find scaffolded packages
+        id: find
+        run: |
+          packages=$(find packages -maxdepth 1 -mindepth 1 -type d \
+            -exec basename {} \; | sort | jq -R . | jq -sc .)
+          echo "packages=$packages" >> "$GITHUB_OUTPUT"
+
   ci:
     name: ${{ matrix.package }}
+    needs: list-packages
+    if: needs.list-packages.outputs.packages != '[]'
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
-        package:
-          - litprism-pubmed
-          - litprism-europepmc
-          - litprism-semanticscholar
-          - litprism-crossref
-          - litprism-screen
+        package: ${{ fromJson(needs.list-packages.outputs.packages) }}
 
     steps:
       - uses: actions/checkout@v4
