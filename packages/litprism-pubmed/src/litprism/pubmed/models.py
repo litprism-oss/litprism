@@ -54,12 +54,59 @@ class Article(BaseModel):
     citation_count: int | None = None  # not available from PubMed directly
 
 
-class ArticleFilters(BaseModel):
-    """Optional filters applied to a PubMed search."""
+class DateRange(BaseModel):
+    """Inclusive publication date range for search filters."""
 
-    article_types: list[str] = Field(default_factory=list)
-    languages: list[str] = Field(default_factory=list)
+    start: date | None = None  # None = no lower bound
+    end: date | None = None    # None = no upper bound (today)
+
+
+class SearchFilters(BaseModel):
+    """Unified search filters — configured once, translated per source.
+
+    Universal fields are supported by all sources. Source-prefixed fields
+    (pubmed_*, europepmc_*, semanticscholar_*) are passed through only when
+    targeting that source.
+
+    Accepted publication_types values (mapped internally per source):
+        "journal_article", "review", "systematic_review", "meta_analysis",
+        "clinical_trial", "rct", "case_report", "conference_paper",
+        "preprint", "book_chapter"
+    """
+
+    # Universal — supported by all sources
+    date_range: DateRange | None = None
+    languages: list[str] = Field(default_factory=list)       # ISO 639-1 codes: ["en", "fr"]
     has_abstract: bool = False
+
+    # Publication type — common values mapped per source
+    publication_types: list[str] = Field(default_factory=list)
+
+    # PubMed-specific
+    pubmed_species: list[str] = Field(default_factory=list)  # "human", "animal"
+    pubmed_sex: list[str] = Field(default_factory=list)      # "male", "female"
+    pubmed_age_groups: list[str] = Field(default_factory=list)
+    # "infant", "child", "adolescent", "adult", "aged"
+    pubmed_free_full_text: bool = False
+
+    # Europe PMC-specific
+    europepmc_sources: list[str] = Field(default_factory=lambda: ["MED"])
+    # MED=MEDLINE, PMC=PubMed Central, PPR=preprints
+    europepmc_open_access: bool = False
+    europepmc_mesh_synonyms: bool = True
+
+    # Semantic Scholar-specific
+    semanticscholar_fields_of_study: list[str] = Field(default_factory=list)
+    # "Medicine", "Biology", "Computer Science", etc.
+    semanticscholar_open_access_pdf: bool = False
+    semanticscholar_min_citation_count: int | None = None
+    semanticscholar_venues: list[str] = Field(default_factory=list)
+
+
+# Backward-compat alias — existing imports of ArticleFilters continue to work.
+# entrez.py and client.py reference filters.article_types; those files will be
+# updated in a subsequent task to use filters.publication_types instead.
+ArticleFilters = SearchFilters
 
 
 class SearchResult(BaseModel):

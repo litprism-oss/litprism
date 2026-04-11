@@ -97,7 +97,7 @@ class EntrezClient:
             filter_parts = []
             for lang in filters.languages:
                 filter_parts.append(f"{lang}[lang]")
-            for at in filters.article_types:
+            for at in filters.publication_types:
                 filter_parts.append(f'"{at}"[pt]')
             if filters.has_abstract:
                 filter_parts.append("hasabstract")
