@@ -6,16 +6,28 @@ Rate limiting and retry logic live here.
 
 import asyncio
 from datetime import UTC, datetime
-from typing import Any
+from typing import Any, AsyncGenerator
 
 import httpx
+from tenacity import retry, retry_if_exception, stop_after_attempt, wait_exponential
 
 from litprism.pubmed.exceptions import PubMedAPIError, PubMedNetworkError, PubMedRateLimitError
-from litprism.pubmed.models import ArticleFilters, SearchResult
+from litprism.pubmed.filters import FilterTranslator
+from litprism.pubmed.models import SearchFilters, SearchResult
 
 ESEARCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
 EFETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 BATCH_SIZE = 200
+MAX_RESULTS_CAP = 10_000  # NCBI hard limit per query
+
+
+def _is_retryable(exc: BaseException) -> bool:
+    """Return True for errors that warrant a retry (429 rate limit, 503 unavailable)."""
+    if isinstance(exc, PubMedRateLimitError):
+        return True
+    if isinstance(exc, PubMedAPIError) and exc.status_code == 503:
+        return True
+    return False
 
 
 class TokenBucket:
@@ -57,8 +69,14 @@ class EntrezClient:
             params["email"] = self.email
         return params
 
+    @retry(
+        retry=retry_if_exception(_is_retryable),
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=1, max=10),
+        reraise=True,
+    )
     async def _get(self, url: str, params: dict[str, Any]) -> httpx.Response:
-        """Rate-limited GET with error handling."""
+        """Rate-limited GET with retry on 429/503."""
         await self._bucket.acquire()
         assert self._client is not None
         try:
@@ -69,6 +87,8 @@ class EntrezClient:
             raise PubMedNetworkError(f"Network error: {exc}") from exc
         if response.status_code == 429:
             raise PubMedRateLimitError("Rate limit exceeded", status_code=429)
+        if response.status_code == 503:
+            raise PubMedAPIError("Service unavailable", status_code=503)
         if response.status_code != 200:
             raise PubMedAPIError(
                 f"Unexpected status {response.status_code}", status_code=response.status_code
@@ -80,29 +100,36 @@ class EntrezClient:
         query: str,
         max_results: int = 500,
         date_range: tuple[str, str] | None = None,
-        filters: ArticleFilters | None = None,
+        filters: SearchFilters | None = None,
     ) -> SearchResult:
-        """Run esearch and return PMIDs."""
-        params = {
+        """Run esearch and return a SearchResult containing PMIDs.
+
+        Filters are translated via FilterTranslator.to_pubmed(). The legacy
+        date_range tuple param is still accepted for backward compatibility and
+        overrides any date set in filters.date_range.
+        """
+        params: dict[str, Any] = {
             **self._base_params(),
             "term": query,
             "retmax": max_results,
             "usehistory": "y",
         }
+
+        if filters:
+            filter_params = FilterTranslator.to_pubmed(filters)
+            filter_query = filter_params.get("filter_query")
+            # Apply date/datetype params from FilterTranslator (skip filter_query key)
+            for key, value in filter_params.items():
+                if key != "filter_query":
+                    params[key] = value
+            if filter_query:
+                params["term"] = f"({query}) AND {filter_query}"
+
+        # Legacy tuple param overrides any date from filters
         if date_range:
             params["mindate"] = date_range[0]
             params["maxdate"] = date_range[1]
             params["datetype"] = "pdat"
-        if filters:
-            filter_parts = []
-            for lang in filters.languages:
-                filter_parts.append(f"{lang}[lang]")
-            for at in filters.publication_types:
-                filter_parts.append(f'"{at}"[pt]')
-            if filters.has_abstract:
-                filter_parts.append("hasabstract")
-            if filter_parts:
-                params["term"] = f"({query}) AND ({' AND '.join(filter_parts)})"
 
         response = await self._get(ESEARCH_URL, params)
         data = response.json()
@@ -117,16 +144,78 @@ class EntrezClient:
             searched_at=datetime.now(UTC),
         )
 
+    async def search_paginated(
+        self,
+        query: str,
+        filters_params: dict[str, Any],
+        max_results: int,
+        batch_size: int = BATCH_SIZE,
+    ) -> AsyncGenerator[str, None]:
+        """Stream full article XML in batches using PubMed server-side history.
+
+        Two-step approach per spec §8:
+          Step 1 — esearch with usehistory=y, retmax=0: stores results on the
+                   NCBI history server, returns WebEnv + query_key + total count.
+          Step 2 — efetch loop using WebEnv/query_key + retstart offset:
+                   fetches up to batch_size articles per call, yields raw XML.
+
+        Args:
+            query:          PubMed boolean query string.
+            filters_params: Output of FilterTranslator.to_pubmed(). The
+                            'filter_query' key (if present) is AND-ed into the
+                            query term; remaining keys are passed as API params.
+            max_results:    Maximum articles to fetch. Capped at 10,000.
+            batch_size:     Articles per efetch call. Max 200 (NCBI hard limit).
+
+        Yields:
+            Raw XML string for each batch of up to batch_size articles.
+        """
+        # Separate the query-fragment from the API-level params
+        filter_query = filters_params.get("filter_query")
+        term = f"({query}) AND {filter_query}" if filter_query else query
+        extra_params = {k: v for k, v in filters_params.items() if k != "filter_query"}
+
+        # Step 1: store results on NCBI history server
+        search_params: dict[str, Any] = {
+            **self._base_params(),
+            "term": term,
+            "usehistory": "y",
+            "retmax": 0,  # count only — IDs fetched in step 2
+            **extra_params,
+        }
+        response = await self._get(ESEARCH_URL, search_params)
+        data = response.json()
+        result = data.get("esearchresult", {})
+
+        total = min(int(result.get("count", 0)), max_results, MAX_RESULTS_CAP)
+        web_env: str = result.get("webenv", "")
+        query_key: str = result.get("querykey", "")
+
+        # Step 2: fetch in batches from history server
+        retstart = 0
+        while retstart < total:
+            batch_actual = min(batch_size, total - retstart)
+            fetch_params: dict[str, Any] = {
+                **self._base_params(),
+                "WebEnv": web_env,
+                "query_key": query_key,
+                "retstart": retstart,
+                "retmax": batch_actual,
+                "rettype": "xml",
+                "retmode": "xml",  # overrides _base_params retmode=json
+            }
+            fetch_response = await self._get(EFETCH_URL, fetch_params)
+            yield fetch_response.text
+            retstart += batch_actual
+
     async def efetch_batch(self, pmids: list[str]) -> str:
         """Fetch a single batch of PMIDs (max 200) and return raw XML."""
-        params = {
+        params: dict[str, Any] = {
             **self._base_params(),
             "id": ",".join(pmids),
             "rettype": "xml",
-            "retmode": "xml",
+            "retmode": "xml",  # overrides _base_params retmode=json
         }
-        # Override retmode for xml fetch
-        params["retmode"] = "xml"
         response = await self._get(EFETCH_URL, params)
         return response.text
 

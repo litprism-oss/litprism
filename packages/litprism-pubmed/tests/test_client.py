@@ -76,7 +76,7 @@ class TestAsyncPubMedClientSearch:
 
         call_kwargs = mock_http.get.call_args
         params = call_kwargs[1]["params"] if "params" in call_kwargs[1] else call_kwargs[0][1]
-        assert "eng[lang]" in params.get("term", "")
+        assert '"eng"[la]' in params.get("term", "")
         assert "hasabstract" in params.get("term", "")
 
 
