@@ -6,32 +6,15 @@ on:
     branches: [main]
 
 jobs:
-  list-packages:
-    name: Discover packages
-    runs-on: ubuntu-latest
-    outputs:
-      packages: ${{ steps.find.outputs.packages }}
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Find scaffolded packages
-        id: find
-        run: |
-          packages=$(find packages -maxdepth 1 -mindepth 1 -type d \
-            -exec basename {} \; | sort | jq -R . | jq -sc .)
-          echo "packages=$packages" >> "$GITHUB_OUTPUT"
-
   ci:
     name: ${{ matrix.package }}
-    needs: list-packages
-    if: needs.list-packages.outputs.packages != '[]'
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
-        package: ${{ fromJson(needs.list-packages.outputs.packages) }}
+        package:
+          - litprism-pubmed
 
     steps:
       - uses: actions/checkout@v4
@@ -39,7 +22,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
