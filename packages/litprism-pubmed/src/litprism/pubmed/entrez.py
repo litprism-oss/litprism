@@ -36,12 +36,15 @@ class TokenBucket:
     def __init__(self, rate: float) -> None:
         self.rate = rate  # tokens per second
         self._tokens = rate
-        self._last_refill = asyncio.get_event_loop().time()
+        self._last_refill: float | None = None  # initialized on first acquire()
 
     async def acquire(self) -> None:
         """Block until a token is available."""
+        loop = asyncio.get_running_loop()
+        if self._last_refill is None:
+            self._last_refill = loop.time()
         while True:
-            now = asyncio.get_event_loop().time()
+            now = loop.time()
             elapsed = now - self._last_refill
             self._tokens = min(self.rate, self._tokens + elapsed * self.rate)
             self._last_refill = now
