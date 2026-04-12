@@ -7,9 +7,11 @@ EuropePMCClient is a synchronous wrapper for non-async callers.
 import asyncio
 from collections.abc import AsyncGenerator
 
+from litprism.europepmc.api import EuropePMCAPIClient
 from litprism.europepmc.exceptions import EuropePMCAPIError
 from litprism.europepmc.filters import FilterTranslator
 from litprism.europepmc.models import Article, SearchFilters
+from litprism.europepmc.parser import parse_results
 
 
 class AsyncEuropePMCClient:
@@ -81,7 +83,22 @@ class AsyncEuropePMCClient:
         Yields:
             list[Article] — one page per yield.
         """
-        raise NotImplementedError
+        full_query = self._build_query(query, filters)
+        synonym = "true"
+        if filters:
+            api_params = FilterTranslator.to_europepmc(filters)
+            synonym = api_params.get("synonym", "true")
+
+        async with EuropePMCAPIClient(api_key=self._api_key, email=self._email) as api:
+            async for raw_batch in api.search_paginated(
+                query=full_query,
+                synonym=synonym,
+                page_size=page_size,
+                max_results=max_results,
+            ):
+                articles = parse_results(raw_batch)
+                if articles:
+                    yield articles
 
     async def get(self, article_id: str, source: str = "MED") -> Article:
         """Fetch a single article by Europe PMC id.
@@ -110,11 +127,14 @@ class AsyncEuropePMCClient:
         Returns:
             List of Article objects, in no guaranteed order.
         """
-        raise NotImplementedError
+        if not ids:
+            return []
 
-    # ------------------------------------------------------------------
-    # Internal helpers (implemented in subsequent tasks)
-    # ------------------------------------------------------------------
+        articles: list[Article] = []
+        async with EuropePMCAPIClient(api_key=self._api_key, email=self._email) as api:
+            async for raw_batch in api.fetch_by_ids(ids):
+                articles.extend(parse_results(raw_batch))
+        return articles
 
     def _build_query(self, query: str, filters: SearchFilters | None) -> str:
         """Combine base query with filter query fragment."""
