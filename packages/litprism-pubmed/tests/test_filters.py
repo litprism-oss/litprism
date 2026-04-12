@@ -45,8 +45,8 @@ class TestToPubmedPublicationTypes:
     def test_publication_types_appear_as_pt_tags(self):
         filters = SearchFilters(publication_types=["clinical_trial", "review"])
         params = FilterTranslator.to_pubmed(filters)
-        assert '"Clinical Trial"[pt]' in params["filter_query"]
-        assert '"Review"[pt]' in params["filter_query"]
+        assert "Clinical Trial[pt]" in params["filter_query"]
+        assert "Review[pt]" in params["filter_query"]
 
     def test_all_mapped_publication_types(self):
         all_types = [
@@ -62,12 +62,12 @@ class TestToPubmedPublicationTypes:
         filters = SearchFilters(publication_types=all_types)
         params = FilterTranslator.to_pubmed(filters)
         fq = params["filter_query"]
-        assert '"Journal Article"[pt]' in fq
-        assert '"Systematic Review"[pt]' in fq
-        assert '"Meta-Analysis"[pt]' in fq
-        assert '"Randomized Controlled Trial"[pt]' in fq
-        assert '"Case Reports"[pt]' in fq
-        assert '"Preprint"[pt]' in fq
+        assert "Journal Article[pt]" in fq
+        assert "Systematic Review[pt]" in fq
+        assert "Meta-Analysis[pt]" in fq
+        assert "Randomized Controlled Trial[pt]" in fq
+        assert "Case Reports[pt]" in fq
+        assert "Preprint[pt]" in fq
 
     def test_unknown_publication_type_is_ignored(self):
         filters = SearchFilters(publication_types=["unknown_type"])
@@ -85,15 +85,15 @@ class TestToPubmedLanguages:
     def test_single_language(self):
         filters = SearchFilters(languages=["en"])
         params = FilterTranslator.to_pubmed(filters)
-        assert '"en"[la]' in params["filter_query"]
+        assert "english[la]" in params["filter_query"]
 
     def test_multiple_languages(self):
         filters = SearchFilters(languages=["en", "fr", "de"])
         params = FilterTranslator.to_pubmed(filters)
         fq = params["filter_query"]
-        assert '"en"[la]' in fq
-        assert '"fr"[la]' in fq
-        assert '"de"[la]' in fq
+        assert "english[la]" in fq
+        assert "french[la]" in fq
+        assert "german[la]" in fq
 
 
 class TestToPubmedHasAbstract:
@@ -112,22 +112,22 @@ class TestToPubmedSpeciesAndSex:
     def test_human_species(self):
         filters = SearchFilters(pubmed_species=["human"])
         params = FilterTranslator.to_pubmed(filters)
-        assert "Humans[MeSH]" in params["filter_query"]
+        assert "humans[mh]" in params["filter_query"]
 
     def test_animal_species(self):
         filters = SearchFilters(pubmed_species=["animal"])
         params = FilterTranslator.to_pubmed(filters)
-        assert "Animals[MeSH]" in params["filter_query"]
+        assert '"animals"[mh:noexp]' in params["filter_query"]
 
     def test_male_sex(self):
         filters = SearchFilters(pubmed_sex=["male"])
         params = FilterTranslator.to_pubmed(filters)
-        assert "Male[MeSH]" in params["filter_query"]
+        assert "male[mh]" in params["filter_query"]
 
     def test_female_sex(self):
         filters = SearchFilters(pubmed_sex=["female"])
         params = FilterTranslator.to_pubmed(filters)
-        assert "Female[MeSH]" in params["filter_query"]
+        assert "female[mh]" in params["filter_query"]
 
     def test_unknown_species_is_ignored(self):
         filters = SearchFilters(pubmed_species=["fish"])
@@ -139,7 +139,7 @@ class TestToPubmedFreeFullText:
     def test_free_full_text_adds_fragment(self):
         filters = SearchFilters(pubmed_free_full_text=True)
         params = FilterTranslator.to_pubmed(filters)
-        assert "free full text[filter]" in params["filter_query"]
+        assert "free full text[sb]" in params["filter_query"]
 
     def test_free_full_text_false_omits_fragment(self):
         params = FilterTranslator.to_pubmed(SearchFilters())

@@ -5,9 +5,130 @@ dict expected by each source's API. The returned dict is stored verbatim in
 SourceQuery.filters_applied so the PRISMA-S table shows exactly what was sent.
 
 humanise_filters produces the plain-English summary shown in the PRISMA-S table.
+
+PubMed tag strings are loaded from data/all_filters.json — the same tag
+definitions used by the PubMed web UI — so they stay in sync with what
+NCBI actually accepts.
 """
 
+import json
+from pathlib import Path
+
 from litprism.pubmed.models import SearchFilters
+
+# ---------------------------------------------------------------------------
+# Tag lookup — loaded once at import time from data/all_filters.json
+# ---------------------------------------------------------------------------
+
+def _load_filter_tags() -> dict[str, str]:
+    """Return {value: tag} from all_filters.json, with outer parens stripped.
+
+    Example: "pubt.clinicaltrial" → "Clinical Trial[pt]"
+    """
+    path = Path(__file__).parent / "data" / "all_filters.json"
+    groups: list[dict] = json.loads(path.read_text(encoding="utf-8"))
+    result: dict[str, str] = {}
+    for group in groups:
+        for opt in group["options"]:
+            value: str | None = opt.get("value")
+            tag: str | None = opt.get("tag")
+            if value and tag:
+                tag = tag.strip()
+                if tag.startswith("(") and tag.endswith(")"):
+                    tag = tag[1:-1]
+                result[value] = tag
+    return result
+
+
+_FILTER_TAGS: dict[str, str] = _load_filter_tags()
+
+# ---------------------------------------------------------------------------
+# ISO 639-1 → PubMed language filter value
+# ---------------------------------------------------------------------------
+
+_ISO_TO_PUBMED_LANG: dict[str, str] = {
+    "af": "lang.afrikaans",
+    "sq": "lang.albanian",
+    "ar": "lang.arabic",
+    "hy": "lang.armenian",
+    "az": "lang.azerbaijani",
+    "bs": "lang.bosnian",
+    "bg": "lang.bulgarian",
+    "ca": "lang.catalan",
+    "zh": "lang.chinese",
+    "hr": "lang.croatian",
+    "cs": "lang.czech",
+    "da": "lang.danish",
+    "nl": "lang.dutch",
+    "en": "lang.english",
+    "eo": "lang.esperanto",
+    "et": "lang.estonian",
+    "fi": "lang.finnish",
+    "fr": "lang.french",
+    "ka": "lang.georgian",
+    "de": "lang.german",
+    "el": "lang.greekmodern",
+    "he": "lang.hebrew",
+    "hi": "lang.hindi",
+    "hu": "lang.hungarian",
+    "is": "lang.icelandic",
+    "id": "lang.indonesian",
+    "it": "lang.italian",
+    "ja": "lang.japanese",
+    "rw": "lang.kinyarwanda",
+    "ko": "lang.korean",
+    "la": "lang.latin",
+    "lv": "lang.latvian",
+    "lt": "lang.lithuanian",
+    "mk": "lang.macedonian",
+    "ms": "lang.malay",
+    "ml": "lang.malayalam",
+    "mi": "lang.maori",
+    "no": "lang.norwegian",
+    "fa": "lang.persian",
+    "pl": "lang.polish",
+    "pt": "lang.portuguese",
+    "ps": "lang.pushto",
+    "ro": "lang.romanian",
+    "ru": "lang.russian",
+    "sa": "lang.sanskrit",
+    "gd": "lang.scottishgaelic",
+    "sr": "lang.serbian",
+    "sk": "lang.slovak",
+    "sl": "lang.slovenian",
+    "es": "lang.spanish",
+    "sv": "lang.swedish",
+    "th": "lang.thai",
+    "tr": "lang.turkish",
+    "uk": "lang.ukrainian",
+    "vi": "lang.vietnamese",
+    "cy": "lang.welsh",
+}
+
+# ---------------------------------------------------------------------------
+# Internal name → PubMed filter value (for types, species, sex)
+# ---------------------------------------------------------------------------
+
+# "journal_article" has no entry in all_filters.json; tag is hardcoded below.
+_PUBMED_TYPE_MAP: dict[str, str] = {
+    "review": "pubt.review",
+    "systematic_review": "pubt.systematicreview",
+    "meta_analysis": "pubt.meta-analysis",
+    "clinical_trial": "pubt.clinicaltrial",
+    "rct": "pubt.randomizedcontrolledtrial",
+    "case_report": "pubt.casereports",
+    "preprint": "pubt.preprint",
+}
+
+_PUBMED_SPECIES_MAP: dict[str, str] = {
+    "human": "hum_ani.humans",
+    "animal": "hum_ani.animal",
+}
+
+_PUBMED_SEX_MAP: dict[str, str] = {
+    "male": "sex.male",
+    "female": "sex.female",
+}
 
 
 class FilterTranslator:
@@ -19,6 +140,9 @@ class FilterTranslator:
 
         The 'filter_query' key (when present) must be AND-ed into the main
         query term by the caller before sending to esearch.
+
+        Tag strings are resolved from data/all_filters.json so they match
+        exactly what the PubMed web UI sends.
         """
         params: dict = {}
         query_fragments: list[str] = []
@@ -31,39 +155,34 @@ class FilterTranslator:
             params["datetype"] = "pdat"
 
         for lang in filters.languages:
-            query_fragments.append(f'"{lang}"[la]')
+            if pubmed_value := _ISO_TO_PUBMED_LANG.get(lang):
+                if tag := _FILTER_TAGS.get(pubmed_value):
+                    query_fragments.append(tag)
 
         if filters.has_abstract:
-            query_fragments.append("hasabstract")
+            if tag := _FILTER_TAGS.get("simsearch1.fha"):
+                query_fragments.append(tag)
 
-        pubmed_type_map = {
-            "journal_article": "Journal Article",
-            "review": "Review",
-            "systematic_review": "Systematic Review",
-            "meta_analysis": "Meta-Analysis",
-            "clinical_trial": "Clinical Trial",
-            "rct": "Randomized Controlled Trial",
-            "case_report": "Case Reports",
-            "preprint": "Preprint",
-        }
         for pt in filters.publication_types:
-            if mapped := pubmed_type_map.get(pt):
-                query_fragments.append(f'"{mapped}"[pt]')
+            if pt == "journal_article":
+                query_fragments.append("Journal Article[pt]")
+            elif value := _PUBMED_TYPE_MAP.get(pt):
+                if tag := _FILTER_TAGS.get(value):
+                    query_fragments.append(tag)
 
         for species in filters.pubmed_species:
-            if species == "human":
-                query_fragments.append("Humans[MeSH]")
-            elif species == "animal":
-                query_fragments.append("Animals[MeSH]")
+            if value := _PUBMED_SPECIES_MAP.get(species):
+                if tag := _FILTER_TAGS.get(value):
+                    query_fragments.append(tag)
 
         for sex in filters.pubmed_sex:
-            if sex == "male":
-                query_fragments.append("Male[MeSH]")
-            elif sex == "female":
-                query_fragments.append("Female[MeSH]")
+            if value := _PUBMED_SEX_MAP.get(sex):
+                if tag := _FILTER_TAGS.get(value):
+                    query_fragments.append(tag)
 
         if filters.pubmed_free_full_text:
-            query_fragments.append("free full text[filter]")
+            if tag := _FILTER_TAGS.get("simsearch2.ffrft"):
+                query_fragments.append(tag)
 
         if query_fragments:
             params["filter_query"] = " AND ".join(f"({f})" for f in query_fragments)
