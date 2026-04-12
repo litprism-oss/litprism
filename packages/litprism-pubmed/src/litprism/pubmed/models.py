@@ -58,7 +58,7 @@ class DateRange(BaseModel):
     """Inclusive publication date range for search filters."""
 
     start: date | None = None  # None = no lower bound
-    end: date | None = None    # None = no upper bound (today)
+    end: date | None = None  # None = no upper bound (today)
 
 
 class SearchFilters(BaseModel):
@@ -76,7 +76,7 @@ class SearchFilters(BaseModel):
 
     # Universal — supported by all sources
     date_range: DateRange | None = None
-    languages: list[str] = Field(default_factory=list)       # ISO 639-1 codes: ["en", "fr"]
+    languages: list[str] = Field(default_factory=list)  # ISO 639-1 codes: ["en", "fr"]
     has_abstract: bool = False
 
     # Publication type — common values mapped per source
@@ -84,7 +84,7 @@ class SearchFilters(BaseModel):
 
     # PubMed-specific
     pubmed_species: list[str] = Field(default_factory=list)  # "human", "animal"
-    pubmed_sex: list[str] = Field(default_factory=list)      # "male", "female"
+    pubmed_sex: list[str] = Field(default_factory=list)  # "male", "female"
     pubmed_age_groups: list[str] = Field(default_factory=list)
     # "infant", "child", "adolescent", "adult", "aged"
     pubmed_free_full_text: bool = False

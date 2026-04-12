@@ -80,10 +80,12 @@ class TestAsyncPubMedClientSearch:
     async def test_search_returns_articles(self):
         """search() returns a list of Article objects."""
         client = AsyncPubMedClient()
-        mock_http = _mock_http([
-            _mock_response(json_data=ESEARCH_RESPONSE),
-            _mock_response(text_data=single_article_xml()),
-        ])
+        mock_http = _mock_http(
+            [
+                _mock_response(json_data=ESEARCH_RESPONSE),
+                _mock_response(text_data=single_article_xml()),
+            ]
+        )
 
         with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
             results = await client.search("Crohn disease probiotic")
@@ -104,10 +106,12 @@ class TestAsyncPubMedClientSearch:
     async def test_search_with_language_and_abstract_filter(self):
         """Filter terms are embedded in the esearch 'term' param."""
         client = AsyncPubMedClient()
-        mock_http = _mock_http([
-            _mock_response(json_data=ESEARCH_RESPONSE),
-            _mock_response(text_data=single_article_xml()),
-        ])
+        mock_http = _mock_http(
+            [
+                _mock_response(json_data=ESEARCH_RESPONSE),
+                _mock_response(text_data=single_article_xml()),
+            ]
+        )
 
         with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
             await client.search(
@@ -123,10 +127,12 @@ class TestAsyncPubMedClientSearch:
     async def test_search_with_publication_type_filter(self):
         """Publication type filter is translated to [pt] tags."""
         client = AsyncPubMedClient()
-        mock_http = _mock_http([
-            _mock_response(json_data=ESEARCH_RESPONSE),
-            _mock_response(text_data=single_article_xml()),
-        ])
+        mock_http = _mock_http(
+            [
+                _mock_response(json_data=ESEARCH_RESPONSE),
+                _mock_response(text_data=single_article_xml()),
+            ]
+        )
 
         with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
             await client.search(
@@ -143,10 +149,12 @@ class TestAsyncPubMedClientSearch:
         from datetime import date
 
         client = AsyncPubMedClient()
-        mock_http = _mock_http([
-            _mock_response(json_data=ESEARCH_RESPONSE),
-            _mock_response(text_data=single_article_xml()),
-        ])
+        mock_http = _mock_http(
+            [
+                _mock_response(json_data=ESEARCH_RESPONSE),
+                _mock_response(text_data=single_article_xml()),
+            ]
+        )
 
         with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
             await client.search(
@@ -165,9 +173,11 @@ class TestAsyncPubMedClientSearch:
     async def test_search_step1_esearch_uses_history_server(self):
         """Step-1 esearch sends retmax=0 (count only) and usehistory=y per spec §8."""
         client = AsyncPubMedClient()
-        mock_http = _mock_http([
-            _mock_response(json_data=ESEARCH_EMPTY),
-        ])
+        mock_http = _mock_http(
+            [
+                _mock_response(json_data=ESEARCH_EMPTY),
+            ]
+        )
 
         with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
             await client.search("probiotic", max_results=50)
@@ -187,10 +197,12 @@ class TestAsyncPubMedClientSearchIter:
     async def test_search_iter_yields_batches(self):
         """search_iter() yields lists of Article objects."""
         client = AsyncPubMedClient()
-        mock_http = _mock_http([
-            _mock_response(json_data=ESEARCH_RESPONSE),
-            _mock_response(text_data=batch_articles_xml()),
-        ])
+        mock_http = _mock_http(
+            [
+                _mock_response(json_data=ESEARCH_RESPONSE),
+                _mock_response(text_data=batch_articles_xml()),
+            ]
+        )
 
         batches = []
         with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
@@ -215,11 +227,13 @@ class TestAsyncPubMedClientSearchIter:
         """When count > batch_size, search_iter yields one batch per efetch call."""
         client = AsyncPubMedClient()
         # count=6, batch_size=3 → 2 efetch calls, each returning batch_articles_xml (3 articles)
-        mock_http = _mock_http([
-            _mock_response(json_data=ESEARCH_PAGINATED),
-            _mock_response(text_data=batch_articles_xml()),  # batch 1
-            _mock_response(text_data=batch_articles_xml()),  # batch 2
-        ])
+        mock_http = _mock_http(
+            [
+                _mock_response(json_data=ESEARCH_PAGINATED),
+                _mock_response(text_data=batch_articles_xml()),  # batch 1
+                _mock_response(text_data=batch_articles_xml()),  # batch 2
+            ]
+        )
 
         batches = []
         with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
@@ -233,10 +247,12 @@ class TestAsyncPubMedClientSearchIter:
         """Total fetched is capped at max_results even when count is higher."""
         client = AsyncPubMedClient()
         # count=6 but max_results=3 → only 1 efetch call
-        mock_http = _mock_http([
-            _mock_response(json_data=ESEARCH_PAGINATED),
-            _mock_response(text_data=batch_articles_xml()),
-        ])
+        mock_http = _mock_http(
+            [
+                _mock_response(json_data=ESEARCH_PAGINATED),
+                _mock_response(text_data=batch_articles_xml()),
+            ]
+        )
 
         batches = []
         with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
@@ -248,10 +264,12 @@ class TestAsyncPubMedClientSearchIter:
     async def test_search_iter_uses_history_server(self):
         """Step 1 esearch sends usehistory=y; step 2 efetch uses WebEnv/query_key."""
         client = AsyncPubMedClient()
-        mock_http = _mock_http([
-            _mock_response(json_data=ESEARCH_RESPONSE),
-            _mock_response(text_data=single_article_xml()),
-        ])
+        mock_http = _mock_http(
+            [
+                _mock_response(json_data=ESEARCH_RESPONSE),
+                _mock_response(text_data=single_article_xml()),
+            ]
+        )
 
         with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
             async for _ in client.search_iter("probiotic"):
@@ -303,10 +321,12 @@ class TestAsyncPubMedClientFetch:
         client = AsyncPubMedClient()
         # 201 PMIDs → 2 efetch calls (200 + 1)
         pmids = [str(i).zfill(8) for i in range(201)]
-        mock_http = _mock_http([
-            _mock_response(text_data=batch_articles_xml()),
-            _mock_response(text_data=single_article_xml()),
-        ])
+        mock_http = _mock_http(
+            [
+                _mock_response(text_data=batch_articles_xml()),
+                _mock_response(text_data=single_article_xml()),
+            ]
+        )
 
         with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
             articles = await client.fetch(pmids)
@@ -374,10 +394,12 @@ class TestErrorHandling:
     async def test_503_succeeds_on_retry(self):
         """503 followed by a successful response does not raise."""
         client = AsyncPubMedClient()
-        mock_http = _mock_http([
-            _mock_response(status_code=503),
-            _mock_response(text_data=single_article_xml()),
-        ])
+        mock_http = _mock_http(
+            [
+                _mock_response(status_code=503),
+                _mock_response(text_data=single_article_xml()),
+            ]
+        )
 
         with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
             articles = await client.fetch(["12345678"])
@@ -429,10 +451,12 @@ class TestErrorHandling:
 class TestSyncClient:
     def test_sync_search_returns_articles(self):
         client = PubMedClient()
-        mock_http = _mock_http([
-            _mock_response(json_data=ESEARCH_RESPONSE),
-            _mock_response(text_data=single_article_xml()),
-        ])
+        mock_http = _mock_http(
+            [
+                _mock_response(json_data=ESEARCH_RESPONSE),
+                _mock_response(text_data=single_article_xml()),
+            ]
+        )
 
         with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
             results = client.search("Crohn disease")
@@ -461,6 +485,7 @@ class TestSyncClient:
     def test_sync_search_iter_returns_async_generator(self):
         """search_iter on the sync client returns the underlying async generator."""
         import inspect
+
         client = PubMedClient()
         gen = client.search_iter("probiotic")
         assert inspect.isasyncgen(gen)
