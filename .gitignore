@@ -1,6 +1,7 @@
 # Local spec and dev docs (never commit)
 litprism-spec-*.md
 litprism-dev-guide.md
+CLAUDE.md
 
 # Environment variables
 .env

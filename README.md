@@ -28,7 +28,7 @@ Natural language / PICO / direct query
 
 ## Status
 
-Pre-release. See [litprism-spec-v4.md](litprism-spec-v4.md) for the full specification.
+Pre-release. See [litprism-spec-v6.md](litprism-spec-v6.md) for the full specification.
 
 ## Contributing
 

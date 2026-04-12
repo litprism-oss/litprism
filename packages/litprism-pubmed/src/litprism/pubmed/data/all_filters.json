@@ -1,0 +1,875 @@
+[
+  {
+    "group": "Text availability",
+    "options": [
+      {
+        "name": "Abstract",
+        "value": "simsearch1.fha",
+        "tag": "(hasabstract)"
+      },
+      {
+        "name": "Free full text",
+        "value": "simsearch2.ffrft",
+        "tag": "(free full text[sb])"
+      },
+      {
+        "name": "Full text",
+        "value": "simsearch3.fft",
+        "tag": "(full text[sb])"
+      }
+    ]
+  },
+  {
+    "group": "Article attribute",
+    "options": [
+      {
+        "name": "Associated data",
+        "value": "articleattr.data",
+        "tag": "(data[sb])"
+      }
+    ]
+  },
+  {
+    "group": "Article type",
+    "options": [
+      {
+        "name": "Books and Documents",
+        "value": "pubt.booksdocs",
+        "tag": "(Books and Documents[pt])"
+      },
+      {
+        "name": "Clinical Trial",
+        "value": "pubt.clinicaltrial",
+        "tag": "(Clinical Trial[pt])"
+      },
+      {
+        "name": "Meta-Analysis",
+        "value": "pubt.meta-analysis",
+        "tag": "(Meta-Analysis[pt])"
+      },
+      {
+        "name": "Randomized Controlled Trial",
+        "value": "pubt.randomizedcontrolledtrial",
+        "tag": "(Randomized Controlled Trial[pt])"
+      },
+      {
+        "name": "Review",
+        "value": "pubt.review",
+        "tag": "(Review[pt])"
+      },
+      {
+        "name": "Systematic Review",
+        "value": "pubt.systematicreview",
+        "tag" : "(Systematic Review[pt])"
+      },
+      {
+        "name": "Adaptive Clinical Trial",
+        "value": "pubt.adaptiveclinicaltrial",
+        "tag": "(Adaptive Clinical Trial[pt])"
+      },
+      {
+        "name": "Address",
+        "value": "pubt.address",
+        "tag": "(Address[pt])"
+      },
+      {
+        "name": "Autobiography",
+        "value": "pubt.autobiography",
+        "tag": "(Autobiography[pt])"
+      },
+      {
+        "name": "Bibliography",
+        "value": "pubt.bibliography",
+        "tag": "(Bibliography[pt])"
+      },
+      {
+        "name": "Biography",
+        "value": "pubt.biography",
+        "tag": "(Biography[pt])"
+      },
+      {
+        "name": "Case Reports",
+        "value": "pubt.casereports",
+        "tag": "(Case Reports[pt])"
+      },
+      {
+        "name": "Classical Article",
+        "value": "pubt.classicalarticle",
+        "tag": "(Classical Article[pt])"
+      },
+      {
+        "name": "Clinical Conference",
+        "value": "pubt.clinicalconference",
+        "tag": "(Clinical Conference[pt])"
+      },
+      {
+        "name": "Clinical Study",
+        "value": "pubt.clinicalstudy",
+        "tag": "(Clinical Study[pt])"
+      },
+      {
+        "name": "Clinical Trial Protocol",
+        "value": "pubt.clinicaltrialprotocol",
+        "tag": "(Clinical Trial Protocol[pt])"
+      },
+      {
+        "name": "Clinical Trial, Phase I",
+        "value": "pubt.clinicaltrialphasei",
+        "tag": "(Clinical Trial, Phase I[pt])"
+      },
+      {
+        "name": "Clinical Trial, Phase II",
+        "value": "pubt.clinicaltrialphaseii",
+        "tag": "(Clinical Trial, Phase II[pt])"
+      },
+      {
+        "name": "Clinical Trial, Phase III",
+        "value": "pubt.clinicaltrialphaseiii",
+        "tag"  : "(Clinical Trial, Phase III[pt])"
+      },
+      {
+        "name": "Clinical Trial, Phase IV",
+        "value": "pubt.clinicaltrialphaseiv",
+        "tag": "(Clinical Trial, Phase IV[pt])"
+      },
+      {
+        "name": "Clinical Trial, Veterinary",
+        "value": "pubt.veterinaryclinicaltrial",
+        "tag": "(Clinical Trial, Veterinary[pt])"
+      },
+      {
+        "name": "Collected Work",
+        "value": "pubt.collectedwork",
+        "tag": "(Collected Work[pt])"
+      },
+      {
+        "name": "Comment",
+        "value": "pubt.comment",
+        "tag": "(Comment[pt])"
+      },
+      {
+        "name": "Comparative Study",
+        "value": "pubt.comparativestudy",
+        "tag": "(Comparative Study[pt])"
+      },
+      {
+        "name": "Congress",
+        "value": "pubt.congress",
+        "tag": "(Congress[pt])"
+      },
+      {
+        "name": "Consensus Development Conference",
+        "value": "pubt.consensusdevelopmentconference",
+        "tag": "(Consensus Development Conference[pt])"
+      },
+      {
+        "name": "Consensus Development Conference, NIH",
+        "value": "pubt.consensusdevelopmentconferencenih",
+        "tag": "(Consensus Development Conference, NIH[pt])"
+      },
+      {
+        "name": "Controlled Clinical Trial",
+        "value": "pubt.controlledclinicaltrial",
+        "tag": "(Controlled Clinical Trial[pt])"
+      },
+      {
+        "name": "Corrected and Republished Article",
+        "value": "pubt.correctedandrepublishedarticle",
+        "tag": "(Corrected and Republished Article[pt])"
+      },
+      {
+        "name": "Dataset",
+        "value": "pubt.dataset",
+        "tag": "(Dataset[pt])"
+      },
+      {
+        "name": "Dictionary",
+        "value": "pubt.dictionary",
+        "tag": "(Dictionary[pt])"
+      },
+      {
+        "name": "Directory",
+        "value": "pubt.directory",
+        "tag": "(Directory[pt])"
+      },
+      {
+        "name": "Duplicate Publication",
+        "value": "pubt.duplicatepublication",
+        "tag": "(Duplicate Publication[pt])"
+      },
+      {
+        "name": "Editorial",
+        "value": "pubt.editorial",
+        "tag": "(Editorial[pt])"
+      },
+      {
+        "name": "Electronic Supplementary Materials",
+        "value": "pubt.electronicsupplementarymaterials",
+        "tag": "(Electronic Supplementary Materials[pt])"
+      },
+      {
+        "name": "English Abstract",
+        "value": "pubt.englishabstract",
+        "tag": "(English Abstract[pt])"
+      },
+      {
+        "name": "Equivalence Trial",
+        "value": "pubt.equivalencetrial",
+        "tag": "(Equivalence Trial[pt])"
+      },
+      {
+        "name": "Evaluation Study",
+        "value": "pubt.evaluationstudy",
+        "tag": "(Evaluation Study[pt])"
+      },
+      {
+        "name": "Expression of Concern",
+        "value": "pubt.expressionofconcern",
+        "tag": "(Expression of Concern[pt])"
+      },
+      {
+        "name": "Festschrift",
+        "value": "pubt.festschrift",
+        "tag": "(Festschrift[pt])"
+      },
+      {
+        "name": "Government Publication",
+        "value": "pubt.governmentpublication",
+        "tag": "(Government Publication[pt])"
+      },
+      {
+        "name": "Guideline",
+        "value": "pubt.guideline",
+        "tag": "(Guideline[pt])"
+      },
+      {
+        "name": "Historical Article",
+        "value": "pubt.historicalarticle",
+        "tag": "(Historical Article[pt])"
+      },
+      {
+        "name": "Interactive Tutorial",
+        "value": "pubt.interactivetutorial",
+        "tag": "(Interactive Tutorial[pt])"
+      },
+      {
+        "name": "Interview",
+        "value": "pubt.interview",
+        "tag": "(Interview[pt])"
+      },
+      {
+        "name": "Introductory Journal Article",
+        "value": "pubt.introductoryjournalarticle",
+        "tag": "(Introductory Journal Article[pt])"
+      },
+      {
+        "name": "Lecture",
+        "value": "pubt.lecture",
+        "tag": "(Lecture[pt])"
+      },
+      {
+        "name": "Legal Case",
+        "value": "pubt.legalcase",
+        "tag": "(Legal Case[pt])"
+      },
+      {
+        "name": "Legislation",
+        "value": "pubt.legislation",
+        "tag": "(Legislation[pt])"
+      },
+      {
+        "name": "Letter",
+        "value": "pubt.letter",
+        "tag": "(Letter[pt])"
+      },
+      {
+        "name": "Multicenter Study",
+        "value": "pubt.multicenterstudy",
+        "tag": "(Multicenter Study[pt])"
+      },
+      {
+        "name": "News",
+        "value": "pubt.news",
+        "tag": "(News[pt])"
+      },
+      {
+        "name": "Newspaper Article",
+        "value": "pubt.newspaperarticle",
+        "tag": "(Newspaper Article[pt])"
+      },
+      {
+        "name": "Observational Study",
+        "value": "pubt.observationalstudy",
+        "tag": "(Observational Study[pt])"
+      },
+      {
+        "name": "Observational Study, Veterinary",
+        "value": "pubt.veterinaryobservationalstudy",
+        "tag": "(Observational Study, Veterinary[pt])"
+      },
+      {
+        "name": "Overall",
+        "value": "pubt.overall",
+        "tag": "(Overall[pt])"
+      },
+      {
+        "name": "Patient Education Handout",
+        "value": "pubt.patienteducationhandout",
+        "tag": "(Patient Education Handout[pt])"
+      },
+      {
+        "name": "Periodical Index",
+        "value": "pubt.periodicalindex",
+        "tag": "(Periodical Index[pt])"
+      },
+      {
+        "name": "Personal Narrative",
+        "value": "pubt.personalnarrative",
+        "tag": "(Personal Narrative[pt])"
+      },
+      {
+        "name": "Portrait",
+        "value": "pubt.portrait",
+        "tag": "(Portrait[pt])"
+      },
+      {
+        "name": "Practice Guideline",
+        "value": "pubt.practiceguideline",
+        "tag": "(Practice Guideline[pt])"
+      },
+      {
+        "name": "Pragmatic Clinical Trial",
+        "value": "pubt.pragmaticclinicaltrial",
+        "tag": "(Pragmatic Clinical Trial[pt])"
+      },
+      {
+        "name": "Preprint",
+        "value": "pubt.preprint",
+        "tag": "(Preprint[pt])"
+      },
+      {
+        "name": "Published Erratum",
+        "value": "pubt.publishederratum",
+        "tag": "(Published Erratum[pt])"
+      },
+      {
+        "name": "Randomized Controlled Trial, Veterinary",
+        "value": "pubt.randomizedcontrolledtrialveterinary",
+        "tag": "(Randomized Controlled Trial, Veterinary[pt])"
+      },
+      {
+        "name": "Research Support, American Recovery and Reinvestment Act",
+        "value": "pubt.researchsupportamericanrecoveryandreinvestmentact",
+        "tag": "(Research Support, American Recovery and Reinvestment Act[pt])"
+      },
+      {
+        "name": "Research Support, N.I.H., Extramural",
+        "value": "pubt.researchsupportnihextramural",
+        "tag": "(Research Support, N.I.H., Extramural[pt])"
+      },
+      {
+        "name": "Research Support, N.I.H., Intramural",
+        "value": "pubt.researchsupportnihintramural",
+        "tag": "(Research Support, N.I.H., Intramural[pt])"
+      },
+      {
+        "name": "Research Support, Non-U.S. Gov't",
+        "value": "pubt.researchsupportnonusgovt",
+        "tag": "(Research Support, Non-U.S. Gov't[pt])"
+      },
+      {
+        "name": "Research Support, U.S. Gov't, Non-P.H.S.",
+        "value": "pubt.researchsupportusgovtnonphs",
+        "tag": "(Research Support, U.S. Gov't, Non-P.H.S.[pt])"
+      },
+      {
+        "name": "Research Support, U.S. Gov't, P.H.S.",
+        "value": "pubt.researchsupportusgovtphs",
+        "tag": "(Research Support, U.S. Gov't, P.H.S.[pt])"
+      },
+      {
+        "name": "Research Support, U.S. Gov't",
+        "value": "pubt.researchsupportusgovernment",
+        "tag": "(Research Support, U.S. Gov't[pt])"
+      },
+      {
+        "name": "Retracted Publication",
+        "value": "pubt.retractedpublication",
+        "tag": "(Retracted Publication[pt])"
+      },
+      {
+        "name": "Retraction of Publication",
+        "value": "pubt.retractionofpublication",
+        "tag": "(Retraction of Publication[pt])"
+      },
+      {
+        "name": "Scientific Integrity Review",
+        "value": "pubt.scientificintegrityreview",
+        "tag": "(Scientific Integrity Review[pt])"
+      },
+      {
+        "name": "Technical Report",
+        "value": "pubt.technicalreport",
+        "tag": "(Technical Report[pt])"
+      },
+      {
+        "name": "Twin Study",
+        "value": "pubt.twinstudy",
+        "tag": "(Twin Study[pt])"
+      },
+      {
+        "name": "Validation Study",
+        "value": "pubt.validationstudy",
+        "tag": "(Validation Study[pt])"
+      },
+      {
+        "name": "Video-Audio Media",
+        "value": "pubt.videoaudiomedia",
+        "tag": "(Video-Audio Media[pt])"
+      },
+      {
+        "name": "Webcast",
+        "value": "pubt.webcast",
+        "tag": "(Webcast[pt])"
+      }
+    ]
+  },
+  {
+    "group": "Age",
+    "options": [
+      {
+        "name": "Child: birth-18 years",
+        "value": "age.allchild",
+        "tag": "(infant[mh] OR child[mh] OR adolescent[mh])"
+      },
+      {
+        "name": "Newborn: birth-1 month",
+        "value": "age.newborn",
+        "tag": "(infant, newborn[mh])"
+      },
+      {
+        "name": "Infant: birth-23 months",
+        "value": "age.allinfant",
+        "tag": "(nfant[mh])"
+      },
+      {
+        "name": "Infant: 1-23 months",
+        "value": "age.infant",
+        "tag": "(infant[mh:noexp])"
+      },
+      {
+        "name": "Preschool Child: 2-5 years",
+        "value": "age.preschoolchild",
+        "tag": "(child, preschool[mh])"
+      },
+      {
+        "name": "Child: 6-12 years",
+        "value": "age.child",
+        "tag": "(child[mh:noexp])"
+      },
+      {
+        "name": "Adolescent: 13-18 years",
+        "value": "age.adolescent",
+        "tag": "(adolescent[mh])"
+      },
+      {
+        "name": "Adult: 19+ years",
+        "value": "age.alladult",
+        "tag": "(adult[mh])"
+      },
+      {
+        "name": "Young Adult: 19-24 years",
+        "value": "age.youngadult",
+        "tag": "(young adult[mh])"
+      },
+      {
+        "name": "Adult: 19-44 years",
+        "value": "age.adult",
+        "tag": "(adult[mh:noexp])"
+      },
+      {
+        "name": "Middle Aged + Aged: 45+ years",
+        "value": "age.middleagedaged",
+        "tag" : "(middle aged[mh] OR aged[mh])"
+      },
+      {
+        "name": "Middle Aged: 45-64 years",
+        "value": "age.middleaged",
+        "tag": "(middle aged[mh])"
+      },
+      {
+        "name": "Aged: 65+ years",
+        "value": "age.aged",
+        "tag": "(aged[mh])"
+      },
+      {
+        "name": "80 and over: 80+ years",
+        "value": "age.80andover",
+        "tag": "(aged, 80 and over[mh])"
+      }
+    ]
+  },
+  {
+    "group": "Publication date",
+    "options": [
+      {
+        "name": "1 year",
+        "value": "datesearch.y_1",
+        "tag": "(\"last year\"[dp])"
+      },
+      {
+        "name": "5 years",
+        "value": "datesearch.y_5",
+        "tag": "(\"last 5 years\"[dp])"
+      },
+      {
+        "name": "10 years",
+        "tag": "(\"last 10 years\"[dp])"
+      },
+      {
+        "name": "Custom Range",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "group": "Species",
+    "options": [
+      {
+        "name": "Humans",
+        "value": "hum_ani.humans",
+        "tag": "(humans[mh])"
+      },
+      {
+        "name": "Other Animals",
+        "value": "hum_ani.animal",
+        "tag": "(\"animals\"[mh:noexp])"
+      }
+    ]
+  },
+  {
+    "group": "Sex",
+    "options": [
+      {
+        "name": "Female",
+        "value": "sex.female",
+        "tag": "(female[mh])"
+      },
+      {
+        "name": "Male",
+        "value": "sex.male",
+        "tag": "(male[mh])"
+      }
+    ]
+  },
+  {
+    "group": "Article Language",
+    "options": [
+      {
+        "name": "Afrikaans",
+        "value": "lang.afrikaans",
+        "tag": "(afrikaans[la])"
+      },
+      {
+        "name": "Albanian",
+        "value": "lang.albanian",
+        "tag": "(albanian[la])"
+      },
+      {
+        "name": "Arabic",
+        "value": "lang.arabic",
+        "tag": "(arabic[la])"
+      },
+      {
+        "name": "Armenian",
+        "value": "lang.armenian",
+        "tag": "(armenian[la])"
+      },
+      {
+        "name": "Azerbaijani",
+        "value": "lang.azerbaijani",
+        "tag": "(azerbaijani[la])"
+      },
+      {
+        "name": "Bosnian",
+        "value": "lang.bosnian",
+        "tag": "(bosnian[la])"
+      },
+      {
+        "name": "Bulgarian",
+        "value": "lang.bulgarian",
+        "tag": "(bulgarian[la])"
+      },
+      {
+        "name": "Catalan",
+        "value": "lang.catalan",
+        "tag": "(catalan[la])"
+      },
+      {
+        "name": "Chinese",
+        "value": "lang.chinese",
+        "tag": "(chinese[la])"
+      },
+      {
+        "name": "Croatian",
+        "value": "lang.croatian",
+        "tag": "(croatian[la])"
+      },
+      {
+        "name": "Czech",
+        "value": "lang.czech",
+        "tag": "(czech[la])"
+      },
+      {
+        "name": "Danish",
+        "value": "lang.danish",
+        "tag": "(danish[la])"
+      },
+      {
+        "name": "Dutch",
+        "value": "lang.dutch",
+        "tag": "(dutch[la])"
+      },
+      {
+        "name": "English",
+        "value": "lang.english",
+        "tag": "(english[la])"
+      },
+      {
+        "name": "Esperanto",
+        "value": "lang.esperanto",
+        "tag": "(esperanto[la])"
+      },
+      {
+        "name": "Estonian",
+        "value": "lang.estonian",
+        "tag": "(estonian[la])"
+      },
+      {
+        "name": "Finnish",
+        "value": "lang.finnish",
+        "tag": "(finnish[la])"
+      },
+      {
+        "name": "French",
+        "value": "lang.french",
+        "tag": "(french[la])"
+      },
+      {
+        "name": "Georgian",
+        "value": "lang.georgian",
+        "tag": "(georgian[la])"
+      },
+      {
+        "name": "German",
+        "value": "lang.german",
+        "tag": "(german[la])"
+      },
+      {
+        "name": "Greek, Modern",
+        "value": "lang.greekmodern",
+        "tag": "(greek, modern[la])"
+      },
+      {
+        "name": "Hebrew",
+        "value": "lang.hebrew",
+        "tag": "(hebrew[la])"
+      },
+      {
+        "name": "Hindi",
+        "value": "lang.hindi",
+        "tag": "(hindi[la])"
+      },
+      {
+        "name": "Hungarian",
+        "value": "lang.hungarian",
+        "tag": "(hungarian[la])"
+      },
+      {
+        "name": "Icelandic",
+        "value": "lang.icelandic",
+        "tag": "(icelandic[la])"
+      },
+      {
+        "name": "Indonesian",
+        "value": "lang.indonesian",
+        "tag": "(indonesian[la])"
+      },
+      {
+        "name": "Italian",
+        "value": "lang.italian",
+        "tag": "(italian[la])"
+      },
+      {
+        "name": "Japanese",
+        "value": "lang.japanese",
+        "tag": "(japanese[la])"
+      },
+      {
+        "name": "Kinyarwanda",
+        "value": "lang.kinyarwanda",
+        "tag": "(kinyarwanda[la])"
+      },
+      {
+        "name": "Korean",
+        "value": "lang.korean",
+        "tag": "(korean[la])"
+      },
+      {
+        "name": "Latin",
+        "value": "lang.latin",
+        "tag": "(latin[la])"
+      },
+      {
+        "name": "Latvian",
+        "value": "lang.latvian",
+        "tag": "(latvian[la])"
+      },
+      {
+        "name": "Lithuanian",
+        "value": "lang.lithuanian",
+        "tag": "(lithuanian[la])"
+      },
+      {
+        "name": "Macedonian",
+        "value": "lang.macedonian",
+        "tag": "(macedonian[la])"
+      },
+      {
+        "name": "Malay",
+        "value": "lang.malay",
+        "tag": "(malay[la])"
+      },
+      {
+        "name": "Malayalam",
+        "value": "lang.malayalam",
+        "tag": "(malayalam[la])"
+      },
+      {
+        "name": "Maori",
+        "value": "lang.maori",
+        "tag": "(maori[la])"
+      },
+      {
+        "name": "Multiple Languages",
+        "value": "lang.multiplelanguages",
+        "tag": "(multiple languages[la])"
+      },
+      {
+        "name": "Norwegian",
+        "value": "lang.norwegian",
+        "tag": "(norwegian[la])"
+      },
+      {
+        "name": "Persian",
+        "value": "lang.persian",
+        "tag": "(persian[la])"
+      },
+      {
+        "name": "Polish",
+        "value": "lang.polish",
+        "tag": "(polish[la])"
+      },
+      {
+        "name": "Portuguese",
+        "value": "lang.portuguese",
+        "tag": "(portuguese[la])"
+      },
+      {
+        "name": "Pushto",
+        "value": "lang.pushto",
+        "tag": "(pushto[la])"
+      },
+      {
+        "name": "Romanian",
+        "value": "lang.romanian",
+        "tag": "(romanian[la])"
+      },
+      {
+        "name": "Russian",
+        "value": "lang.russian",
+        "tag": "(russian[la])"
+      },
+      {
+        "name": "Sanskrit",
+        "value": "lang.sanskrit",
+        "tag": "(sanskrit[la])"
+      },
+      {
+        "name": "Scottish gaelic",
+        "value": "lang.scottishgaelic",
+        "tag": "(scottish gaelic[la])"
+      },
+      {
+        "name": "Serbian",
+        "value": "lang.serbian",
+        "tag": "(serbian[la])"
+      },
+      {
+        "name": "Slovak",
+        "value": "lang.slovak",
+        "tag": "(slovak[la])"
+      },
+      {
+        "name": "Slovenian",
+        "value": "lang.slovenian",
+        "tag": "(slovenian[la])"
+      },
+      {
+        "name": "Spanish",
+        "value": "lang.spanish",
+        "tag": "(spanish[la])"
+      },
+      {
+        "name": "Swedish",
+        "value": "lang.swedish",
+        "tag": "(swedish[la])"
+      },
+      {
+        "name": "Thai",
+        "value": "lang.thai",
+        "tag": "(thai[la])"
+      },
+      {
+        "name": "Turkish",
+        "value": "lang.turkish",
+        "tag": "(turkish[la])"
+      },
+      {
+        "name": "Ukrainian",
+        "value": "lang.ukrainian",
+        "tag": "(ukrainian[la])"
+      },
+      {
+        "name": "Undetermined",
+        "value": "lang.undetermined",
+        "tag": "(undetermined[la])"
+      },
+      {
+        "name": "Vietnamese",
+        "value": "lang.vietnamese",
+        "tag": "(vietnamese[la])"
+      },
+      {
+        "name": "Welsh",
+        "value": "lang.welsh",
+        "tag": "(welsh[la])"
+      }
+    ]
+  },
+  {
+    "group": "Other",
+    "options": [
+      {
+        "name": "Exclude preprints",
+        "value": "other.excludepreprints",
+        "tag": null
+      },
+      {
+        "name": "MEDLINE",
+        "value": "other.medline",
+        "tag": null
+      }
+    ]
+  }
+]
