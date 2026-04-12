@@ -9,13 +9,12 @@ from collections.abc import AsyncGenerator
 from typing import Any
 
 import httpx
-from tenacity import retry, retry_if_exception, stop_after_attempt, wait_exponential
-
 from litprism.europepmc.exceptions import (
     EuropePMCAPIError,
     EuropePMCNetworkError,
     EuropePMCRateLimitError,
 )
+from tenacity import retry, retry_if_exception, stop_after_attempt, wait_exponential
 
 SEARCH_URL = "https://www.ebi.ac.uk/europepmc/webservices/rest/search"
 MAX_PAGE_SIZE = 1000
