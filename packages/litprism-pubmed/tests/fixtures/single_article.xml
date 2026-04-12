@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PubmedArticleSet PUBLIC "-//NLM//DTD PubMedArticle, 1st January 2019//EN"
+  "https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_190101.dtd">
+<PubmedArticleSet>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">12345678</PMID>
+      <Article PubModel="Print">
+        <Journal>
+          <JournalIssue CitedMedium="Internet">
+            <Volume>42</Volume>
+            <Issue>3</Issue>
+            <PubDate>
+              <Year>2021</Year>
+              <Month>Mar</Month>
+              <Day>15</Day>
+            </PubDate>
+          </JournalIssue>
+          <Title>Journal of Crohn's and Colitis</Title>
+        </Journal>
+        <ArticleTitle>Probiotic supplementation in Crohn's disease: a randomised controlled trial.</ArticleTitle>
+        <Abstract>
+          <AbstractText>Background: Gut microbiome dysbiosis is implicated in Crohn's disease.</AbstractText>
+          <AbstractText Label="METHODS">Adults with active Crohn's disease received probiotic supplementation or placebo for 12 weeks.</AbstractText>
+          <AbstractText Label="RESULTS">Probiotic supplementation significantly improved disease activity scores compared to placebo (p&lt;0.001).</AbstractText>
+          <AbstractText Label="CONCLUSIONS">Probiotic supplementation may benefit patients with Crohn's disease.</AbstractText>
+        </Abstract>
+        <AuthorList CompleteYN="Y">
+          <Author ValidYN="Y">
+            <LastName>Smith</LastName>
+            <ForeName>Jane</ForeName>
+            <AffiliationInfo>
+              <Affiliation>Department of Gastroenterology, University Hospital, London, UK.</Affiliation>
+            </AffiliationInfo>
+            <Identifier Source="ORCID">0000-0001-2345-6789</Identifier>
+          </Author>
+          <Author ValidYN="Y">
+            <LastName>Jones</LastName>
+            <ForeName>Robert A</ForeName>
+            <AffiliationInfo>
+              <Affiliation>Institute of Gut Health, Edinburgh, UK.</Affiliation>
+            </AffiliationInfo>
+          </Author>
+        </AuthorList>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+          <PublicationType UI="D016449">Randomized Controlled Trial</PublicationType>
+        </PublicationTypeList>
+        <ELocationID EIdType="doi" ValidYN="Y">10.1093/ecco-jcc/jjab001</ELocationID>
+      </Article>
+      <MeshHeadingList>
+        <MeshHeading>
+          <DescriptorName UI="D003424" MajorTopicYN="Y">Crohn Disease</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D019936" MajorTopicYN="Y">Probiotics</DescriptorName>
+        </MeshHeading>
+        <MeshHeading>
+          <DescriptorName UI="D006801" MajorTopicYN="N">Humans</DescriptorName>
+        </MeshHeading>
+      </MeshHeadingList>
+    </MedlineCitation>
+    <PubmedData>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">12345678</ArticleId>
+        <ArticleId IdType="doi">10.1093/ecco-jcc/jjab001</ArticleId>
+        <ArticleId IdType="pmc">PMC7654321</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+</PubmedArticleSet>
