@@ -12,7 +12,6 @@ import tempfile
 from datetime import date
 
 import pytest
-
 from litprism.pubmed import AsyncPubMedClient
 from litprism.pubmed.cache import ArticleCache
 from litprism.pubmed.models import DateRange, SearchFilters
