@@ -16,6 +16,7 @@ jobs:
         package:
           - litprism-pubmed
           - litprism-europepmc
+          - litprism-semanticscholar
 
     steps:
       - uses: actions/checkout@v4

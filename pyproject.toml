@@ -17,7 +17,7 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
+addopts = "-m 'not integration' --import-mode=importlib"
 markers = [
     "integration: requires network and real API keys (skipped in CI)",
 ]
-addopts = "-m 'not integration'"
