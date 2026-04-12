@@ -155,34 +155,30 @@ class FilterTranslator:
             params["datetype"] = "pdat"
 
         for lang in filters.languages:
-            if pubmed_value := _ISO_TO_PUBMED_LANG.get(lang):
-                if tag := _FILTER_TAGS.get(pubmed_value):
-                    query_fragments.append(tag)
-
-        if filters.has_abstract:
-            if tag := _FILTER_TAGS.get("simsearch1.fha"):
+            if (pubmed_value := _ISO_TO_PUBMED_LANG.get(lang)) and (
+                tag := _FILTER_TAGS.get(pubmed_value)
+            ):
                 query_fragments.append(tag)
+
+        if filters.has_abstract and (tag := _FILTER_TAGS.get("simsearch1.fha")):
+            query_fragments.append(tag)
 
         for pt in filters.publication_types:
             if pt == "journal_article":
                 query_fragments.append("Journal Article[pt]")
-            elif value := _PUBMED_TYPE_MAP.get(pt):
-                if tag := _FILTER_TAGS.get(value):
-                    query_fragments.append(tag)
+            elif (value := _PUBMED_TYPE_MAP.get(pt)) and (tag := _FILTER_TAGS.get(value)):
+                query_fragments.append(tag)
 
         for species in filters.pubmed_species:
-            if value := _PUBMED_SPECIES_MAP.get(species):
-                if tag := _FILTER_TAGS.get(value):
-                    query_fragments.append(tag)
+            if (value := _PUBMED_SPECIES_MAP.get(species)) and (tag := _FILTER_TAGS.get(value)):
+                query_fragments.append(tag)
 
         for sex in filters.pubmed_sex:
-            if value := _PUBMED_SEX_MAP.get(sex):
-                if tag := _FILTER_TAGS.get(value):
-                    query_fragments.append(tag)
-
-        if filters.pubmed_free_full_text:
-            if tag := _FILTER_TAGS.get("simsearch2.ffrft"):
+            if (value := _PUBMED_SEX_MAP.get(sex)) and (tag := _FILTER_TAGS.get(value)):
                 query_fragments.append(tag)
+
+        if filters.pubmed_free_full_text and (tag := _FILTER_TAGS.get("simsearch2.ffrft")):
+            query_fragments.append(tag)
 
         if query_fragments:
             params["filter_query"] = " AND ".join(f"({f})" for f in query_fragments)
