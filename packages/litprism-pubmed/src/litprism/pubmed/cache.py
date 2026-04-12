@@ -1,7 +1,9 @@
 """Optional SQLite cache for fetched articles.
 
-Keyed on (pmid, fetch_date) so re-fetching on a different day bypasses
-the cache and picks up any PubMed record updates.
+Keyed on (pmid, fetch_date). Entries are valid for TTL_DAYS (7) days — a
+cache hit is returned if any entry for the PMID was fetched within that
+window, using the most recent fetch. Older entries are removed by
+purge_expired().
 
 Usage:
     cache = ArticleCache("~/.litprism/pubmed_cache.db")
@@ -9,17 +11,24 @@ Usage:
     if hit is None:
         article = await client.fetch_one("12345678")
         cache.set(article)
+    cache.purge_expired()  # call periodically to reclaim space
 """
 
 import sqlite3
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 from litprism.pubmed.models import Article
 
+TTL_DAYS = 7
+
 
 class ArticleCache:
-    """SQLite-backed cache for Article records."""
+    """SQLite-backed cache for Article records.
+
+    Entries expire after TTL_DAYS days. get() and get_many() return the most
+    recent entry within the TTL window; purge_expired() deletes stale rows.
+    """
 
     def __init__(self, db_path: str | Path = "~/.litprism/pubmed_cache.db") -> None:
         self.db_path = Path(db_path).expanduser()
@@ -43,12 +52,17 @@ class ArticleCache:
     def _today(self) -> str:
         return date.today().isoformat()
 
+    def _cutoff_date(self) -> str:
+        """ISO date string TTL_DAYS ago — entries older than this are expired."""
+        return (date.today() - timedelta(days=TTL_DAYS)).isoformat()
+
     def get(self, pmid: str) -> Article | None:
-        """Return cached Article for today, or None if not cached."""
+        """Return the most recently cached Article within the TTL window, or None."""
         with self._connect() as conn:
             row = conn.execute(
-                "SELECT data FROM articles WHERE pmid = ? AND fetch_date = ?",
-                (pmid, self._today()),
+                "SELECT data FROM articles WHERE pmid = ? AND fetch_date >= ? "
+                "ORDER BY fetch_date DESC LIMIT 1",
+                (pmid, self._cutoff_date()),
             ).fetchone()
         if row is None:
             return None
@@ -77,13 +91,31 @@ class ArticleCache:
             )
 
     def get_many(self, pmids: list[str]) -> dict[str, Article]:
-        """Return a dict of pmid → Article for all cached PMIDs."""
-        today = self._today()
+        """Return a dict of pmid → Article for all PMIDs with a hit in the TTL window.
+
+        When multiple entries exist for a PMID (fetched on different days within
+        the window), the most recent one is returned.
+        """
+        cutoff = self._cutoff_date()
         placeholders = ",".join("?" * len(pmids))
         with self._connect() as conn:
             rows = conn.execute(
-                f"SELECT pmid, data FROM articles WHERE pmid IN ({placeholders}) "
-                f"AND fetch_date = ?",
-                (*pmids, today),
+                f"SELECT pmid, data, fetch_date FROM articles "
+                f"WHERE pmid IN ({placeholders}) AND fetch_date >= ?",
+                (*pmids, cutoff),
             ).fetchall()
-        return {pmid: Article.model_validate_json(data) for pmid, data in rows}
+        # Keep the most recent entry per pmid
+        best: dict[str, tuple[str, str]] = {}  # pmid → (fetch_date, data)
+        for pmid, data, fetch_date in rows:
+            if pmid not in best or fetch_date > best[pmid][0]:
+                best[pmid] = (fetch_date, data)
+        return {pmid: Article.model_validate_json(data) for pmid, (_, data) in best.items()}
+
+    def purge_expired(self) -> int:
+        """Delete all entries older than TTL_DAYS. Returns the number of rows deleted."""
+        with self._connect() as conn:
+            cursor = conn.execute(
+                "DELETE FROM articles WHERE fetch_date < ?",
+                (self._cutoff_date(),),
+            )
+        return cursor.rowcount
