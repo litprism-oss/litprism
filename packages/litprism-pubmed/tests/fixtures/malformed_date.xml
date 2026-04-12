@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PubmedArticleSet PUBLIC "-//NLM//DTD PubMedArticle, 1st January 2019//EN"
+  "https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_190101.dtd">
+<PubmedArticleSet>
+  <PubmedArticle>
+    <MedlineCitation Status="MEDLINE" Owner="NLM">
+      <PMID Version="1">55555555</PMID>
+      <Article PubModel="Print">
+        <Journal>
+          <JournalIssue CitedMedium="Internet">
+            <!-- "Spring 2020" — year is not the first 4 chars, parser cannot extract year -->
+            <PubDate>
+              <MedlineDate>Spring 2020</MedlineDate>
+            </PubDate>
+          </JournalIssue>
+          <Title>Seasonal Health Reports</Title>
+        </Journal>
+        <ArticleTitle>Seasonal variation in vitamin D deficiency.</ArticleTitle>
+        <Abstract>
+          <AbstractText>Vitamin D levels vary with seasonal sunlight exposure.</AbstractText>
+        </Abstract>
+        <AuthorList CompleteYN="Y">
+          <Author ValidYN="Y">
+            <LastName>Winter</LastName>
+            <ForeName>Clara</ForeName>
+          </Author>
+        </AuthorList>
+        <PublicationTypeList>
+          <PublicationType UI="D016428">Journal Article</PublicationType>
+        </PublicationTypeList>
+      </Article>
+    </MedlineCitation>
+    <PubmedData>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">55555555</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+</PubmedArticleSet>

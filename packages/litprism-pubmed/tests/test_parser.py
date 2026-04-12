@@ -1,4 +1,4 @@
-"""Tests for litprism.pubmed.parser."""
+"""Tests for litprism.pubmed.parser — no network calls, fixture XML only."""
 
 from datetime import date
 from pathlib import Path
@@ -12,6 +12,11 @@ FIXTURES = Path(__file__).parent / "fixtures"
 
 def load(filename: str) -> str:
     return (FIXTURES / filename).read_text()
+
+
+# ---------------------------------------------------------------------------
+# single_article.xml — full-field article
+# ---------------------------------------------------------------------------
 
 
 class TestParseSingleArticle:
@@ -31,6 +36,14 @@ class TestParseSingleArticle:
         assert article.abstract is not None
         assert "microbiome" in article.abstract
         assert "placebo" in article.abstract
+
+    def test_abstract_sections_concatenated(self):
+        """Multi-section abstract elements are joined with a space."""
+        article = parse_xml(load("single_article.xml"))[0]
+        # single_article.xml has 4 AbstractText sections
+        assert "Background" in article.abstract
+        assert "METHODS" in article.abstract or "probiotic supplementation" in article.abstract
+        assert "CONCLUSIONS" in article.abstract or "benefit" in article.abstract
 
     def test_authors(self):
         article = parse_xml(load("single_article.xml"))[0]
@@ -76,6 +89,20 @@ class TestParseSingleArticle:
         article = parse_xml(load("single_article.xml"))[0]
         assert article.upload_format is None
 
+    def test_pdf_path_is_none(self):
+        article = parse_xml(load("single_article.xml"))[0]
+        assert article.pdf_path is None
+
+    def test_citation_count_is_none(self):
+        """citation_count is not available from PubMed XML."""
+        article = parse_xml(load("single_article.xml"))[0]
+        assert article.citation_count is None
+
+
+# ---------------------------------------------------------------------------
+# batch_articles.xml — three articles, varied DOI/type coverage
+# ---------------------------------------------------------------------------
+
 
 class TestParseBatchArticles:
     def test_count(self):
@@ -98,6 +125,25 @@ class TestParseBatchArticles:
         by_pmid = {a.pmid: a for a in articles}
         assert "Review" in by_pmid["33333333"].article_types
 
+    def test_open_access_false_without_pmc(self):
+        articles = parse_xml(load("batch_articles.xml"))
+        by_pmid = {a.pmid: a for a in articles}
+        # None of the batch articles have a PMC ID
+        assert by_pmid["11111111"].open_access is False
+        assert by_pmid["22222222"].open_access is False
+
+    def test_publication_years(self):
+        articles = parse_xml(load("batch_articles.xml"))
+        by_pmid = {a.pmid: a for a in articles}
+        assert by_pmid["11111111"].publication_year == 2020
+        assert by_pmid["22222222"].publication_year == 2021
+        assert by_pmid["33333333"].publication_year == 2022
+
+
+# ---------------------------------------------------------------------------
+# missing_abstract.xml — letter with MedlineDate and Initials-only author
+# ---------------------------------------------------------------------------
+
 
 class TestMissingAbstract:
     def test_abstract_is_none(self):
@@ -110,12 +156,101 @@ class TestMissingAbstract:
         assert article.publication_year == 2019
 
     def test_initials_used_as_fore_name(self):
+        """When ForeName is absent, Initials are used as fore_name."""
         article = parse_xml(load("missing_abstract.xml"))[0]
         assert article.authors[0].fore_name == "J"
 
     def test_not_open_access(self):
         article = parse_xml(load("missing_abstract.xml"))[0]
         assert article.open_access is False
+
+    def test_article_type_letter(self):
+        article = parse_xml(load("missing_abstract.xml"))[0]
+        assert "Letter" in article.article_types
+
+
+# ---------------------------------------------------------------------------
+# malformed_date.xml — unparseable MedlineDate ("Spring 2020")
+# ---------------------------------------------------------------------------
+
+
+class TestMalformedDate:
+    def test_article_is_still_returned(self):
+        """A bad date must not cause the article to be dropped."""
+        articles = parse_xml(load("malformed_date.xml"))
+        assert len(articles) == 1
+        assert articles[0].pmid == "55555555"
+
+    def test_publication_date_is_none(self):
+        article = parse_xml(load("malformed_date.xml"))[0]
+        assert article.publication_date is None
+
+    def test_publication_year_is_none(self):
+        """'Spring 2020' does not start with a 4-digit year — year is None."""
+        article = parse_xml(load("malformed_date.xml"))[0]
+        assert article.publication_year is None
+
+    def test_title_and_abstract_still_parsed(self):
+        article = parse_xml(load("malformed_date.xml"))[0]
+        assert "vitamin d" in article.title.lower()
+        assert article.abstract is not None
+
+
+# ---------------------------------------------------------------------------
+# Keywords — inline XML, no fixture file needed
+# ---------------------------------------------------------------------------
+
+
+class TestKeywords:
+    _XML_WITH_KEYWORDS = """\
+<?xml version="1.0"?>
+<PubmedArticleSet>
+  <PubmedArticle>
+    <MedlineCitation>
+      <PMID>77777777</PMID>
+      <Article>
+        <Journal>
+          <JournalIssue><PubDate><Year>2023</Year></PubDate></JournalIssue>
+          <Title>Test Journal</Title>
+        </Journal>
+        <ArticleTitle>Article with keywords.</ArticleTitle>
+        <Abstract><AbstractText>Some abstract text.</AbstractText></Abstract>
+        <AuthorList>
+          <Author><LastName>Author</LastName><ForeName>Test</ForeName></Author>
+        </AuthorList>
+        <PublicationTypeList>
+          <PublicationType>Journal Article</PublicationType>
+        </PublicationTypeList>
+      </Article>
+      <KeywordList Owner="NOTNLM">
+        <Keyword MajorTopicYN="N">gut microbiome</Keyword>
+        <Keyword MajorTopicYN="N">inflammation</Keyword>
+        <Keyword MajorTopicYN="Y">probiotic</Keyword>
+      </KeywordList>
+    </MedlineCitation>
+    <PubmedData>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">77777777</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+</PubmedArticleSet>"""
+
+    def test_keywords_parsed(self):
+        articles = parse_xml(self._XML_WITH_KEYWORDS)
+        assert len(articles) == 1
+        assert "gut microbiome" in articles[0].keywords
+        assert "inflammation" in articles[0].keywords
+        assert "probiotic" in articles[0].keywords
+
+    def test_keywords_count(self):
+        articles = parse_xml(self._XML_WITH_KEYWORDS)
+        assert len(articles[0].keywords) == 3
+
+
+# ---------------------------------------------------------------------------
+# Malformed / edge-case XML
+# ---------------------------------------------------------------------------
 
 
 class TestMalformedXml:
@@ -126,3 +261,59 @@ class TestMalformedXml:
     def test_empty_set_returns_empty_list(self):
         xml = '<?xml version="1.0"?><PubmedArticleSet></PubmedArticleSet>'
         assert parse_xml(xml) == []
+
+    def test_article_without_pmid_is_skipped(self):
+        """parse_article returns None for articles with no PMID."""
+        xml = """\
+<?xml version="1.0"?>
+<PubmedArticleSet>
+  <PubmedArticle>
+    <MedlineCitation>
+      <Article>
+        <Journal>
+          <JournalIssue><PubDate><Year>2020</Year></PubDate></JournalIssue>
+          <Title>Some Journal</Title>
+        </Journal>
+        <ArticleTitle>No PMID article.</ArticleTitle>
+        <PublicationTypeList>
+          <PublicationType>Journal Article</PublicationType>
+        </PublicationTypeList>
+      </Article>
+    </MedlineCitation>
+    <PubmedData><ArticleIdList/></PubmedData>
+  </PubmedArticle>
+</PubmedArticleSet>"""
+        assert parse_xml(xml) == []
+
+    def test_multiple_articles_one_malformed(self):
+        """A malformed article is skipped; valid ones are returned."""
+        xml = """\
+<?xml version="1.0"?>
+<PubmedArticleSet>
+  <PubmedArticle>
+    <MedlineCitation>
+      <PMID>88888888</PMID>
+      <Article>
+        <Journal>
+          <JournalIssue><PubDate><Year>2022</Year></PubDate></JournalIssue>
+          <Title>Good Journal</Title>
+        </Journal>
+        <ArticleTitle>Valid article.</ArticleTitle>
+        <PublicationTypeList>
+          <PublicationType>Journal Article</PublicationType>
+        </PublicationTypeList>
+      </Article>
+    </MedlineCitation>
+    <PubmedData>
+      <ArticleIdList>
+        <ArticleId IdType="pubmed">88888888</ArticleId>
+      </ArticleIdList>
+    </PubmedData>
+  </PubmedArticle>
+  <PubmedArticle>
+    <!-- No MedlineCitation at all — parse_article returns None -->
+  </PubmedArticle>
+</PubmedArticleSet>"""
+        articles = parse_xml(xml)
+        assert len(articles) == 1
+        assert articles[0].pmid == "88888888"
