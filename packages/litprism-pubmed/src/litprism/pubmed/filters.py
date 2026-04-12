@@ -132,11 +132,7 @@ class FilterTranslator:
             "preprint": "Preprint",
             "book_chapter": "Book",
         }
-        mapped_types = [
-            s2_type_map[pt]
-            for pt in filters.publication_types
-            if pt in s2_type_map
-        ]
+        mapped_types = [s2_type_map[pt] for pt in filters.publication_types if pt in s2_type_map]
         if mapped_types:
             params["publicationTypes"] = ",".join(mapped_types)
 

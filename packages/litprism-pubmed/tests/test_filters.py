@@ -50,8 +50,14 @@ class TestToPubmedPublicationTypes:
 
     def test_all_mapped_publication_types(self):
         all_types = [
-            "journal_article", "review", "systematic_review", "meta_analysis",
-            "clinical_trial", "rct", "case_report", "preprint",
+            "journal_article",
+            "review",
+            "systematic_review",
+            "meta_analysis",
+            "clinical_trial",
+            "rct",
+            "case_report",
+            "preprint",
         ]
         filters = SearchFilters(publication_types=all_types)
         params = FilterTranslator.to_pubmed(filters)
@@ -262,9 +268,7 @@ class TestToSemanticScholar:
         assert "publicationTypes" not in params
 
     def test_fields_of_study(self):
-        filters = SearchFilters(
-            semanticscholar_fields_of_study=["Medicine", "Biology"]
-        )
+        filters = SearchFilters(semanticscholar_fields_of_study=["Medicine", "Biology"])
         params = FilterTranslator.to_semantic_scholar(filters)
         assert "Medicine" in params["fieldsOfStudy"]
         assert "Biology" in params["fieldsOfStudy"]
