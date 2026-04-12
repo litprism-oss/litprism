@@ -20,6 +20,7 @@ from litprism.pubmed.models import SearchFilters
 # Tag lookup — loaded once at import time from data/all_filters.json
 # ---------------------------------------------------------------------------
 
+
 def _load_filter_tags() -> dict[str, str]:
     """Return {value: tag} from all_filters.json, with outer parens stripped.
 
