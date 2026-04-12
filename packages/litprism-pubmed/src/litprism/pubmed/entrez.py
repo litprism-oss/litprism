@@ -5,8 +5,9 @@ Rate limiting and retry logic live here.
 """
 
 import asyncio
+from collections.abc import AsyncGenerator
 from datetime import UTC, datetime
-from typing import Any, AsyncGenerator
+from typing import Any
 
 import httpx
 from tenacity import retry, retry_if_exception, stop_after_attempt, wait_exponential
@@ -23,11 +24,9 @@ MAX_RESULTS_CAP = 10_000  # NCBI hard limit per query
 
 def _is_retryable(exc: BaseException) -> bool:
     """Return True for errors that warrant a retry (429 rate limit, 503 unavailable)."""
-    if isinstance(exc, PubMedRateLimitError):
-        return True
-    if isinstance(exc, PubMedAPIError) and exc.status_code == 503:
-        return True
-    return False
+    return isinstance(exc, PubMedRateLimitError) or (
+        isinstance(exc, PubMedAPIError) and exc.status_code == 503
+    )
 
 
 class TokenBucket:

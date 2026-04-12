@@ -122,8 +122,6 @@ class TestAsyncPubMedClientSearch:
 
     async def test_search_with_publication_type_filter(self):
         """Publication type filter is translated to [pt] tags."""
-        from datetime import date
-
         client = AsyncPubMedClient()
         mock_http = _mock_http([
             _mock_response(json_data=ESEARCH_RESPONSE),
@@ -337,9 +335,11 @@ class TestAsyncPubMedClientGet:
         empty_xml = "<PubmedArticleSet></PubmedArticleSet>"
         mock_http = _mock_http([_mock_response(text_data=empty_xml)])
 
-        with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
-            with pytest.raises(PubMedAPIError):
-                await client.get("00000000")
+        with (
+            patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http),
+            pytest.raises(PubMedAPIError),
+        ):
+            await client.get("00000000")
 
 
 # ---------------------------------------------------------------------------
@@ -353,18 +353,22 @@ class TestErrorHandling:
         client = AsyncPubMedClient()
         mock_http = _mock_http([_mock_response(status_code=429)] * 3)
 
-        with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
-            with pytest.raises(PubMedRateLimitError):
-                await client.fetch(["12345678"])
+        with (
+            patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http),
+            pytest.raises(PubMedRateLimitError),
+        ):
+            await client.fetch(["12345678"])
 
     async def test_503_retries_then_raises(self):
         """503 is retried up to 3 times then re-raises as PubMedAPIError."""
         client = AsyncPubMedClient()
         mock_http = _mock_http([_mock_response(status_code=503)] * 3)
 
-        with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
-            with pytest.raises(PubMedAPIError) as exc_info:
-                await client.fetch(["12345678"])
+        with (
+            patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http),
+            pytest.raises(PubMedAPIError) as exc_info,
+        ):
+            await client.fetch(["12345678"])
         assert exc_info.value.status_code == 503
 
     async def test_503_succeeds_on_retry(self):
@@ -387,9 +391,11 @@ class TestErrorHandling:
         mock_http.__aenter__ = AsyncMock(return_value=mock_http)
         mock_http.__aexit__ = AsyncMock(return_value=None)
 
-        with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
-            with pytest.raises(PubMedNetworkError):
-                await client.fetch(["12345678"])
+        with (
+            patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http),
+            pytest.raises(PubMedNetworkError),
+        ):
+            await client.fetch(["12345678"])
 
     async def test_timeout_raises_network_error(self):
         client = AsyncPubMedClient()
@@ -398,17 +404,21 @@ class TestErrorHandling:
         mock_http.__aenter__ = AsyncMock(return_value=mock_http)
         mock_http.__aexit__ = AsyncMock(return_value=None)
 
-        with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
-            with pytest.raises(PubMedNetworkError):
-                await client.fetch(["12345678"])
+        with (
+            patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http),
+            pytest.raises(PubMedNetworkError),
+        ):
+            await client.fetch(["12345678"])
 
     async def test_unexpected_status_raises_api_error(self):
         client = AsyncPubMedClient()
         mock_http = _mock_http([_mock_response(status_code=500)])
 
-        with patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http):
-            with pytest.raises(PubMedAPIError):
-                await client.fetch(["12345678"])
+        with (
+            patch("litprism.pubmed.entrez.httpx.AsyncClient", return_value=mock_http),
+            pytest.raises(PubMedAPIError),
+        ):
+            await client.fetch(["12345678"])
 
 
 # ---------------------------------------------------------------------------

@@ -5,7 +5,7 @@ PubMedClient is a synchronous wrapper for non-async callers.
 """
 
 import asyncio
-from typing import AsyncGenerator
+from collections.abc import AsyncGenerator
 
 from litprism.pubmed.cache import ArticleCache
 from litprism.pubmed.entrez import EntrezClient
