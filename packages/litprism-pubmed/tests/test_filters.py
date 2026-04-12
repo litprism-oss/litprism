@@ -2,11 +2,8 @@
 
 from datetime import date
 
-import pytest
-
 from litprism.pubmed.filters import FilterTranslator, humanise_filters
 from litprism.pubmed.models import DateRange, SearchFilters
-
 
 # ---------------------------------------------------------------------------
 # FilterTranslator.to_pubmed
