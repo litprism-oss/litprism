@@ -121,7 +121,7 @@ class TestAsyncPubMedClientSearch:
 
         esearch_call = mock_http.get.call_args_list[0]
         params = esearch_call[1]["params"] if "params" in esearch_call[1] else esearch_call[0][1]
-        assert '"en"[la]' in params.get("term", "")
+        assert "english[la]" in params.get("term", "")
         assert "hasabstract" in params.get("term", "")
 
     async def test_search_with_publication_type_filter(self):
@@ -142,7 +142,7 @@ class TestAsyncPubMedClientSearch:
 
         esearch_call = mock_http.get.call_args_list[0]
         params = esearch_call[1]["params"] if "params" in esearch_call[1] else esearch_call[0][1]
-        assert '"Clinical Trial"[pt]' in params.get("term", "")
+        assert "Clinical Trial[pt]" in params.get("term", "")
 
     async def test_search_with_date_range_filter(self):
         """Date range filter sets mindate/maxdate/datetype params."""
