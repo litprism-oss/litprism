@@ -5,6 +5,7 @@ requires-python = ">=3.12"
 [manifest]
 members = [
     "litprism",
+    "litprism-crossref",
     "litprism-europepmc",
     "litprism-pubmed",
     "litprism-semanticscholar",
@@ -109,6 +110,37 @@ wheels = [
 name = "litprism"
 version = "0.1.0"
 source = { virtual = "." }
+
+[[package]]
+name = "litprism-crossref"
+version = "0.1.0"
+source = { editable = "packages/litprism-crossref" }
+dependencies = [
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "tenacity" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "pytest" },
+    { name = "pytest-asyncio" },
+    { name = "ruff" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "httpx", specifier = ">=0.27" },
+    { name = "pydantic", specifier = ">=2.0" },
+    { name = "tenacity", specifier = ">=8.0" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pytest", specifier = ">=8.0" },
+    { name = "pytest-asyncio", specifier = ">=0.24" },
+    { name = "ruff", specifier = ">=0.4" },
+]
 
 [[package]]
 name = "litprism-europepmc"
