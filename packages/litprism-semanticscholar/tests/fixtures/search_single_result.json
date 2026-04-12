@@ -1,0 +1,29 @@
+{
+  "total": 1,
+  "offset": 0,
+  "next": 1,
+  "data": [
+    {
+      "paperId": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+      "externalIds": {
+        "DOI": "10.1016/j.celrep.2021.108709",
+        "PubMed": "33577785"
+      },
+      "title": "CRISPR-Cas9 gene editing for sickle cell disease and beta-thalassaemia",
+      "abstract": "CRISPR-Cas9 can edit haematopoietic stem cells to reactivate foetal haemoglobin.",
+      "year": 2021,
+      "publicationDate": "2021-01-21",
+      "authors": [
+        {"authorId": "1234567", "name": "Jennifer Doudna"},
+        {"authorId": "2345678", "name": "Emmanuelle Charpentier"}
+      ],
+      "journal": {"name": "New England Journal of Medicine"},
+      "venue": "New England Journal of Medicine",
+      "openAccessPdf": {"url": "https://example.com/paper.pdf", "status": "HYBRID"},
+      "fieldsOfStudy": ["Medicine", "Biology"],
+      "publicationTypes": ["JournalArticle", "ClinicalTrial"],
+      "citationCount": 512,
+      "isOpenAccess": true
+    }
+  ]
+}

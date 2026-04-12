@@ -1,0 +1,44 @@
+{
+  "id": "12345678",
+  "source": "MED",
+  "pmid": "12345678",
+  "doi": "10.1000/example.2020.001",
+  "title": "ORCID author article example",
+  "authorList": {
+    "author": [
+      {
+        "lastName": "Chen",
+        "firstName": "Wei",
+        "affiliation": "Peking University",
+        "authorId": { "type": "ORCID", "value": "0000-0002-1234-5678" }
+      },
+      {
+        "lastName": "Patel",
+        "firstName": "Priya",
+        "affiliation": "Imperial College London"
+      }
+    ]
+  },
+  "journalInfo": {
+    "journal": { "title": "Nature" }
+  },
+  "pubYear": "2020",
+  "firstPublicationDate": "2020-03-15",
+  "abstractText": "A study on ORCID author identification.",
+  "keywordList": { "keyword": ["ORCID", "authorship"] },
+  "meshHeadingList": {
+    "meshHeading": [
+      { "descriptorName": "Bibliometrics" }
+    ]
+  },
+  "pubTypeList": { "pubType": "Journal Article" },
+  "isOpenAccess": "N",
+  "inEPMC": "Y",
+  "citedByCount": 5,
+  "fullTextUrlList": {
+    "fullTextUrl": [
+      { "url": "https://doi.org/10.1000/example.2020.001", "documentStyle": "doi" },
+      { "url": "https://example.org/article.pdf", "documentStyle": "pdf" }
+    ]
+  }
+}

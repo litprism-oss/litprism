@@ -1,0 +1,42 @@
+{
+  "version": "6.9",
+  "hitCount": 2,
+  "nextCursorMark": "AoE=",
+  "request": {
+    "query": "cancer immunotherapy",
+    "resultType": "core",
+    "cursorMark": "AoE=",
+    "pageSize": 1,
+    "sort": "",
+    "synonym": false
+  },
+  "resultList": {
+    "result": [
+      {
+        "id": "99887766",
+        "source": "MED",
+        "pmid": "99887766",
+        "doi": "10.1000/example.2022.002",
+        "title": "CAR-T cell therapy outcomes in solid tumours",
+        "authorList": {
+          "author": [
+            { "lastName": "Lee", "firstName": "Alice" }
+          ]
+        },
+        "journalInfo": {
+          "journal": { "title": "Nature Medicine" }
+        },
+        "pubYear": "2022",
+        "firstPublicationDate": "2022-05-20",
+        "abstractText": "CAR-T cell therapy shows promise in solid tumour models.",
+        "keywordList": { "keyword": ["CAR-T", "immunotherapy"] },
+        "meshHeadingList": { "meshHeading": [] },
+        "pubTypeList": { "pubType": ["Journal Article"] },
+        "isOpenAccess": "N",
+        "inEPMC": "Y",
+        "citedByCount": 15,
+        "fullTextUrlList": { "fullTextUrl": [] }
+      }
+    ]
+  }
+}

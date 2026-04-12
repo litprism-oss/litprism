@@ -1,0 +1,54 @@
+{
+  "version": "6.9",
+  "hitCount": 1,
+  "nextCursorMark": "AoE=",
+  "request": {
+    "query": "probiotic Crohn disease",
+    "resultType": "core",
+    "cursorMark": "*",
+    "pageSize": 1000,
+    "sort": "",
+    "synonym": false
+  },
+  "resultList": {
+    "result": [
+      {
+        "id": "33577785",
+        "source": "MED",
+        "pmid": "33577785",
+        "doi": "10.1016/j.celrep.2021.108709",
+        "title": "Probiotic supplementation in Crohn disease: a randomised trial",
+        "authorList": {
+          "author": [
+            { "lastName": "Smith", "firstName": "Jane", "affiliation": "University of Example" },
+            { "lastName": "Jones", "firstName": "Bob" }
+          ]
+        },
+        "journalInfo": {
+          "journal": { "title": "Cell Reports" }
+        },
+        "pubYear": "2021",
+        "firstPublicationDate": "2021-02-11",
+        "abstractText": "Background: Crohn disease is a chronic inflammatory condition. Methods: We conducted a RCT. Results: Probiotics improved outcomes. Conclusion: Supplementation is beneficial.",
+        "keywordList": { "keyword": ["probiotic", "Crohn disease", "microbiome"] },
+        "meshHeadingList": {
+          "meshHeading": [
+            { "descriptorName": "Crohn Disease" },
+            { "descriptorName": "Probiotics" }
+          ]
+        },
+        "pubTypeList": {
+          "pubType": ["Journal Article", "Randomized Controlled Trial"]
+        },
+        "isOpenAccess": "Y",
+        "inEPMC": "Y",
+        "citedByCount": 42,
+        "fullTextUrlList": {
+          "fullTextUrl": [
+            { "url": "https://doi.org/10.1016/j.celrep.2021.108709", "documentStyle": "html" }
+          ]
+        }
+      }
+    ]
+  }
+}

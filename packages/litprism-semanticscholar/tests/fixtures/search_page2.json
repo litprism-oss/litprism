@@ -1,0 +1,27 @@
+{
+  "total": 2,
+  "offset": 1,
+  "data": [
+    {
+      "paperId": "b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3",
+      "externalIds": {
+        "DOI": "10.1038/s41591-020-01200-2",
+        "PubMed": "33398198"
+      },
+      "title": "Immunotherapy for non-small-cell lung cancer: a systematic review",
+      "abstract": "Immune checkpoint inhibitors improve survival in NSCLC.",
+      "year": 2020,
+      "publicationDate": "2020-12-30",
+      "authors": [
+        {"authorId": "3456789", "name": "Alice Wang"}
+      ],
+      "journal": {"name": "Nature Medicine"},
+      "venue": "Nature Medicine",
+      "openAccessPdf": null,
+      "fieldsOfStudy": ["Medicine"],
+      "publicationTypes": ["Review"],
+      "citationCount": 89,
+      "isOpenAccess": false
+    }
+  ]
+}

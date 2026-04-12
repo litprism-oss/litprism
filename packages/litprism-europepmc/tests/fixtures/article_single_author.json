@@ -1,0 +1,24 @@
+{
+  "id": "99000001",
+  "source": "PPR",
+  "pmid": null,
+  "doi": "10.1000/preprint.001",
+  "title": "Single-author preprint with minimal metadata",
+  "authorList": {
+    "author": {
+      "lastName": "Tanaka",
+      "firstName": "Hiroshi"
+    }
+  },
+  "journalInfo": {},
+  "pubYear": "2023",
+  "firstPublicationDate": "2023",
+  "abstractText": null,
+  "keywordList": {},
+  "meshHeadingList": {},
+  "pubTypeList": { "pubType": "Preprint" },
+  "isOpenAccess": "Y",
+  "inEPMC": "N",
+  "citedByCount": 0,
+  "fullTextUrlList": {}
+}

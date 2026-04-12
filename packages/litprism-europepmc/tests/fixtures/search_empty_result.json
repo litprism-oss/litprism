@@ -1,0 +1,16 @@
+{
+  "version": "6.9",
+  "hitCount": 0,
+  "nextCursorMark": "*",
+  "request": {
+    "query": "unlikely_query_xyz",
+    "resultType": "core",
+    "cursorMark": "*",
+    "pageSize": 1000,
+    "sort": "",
+    "synonym": false
+  },
+  "resultList": {
+    "result": []
+  }
+}
