@@ -1,0 +1,30 @@
+{
+  "confidence": 0.95,
+  "reasoning": "All inclusion criteria confirmed. No exclusion criteria triggered.",
+  "criteria_hits": [
+    {
+      "criterion": "Randomised controlled trial",
+      "criterion_type": "inclusion",
+      "assessment": "confirmed",
+      "supporting_quote": "randomised controlled trial",
+      "quote_location": "abstract",
+      "unassessable_reason": null
+    },
+    {
+      "criterion": "Adult participants (≥18 years)",
+      "criterion_type": "inclusion",
+      "assessment": "confirmed",
+      "supporting_quote": "adult participants aged 18 years and over",
+      "quote_location": "abstract",
+      "unassessable_reason": null
+    },
+    {
+      "criterion": "Animal or in vitro study",
+      "criterion_type": "exclusion",
+      "assessment": "refuted",
+      "supporting_quote": "adult participants aged 18 years and over with confirmed Crohn's disease",
+      "quote_location": "abstract",
+      "unassessable_reason": null
+    }
+  ]
+}

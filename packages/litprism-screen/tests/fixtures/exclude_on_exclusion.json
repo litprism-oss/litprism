@@ -1,0 +1,22 @@
+{
+  "confidence": 0.98,
+  "reasoning": "Animal study — exclusion criterion triggered immediately.",
+  "criteria_hits": [
+    {
+      "criterion": "Adult participants (≥18 years)",
+      "criterion_type": "inclusion",
+      "assessment": "unassessable",
+      "supporting_quote": null,
+      "quote_location": null,
+      "unassessable_reason": "population not stated"
+    },
+    {
+      "criterion": "Animal or in vitro study",
+      "criterion_type": "exclusion",
+      "assessment": "confirmed",
+      "supporting_quote": "DSS-induced colitis in mice",
+      "quote_location": "abstract",
+      "unassessable_reason": null
+    }
+  ]
+}

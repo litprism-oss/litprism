@@ -20,14 +20,13 @@ class AzureOpenAIConfig(BaseModel):
     api_key: str
     azure_endpoint: str
     azure_deployment: str
-    api_version: str = "2024-02-01"
-    model: str = "azure/gpt-4o"
+    api_version: str = "2026-03-17"
 
 
 class OllamaConfig(BaseModel):
     provider: Literal["ollama"] = "ollama"
     base_url: str = "http://localhost:11434"
-    model: str = "llama3.1"
+    model: str = "llama3.2"
 
 
 LLMConfig = OpenAIConfig | AzureOpenAIConfig | OllamaConfig
@@ -111,14 +110,13 @@ def from_env() -> LLMConfig:
             api_key=api_key,
             azure_endpoint=azure_endpoint,
             azure_deployment=azure_deployment,
-            api_version=os.environ.get("AZURE_API_VERSION", "2024-02-01"),
-            model=os.environ.get("LLM_MODEL", "azure/gpt-4o"),
+            api_version=os.environ.get("AZURE_API_VERSION", "2026-03-17"),
         )
 
     if provider == "ollama":
         return OllamaConfig(
             base_url=os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434"),
-            model=os.environ.get("LLM_MODEL", "llama3.1"),
+            model=os.environ.get("LLM_MODEL", "llama3.2"),
         )
 
     raise ValueError(f"Unknown LLM_PROVIDER {provider!r}. Must be one of: openai, azure, ollama")
