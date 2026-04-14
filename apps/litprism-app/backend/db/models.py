@@ -69,6 +69,7 @@ class SearchRun(Base):
     project_id: Mapped[str] = mapped_column(
         String, ForeignKey("projects.id", ondelete="CASCADE"), nullable=False
     )
+    review_type: Mapped[str] = mapped_column(String, nullable=False)
     query_natural: Mapped[str | None] = mapped_column(Text, nullable=True)
     query_generated: Mapped[str | None] = mapped_column(Text, nullable=True)
     query_final: Mapped[str | None] = mapped_column(Text, nullable=True)
