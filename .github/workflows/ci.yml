@@ -17,6 +17,7 @@ jobs:
           - litprism-pubmed
           - litprism-europepmc
           - litprism-semanticscholar
+          - litprism-screen
 
     steps:
       - uses: actions/checkout@v4
