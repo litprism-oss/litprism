@@ -26,7 +26,7 @@ class AzureOpenAIConfig(BaseModel):
 class OllamaConfig(BaseModel):
     provider: Literal["ollama"] = "ollama"
     base_url: str = "http://localhost:11434"
-    model: str = "llama3.2"
+    model: str = "qwen2.5:7b"
 
 
 LLMConfig = OpenAIConfig | AzureOpenAIConfig | OllamaConfig

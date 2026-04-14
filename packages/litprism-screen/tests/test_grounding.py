@@ -2,7 +2,12 @@
 
 from pathlib import Path
 
-from litprism.screen.grounding import _LLMResponse, derive_decision, validate_and_build
+from litprism.screen.grounding import (
+    _extract_json,
+    _LLMResponse,
+    derive_decision,
+    validate_and_build,
+)
 from litprism.screen.models import CriteriaAssessment, CriteriaHit
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -202,6 +207,24 @@ def test_uncertain_fixture():
         abstract="We recruited human subjects with inflammatory bowel disease.",
     )
     assert derive_decision(hits) == "uncertain"
+
+
+def test_extract_json_clean_passthrough():
+    """Clean JSON object passes through unchanged."""
+    raw = '{"confidence": 0.9, "reasoning": "test", "criteria_hits": []}'
+    assert _extract_json(raw) == raw
+
+
+def test_extract_json_strips_markdown_fences():
+    """JSON wrapped in ```json ... ``` fences is extracted correctly."""
+    raw = '```json\n{"confidence": 0.9, "reasoning": "test", "criteria_hits": []}\n```'
+    assert _extract_json(raw) == '{"confidence": 0.9, "reasoning": "test", "criteria_hits": []}'
+
+
+def test_extract_json_strips_preamble_prose():
+    """Preamble prose before JSON block is stripped, JSON extracted correctly."""
+    raw = 'Here is the result:\n{"confidence": 0.9, "reasoning": "test", "criteria_hits": []}'
+    assert _extract_json(raw) == '{"confidence": 0.9, "reasoning": "test", "criteria_hits": []}'
 
 
 def test_exclude_on_refuted_inclusion_fixture():

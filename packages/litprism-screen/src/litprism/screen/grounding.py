@@ -65,6 +65,33 @@ def derive_decision(
     return "include"
 
 
+def _extract_json(raw: str) -> str:
+    """
+    Extract the first complete JSON object from LLM output.
+
+    Handles common local model formatting issues:
+      - Markdown code fences: ```json ... ``` or ``` ... ```
+      - Preamble prose before the JSON block
+      - Trailing text or explanation after the closing brace
+
+    Raises ValueError if no JSON object is found.
+    """
+    import re
+
+    # Strip markdown code fences first
+    raw = re.sub(r"```(?:json)?\s*", "", raw)
+    raw = raw.replace("```", "").strip()
+
+    # Find outermost { ... } block
+    start = raw.find("{")
+    end = raw.rfind("}")
+
+    if start == -1 or end == -1 or end < start:
+        raise ValueError(f"No JSON object found in LLM output. First 200 chars: {raw[:200]!r}")
+
+    return raw[start : end + 1]
+
+
 def validate_and_build(
     llm_response: _LLMResponse,
     title: str,
