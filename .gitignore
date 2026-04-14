@@ -1,6 +1,9 @@
 # Local spec and dev docs (never commit)
 docs/litprism-spec-*.md
 docs/litprism-dev-guide.md
+docs/litprism-session7.1-foundation.md
+docs/litprism-session7.2-search-pipeline.md
+docs/litprism-session7.3-screening-pipeline.md
 
 # Environment variables
 .env
