@@ -6,7 +6,12 @@ from typing import Literal
 
 from litprism.screen.criteria import Criteria
 from litprism.screen.exceptions import ScreeningError
-from litprism.screen.grounding import _LLMResponse, derive_decision, validate_and_build
+from litprism.screen.grounding import (
+    _extract_json,
+    _LLMResponse,
+    derive_decision,
+    validate_and_build,
+)
 from litprism.screen.llm import AzureOpenAIConfig, LLMConfig, call_llm
 from litprism.screen.llm import from_env as _llm_from_env
 from litprism.screen.models import ScreenableArticle, ScreeningResult
@@ -58,7 +63,7 @@ class Screener:
                     call_llm(self._config, prompt),
                     timeout=60.0,  # belt-and-suspenders: call_llm has its own per-attempt
                 )  # timeout, but this guards against any hang in between
-                llm_response = _LLMResponse.model_validate_json(raw)
+                llm_response = _LLMResponse.model_validate_json(_extract_json(raw))
                 hits = validate_and_build(llm_response, article.title, article.abstract)
                 decision = derive_decision(hits)
                 return ScreeningResult(

@@ -281,7 +281,7 @@ and any litellm-compatible endpoint.
 # OpenAI (recommended default)
 LLM_PROVIDER=openai
 OPENAI_API_KEY=sk-...
-LLM_MODEL=gpt-4o-mini         # best cost/accuracy ratio for abstract screening
+LLM_MODEL=gpt-5.4-mini        # verified: passes all integration tests
 
 # Azure OpenAI
 LLM_PROVIDER=azure
@@ -293,26 +293,49 @@ AZURE_DEPLOYMENT_NAME=gpt-4o
 # Local (Ollama — no API cost, requires local GPU)
 LLM_PROVIDER=ollama
 OLLAMA_BASE_URL=http://localhost:11434
-LLM_MODEL=llama3.1
+LLM_MODEL=qwen2.5:7b          # recommended local option — see Tested models below
 ```
+
+### Tested models
+
+Models are listed as verified once they pass all three integration tests
+(`test_live_include`, `test_live_exclude_on_exclusion`, `test_live_uncertain`).
+Benchmarks are on Apple M4 24GB unified memory.
+
+| Model | Provider | Integration tests | tok/s (M4 24GB) | Notes |
+|---|---|---|---|---|
+| `gpt-5.4-mini` | OpenAI | ✅ 3/3 | API | Recommended default. 400k context, strong JSON adherence |
+| `qwen2.5:7b` | Ollama | ✅ 3/3 | 12.3 | Recommended local. Best reliability/speed on M4 |
+| `qwen2.5:14b` | Ollama | ✅ 3/3 | 21.9 | Good local quality. Requires `_extract_json` fallback for occasional preamble |
+| `llama3.3:70b` | Ollama | ⏳ not yet run | — | Best local quality — 48GB RAM required |
+| `llama3.2` | Ollama | ❌ 0/3 | — | Not supported — too small for three-state assessment |
+
+Models below ~7B parameters generally lack the instruction-following reliability
+needed for three-state criterion assessment. `llama3.2` (3B) is explicitly
+not supported.
+
+If you test a model not listed here, open a PR updating this table.
 
 ### Estimated cost (OpenAI)
 
-The following estimates apply to abstract screening with `gpt-4o-mini`,
-assuming an average abstract of ~250 words and 4 criteria (2 inclusion,
-2 exclusion). Actual costs vary with abstract length and number of criteria.
+The following estimates apply to abstract screening with `gpt-5.4-mini`
+($0.75/1M input tokens, $4.50/1M output tokens), assuming an average
+abstract of ~250 words and 4 criteria (2 inclusion, 2 exclusion).
+Actual costs vary with abstract length and number of criteria.
 
 | Articles screened | Estimated cost |
 |---|---|
-| 100 | ~$0.05 |
-| 500 | ~$0.25 |
-| 1,000 | ~$0.50 |
-| 5,000 | ~$2.50 |
-| 10,000 | ~$5.00 |
+| 100 | ~$0.15 |
+| 500 | ~$0.75 |
+| 1,000 | ~$1.50 |
+| 5,000 | ~$7.50 |
+| 10,000 | ~$15.00 |
 
-`gpt-4o-mini` is recommended for abstract screening: studies report
-≥95% sensitivity at a fraction of GPT-4 cost [7, 8]. Sensitivity —
-not missing relevant studies — is the critical metric at this stage.
+`gpt-5.4-mini` is recommended for abstract screening: strong reasoning
+and JSON reliability at significantly lower cost than the flagship model.
+Sensitivity — not missing relevant studies — is the critical metric at
+this stage, and smaller models in the GPT-5 family retain the instruction-
+following quality needed for the three-state assessment.
 
 For Stage 2 (full-text), costs are 5–15× higher per article due to
 longer inputs. Most reviews send 50–200 articles to full-text screening,
