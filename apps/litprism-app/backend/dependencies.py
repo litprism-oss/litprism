@@ -3,8 +3,7 @@ from collections.abc import AsyncIterator
 from config import Settings, settings
 from db.engine import get_db as _get_db
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from main import ConnectionManager, ws_manager
+from ws import ConnectionManager, ws_manager
 
 
 async def get_db() -> AsyncIterator[AsyncSession]:

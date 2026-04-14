@@ -1,7 +1,13 @@
+from datetime import UTC, datetime
+from unittest.mock import AsyncMock, patch
+
+import pytest
 import pytest_asyncio
 from db.engine import get_db
 from db.models import Base
 from httpx import ASGITransport, AsyncClient
+from litprism.pubmed.models import Article as PubMedArticle
+from litprism.screen.models import ScreeningResult
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
 from main import app
@@ -48,3 +54,62 @@ async def criteria_id(client, project_id):
         },
     )
     return resp.json()["id"]
+
+
+# ---------------------------------------------------------------------------
+# Session 7.2 fixtures
+# ---------------------------------------------------------------------------
+
+
+@pytest.fixture
+def fake_articles():
+    """Three minimal PubMedArticle objects for mocking search results."""
+    return [PubMedArticle(id=f"pmid_{i}", title=f"Article {i}", source="pubmed") for i in range(3)]
+
+
+@pytest.fixture
+def mock_pubmed_client(fake_articles):
+    """AsyncPubMedClient whose search_iter yields one batch of 3 articles."""
+
+    async def _iter(*args, **kwargs):
+        yield fake_articles
+
+    client = AsyncMock()
+    client.search_iter = _iter
+    return client
+
+
+@pytest.fixture
+def mock_pipeline():
+    """Patches run_search to do nothing — prevents real HTTP calls in route tests."""
+    with patch("api.search.run_search", new_callable=AsyncMock) as m:
+        yield m
+
+
+@pytest.fixture
+def mock_screener():
+    """Patches Screener.from_env to return an AsyncMock screener."""
+    fake_result = ScreeningResult(
+        article_id="temp_1",
+        decision="include",
+        confidence=0.95,
+        reasoning="Clearly meets all criteria.",
+        criteria_hits=[],
+        stage="abstract",
+        model_used="gpt-5.4-mini",
+        llm_provider="openai",
+        screened_at=datetime.now(UTC),
+    )
+
+    async def _batch(articles, criteria, stage="abstract"):
+        results = [
+            ScreeningResult(**{**fake_result.model_dump(), "article_id": a.id}) for a in articles
+        ]
+        return results, []
+
+    screener = AsyncMock()
+    screener.ascreen_batch = _batch
+
+    with patch("api.screening.Screener") as MockScreener:
+        MockScreener.from_env.return_value = screener
+        yield screener

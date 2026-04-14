@@ -1,5 +1,4 @@
 from contextlib import asynccontextmanager
-from typing import Any
 
 from api.chat import router as chat_router
 from api.criteria import router as criteria_router
@@ -10,27 +9,8 @@ from api.search import router as search_router
 from api.upload import router as upload_router
 from db.engine import engine
 from db.models import Base
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-
-class ConnectionManager:
-    def __init__(self) -> None:
-        self.active_connections: list[WebSocket] = []
-
-    async def connect(self, websocket: WebSocket) -> None:
-        await websocket.accept()
-        self.active_connections.append(websocket)
-
-    def disconnect(self, websocket: WebSocket) -> None:
-        self.active_connections.remove(websocket)
-
-    async def broadcast(self, message: Any) -> None:
-        for connection in self.active_connections:
-            await connection.send_json(message)
-
-
-ws_manager = ConnectionManager()
 
 
 @asynccontextmanager
