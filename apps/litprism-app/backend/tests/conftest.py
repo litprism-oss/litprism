@@ -113,3 +113,10 @@ def mock_screener():
     with patch("api.screening.Screener") as MockScreener:
         MockScreener.from_env.return_value = screener
         yield screener
+
+
+@pytest.fixture
+def mock_coordinator():
+    """Patches screen_coordinator.delay to do nothing — prevents real Celery dispatch."""
+    with patch("api.screening.screen_coordinator.delay") as m:
+        yield m

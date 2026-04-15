@@ -1,3 +1,8 @@
+import uuid
+from datetime import UTC, datetime
+
+from db.models import Article, ScreeningResult
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
@@ -5,13 +10,26 @@ async def get_unscreened_articles(
     project_id: str,
     criteria_id: str,
     db: AsyncSession,
-) -> list:
+) -> list[Article]:
     """
     Returns Article rows with no ScreeningResult for the given criteria_id.
     Identical for fresh runs and resumes — the DB is the source of truth.
-    Implemented in Session 7.3.
     """
-    raise NotImplementedError
+    stmt = (
+        select(Article)
+        .where(Article.project_id == project_id)
+        .where(
+            ~(
+                select(ScreeningResult.id)
+                .where(ScreeningResult.article_id == Article.id)
+                .where(ScreeningResult.criteria_id == criteria_id)
+                .correlate(Article)
+                .exists()
+            )
+        )
+        .order_by(Article.created_at)
+    )
+    return list((await db.scalars(stmt)).all())
 
 
 async def write_tombstone(
@@ -22,8 +40,23 @@ async def write_tombstone(
     db: AsyncSession,
 ) -> None:
     """
-    Writes a ScreeningResult with decision="uncertain", confidence=0.0,
-    reasoning=f"Screening failed: {cause}". Marks the article as handled
-    so it is never re-queued on resume. Implemented in Session 7.3.
+    Writes a ScreeningResult tombstone for a persistently failing article.
+    decision="uncertain", confidence=0.0. Marks the article as handled
+    so it is never re-queued on resume.
     """
-    raise NotImplementedError
+    tombstone = ScreeningResult(
+        id=str(uuid.uuid4()),
+        article_id=article_id,
+        project_id=project_id,
+        criteria_id=criteria_id,
+        stage="abstract",
+        decision="uncertain",
+        confidence=0.0,
+        reasoning=f"Screening failed: {cause}",
+        criteria_hits=[],
+        model_used="error",
+        llm_provider="error",
+        screened_at=datetime.now(UTC),
+    )
+    db.add(tombstone)
+    await db.commit()
