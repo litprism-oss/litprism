@@ -172,15 +172,16 @@ class DeduplicationLog(Base):
         String, ForeignKey("projects.id", ondelete="CASCADE"), nullable=False
     )
     kept_article_id: Mapped[str] = mapped_column(String, ForeignKey("articles.id"), nullable=False)
-    duplicate_article_id: Mapped[str] = mapped_column(
-        String, ForeignKey("articles.id"), nullable=False
+    duplicate_article_id: Mapped[str | None] = mapped_column(
+        String, ForeignKey("articles.id"), nullable=True
     )
+    duplicate_title: Mapped[str | None] = mapped_column(Text, nullable=True)
     match_type: Mapped[str] = mapped_column(String, nullable=False)
     similarity_score: Mapped[float | None] = mapped_column(Float, nullable=True)
 
     project: Mapped["Project"] = relationship(back_populates="deduplication_logs")
     kept_article: Mapped["Article"] = relationship(foreign_keys=[kept_article_id])
-    duplicate_article: Mapped["Article"] = relationship(foreign_keys=[duplicate_article_id])
+    duplicate_article: Mapped["Article | None"] = relationship(foreign_keys=[duplicate_article_id])
 
 
 class Criteria(Base):
