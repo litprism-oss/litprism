@@ -213,3 +213,27 @@ class ScreeningRunOut(BaseModel):
     completed_at: datetime | None
     resumed_at: datetime | None
     model_config = ConfigDict(from_attributes=True)
+
+
+# ---------------------------------------------------------------------------
+# Upload (Session 8)
+# ---------------------------------------------------------------------------
+
+
+class UploadResponseOut(BaseModel):
+    upload_id: str
+    filename: str
+    format: str
+    total_parsed: int
+    new_articles: int
+    duplicates_found: int
+    project_id: str
+
+
+class UploadRecordOut(BaseModel):
+    id: str
+    filename: str
+    format: str
+    uploaded_at: datetime
+    record_count: int
+    model_config = ConfigDict(from_attributes=True)

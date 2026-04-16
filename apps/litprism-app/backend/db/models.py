@@ -113,8 +113,8 @@ class UploadRecord(Base):
     __tablename__ = "upload_records"
 
     id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
-    search_run_id: Mapped[str] = mapped_column(
-        String, ForeignKey("search_runs.id", ondelete="CASCADE"), nullable=False
+    search_run_id: Mapped[str | None] = mapped_column(
+        String, ForeignKey("search_runs.id", ondelete="SET NULL"), nullable=True
     )
     project_id: Mapped[str] = mapped_column(
         String, ForeignKey("projects.id", ondelete="CASCADE"), nullable=False
@@ -127,7 +127,7 @@ class UploadRecord(Base):
     record_count: Mapped[int] = mapped_column(Integer, nullable=False)
 
     project: Mapped["Project"] = relationship(back_populates="upload_records")
-    search_run: Mapped["SearchRun"] = relationship(back_populates="upload_records")
+    search_run: Mapped["SearchRun | None"] = relationship(back_populates="upload_records")
 
 
 class Article(Base):
