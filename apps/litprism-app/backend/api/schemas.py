@@ -198,6 +198,11 @@ class ScreeningRunCreate(BaseModel):
     chunk_size: int = 50
 
 
+class ScreeningRunUpdate(BaseModel):
+    reviewer_name: str | None = None
+    review_notes: str | None = None
+
+
 class ScreeningRunOut(BaseModel):
     id: str
     project_id: str
@@ -212,6 +217,8 @@ class ScreeningRunOut(BaseModel):
     started_at: datetime | None
     completed_at: datetime | None
     resumed_at: datetime | None
+    reviewer_name: str | None
+    review_notes: str | None
     model_config = ConfigDict(from_attributes=True)
 
 
@@ -230,10 +237,43 @@ class UploadResponseOut(BaseModel):
     project_id: str
 
 
+class UploadMetadata(BaseModel):
+    source_label: str | None = None
+    search_strategy_used: str | None = None
+    limits_applied: str | None = None
+
+
 class UploadRecordOut(BaseModel):
     id: str
     filename: str
     format: str
     uploaded_at: datetime
     record_count: int
+    source_label: str | None
+    search_strategy_used: str | None
+    limits_applied: str | None
     model_config = ConfigDict(from_attributes=True)
+
+
+# ---------------------------------------------------------------------------
+# Search preview (Session 8.1)
+# ---------------------------------------------------------------------------
+
+
+class SearchPreviewRequest(BaseModel):
+    query_final: str
+    filters: dict | None = None
+    sources: list[str] = ["pubmed", "europepmc", "semanticscholar"]
+
+
+class SearchPreviewSource(BaseModel):
+    source: str
+    estimated_count: int
+    sample_titles: list[str]
+    error: str | None = None
+
+
+class SearchPreviewResponse(BaseModel):
+    total_estimated: int
+    sources: list[SearchPreviewSource]
+    query_translations: dict[str, str]

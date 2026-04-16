@@ -6,6 +6,7 @@ from db.models import Article, Project, UploadRecord
 from fastapi import (  # noqa: F401 (Depends used via Annotated)
     APIRouter,
     Depends,
+    Form,
     HTTPException,
     UploadFile,
 )
@@ -52,6 +53,9 @@ async def upload_references(
     project_id: str,
     file: UploadFile,
     db: DB,
+    source_label: str | None = Form(None),
+    search_strategy_used: str | None = Form(None),
+    limits_applied: str | None = Form(None),
 ) -> UploadResponseOut:
     # 1. Load project (404 if not found)
     project = await db.get(Project, project_id)
@@ -140,6 +144,9 @@ async def upload_references(
         filename=filename,
         format=fmt,
         record_count=len(parsed),
+        source_label=source_label,
+        search_strategy_used=search_strategy_used,
+        limits_applied=limits_applied,
     )
     db.add(upload_record)
 

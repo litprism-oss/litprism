@@ -19,6 +19,7 @@ from api.schemas import (
     ScreeningPreviewResult,
     ScreeningRunCreate,
     ScreeningRunOut,
+    ScreeningRunUpdate,
 )
 
 router = APIRouter(prefix="/projects", tags=["screening"])
@@ -216,6 +217,22 @@ async def resume_screening_run(
     run.resumed_at = datetime.now(UTC)
     await db.commit()
     screen_coordinator.delay(run.id)
+    return run
+
+
+@router.patch("/{project_id}/screening/runs/{run_id}", response_model=ScreeningRunOut)
+async def update_screening_run(
+    project_id: str,
+    run_id: str,
+    body: ScreeningRunUpdate,
+    db: DB,
+) -> ScreeningRunOut:
+    run = await db.get(ScreeningRun, run_id)
+    if run is None or run.project_id != project_id:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Screening run not found")
+    for field, value in body.model_dump(exclude_unset=True).items():
+        setattr(run, field, value)
+    await db.commit()
     return run
 
 

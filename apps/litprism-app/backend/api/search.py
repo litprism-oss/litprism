@@ -1,7 +1,10 @@
+import asyncio
 import uuid
 from datetime import UTC, datetime
-from typing import Annotated
+from typing import Annotated, Any
 
+import httpx
+from config import settings
 from db.engine import AsyncSessionLocal, get_db
 from db.models import Article, Project, SearchRun
 from dependencies import get_ws_manager
@@ -14,13 +17,24 @@ from fastapi import (
     WebSocketDisconnect,
     status,
 )
+from litprism.pubmed.parser import parse_xml
 from services.pipeline import run_search
+from services.query_translator import QueryTranslator
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 from ws import ConnectionManager
 
-from api.schemas import ArticleListOut, ArticleOut, SearchRunCreate, SearchRunOut, SearchRunUpdate
+from api.schemas import (
+    ArticleListOut,
+    ArticleOut,
+    SearchPreviewRequest,
+    SearchPreviewResponse,
+    SearchPreviewSource,
+    SearchRunCreate,
+    SearchRunOut,
+    SearchRunUpdate,
+)
 
 router = APIRouter(tags=["search"])
 
@@ -52,6 +66,176 @@ async def _run_search_task(
     """Background task wrapper — opens its own DB session."""
     async with AsyncSessionLocal() as db:
         await run_search(project_id, search_run_id, db, ws_manager)
+
+
+# ---------------------------------------------------------------------------
+# Search preview helpers (stateless — no DB writes)
+# ---------------------------------------------------------------------------
+
+_PUBMED_ESEARCH = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
+_PUBMED_EFETCH = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
+_EUROPEPMC_SEARCH = "https://www.ebi.ac.uk/europepmc/webservices/rest/search"
+_S2_SEARCH = "https://api.semanticscholar.org/graph/v1/paper/search"
+
+
+async def _preview_pubmed(query: str, api_key: str | None) -> SearchPreviewSource:
+    """esearch (count + PMIDs) then efetch (titles) — two calls."""
+    try:
+        base: dict[str, Any] = {"db": "pubmed", "retmode": "json"}
+        if api_key:
+            base["api_key"] = api_key
+
+        async with httpx.AsyncClient() as client:
+            r = await client.get(
+                _PUBMED_ESEARCH,
+                params={**base, "term": query, "retmax": 10},
+                timeout=15.0,
+            )
+            r.raise_for_status()
+            esearch = r.json().get("esearchresult", {})
+            count = int(esearch.get("count", 0))
+            pmids: list[str] = esearch.get("idlist", [])[:10]
+
+            if not pmids:
+                return SearchPreviewSource(source="pubmed", estimated_count=count, sample_titles=[])
+
+            r2 = await client.get(
+                _PUBMED_EFETCH,
+                params={**base, "rettype": "xml", "retmode": "xml", "id": ",".join(pmids)},
+                timeout=15.0,
+            )
+            r2.raise_for_status()
+
+        articles = parse_xml(r2.text)
+        return SearchPreviewSource(
+            source="pubmed",
+            estimated_count=count,
+            sample_titles=[a.title for a in articles[:10]],
+        )
+    except Exception as exc:
+        return SearchPreviewSource(
+            source="pubmed", estimated_count=0, sample_titles=[], error=str(exc)
+        )
+
+
+async def _preview_europepmc(query: str) -> SearchPreviewSource:
+    """Single search call — hitCount + first 10 titles."""
+    try:
+        async with httpx.AsyncClient() as client:
+            r = await client.get(
+                _EUROPEPMC_SEARCH,
+                params={
+                    "query": query,
+                    "pageSize": 10,
+                    "cursorMark": "*",
+                    "format": "json",
+                    "resultType": "core",
+                    "synonym": "true",
+                },
+                timeout=15.0,
+            )
+            r.raise_for_status()
+            data = r.json()
+
+        count: int = data.get("hitCount", 0)
+        results: list[dict[str, Any]] = data.get("resultList", {}).get("result", [])
+        titles = [item.get("title") or "" for item in results]
+        return SearchPreviewSource(source="europepmc", estimated_count=count, sample_titles=titles)
+    except Exception as exc:
+        return SearchPreviewSource(
+            source="europepmc", estimated_count=0, sample_titles=[], error=str(exc)
+        )
+
+
+async def _preview_semanticscholar(query: str, api_key: str | None) -> SearchPreviewSource:
+    """Single search call — total + first 10 titles."""
+    try:
+        headers: dict[str, str] = {}
+        if api_key:
+            headers["x-api-key"] = api_key
+
+        async with httpx.AsyncClient() as client:
+            r = await client.get(
+                _S2_SEARCH,
+                params={"query": query, "fields": "title", "limit": 10, "offset": 0},
+                headers=headers,
+                timeout=15.0,
+            )
+            r.raise_for_status()
+            data = r.json()
+
+        count = data.get("total", 0)
+        results: list[dict[str, Any]] = data.get("data") or []
+        titles = [p.get("title") or "" for p in results]
+        return SearchPreviewSource(
+            source="semanticscholar", estimated_count=count, sample_titles=titles
+        )
+    except Exception as exc:
+        return SearchPreviewSource(
+            source="semanticscholar", estimated_count=0, sample_titles=[], error=str(exc)
+        )
+
+
+# ---------------------------------------------------------------------------
+# Search preview endpoint
+# ---------------------------------------------------------------------------
+
+
+@router.post(
+    "/projects/{project_id}/search-runs/preview",
+    response_model=SearchPreviewResponse,
+)
+async def preview_search(
+    project_id: str,
+    body: SearchPreviewRequest,
+    db: DB,
+) -> SearchPreviewResponse:
+    """Stateless search preview — no DB writes.
+
+    Translates the query for each requested source, fetches a count and up to
+    10 sample titles from each source concurrently, and returns the aggregated
+    result.  Per-source errors are captured on SearchPreviewSource.error so a
+    single failing source never fails the whole response.
+    """
+    project = await db.get(Project, project_id)
+    if project is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+
+    _translators = {
+        "pubmed": QueryTranslator.to_pubmed,
+        "europepmc": QueryTranslator.to_europepmc,
+        "semanticscholar": QueryTranslator.to_semantic_scholar,
+    }
+
+    query_translations: dict[str, str] = {
+        src: _translators[src](body.query_final) for src in body.sources if src in _translators
+    }
+
+    async def _task_for(source: str) -> SearchPreviewSource:
+        translated = query_translations.get(source, body.query_final)
+        if source == "pubmed":
+            return await _preview_pubmed(translated, settings.pubmed_api_key or None)
+        if source == "europepmc":
+            return await _preview_europepmc(translated)
+        if source == "semanticscholar":
+            return await _preview_semanticscholar(
+                translated, settings.semantic_scholar_api_key or None
+            )
+        return SearchPreviewSource(
+            source=source, estimated_count=0, sample_titles=[], error=f"Unknown source: {source}"
+        )
+
+    source_results: list[SearchPreviewSource] = list(
+        await asyncio.gather(*[_task_for(src) for src in body.sources])
+    )
+
+    total_estimated = sum(r.estimated_count for r in source_results if r.error is None)
+
+    return SearchPreviewResponse(
+        total_estimated=total_estimated,
+        sources=source_results,
+        query_translations=query_translations,
+    )
 
 
 # ---------------------------------------------------------------------------
