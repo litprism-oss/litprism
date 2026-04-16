@@ -7,6 +7,7 @@ docs/litprism-session7.3-screening-pipeline.md
 docs/litprism-session8-upload-dedup-export.md
 .claude/*
 CLAUDE.md
+docs/*.md
 
 # Environment variables
 .env
