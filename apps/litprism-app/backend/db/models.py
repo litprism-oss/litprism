@@ -125,6 +125,9 @@ class UploadRecord(Base):
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )
     record_count: Mapped[int] = mapped_column(Integer, nullable=False)
+    source_label: Mapped[str | None] = mapped_column(Text, nullable=True)
+    search_strategy_used: Mapped[str | None] = mapped_column(Text, nullable=True)
+    limits_applied: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     project: Mapped["Project"] = relationship(back_populates="upload_records")
     search_run: Mapped["SearchRun | None"] = relationship(back_populates="upload_records")
@@ -253,6 +256,8 @@ class ScreeningRun(Base):
     started_at: Mapped[str | None] = mapped_column(DateTime(timezone=True), nullable=True)
     completed_at: Mapped[str | None] = mapped_column(DateTime(timezone=True), nullable=True)
     resumed_at: Mapped[str | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    reviewer_name: Mapped[str | None] = mapped_column(Text, nullable=True)
+    review_notes: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     project: Mapped["Project"] = relationship(back_populates="screening_runs")
     criteria: Mapped["Criteria"] = relationship(back_populates="screening_runs")
