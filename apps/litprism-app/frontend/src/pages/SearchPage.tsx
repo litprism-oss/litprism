@@ -110,7 +110,7 @@ export function SearchPage() {
 
   // Derive the displayed PubMed query
   const draftRun = searchRunsData?.find((r) => r.id === draftRunId)
-  const pubmedQuery = draftRun?.query_generated ?? draftRun?.query_final ?? currentQuery
+  const canonicalQuery = draftRun?.query_generated ?? draftRun?.query_final ?? currentQuery
 
   const handlePreview = useCallback(() => {
     if (!currentQuery.trim()) return
@@ -213,7 +213,7 @@ export function SearchPage() {
         />
       )}
 
-      <QueryPreview query={pubmedQuery} />
+      <QueryPreview canonicalQuery={canonicalQuery} mode={mode} />
 
       <FilterPanel filters={filters} onChange={setFilters} />
       <SourceSelector selected={selectedSources} onChange={setSelectedSources} />
