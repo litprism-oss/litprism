@@ -144,6 +144,10 @@ export function SearchPage() {
     })
   }, [draftRunId, clearEvents, executeSearch])
 
+  const queryFinal = draftRun?.query_final ?? null
+  const hasFieldTags = /\[(tiab|MeSH|ti|ab|pt|la|au)\]/i.test(queryFinal ?? '')
+  const hasRefinedQuery = !!queryFinal && hasFieldTags
+
   const canPreview = !!currentQuery.trim() && pageState !== 'running' && pageState !== 'complete'
   const canExecute = !!draftRunId && !!currentQuery.trim() && pageState !== 'running' && pageState !== 'complete'
 
@@ -242,7 +246,7 @@ export function SearchPage() {
             opacity: canPreview ? 1 : 0.5,
           }}
         >
-          {pageState === 'previewing' ? 'Previewing…' : 'Preview scope'}
+          {pageState === 'previewing' ? 'Previewing…' : hasRefinedQuery ? 'Preview scope' : 'Preview rough scope'}
         </button>
         <button
           onClick={handleExecute}
@@ -265,6 +269,11 @@ export function SearchPage() {
           {executeSearch.isPending ? 'Starting…' : 'Run full search'}
         </button>
       </div>
+      {!hasRefinedQuery && (
+        <p style={{ fontSize: 11, color: 'var(--color-text-tertiary)', marginTop: 4 }}>
+          Based on your search terms — refine the query for a more accurate estimate
+        </p>
+      )}
     </div>
   )
 }
