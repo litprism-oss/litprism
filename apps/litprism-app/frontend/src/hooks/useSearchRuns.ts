@@ -1,26 +1,49 @@
-import type { SearchRunOut } from '@/lib/types'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { api } from '@/lib/api'
+import type { SearchRunCreate, SearchRunUpdate, SearchPreviewRequest } from '@/lib/types'
 
-// Stub — implemented in Session 9.2
-export function useSearchRuns(_projectId: string): { data: SearchRunOut[] | undefined; isLoading: boolean } {
-  return { data: undefined, isLoading: false }
+export function useSearchRuns(projectId: string) {
+  return useQuery({
+    queryKey: ['searchRuns', projectId],
+    queryFn: () => api.searchRuns.list(projectId),
+    enabled: !!projectId,
+  })
 }
 
-export function useSearchRun(_projectId: string, _runId: string): { data: SearchRunOut | undefined; isLoading: boolean } {
-  return { data: undefined, isLoading: false }
+export function useSearchRun(projectId: string, runId: string) {
+  return useQuery({
+    queryKey: ['searchRuns', projectId, runId],
+    queryFn: () => api.searchRuns.get(projectId, runId),
+    enabled: !!projectId && !!runId,
+  })
 }
 
-export function useCreateSearchRun() {
-  return { mutate: () => {}, mutateAsync: async () => {}, isPending: false }
+export function useCreateSearchRun(projectId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (body: SearchRunCreate) => api.searchRuns.create(projectId, body),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['searchRuns', projectId] }),
+  })
 }
 
-export function useUpdateSearchRun() {
-  return { mutate: () => {}, mutateAsync: async () => {}, isPending: false }
+export function useUpdateSearchRun(projectId: string, runId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (body: SearchRunUpdate) => api.searchRuns.update(projectId, runId, body),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['searchRuns', projectId] }),
+  })
 }
 
-export function useExecuteSearch() {
-  return { mutate: () => {}, mutateAsync: async () => {}, isPending: false }
+export function useExecuteSearch(projectId: string, runId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: () => api.searchRuns.execute(projectId, runId),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['searchRuns', projectId] }),
+  })
 }
 
-export function useSearchPreview() {
-  return { mutate: () => {}, mutateAsync: async () => {}, isPending: false }
+export function useSearchPreview(projectId: string) {
+  return useMutation({
+    mutationFn: (body: SearchPreviewRequest) => api.searchRuns.preview(projectId, body),
+  })
 }

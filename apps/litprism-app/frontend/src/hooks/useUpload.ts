@@ -1,10 +1,21 @@
-import type { UploadRecordOut } from '@/lib/types'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { api } from '@/lib/api'
 
-// Stub — implemented in Session 9.2
-export function useUploads(_projectId: string): { data: UploadRecordOut[] | undefined; isLoading: boolean } {
-  return { data: undefined, isLoading: false }
+export function useUploadFile(projectId: string) {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (formData: FormData) => api.upload.upload(projectId, formData),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['uploads', projectId] })
+      qc.invalidateQueries({ queryKey: ['projects', projectId] })
+    },
+  })
 }
 
-export function useUploadFile() {
-  return { mutate: () => {}, mutateAsync: async () => {}, isPending: false }
+export function useUploads(projectId: string) {
+  return useQuery({
+    queryKey: ['uploads', projectId],
+    queryFn: () => api.upload.list(projectId),
+    enabled: !!projectId,
+  })
 }
