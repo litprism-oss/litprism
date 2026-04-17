@@ -65,7 +65,7 @@ export interface SearchRunUpdate {
 }
 
 export interface SearchPreviewRequest {
-  query_natural: string
+  query_final: string
   filters?: Record<string, unknown>
 }
 

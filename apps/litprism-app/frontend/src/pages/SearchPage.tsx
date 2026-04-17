@@ -110,14 +110,14 @@ export function SearchPage() {
 
   // Derive the displayed PubMed query
   const draftRun = searchRunsData?.find((r) => r.id === draftRunId)
-  const pubmedQuery = draftRun?.query_generated ?? draftRun?.query_final ?? currentQuery
+  const canonicalQuery = draftRun?.query_generated ?? draftRun?.query_final ?? (mode === 'freetext' ? currentQuery : '')
 
-  const handlePreview = useCallback(() => {
-    if (!currentQuery.trim()) return
+  const handlePreview = () => {
+    if (!canonicalQuery.trim()) return
     setPageState('previewing')
     setPreviewError(null)
     previewMutation.mutate(
-      { query_natural: currentQuery, filters: filters as Record<string, unknown> },
+      { query_final: canonicalQuery, filters: filters as Record<string, unknown> },
       {
         onSuccess: (data) => {
           setPreviewData(data)
@@ -130,7 +130,7 @@ export function SearchPage() {
         },
       },
     )
-  }, [currentQuery, filters, previewMutation])
+  }
 
   const handleExecute = useCallback(() => {
     if (!draftRunId) return
@@ -143,6 +143,10 @@ export function SearchPage() {
       onError: () => {},
     })
   }, [draftRunId, clearEvents, executeSearch])
+
+  const queryFinal = draftRun?.query_final ?? null
+  const hasFieldTags = /\[(tiab|MeSH|ti|ab|pt|la|au)\]/i.test(queryFinal ?? '')
+  const hasRefinedQuery = !!queryFinal && hasFieldTags
 
   const canPreview = !!currentQuery.trim() && pageState !== 'running' && pageState !== 'complete'
   const canExecute = !!draftRunId && !!currentQuery.trim() && pageState !== 'running' && pageState !== 'complete'
@@ -213,7 +217,7 @@ export function SearchPage() {
         />
       )}
 
-      <QueryPreview query={pubmedQuery} />
+      <QueryPreview canonicalQuery={canonicalQuery} mode={mode} />
 
       <FilterPanel filters={filters} onChange={setFilters} />
       <SourceSelector selected={selectedSources} onChange={setSelectedSources} />
@@ -242,7 +246,7 @@ export function SearchPage() {
             opacity: canPreview ? 1 : 0.5,
           }}
         >
-          {pageState === 'previewing' ? 'Previewing…' : 'Preview scope'}
+          {pageState === 'previewing' ? 'Previewing…' : hasRefinedQuery ? 'Preview scope' : 'Preview rough scope'}
         </button>
         <button
           onClick={handleExecute}
@@ -265,6 +269,11 @@ export function SearchPage() {
           {executeSearch.isPending ? 'Starting…' : 'Run full search'}
         </button>
       </div>
+      {!hasRefinedQuery && (
+        <p style={{ fontSize: 11, color: 'var(--color-text-tertiary)', marginTop: 4 }}>
+          Based on your search terms — refine the query for a more accurate estimate
+        </p>
+      )}
     </div>
   )
 }
