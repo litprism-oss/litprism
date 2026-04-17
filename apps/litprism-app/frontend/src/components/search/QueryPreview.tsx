@@ -7,10 +7,12 @@ interface QueryPreviewProps {
   mode: 'pico' | 'freetext'
 }
 
-export function QueryPreview({ canonicalQuery }: QueryPreviewProps) {
+export function QueryPreview({ canonicalQuery, mode }: QueryPreviewProps) {
   const [copied, setCopied] = useState<string | null>(null)
 
   if (!canonicalQuery.trim()) return null
+
+  const hasFieldTags = /\[(tiab|MeSH|ti|ab|pt|la|au)\]/i.test(canonicalQuery)
 
   const rows = [
     { key: 'pubmedweb', label: 'PubMed web', query: canonicalQuery },
@@ -29,6 +31,9 @@ export function QueryPreview({ canonicalQuery }: QueryPreviewProps) {
 
   return (
     <div style={{ marginBottom: '16px' }}>
+      <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>
+        {mode === 'freetext' ? 'Your query' : 'Generated PubMed query'}
+      </span>
       {rows.map(({ key, label, query }) => (
         <div
           key={key}
@@ -82,6 +87,11 @@ export function QueryPreview({ canonicalQuery }: QueryPreviewProps) {
           </button>
         </div>
       ))}
+      {!hasFieldTags && (
+        <p style={{ fontSize: 11, color: 'var(--color-text-tertiary)', marginTop: 6 }}>
+          Plain text search — add field tags like [tiab] or [MeSH] for a more precise query
+        </p>
+      )}
     </div>
   )
 }
