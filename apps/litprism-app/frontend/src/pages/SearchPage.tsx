@@ -110,14 +110,14 @@ export function SearchPage() {
 
   // Derive the displayed PubMed query
   const draftRun = searchRunsData?.find((r) => r.id === draftRunId)
-  const canonicalQuery = draftRun?.query_generated ?? draftRun?.query_final ?? currentQuery
+  const canonicalQuery = draftRun?.query_generated ?? draftRun?.query_final ?? (mode === 'freetext' ? currentQuery : '')
 
-  const handlePreview = useCallback(() => {
-    if (!currentQuery.trim()) return
+  const handlePreview = () => {
+    if (!canonicalQuery.trim()) return
     setPageState('previewing')
     setPreviewError(null)
     previewMutation.mutate(
-      { query_natural: currentQuery, filters: filters as Record<string, unknown> },
+      { query_final: canonicalQuery, filters: filters as Record<string, unknown> },
       {
         onSuccess: (data) => {
           setPreviewData(data)
@@ -130,7 +130,7 @@ export function SearchPage() {
         },
       },
     )
-  }, [currentQuery, filters, previewMutation])
+  }
 
   const handleExecute = useCallback(() => {
     if (!draftRunId) return

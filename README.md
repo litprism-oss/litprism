@@ -26,6 +26,46 @@ Natural language / PICO / direct query
 | `litprism-crossref` | — | Crossref metadata enrichment |
 | `litprism-screen` | — | LLM screening with grounded per-criterion decisions |
 
+## Running the app
+
+**Prerequisites:** Python ≥ 3.12, Node.js ≥ 18, [uv](https://astral.sh/uv), Redis
+
+```bash
+# 1. Install all dependencies
+uv sync --all-packages
+
+# 2. Copy and edit env
+cp apps/litprism-app/.env.example apps/litprism-app/.env
+
+# 3. Run database migrations
+cd apps/litprism-app/backend
+alembic upgrade head
+cd ../../..
+```
+
+**Backend** (runs on http://localhost:8000):
+
+```bash
+cd apps/litprism-app/backend
+uv run uvicorn main:app --reload --port 8000
+```
+
+**Celery worker** (required for screening):
+
+```bash
+cd apps/litprism-app/backend
+uv run celery -A tasks.screening worker --loglevel=info
+```
+
+**Frontend** (runs on http://localhost:5173):
+
+```bash
+cd apps/litprism-app/frontend
+cp .env.example .env.local   # or set VITE_API_URL and VITE_WS_URL manually
+npm install
+npm run dev
+```
+
 ## Status
 
 Pre-release. See [litprism-spec-v4.md](litprism-spec-v4.md) for the full specification.
