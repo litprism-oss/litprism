@@ -3,14 +3,20 @@ import { toast } from 'sonner'
 import { translateQuery } from '@/lib/utils'
 
 interface QueryPreviewProps {
-  canonicalQuery: string
+  canonicalQuery: string | null
   mode: 'pico' | 'freetext'
 }
 
 export function QueryPreview({ canonicalQuery, mode }: QueryPreviewProps) {
   const [copied, setCopied] = useState<string | null>(null)
 
-  if (!canonicalQuery.trim()) return null
+  if (!canonicalQuery) {
+    return (
+      <p style={{ fontSize: 12, color: 'var(--color-text-tertiary)', marginTop: 8, marginBottom: 16 }}>
+        Enter your search terms above to see the generated query and translations.
+      </p>
+    )
+  }
 
   const hasFieldTags = /\[(tiab|MeSH|ti|ab|pt|la|au)\]/i.test(canonicalQuery)
 

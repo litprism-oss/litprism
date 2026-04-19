@@ -101,7 +101,11 @@ export function SearchPage() {
 
     const timer = setTimeout(() => {
       lastSavedQuery.current = currentQuery
-      updateRun.mutate({ query_natural: currentQuery, filters: filters as Record<string, unknown> })
+      if (mode === 'freetext') {
+        updateRun.mutate({ query_natural: currentQuery, query_final: currentQuery, filters: filters as Record<string, unknown> })
+      } else {
+        updateRun.mutate({ query_natural: currentQuery, filters: filters as Record<string, unknown> })
+      }
     }, 500)
     return () => clearTimeout(timer)
   }, [picoValues, freeText, mode, filters, draftRunId]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -110,10 +114,12 @@ export function SearchPage() {
 
   // Derive the displayed PubMed query
   const draftRun = searchRunsData?.find((r) => r.id === draftRunId)
-  const canonicalQuery = draftRun?.query_generated ?? draftRun?.query_final ?? (mode === 'freetext' ? currentQuery : '')
+  const canonicalQuery = mode === 'freetext'
+    ? (currentQuery || null)
+    : (draftRun?.query_generated ?? draftRun?.query_final ?? null)
 
   const handlePreview = () => {
-    if (!canonicalQuery.trim()) return
+    if (!canonicalQuery) return
     setPageState('previewing')
     setPreviewError(null)
     previewMutation.mutate(
@@ -149,7 +155,7 @@ export function SearchPage() {
   const hasRefinedQuery = !!queryFinal && hasFieldTags
 
   const canPreview = !!currentQuery.trim() && pageState !== 'running' && pageState !== 'complete'
-  const canExecute = !!draftRunId && !!currentQuery.trim() && pageState !== 'running' && pageState !== 'complete'
+  const canExecute = !!draftRunId && !!canonicalQuery && pageState !== 'running' && pageState !== 'complete'
 
   if (pageState === 'running' || pageState === 'complete') {
     return (
@@ -251,6 +257,7 @@ export function SearchPage() {
         <button
           onClick={handleExecute}
           disabled={!canExecute}
+          title={!canonicalQuery ? 'Enter a search query first' : undefined}
           style={{
             padding: '8px 16px',
             fontSize: '13px',
@@ -269,7 +276,7 @@ export function SearchPage() {
           {executeSearch.isPending ? 'Starting…' : 'Run full search'}
         </button>
       </div>
-      {!hasRefinedQuery && (
+      {!hasRefinedQuery && canonicalQuery && (
         <p style={{ fontSize: 11, color: 'var(--color-text-tertiary)', marginTop: 4 }}>
           Based on your search terms — refine the query for a more accurate estimate
         </p>

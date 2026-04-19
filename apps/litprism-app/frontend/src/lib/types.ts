@@ -61,6 +61,7 @@ export interface SearchRunCreate {
 export interface SearchRunUpdate {
   query_natural?: string
   query_final?: string
+  // query_generated — add when PICO-to-query generation is implemented (Session 10)
   filters?: Record<string, unknown>
 }
 
