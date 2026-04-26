@@ -248,6 +248,16 @@ class UploadResponseOut(BaseModel):
     project_id: str
 
 
+class UploadDryRunOut(BaseModel):
+    dry_run: bool = True
+    total_parsed: int
+    has_title: int
+    has_abstract: int
+    has_authors: int
+    has_doi: int
+    sample_titles: list[str]
+
+
 class UploadMetadata(BaseModel):
     source_label: str | None = None
     search_strategy_used: str | None = None
