@@ -1,4 +1,4 @@
-import { useNavigate, useLocation, useParams } from 'react-router-dom'
+import { Link, useNavigate, useLocation, useParams } from 'react-router-dom'
 import { useSearchRuns } from '@/hooks/useSearchRuns'
 import { useUploads } from '@/hooks/useUpload'
 
@@ -32,38 +32,45 @@ function NavItem({ label, to, active }: NavItemProps) {
 interface SubItemProps {
   label: string
   to: string
+  active: boolean
 }
 
-function SubItem({ label, to }: SubItemProps) {
-  const navigate = useNavigate()
+function SubItem({ label, to, active }: SubItemProps) {
   return (
-    <div
-      onClick={() => navigate(to)}
+    <Link
+      to={to}
       style={{
         display: 'block',
         padding: '5px 16px 5px 28px',
         fontSize: 12,
-        color: 'var(--color-text-secondary)',
+        color: active ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+        fontWeight: active ? 500 : 400,
+        background: active ? 'var(--color-background-secondary)' : 'transparent',
         cursor: 'pointer',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
+        textDecoration: 'none',
+        borderLeft: active ? '2px solid var(--color-text-primary)' : '2px solid transparent',
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLDivElement).style.background = 'var(--color-background-secondary)'
+        if (!active)
+          (e.currentTarget as HTMLAnchorElement).style.background =
+            'var(--color-background-secondary)'
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLDivElement).style.background = 'transparent'
+        if (!active)
+          (e.currentTarget as HTMLAnchorElement).style.background = 'transparent'
       }}
     >
       · {label}
-    </div>
+    </Link>
   )
 }
 
 export function ProjectSidebar() {
   const { projectId } = useParams<{ projectId: string }>()
-  const { pathname } = useLocation()
+  const { pathname, search } = useLocation()
 
   const { data: searchRuns } = useSearchRuns(projectId ?? '')
   const { data: uploads } = useUploads(projectId ?? '')
@@ -71,23 +78,38 @@ export function ProjectSidebar() {
   if (!projectId || projectId === 'new') return null
 
   const base = `/projects/${projectId}`
-  const active = (segment: string) => pathname.includes(`${base}/${segment}`) ||
+  const currentUrl = pathname + search
+
+  const active = (segment: string) =>
+    pathname.includes(`${base}/${segment}`) ||
     (segment === 'overview' && (pathname === base || pathname === `${base}/`))
 
   const completedRun = Array.isArray(searchRuns)
     ? searchRuns.find((r) => r.status === 'completed')
     : undefined
 
-  const sourceSubItems = completedRun?.source_queries?.map((sq) => ({
-    label: `${sq.source} · ${sq.result_count.toLocaleString()}`,
-    to: `${base}/search`,
-  })) ?? []
+  const sourceSubItems =
+    completedRun?.source_queries?.map((sq) => {
+      const to = `${base}/articles?source_query_id=${sq.id}`
+      return {
+        id: sq.id,
+        label: `${sq.source} · ${sq.result_count.toLocaleString()}`,
+        to,
+        active: currentUrl === to,
+      }
+    }) ?? []
 
   const uploadSubItems = Array.isArray(uploads)
-    ? uploads.map((u) => ({
-        label: `${u.filename.replace(/\.[^.]+$/, '').slice(0, 12)} · ${u.record_count.toLocaleString()}`,
-        to: `${base}/upload`,
-      }))
+    ? uploads.map((u) => {
+        const name = u.filename.length > 14 ? u.filename.slice(0, 12) + '…' : u.filename
+        const to = `${base}/articles?upload_record_id=${u.id}`
+        return {
+          id: u.id,
+          label: `${name} · ${u.record_count.toLocaleString()}`,
+          to,
+          active: currentUrl === to,
+        }
+      })
     : []
 
   return (
@@ -99,13 +121,13 @@ export function ProjectSidebar() {
       flexShrink: 0,
     }}>
       <div>
-        <NavItem label="Overview"  to={base}               active={active('overview')} />
-        <NavItem label="Search"    to={`${base}/search`}   active={active('search')} />
-        {sourceSubItems.map((item, i) => (
-          <SubItem key={i} label={item.label} to={item.to} />
+        <NavItem label="Overview" to={base}             active={active('overview')} />
+        <NavItem label="Search"   to={`${base}/search`} active={active('search')} />
+        {sourceSubItems.map((item) => (
+          <SubItem key={item.id} label={item.label} to={item.to} active={item.active} />
         ))}
-        <NavItem label="Screen"    to={`${base}/screening`} active={active('screening')} />
-        <NavItem label="Export"    to={`${base}/export`}    active={active('export')} />
+        <NavItem label="Screen"   to={`${base}/screening`} active={active('screening')} />
+        <NavItem label="Export"   to={`${base}/export`}    active={active('export')} />
       </div>
 
       <div style={{
@@ -115,12 +137,12 @@ export function ProjectSidebar() {
       }} />
 
       <div>
-        <NavItem label="Uploads"   to={`${base}/upload`}   active={active('upload')} />
-        {uploadSubItems.map((item, i) => (
-          <SubItem key={i} label={item.label} to={item.to} />
+        <NavItem label="Uploads"  to={`${base}/upload`}   active={active('upload')} />
+        {uploadSubItems.map((item) => (
+          <SubItem key={item.id} label={item.label} to={item.to} active={item.active} />
         ))}
-        <NavItem label="Criteria"  to={`${base}/criteria`} active={active('criteria')} />
-        <NavItem label="PRISMA"    to={`${base}/prisma`}   active={active('prisma')} />
+        <NavItem label="Criteria" to={`${base}/criteria`} active={active('criteria')} />
+        <NavItem label="PRISMA"   to={`${base}/prisma`}   active={active('prisma')} />
       </div>
     </nav>
   )

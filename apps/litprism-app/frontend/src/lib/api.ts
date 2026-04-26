@@ -77,6 +77,26 @@ export const api = {
     list: (projectId: string) =>
       request<UploadRecordOut[]>(`/projects/${projectId}/uploads`),
   },
+  articles: {
+    list: (
+      projectId: string,
+      params?: {
+        source_query_id?: string
+        upload_record_id?: string
+        page?: number
+        page_size?: number
+      },
+    ) => {
+      const qs = new URLSearchParams()
+      if (params?.source_query_id) qs.set('source_query_id', params.source_query_id)
+      if (params?.upload_record_id) qs.set('upload_record_id', params.upload_record_id)
+      if (params?.page) qs.set('page', String(params.page))
+      if (params?.page_size) qs.set('page_size', String(params.page_size))
+      return request<ArticleListOut>(
+        `/projects/${projectId}/articles${qs.toString() ? '?' + qs : ''}`,
+      )
+    },
+  },
   prisma: {
     counts: (projectId: string) =>
       request<PRISMAFlowCounts>(`/projects/${projectId}/prisma-counts`),
