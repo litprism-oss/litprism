@@ -17,6 +17,7 @@ class DedupResult:
     duplicates: list[tuple[ParsedArticle, str, float]]
     # (duplicate_article, match_type, similarity_score)
     # match_type: "doi" | "pmid" | "title_fuzzy"
+    duplicate_article_ids: list[str]  # existing DB article IDs that matched incoming records
 
 
 async def deduplicate(
@@ -57,6 +58,7 @@ async def deduplicate(
 
     new_articles: list[ParsedArticle] = []
     duplicates: list[tuple[ParsedArticle, str, float]] = []
+    duplicate_article_ids: list[str] = []
     dedup_log_rows: list[DeduplicationLog] = []
 
     # Within-batch seen sets (prevent inter-batch duplicates being added twice)
@@ -112,6 +114,7 @@ async def deduplicate(
         if match_type is not None:
             duplicates.append((article, match_type, score))
             if kept_id:
+                duplicate_article_ids.append(kept_id)
                 dedup_log_rows.append(
                     DeduplicationLog(
                         id=str(uuid.uuid4()),
@@ -136,7 +139,11 @@ async def deduplicate(
     for row in dedup_log_rows:
         db.add(row)
 
-    return DedupResult(new_articles=new_articles, duplicates=duplicates)
+    return DedupResult(
+        new_articles=new_articles,
+        duplicates=duplicates,
+        duplicate_article_ids=duplicate_article_ids,
+    )
 
 
 def _normalise_doi(doi: str | None) -> str | None:

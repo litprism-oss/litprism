@@ -135,6 +135,19 @@ class UploadRecord(Base):
     search_run: Mapped["SearchRun | None"] = relationship(back_populates="upload_records")
 
 
+class UploadArticle(Base):
+    """Join table linking every article in an upload (new or deduped) to its UploadRecord."""
+
+    __tablename__ = "upload_article"
+
+    upload_record_id: Mapped[str] = mapped_column(
+        String, ForeignKey("upload_records.id", ondelete="CASCADE"), primary_key=True
+    )
+    article_id: Mapped[str] = mapped_column(
+        String, ForeignKey("articles.id", ondelete="CASCADE"), primary_key=True
+    )
+
+
 class Article(Base):
     __tablename__ = "articles"
 
@@ -144,6 +157,9 @@ class Article(Base):
     )
     search_run_id: Mapped[str | None] = mapped_column(
         String, ForeignKey("search_runs.id"), nullable=True
+    )
+    upload_record_id: Mapped[str | None] = mapped_column(
+        String, ForeignKey("upload_records.id"), nullable=True
     )
     pmid: Mapped[str | None] = mapped_column(String, nullable=True)
     doi: Mapped[str | None] = mapped_column(String, nullable=True)

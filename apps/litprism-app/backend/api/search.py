@@ -6,7 +6,7 @@ from typing import Annotated, Any
 import httpx
 from config import settings
 from db.engine import AsyncSessionLocal, get_db
-from db.models import Article, Project, SearchRun, SourceQuery, UploadRecord
+from db.models import Article, Project, SearchRun, SourceQuery, UploadArticle, UploadRecord
 from dependencies import get_ws_manager
 from fastapi import (
     APIRouter,
@@ -429,11 +429,24 @@ async def list_project_articles(
         ur_result = await db.execute(
             select(UploadRecord).where(UploadRecord.id == upload_record_id)
         )
-        ur = ur_result.scalar_one_or_none()
-        if ur is None:
+        if ur_result.scalar_one_or_none() is None:
             raise HTTPException(status_code=404, detail="Upload record not found")
-        filters.append(Article.search_run_id == ur.search_run_id)
-        filters.append(Article.source == "upload")
+        linked_ids = (
+            (
+                await db.execute(
+                    select(UploadArticle.article_id).where(
+                        UploadArticle.upload_record_id == upload_record_id
+                    )
+                )
+            )
+            .scalars()
+            .all()
+        )
+        if linked_ids:
+            filters.append(Article.id.in_(linked_ids))
+        else:
+            # Legacy upload (pre-join-table): fall back to all uploaded articles in project
+            filters.append(Article.source == "upload")
 
     offset = (page - 1) * page_size
     total: int = (await db.execute(select(func.count(Article.id)).where(*filters))).scalar_one()

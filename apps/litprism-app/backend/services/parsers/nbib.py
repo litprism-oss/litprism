@@ -4,30 +4,47 @@ from services.parsers import ParsedArticle
 
 
 def parse(content: bytes, filename: str) -> list[ParsedArticle]:
-    text = content.decode("utf-8", errors="replace")
+    # Normalize CRLF (PubMed exports) and bare CR before splitting
+    text = content.decode("utf-8", errors="replace").replace("\r\n", "\n").replace("\r", "\n")
     records = text.strip().split("\n\n")
+    fmt = "medline" if filename.lower().endswith(".txt") else "nbib"
     articles = []
     for record in records:
         article = _parse_record(record)
         if article and article.title:
-            article.upload_format = "nbib"
+            article.upload_format = fmt
             articles.append(article)
     return articles
 
 
+def _join_continuations(lines: list[str]) -> list[str]:
+    """Merge wrapped continuation lines into the preceding tag line.
+
+    MEDLINE/NBIB continuation lines have whitespace in the tag area (cols 0-3).
+    """
+    joined: list[str] = []
+    for line in lines:
+        if joined and len(line) >= 6 and not line[:4].strip():
+            joined[-1] = joined[-1] + " " + line[6:].strip()
+        else:
+            joined.append(line)
+    return joined
+
+
 def _parse_record(record: str) -> ParsedArticle | None:
-    """Parse a single NBIB record. Returns None if record is empty."""
+    """Parse a single NBIB/MEDLINE record. Returns None if record is empty."""
     if not record.strip():
         return None
 
     article = ParsedArticle(title="")
+    has_fau = False  # True once any FAU (full author name) line is seen
 
-    for line in record.splitlines():
+    for line in _join_continuations(record.splitlines()):
         if len(line) < 6:
             continue
         tag = line[:4].strip()
         value = line[6:].strip()
-        if not value:
+        if not tag or not value:
             continue
 
         if tag == "PMID":
@@ -36,8 +53,18 @@ def _parse_record(record: str) -> ParsedArticle | None:
             article.title = value
         elif tag == "AB":
             article.abstract = value
-        elif tag == "AU":
-            # "Last, Fore" format — store as dict for consistency
+        elif tag == "FAU":
+            # Full author name: "Last, Fore" — preferred over AU initials
+            parts = value.split(",", 1)
+            if len(parts) == 2:
+                article.authors.append(
+                    {"last_name": parts[0].strip(), "fore_name": parts[1].strip()}
+                )
+            else:
+                article.authors.append({"last_name": value, "fore_name": ""})
+            has_fau = True
+        elif tag == "AU" and not has_fau:
+            # Fallback: use initials-only AU when no FAU lines present (some older files)
             parts = value.split(",", 1)
             if len(parts) == 2:
                 article.authors.append(
@@ -55,9 +82,9 @@ def _parse_record(record: str) -> ParsedArticle | None:
         elif tag == "OT":
             article.keywords.append(value)
         elif tag == "AID":
-            # DOI lines end with " [doi]" suffix
+            # DOI lines end with " [doi]" suffix — preserve original casing
             if "[doi]" in value.lower():
-                article.doi = value.lower().replace("[doi]", "").strip()
+                article.doi = value[: value.lower().index("[doi]")].strip()
         elif tag == "PT":
             article.article_types.append(value)
 
