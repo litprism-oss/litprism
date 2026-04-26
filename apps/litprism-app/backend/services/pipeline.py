@@ -2,6 +2,7 @@ import uuid
 from datetime import UTC, datetime
 
 from config import settings
+from constants import ALL_SOURCES
 from db.models import Article, SearchRun, SourceQuery
 from litprism.europepmc import EuropePMCClient
 from litprism.europepmc.models import SearchFilters as EuropePMCFilters
@@ -62,7 +63,7 @@ async def run_search(
     }
 
     try:
-        for source in ["pubmed", "europepmc", "semanticscholar"]:
+        for source in search_run.sources or ALL_SOURCES:
             # Translate query to source syntax
             translator = {
                 "pubmed": QueryTranslator.to_pubmed,

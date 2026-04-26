@@ -9,6 +9,7 @@ import {
   useSearchPreview,
 } from '@/hooks/useSearchRuns'
 import { useSearchProgress } from '@/hooks/useSearchProgress'
+import { useProject } from '@/hooks/useProjects'
 import { PICOForm } from '@/components/search/PICOForm'
 import { QueryPreview } from '@/components/search/QueryPreview'
 import { FilterPanel, type SearchFilters } from '@/components/search/FilterPanel'
@@ -62,6 +63,7 @@ export function SearchPage() {
   const hasInitialized = useRef(false)
   const lastSavedQuery = useRef<string | null>(null)
 
+  const { data: project } = useProject(projectId)
   const { data: searchRunsData } = useSearchRuns(projectId)
   const createRun = useCreateSearchRun(projectId)
   const updateRun = useUpdateSearchRun(projectId, draftRunId ?? '')
@@ -71,7 +73,7 @@ export function SearchPage() {
 
   // Find or create draft run on load
   useEffect(() => {
-    if (!searchRunsData || hasInitialized.current) return
+    if (!searchRunsData || !project || hasInitialized.current) return
     hasInitialized.current = true
 
     const draft = searchRunsData.find((r) => r.status === 'draft')
@@ -85,13 +87,16 @@ export function SearchPage() {
       if (draft.filters) {
         setFilters(draft.filters as SearchFilters)
       }
+      if (draft.sources?.length) {
+        setSelectedSources(draft.sources as Source[])
+      }
     } else {
-      createRun.mutateAsync({}).then((newRun) => {
+      createRun.mutateAsync({ review_type: project.review_type, sources: selectedSources }).then((newRun) => {
         setDraftRunId(newRun.id)
         lastSavedQuery.current = ''
       }).catch(() => {})
     }
-  }, [searchRunsData]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [searchRunsData, project]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Debounced save on query/filter changes
   useEffect(() => {
@@ -101,23 +106,35 @@ export function SearchPage() {
 
     const timer = setTimeout(() => {
       lastSavedQuery.current = currentQuery
-      updateRun.mutate({ query_natural: currentQuery, filters: filters as Record<string, unknown> })
+      if (mode === 'freetext') {
+        updateRun.mutate({ query_natural: currentQuery, query_final: currentQuery, filters: filters as Record<string, unknown> })
+      } else {
+        updateRun.mutate({ query_natural: currentQuery, filters: filters as Record<string, unknown> })
+      }
     }, 500)
     return () => clearTimeout(timer)
   }, [picoValues, freeText, mode, filters, draftRunId]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Save sources immediately when selection changes
+  useEffect(() => {
+    if (!draftRunId || pageState === 'running' || pageState === 'complete') return
+    updateRun.mutate({ sources: selectedSources })
+  }, [selectedSources, draftRunId]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const currentQuery = buildQueryNatural(mode, picoValues, freeText)
 
   // Derive the displayed PubMed query
   const draftRun = searchRunsData?.find((r) => r.id === draftRunId)
-  const canonicalQuery = draftRun?.query_generated ?? draftRun?.query_final ?? (mode === 'freetext' ? currentQuery : '')
+  const canonicalQuery = mode === 'freetext'
+    ? (currentQuery || null)
+    : (draftRun?.query_generated ?? draftRun?.query_final ?? null)
 
   const handlePreview = () => {
-    if (!canonicalQuery.trim()) return
+    if (!canonicalQuery) return
     setPageState('previewing')
     setPreviewError(null)
     previewMutation.mutate(
-      { query_final: canonicalQuery, filters: filters as Record<string, unknown> },
+      { query_final: canonicalQuery, filters: filters as Record<string, unknown>, sources: selectedSources },
       {
         onSuccess: (data) => {
           setPreviewData(data)
@@ -149,7 +166,7 @@ export function SearchPage() {
   const hasRefinedQuery = !!queryFinal && hasFieldTags
 
   const canPreview = !!currentQuery.trim() && pageState !== 'running' && pageState !== 'complete'
-  const canExecute = !!draftRunId && !!currentQuery.trim() && pageState !== 'running' && pageState !== 'complete'
+  const canExecute = !!draftRunId && !!canonicalQuery && pageState !== 'running' && pageState !== 'complete'
 
   if (pageState === 'running' || pageState === 'complete') {
     return (
@@ -251,6 +268,7 @@ export function SearchPage() {
         <button
           onClick={handleExecute}
           disabled={!canExecute}
+          title={!canonicalQuery ? 'Enter a search query first' : undefined}
           style={{
             padding: '8px 16px',
             fontSize: '13px',
@@ -269,7 +287,7 @@ export function SearchPage() {
           {executeSearch.isPending ? 'Starting…' : 'Run full search'}
         </button>
       </div>
-      {!hasRefinedQuery && (
+      {!hasRefinedQuery && canonicalQuery && (
         <p style={{ fontSize: 11, color: 'var(--color-text-tertiary)', marginTop: 4 }}>
           Based on your search terms — refine the query for a more accurate estimate
         </p>

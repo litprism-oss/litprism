@@ -46,6 +46,7 @@ export interface SearchRunOut {
   query_generated: string | null
   query_final: string | null
   filters: Record<string, unknown> | null
+  sources: string[]
   status: 'draft' | 'locked' | 'completed' | 'failed'
   locked_at: string | null
   completed_at: string | null
@@ -54,19 +55,24 @@ export interface SearchRunOut {
 }
 
 export interface SearchRunCreate {
+  review_type: string
   query_natural?: string
   filters?: Record<string, unknown>
+  sources?: string[]
 }
 
 export interface SearchRunUpdate {
   query_natural?: string
   query_final?: string
+  // query_generated — add when PICO-to-query generation is implemented (Session 10)
   filters?: Record<string, unknown>
+  sources?: string[]
 }
 
 export interface SearchPreviewRequest {
   query_final: string
   filters?: Record<string, unknown>
+  sources?: string[]
 }
 
 export interface SearchPreviewSource {

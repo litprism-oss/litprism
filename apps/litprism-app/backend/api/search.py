@@ -23,6 +23,7 @@ from services.query_translator import QueryTranslator
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
+from tenacity import retry, retry_if_exception, stop_after_attempt, wait_exponential
 from ws import ConnectionManager
 
 from api.schemas import (
@@ -112,6 +113,13 @@ async def _preview_pubmed(query: str, api_key: str | None) -> SearchPreviewSourc
             estimated_count=count,
             sample_titles=[a.title for a in articles[:10]],
         )
+    except httpx.HTTPStatusError as exc:
+        msg = (
+            "Rate limited — try again in a moment"
+            if exc.response.status_code == 429
+            else f"HTTP {exc.response.status_code}"
+        )
+        return SearchPreviewSource(source="pubmed", estimated_count=0, sample_titles=[], error=msg)
     except Exception as exc:
         return SearchPreviewSource(
             source="pubmed", estimated_count=0, sample_titles=[], error=str(exc)
@@ -141,34 +149,66 @@ async def _preview_europepmc(query: str) -> SearchPreviewSource:
         results: list[dict[str, Any]] = data.get("resultList", {}).get("result", [])
         titles = [item.get("title") or "" for item in results]
         return SearchPreviewSource(source="europepmc", estimated_count=count, sample_titles=titles)
+    except httpx.HTTPStatusError as exc:
+        msg = (
+            "Rate limited — try again in a moment"
+            if exc.response.status_code == 429
+            else f"HTTP {exc.response.status_code}"
+        )
+        return SearchPreviewSource(
+            source="europepmc", estimated_count=0, sample_titles=[], error=msg
+        )
     except Exception as exc:
         return SearchPreviewSource(
             source="europepmc", estimated_count=0, sample_titles=[], error=str(exc)
         )
 
 
+def _is_s2_rate_limited(exc: BaseException) -> bool:
+    return isinstance(exc, httpx.HTTPStatusError) and exc.response.status_code == 429
+
+
+@retry(
+    retry=retry_if_exception(_is_s2_rate_limited),
+    wait=wait_exponential(multiplier=1, min=2, max=30),
+    stop=stop_after_attempt(3),
+    reraise=True,
+)
+async def _fetch_s2_preview(query: str, headers: dict[str, str]) -> dict[str, Any]:
+    async with httpx.AsyncClient() as client:
+        r = await client.get(
+            _S2_SEARCH,
+            params={"query": query, "fields": "title", "limit": 10, "offset": 0},
+            headers=headers,
+            timeout=15.0,
+        )
+        r.raise_for_status()
+        return r.json()
+
+
 async def _preview_semanticscholar(query: str, api_key: str | None) -> SearchPreviewSource:
-    """Single search call — total + first 10 titles."""
+    """Single search call with retry on 429 — total + first 10 titles."""
     try:
         headers: dict[str, str] = {}
         if api_key:
             headers["x-api-key"] = api_key
 
-        async with httpx.AsyncClient() as client:
-            r = await client.get(
-                _S2_SEARCH,
-                params={"query": query, "fields": "title", "limit": 10, "offset": 0},
-                headers=headers,
-                timeout=15.0,
-            )
-            r.raise_for_status()
-            data = r.json()
+        data = await _fetch_s2_preview(query, headers)
 
         count = data.get("total", 0)
         results: list[dict[str, Any]] = data.get("data") or []
         titles = [p.get("title") or "" for p in results]
         return SearchPreviewSource(
             source="semanticscholar", estimated_count=count, sample_titles=titles
+        )
+    except httpx.HTTPStatusError as exc:
+        msg = (
+            "Rate limited — try again in a moment"
+            if exc.response.status_code == 429
+            else f"HTTP {exc.response.status_code}"
+        )
+        return SearchPreviewSource(
+            source="semanticscholar", estimated_count=0, sample_titles=[], error=msg
         )
     except Exception as exc:
         return SearchPreviewSource(
