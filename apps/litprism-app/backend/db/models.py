@@ -1,5 +1,6 @@
 import uuid
 
+from constants import ALL_SOURCES
 from sqlalchemy import (
     JSON,
     Boolean,
@@ -74,6 +75,7 @@ class SearchRun(Base):
     query_generated: Mapped[str | None] = mapped_column(Text, nullable=True)
     query_final: Mapped[str | None] = mapped_column(Text, nullable=True)
     filters: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    sources: Mapped[list] = mapped_column(JSON, nullable=False, default=lambda: list(ALL_SOURCES))
     status: Mapped[str] = mapped_column(String, nullable=False)
     locked_at: Mapped[str | None] = mapped_column(DateTime(timezone=True), nullable=True)
     completed_at: Mapped[str | None] = mapped_column(DateTime(timezone=True), nullable=True)

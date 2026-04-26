@@ -1,6 +1,7 @@
 from datetime import date, datetime
 from typing import Literal
 
+from constants import ALL_SOURCES
 from enums import ReviewType
 from pydantic import BaseModel, ConfigDict, field_validator
 
@@ -42,12 +43,14 @@ class SearchRunCreate(BaseModel):
     query_natural: str | None = None
     query_final: str | None = None
     filters: dict | None = None
+    sources: list[str] = ALL_SOURCES
 
 
 class SearchRunUpdate(BaseModel):
     query_natural: str | None = None
     query_final: str | None = None
     filters: dict | None = None
+    sources: list[str] | None = None
 
 
 class SourceQueryOut(BaseModel):
@@ -70,6 +73,7 @@ class SearchRunOut(BaseModel):
     query_generated: str | None
     query_final: str | None
     filters: dict | None
+    sources: list[str]
     status: str
     locked_at: datetime | None
     completed_at: datetime | None
@@ -263,7 +267,7 @@ class UploadRecordOut(BaseModel):
 class SearchPreviewRequest(BaseModel):
     query_final: str
     filters: dict | None = None
-    sources: list[str] = ["pubmed", "europepmc", "semanticscholar"]
+    sources: list[str] = ALL_SOURCES
 
 
 class SearchPreviewSource(BaseModel):
