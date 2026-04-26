@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 
-const ACCEPTED_EXTENSIONS = ['.nbib', '.ris', '.bib', '.csv', '.xlsx', '.pdf']
+const ACCEPTED_EXTENSIONS = ['.nbib', '.ris', '.bib', '.csv', '.xlsx', '.pdf', '.txt']
 
 function getExtension(filename: string): string {
   return '.' + filename.split('.').pop()!.toLowerCase()
