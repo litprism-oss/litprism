@@ -3,7 +3,7 @@ from typing import Literal
 
 from constants import ALL_SOURCES
 from enums import ReviewType
-from pydantic import BaseModel, ConfigDict, field_validator
+from pydantic import BaseModel, ConfigDict, computed_field, field_validator
 
 # ---------------------------------------------------------------------------
 # Projects
@@ -88,17 +88,24 @@ class SearchRunOut(BaseModel):
 
 
 class ArticleOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: str
     pmid: str | None
     doi: str | None
     source: str
+    upload_format: str | None
     title: str
     abstract: str | None
     authors: list[dict]
     journal: str | None
     pub_date: date | None
     created_at: datetime
-    model_config = ConfigDict(from_attributes=True)
+
+    @computed_field
+    @property
+    def publication_year(self) -> int | None:
+        return self.pub_date.year if self.pub_date else None
 
 
 class ArticleListOut(BaseModel):

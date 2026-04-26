@@ -6,13 +6,14 @@ from typing import Annotated, Any
 import httpx
 from config import settings
 from db.engine import AsyncSessionLocal, get_db
-from db.models import Article, Project, SearchRun
+from db.models import Article, Project, SearchRun, SourceQuery, UploadRecord
 from dependencies import get_ws_manager
 from fastapi import (
     APIRouter,
     BackgroundTasks,
     Depends,
     HTTPException,
+    Query,
     WebSocket,
     WebSocketDisconnect,
     status,
@@ -404,6 +405,58 @@ async def execute_search_run(
 # ---------------------------------------------------------------------------
 # Articles list
 # ---------------------------------------------------------------------------
+
+
+@router.get("/projects/{project_id}/articles", response_model=ArticleListOut)
+async def list_project_articles(
+    project_id: str,
+    db: DB,
+    source_query_id: str | None = Query(None),
+    upload_record_id: str | None = Query(None),
+    page: int = Query(1, ge=1),
+    page_size: int = Query(50, ge=1, le=200),
+) -> ArticleListOut:
+    filters = [Article.project_id == project_id]
+
+    if source_query_id:
+        sq_result = await db.execute(select(SourceQuery).where(SourceQuery.id == source_query_id))
+        sq = sq_result.scalar_one_or_none()
+        if sq is None:
+            raise HTTPException(status_code=404, detail="Source query not found")
+        filters.append(Article.search_run_id == sq.search_run_id)
+        filters.append(Article.source == sq.source)
+    elif upload_record_id:
+        ur_result = await db.execute(
+            select(UploadRecord).where(UploadRecord.id == upload_record_id)
+        )
+        ur = ur_result.scalar_one_or_none()
+        if ur is None:
+            raise HTTPException(status_code=404, detail="Upload record not found")
+        filters.append(Article.search_run_id == ur.search_run_id)
+        filters.append(Article.source == "upload")
+
+    offset = (page - 1) * page_size
+    total: int = (await db.execute(select(func.count(Article.id)).where(*filters))).scalar_one()
+    items = list(
+        (
+            await db.execute(
+                select(Article)
+                .where(*filters)
+                .order_by(Article.created_at)
+                .offset(offset)
+                .limit(page_size)
+            )
+        )
+        .scalars()
+        .all()
+    )
+
+    return ArticleListOut(
+        items=[ArticleOut.model_validate(a) for a in items],
+        total=total,
+        page=page,
+        page_size=page_size,
+    )
 
 
 @router.get(

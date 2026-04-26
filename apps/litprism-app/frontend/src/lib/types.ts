@@ -93,11 +93,13 @@ export interface ArticleOut {
   pmid: string | null
   doi: string | null
   source: string
+  upload_format: string | null
   title: string
   abstract: string | null
-  authors: Array<{ last_name: string; fore_name?: string }>
+  authors: Array<{ last_name: string; fore_name?: string | null }>
   journal: string | null
   pub_date: string | null
+  publication_year: number | null
   created_at: string
 }
 
@@ -106,6 +108,14 @@ export interface ArticleListOut {
   total: number
   page: number
   page_size: number
+}
+
+export interface ArticleQualitySummary {
+  total: number
+  has_title: number
+  has_abstract: number
+  has_authors: number
+  has_doi: number
 }
 
 export interface UploadRecordOut {

@@ -15,6 +15,23 @@ export const GUIDE_CONTENT: Record<string, GuideEntry> = {
     ],
     links: [{ label: 'PRISMA 2020 checklist', url: 'https://prisma-statement.org' }],
   },
+  articles: {
+    title: 'Article pool',
+    sections: [
+      {
+        heading: 'Verify your results',
+        body: 'Review retrieved articles before screening. Check that titles and abstracts look relevant — if the pool looks wrong, refine your query and re-run the search.',
+      },
+      {
+        heading: 'Data quality (uploads)',
+        body: 'The quality summary shows how many records have titles, abstracts, authors, and DOIs. Missing abstracts mean those articles cannot be LLM-screened and will go directly to full-text review.',
+      },
+      {
+        heading: 'Next step',
+        body: 'Once you are satisfied with the article pool, set up your eligibility criteria before running screening.',
+      },
+    ],
+  },
   search: {
     title: 'Database searching',
     sections: [
