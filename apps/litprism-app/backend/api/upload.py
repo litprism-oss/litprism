@@ -2,7 +2,7 @@ import uuid
 from typing import Annotated
 
 from db.engine import get_db
-from db.models import Article, Project, UploadRecord
+from db.models import Article, Project, UploadArticle, UploadRecord
 from fastapi import (  # noqa: F401 (Depends used via Annotated)
     APIRouter,
     Depends,
@@ -146,30 +146,45 @@ async def upload_references(
     # 8. Deduplicate against existing articles
     dedup_result = await deduplicate(parsed, project_id, db)
 
-    # 9. Bulk insert new articles
-    if dedup_result.new_articles:
-        article_rows = [
-            {
-                "id": str(uuid.uuid4()),
-                "project_id": project_id,
-                "search_run_id": None,
-                "pmid": a.pmid,
-                "doi": a.doi,
-                "title": a.title,
-                "abstract": a.abstract,
-                "authors": a.authors,
-                "journal": a.journal,
-                "pub_date": a.pub_date,
-                "source": a.source,
-                "upload_format": a.upload_format,
-            }
-            for a in dedup_result.new_articles
-        ]
-        await db.execute(insert(Article), article_rows)
-
-    # 10. Write UploadRecord
+    # 9. Allocate upload_id early so articles can reference it
     upload_id = str(uuid.uuid4())
     fmt = _FORMAT_NAMES[ext]
+
+    # 10. Bulk insert new articles and collect all article IDs for the join table
+    new_article_ids: list[str] = []
+    if dedup_result.new_articles:
+        article_rows = []
+        for a in dedup_result.new_articles:
+            aid = str(uuid.uuid4())
+            new_article_ids.append(aid)
+            article_rows.append(
+                {
+                    "id": aid,
+                    "project_id": project_id,
+                    "search_run_id": None,
+                    "upload_record_id": upload_id,
+                    "pmid": a.pmid,
+                    "doi": a.doi,
+                    "title": a.title,
+                    "abstract": a.abstract,
+                    "authors": a.authors,
+                    "journal": a.journal,
+                    "pub_date": a.pub_date,
+                    "source": a.source,
+                    "upload_format": a.upload_format,
+                }
+            )
+        await db.execute(insert(Article), article_rows)
+
+    # 11. Write upload_article join rows for all articles in this upload
+    all_article_ids = new_article_ids + dedup_result.duplicate_article_ids
+    if all_article_ids:
+        await db.execute(
+            insert(UploadArticle),
+            [{"upload_record_id": upload_id, "article_id": aid} for aid in all_article_ids],
+        )
+
+    # 12. Write UploadRecord
     upload_record = UploadRecord(
         id=upload_id,
         project_id=project_id,
