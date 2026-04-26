@@ -20,6 +20,9 @@ _COLUMN_MAP = {
     "document type": "article_types",
 }
 
+# PubMed CSV exports use these column names (after BOM strip + strip()).
+_PUBMED_CSV_SIGNATURE = {"PMID", "Title", "Authors", "Journal/Book"}
+
 
 def parse(content: bytes, filename: str) -> list[ParsedArticle]:
     if filename.lower().endswith(".xlsx"):
@@ -27,11 +30,18 @@ def parse(content: bytes, filename: str) -> list[ParsedArticle]:
     return _parse_csv(content)
 
 
+def _is_pubmed_csv(fieldnames: list[str]) -> bool:
+    cols = {h.strip() for h in fieldnames if h}
+    return _PUBMED_CSV_SIGNATURE.issubset(cols)
+
+
 def _parse_csv(content: bytes) -> list[ParsedArticle]:
     text = content.decode("utf-8-sig", errors="replace")  # handles BOM
     reader = csv.DictReader(io.StringIO(text))
     if reader.fieldnames is None:
         return []
+    if _is_pubmed_csv(list(reader.fieldnames)):
+        return _parse_pubmed_csv(text)
     # Build normalised header → original header map
     norm = {h.strip().lower(): h for h in reader.fieldnames if h}
     articles = []
@@ -40,6 +50,57 @@ def _parse_csv(content: bytes) -> list[ParsedArticle]:
         if article:
             articles.append(article)
     return articles
+
+
+def _parse_pubmed_csv(text: str) -> list[ParsedArticle]:
+    """Parse a PubMed CSV export (no Abstract column; authors as comma-delimited string)."""
+    reader = csv.DictReader(io.StringIO(text))
+    if reader.fieldnames is None:
+        return []
+    # Strip whitespace from all column names
+    reader.fieldnames = [h.strip() for h in reader.fieldnames]
+    articles = []
+    for row in reader:
+        title = str(row.get("Title", "") or "").strip() or None
+        if not title:
+            continue
+        pmid = str(row.get("PMID", "") or "").strip() or None
+        doi = str(row.get("DOI", "") or "").strip() or None
+        journal = str(row.get("Journal/Book", "") or "").strip() or None
+        year_raw = str(row.get("Publication Year", "") or "").strip()
+        pub_date = _parse_year(year_raw)
+        authors = _parse_authors_pubmed(str(row.get("Authors", "") or "").strip())
+        articles.append(
+            ParsedArticle(
+                title=title,
+                upload_format="csv",
+                pmid=pmid,
+                doi=doi,
+                abstract=None,  # PubMed CSV has no abstract column
+                authors=authors,
+                journal=journal,
+                pub_date=pub_date,
+            )
+        )
+    return articles
+
+
+def _parse_authors_pubmed(authors_str: str) -> list[dict]:
+    """Parse PubMed CSV author string: 'Smith J, Jones A, Kumar R.' → list of dicts."""
+    if not authors_str:
+        return []
+    authors_str = authors_str.rstrip(".")
+    result = []
+    for part in authors_str.split(","):
+        part = part.strip()
+        if not part:
+            continue
+        tokens = part.split()
+        if len(tokens) >= 2:
+            result.append({"last_name": tokens[0], "fore_name": " ".join(tokens[1:])})
+        else:
+            result.append({"last_name": part, "fore_name": None})
+    return result
 
 
 def _parse_xlsx(content: bytes) -> list[ParsedArticle]:

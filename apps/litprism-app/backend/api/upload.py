@@ -8,6 +8,7 @@ from fastapi import (  # noqa: F401 (Depends used via Annotated)
     Depends,
     Form,
     HTTPException,
+    Query,
     UploadFile,
 )
 from services.dedup import deduplicate
@@ -20,7 +21,7 @@ from services.parsers.ris import parse as parse_ris
 from sqlalchemy import insert, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api.schemas import UploadRecordOut, UploadResponseOut
+from api.schemas import UploadDryRunOut, UploadRecordOut, UploadResponseOut
 
 DB = Annotated[AsyncSession, Depends(get_db)]
 
@@ -48,15 +49,16 @@ _FORMAT_NAMES = {
 }
 
 
-@router.post("/{project_id}/upload", status_code=201, response_model=UploadResponseOut)
+@router.post("/{project_id}/upload", status_code=201)
 async def upload_references(
     project_id: str,
     file: UploadFile,
     db: DB,
+    dry_run: bool = Query(False),
     source_label: str | None = Form(None),
     search_strategy_used: str | None = Form(None),
     limits_applied: str | None = Form(None),
-) -> UploadResponseOut:
+) -> UploadDryRunOut | UploadResponseOut:
     # 1. Load project (404 if not found)
     project = await db.get(Project, project_id)
     if project is None:
@@ -110,10 +112,22 @@ async def upload_references(
             detail={"error": "unexpected_parser_error", "message": str(exc)},
         ) from exc
 
-    # 6. Deduplicate against existing articles
+    # 6. Dry-run — return parse preview without any DB writes
+    if dry_run:
+        sample = parsed[:3]
+        return UploadDryRunOut(
+            total_parsed=len(parsed),
+            has_title=sum(1 for r in parsed if r.title),
+            has_abstract=sum(1 for r in parsed if r.abstract),
+            has_authors=sum(1 for r in parsed if r.authors),
+            has_doi=sum(1 for r in parsed if r.doi),
+            sample_titles=[r.title for r in sample if r.title],
+        )
+
+    # 7. Deduplicate against existing articles
     dedup_result = await deduplicate(parsed, project_id, db)
 
-    # 7. Bulk insert new articles
+    # 8. Bulk insert new articles
     if dedup_result.new_articles:
         article_rows = [
             {
@@ -134,7 +148,7 @@ async def upload_references(
         ]
         await db.execute(insert(Article), article_rows)
 
-    # 8. Write UploadRecord
+    # 9. Write UploadRecord
     upload_id = str(uuid.uuid4())
     fmt = _FORMAT_NAMES[ext]
     upload_record = UploadRecord(
