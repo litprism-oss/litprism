@@ -27,7 +27,7 @@ DB = Annotated[AsyncSession, Depends(get_db)]
 
 router = APIRouter(prefix="/projects", tags=["upload"])
 
-_ALLOWED_EXTENSIONS = {".nbib", ".ris", ".bib", ".csv", ".xlsx", ".pdf"}
+_ALLOWED_EXTENSIONS = {".nbib", ".ris", ".bib", ".csv", ".xlsx", ".pdf", ".txt"}
 _MAX_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
 
 _PARSERS = {
@@ -37,6 +37,7 @@ _PARSERS = {
     ".csv": parse_csv,
     ".xlsx": parse_csv,
     ".pdf": parse_pdf,
+    ".txt": parse_nbib,  # PubMed MEDLINE export (.txt with CRLF, PMID- prefix)
 }
 
 _FORMAT_NAMES = {
@@ -46,7 +47,14 @@ _FORMAT_NAMES = {
     ".csv": "csv",
     ".xlsx": "xlsx",
     ".pdf": "pdf",
+    ".txt": "medline",
 }
+
+
+def _is_medline_txt(content: bytes) -> bool:
+    """Return True if a .txt file looks like a PubMed MEDLINE export."""
+    first_line = content.split(b"\n")[0].strip().lstrip(b"\xef\xbb\xbf")  # strip BOM
+    return first_line.startswith(b"PMID-")
 
 
 @router.post("/{project_id}/upload", status_code=201)
@@ -87,7 +95,18 @@ async def upload_references(
             detail={"error": "file_too_large", "message": "File exceeds the 50 MB limit."},
         )
 
-    # 5. Parse
+    # 5. Validate .txt is MEDLINE format (not an arbitrary text file)
+    if ext == ".txt" and not _is_medline_txt(content):
+        raise HTTPException(
+            status_code=422,
+            detail={
+                "error": "unsupported_txt_format",
+                "message": "Only PubMed MEDLINE .txt exports are supported. "
+                "File must begin with 'PMID-'.",
+            },
+        )
+
+    # 6. Parse
     parser = _PARSERS[ext]
     try:
         parsed = parser(content, filename)
@@ -112,7 +131,7 @@ async def upload_references(
             detail={"error": "unexpected_parser_error", "message": str(exc)},
         ) from exc
 
-    # 6. Dry-run — return parse preview without any DB writes
+    # 7. Dry-run — return parse preview without any DB writes
     if dry_run:
         sample = parsed[:3]
         return UploadDryRunOut(
@@ -124,10 +143,10 @@ async def upload_references(
             sample_titles=[r.title for r in sample if r.title],
         )
 
-    # 7. Deduplicate against existing articles
+    # 8. Deduplicate against existing articles
     dedup_result = await deduplicate(parsed, project_id, db)
 
-    # 8. Bulk insert new articles
+    # 9. Bulk insert new articles
     if dedup_result.new_articles:
         article_rows = [
             {
@@ -148,7 +167,7 @@ async def upload_references(
         ]
         await db.execute(insert(Article), article_rows)
 
-    # 9. Write UploadRecord
+    # 10. Write UploadRecord
     upload_id = str(uuid.uuid4())
     fmt = _FORMAT_NAMES[ext]
     upload_record = UploadRecord(
