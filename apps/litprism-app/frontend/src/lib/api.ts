@@ -12,6 +12,9 @@ import type {
   UploadResponseOut,
   PRISMAFlowCounts,
   CriteriaOut,
+  ScreeningRunOut,
+  ScreeningRunCreate,
+  ScreeningPreviewResult,
 } from '@/lib/types'
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
@@ -109,6 +112,31 @@ export const api = {
       request<CriteriaOut[]>(`/projects/${projectId}/criteria/history`),
     create: (projectId: string, body: { inclusion: string[]; exclusion: string[] }) =>
       request<CriteriaOut>(`/projects/${projectId}/criteria`, {
+        method: 'POST',
+        body: JSON.stringify(body),
+      }),
+  },
+  screening: {
+    start: (projectId: string, body: ScreeningRunCreate) =>
+      request<ScreeningRunOut>(`/projects/${projectId}/screening/run`, {
+        method: 'POST',
+        body: JSON.stringify(body),
+      }),
+    runs: (projectId: string) =>
+      request<ScreeningRunOut[]>(`/projects/${projectId}/screening/runs`),
+    get: (projectId: string, runId: string) =>
+      request<ScreeningRunOut>(`/projects/${projectId}/screening/runs/${runId}`),
+    resume: (projectId: string, runId: string) =>
+      request<ScreeningRunOut>(`/projects/${projectId}/screening/runs/${runId}/resume`, {
+        method: 'POST',
+      }),
+    cancel: (projectId: string, runId: string) =>
+      request<ScreeningRunOut>(`/projects/${projectId}/screening/runs/${runId}/cancel`, { method: 'POST' }),
+    preview: (
+      projectId: string,
+      body: { criteria: { inclusion: string[]; exclusion: string[] }; articles: { id: string; title: string; abstract: string | null }[] },
+    ) =>
+      request<ScreeningPreviewResult[]>(`/projects/${projectId}/screening/preview`, {
         method: 'POST',
         body: JSON.stringify(body),
       }),

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import type { ScreeningProgressEvent } from '@/lib/types'
 
 export interface SearchProgressEvent {
   event: 'search_progress' | 'search_complete' | 'search_error'
@@ -10,8 +11,10 @@ export interface SearchProgressEvent {
   message?: string
 }
 
+export type ProgressEvent = SearchProgressEvent | ScreeningProgressEvent
+
 export function useSearchProgress(projectId: string | null) {
-  const [events, setEvents] = useState<SearchProgressEvent[]>([])
+  const [events, setEvents] = useState<ProgressEvent[]>([])
   const [isConnected, setIsConnected] = useState(false)
   const wsRef = useRef<WebSocket | null>(null)
 
@@ -23,7 +26,7 @@ export function useSearchProgress(projectId: string | null) {
     ws.onopen = () => setIsConnected(true)
     ws.onclose = () => setIsConnected(false)
     ws.onmessage = (e) => {
-      const data = JSON.parse(e.data) as SearchProgressEvent
+      const data = JSON.parse(e.data) as ProgressEvent
       setEvents((prev) => [...prev, data])
     }
     return () => {

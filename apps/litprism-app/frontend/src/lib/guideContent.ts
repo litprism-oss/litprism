@@ -83,12 +83,16 @@ export const GUIDE_CONTENT: Record<string, GuideEntry> = {
     title: 'Abstract screening',
     sections: [
       {
-        heading: 'LLM-assisted decisions',
-        body: 'Each abstract is assessed against every criterion. Every decision is grounded in an exact quote. The LLM cannot exclude an article for a criterion that is simply not mentioned — absence of information routes the article to full-text review.',
+        heading: 'How it works',
+        body: 'Each abstract is assessed against every criterion. The LLM must cite an exact quote to confirm or refute a criterion — silence is never treated as negative evidence.',
       },
       {
-        heading: 'Human review',
-        body: 'Low-confidence decisions (below your threshold) are flagged for human review. Overrides are recorded in the audit trail.',
+        heading: 'Decisions',
+        body: 'Include: all inclusion criteria confirmed, no exclusions triggered. Exclude: any exclusion confirmed, or any inclusion clearly refuted. Uncertain: insufficient information — routes to full-text review.',
+      },
+      {
+        heading: 'Uncertain articles',
+        body: 'Articles marked uncertain are not excluded — they proceed to full-text review. This is the correct trade-off for a systematic review: better to retrieve one extra article than to miss a relevant one.',
       },
     ],
   },

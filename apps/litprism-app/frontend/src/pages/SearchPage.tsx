@@ -8,7 +8,7 @@ import {
   useExecuteSearch,
   useSearchPreview,
 } from '@/hooks/useSearchRuns'
-import { useSearchProgress } from '@/hooks/useSearchProgress'
+import { useSearchProgress, type SearchProgressEvent } from '@/hooks/useSearchProgress'
 import { useProject } from '@/hooks/useProjects'
 import { PICOForm } from '@/components/search/PICOForm'
 import { QueryPreview } from '@/components/search/QueryPreview'
@@ -172,7 +172,9 @@ export function SearchPage() {
     return (
       <div style={{ padding: '24px', maxWidth: '680px' }}>
         <SearchProgress
-          events={events}
+          events={events.filter((e): e is SearchProgressEvent =>
+            e.event === 'search_progress' || e.event === 'search_complete' || e.event === 'search_error'
+          )}
           startedAt={startedAt ?? new Date()}
           projectId={projectId}
           onComplete={() => setPageState('complete')}
