@@ -161,6 +161,7 @@ export interface ScreeningRunOut {
   chunk_size: number
   reviewer_name: string | null
   review_notes: string | null
+  included_count: number | null
   started_at: string | null
   completed_at: string | null
   resumed_at: string | null

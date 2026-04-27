@@ -56,7 +56,7 @@ export function ScreeningDetailPanel({ projectId, article, onClose }: ScreeningD
     <Sheet open={!!article} onOpenChange={open => { if (!open) onClose() }}>
       <SheetContent
         side="right"
-        style={{ width: 480, maxWidth: '90vw', overflowY: 'auto', padding: '24px' }}
+        style={{ width: 480, maxWidth: '90vw', overflowY: 'auto', padding: '24px', background: 'var(--color-background-primary)' }}
       >
         {article && (
           <>

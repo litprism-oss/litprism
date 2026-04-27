@@ -3,6 +3,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import type { ProgressEvent } from '@/hooks/useSearchProgress'
 import type { ScreeningRunOut } from '@/lib/types'
 import { useCancelScreening } from '@/hooks/useScreening'
+import { useCriteriaHistory } from '@/hooks/useCriteria'
+import { useSearchRuns } from '@/hooks/useSearchRuns'
 import { api } from '@/lib/api'
 
 interface Props {
@@ -66,6 +68,8 @@ function DecisionBar({
 export function ScreeningProgress({ projectId, run, events }: Props) {
   const qc = useQueryClient()
   const cancelScreening = useCancelScreening(projectId)
+  const { data: criteriaHistory } = useCriteriaHistory(projectId)
+  const { data: searchRuns } = useSearchRuns(projectId)
   const resumeScreening = useMutation({
     mutationFn: () => api.screening.resume(projectId, run.id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['screeningRuns', projectId] }),
@@ -110,6 +114,11 @@ export function ScreeningProgress({ projectId, run, events }: Props) {
   const uncPct = decisioned > 0 ? Math.round((uncertain / decisioned) * 100) : 0
 
   const isPaused = run.status === 'paused'
+  const isCancelled = run.status === 'cancelled'
+
+  const criteriaVersion = criteriaHistory?.find((c) => c.id === run.criteria_id)?.version
+  const completedSearchRun = searchRuns?.find((r) => r.status === 'completed')
+  const sources = completedSearchRun?.source_queries?.map((sq) => sq.source) ?? []
 
   function handleResume() {
     resumeScreening.mutate()
@@ -123,7 +132,7 @@ export function ScreeningProgress({ projectId, run, events }: Props) {
     <div style={{ padding: '24px', maxWidth: '600px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
         <span style={{ fontSize: '15px', fontWeight: 500, color: 'var(--color-text-primary)' }}>
-          {isPaused ? 'Screening paused' : 'Screening in progress'}
+          {isCancelled ? 'Resuming screening…' : isPaused ? 'Screening paused' : 'Screening in progress'}
         </span>
         {isPaused ? (
           <button
@@ -140,7 +149,7 @@ export function ScreeningProgress({ projectId, run, events }: Props) {
           >
             Resume
           </button>
-        ) : (
+        ) : !isCancelled ? (
           <button
             onClick={handleCancel}
             disabled={cancelScreening.isPending}
@@ -155,16 +164,34 @@ export function ScreeningProgress({ projectId, run, events }: Props) {
               opacity: cancelScreening.isPending ? 0.6 : 1,
             }}
           >
-            Cancel
+            Pause
           </button>
-        )}
+        ) : null}
       </div>
 
-      {run.started_at && (
-        <p style={{ fontSize: '12px', color: 'var(--color-text-secondary)', marginBottom: '20px' }}>
-          Started {formatTime(run.started_at)}
-        </p>
-      )}
+      {/* Metadata strip */}
+      <div style={{ display: 'flex', gap: '16px', marginBottom: '16px', flexWrap: 'wrap' }}>
+        {criteriaVersion != null && (
+          <span style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>
+            Criteria <strong style={{ color: 'var(--color-text-primary)' }}>v{criteriaVersion}</strong>
+          </span>
+        )}
+        <span style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>
+          Stage <strong style={{ color: 'var(--color-text-primary)' }}>
+            {run.stage === 'abstract' ? 'Abstract' : 'Full-text'}
+          </strong>
+        </span>
+        {sources.length > 0 && (
+          <span style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>
+            Sources <strong style={{ color: 'var(--color-text-primary)' }}>{sources.join(', ')}</strong>
+          </span>
+        )}
+        {run.started_at && (
+          <span style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>
+            Started <strong style={{ color: 'var(--color-text-primary)' }}>{formatTime(run.started_at)}</strong>
+          </span>
+        )}
+      </div>
 
       {/* Progress bar */}
       <div
