@@ -230,6 +230,7 @@ class ScreeningRunOut(BaseModel):
     resumed_at: datetime | None
     reviewer_name: str | None
     review_notes: str | None
+    included_count: int | None = None
     model_config = ConfigDict(from_attributes=True)
 
 

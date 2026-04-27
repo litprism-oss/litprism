@@ -238,6 +238,9 @@ class ScreeningResult(Base):
         String, ForeignKey("projects.id", ondelete="CASCADE"), nullable=False
     )
     criteria_id: Mapped[str] = mapped_column(String, ForeignKey("criteria.id"), nullable=False)
+    screening_run_id: Mapped[str | None] = mapped_column(
+        String, ForeignKey("screening_runs.id", ondelete="SET NULL"), nullable=True
+    )
     stage: Mapped[str] = mapped_column(String, nullable=False)
     decision: Mapped[str] = mapped_column(String, nullable=False)
     confidence: Mapped[float] = mapped_column(Float, nullable=False)

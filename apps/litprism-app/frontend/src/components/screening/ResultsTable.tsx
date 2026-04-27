@@ -31,14 +31,16 @@ const PAGE_SIZE = 50
 
 interface ResultsTableProps {
   projectId: string
+  runId?: string
 }
 
-export function ResultsTable({ projectId }: ResultsTableProps) {
+export function ResultsTable({ projectId, runId }: ResultsTableProps) {
   const [activeTab, setActiveTab]       = useState<FilterTab>('all')
   const [page, setPage]                 = useState(1)
   const [selected, setSelected]         = useState<ArticleWithResult | null>(null)
 
   const params = {
+    run_id:    runId,
     decision:  activeTab === 'all' ? undefined : activeTab,
     page,
     page_size: PAGE_SIZE,

@@ -125,6 +125,7 @@ async def _run_chunk(screening_run_id: str, article_ids: list[str]) -> None:
                     article_id=result.article_id,
                     project_id=run.project_id,
                     criteria_id=run.criteria_id,
+                    screening_run_id=run.id,
                     stage=result.stage,
                     decision=result.decision,
                     confidence=result.confidence,
@@ -138,7 +139,12 @@ async def _run_chunk(screening_run_id: str, article_ids: list[str]) -> None:
 
         for error in errors:
             await write_tombstone(
-                error.article_id, run.project_id, run.criteria_id, str(error.cause), db
+                error.article_id,
+                run.project_id,
+                run.criteria_id,
+                str(error.cause),
+                db,
+                screening_run_id=run.id,
             )
 
         run.screened_count = (run.screened_count or 0) + len(results) + len(errors)
@@ -175,7 +181,14 @@ async def _write_chunk_tombstones(
         remaining_ids = [aid for aid in article_ids if aid not in already]
 
         for article_id in remaining_ids:
-            await write_tombstone(article_id, run.project_id, run.criteria_id, cause, db)
+            await write_tombstone(
+                article_id,
+                run.project_id,
+                run.criteria_id,
+                cause,
+                db,
+                screening_run_id=run.id,
+            )
 
         run.screened_count = (run.screened_count or 0) + len(remaining_ids)
         run.error_count = (run.error_count or 0) + len(remaining_ids)

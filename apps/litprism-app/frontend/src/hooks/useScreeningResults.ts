@@ -4,7 +4,7 @@ import type { ScreeningDecision } from '@/lib/types'
 
 export function useScreeningResults(
   projectId: string,
-  params?: { decision?: ScreeningDecision; page?: number; page_size?: number },
+  params?: { run_id?: string; decision?: ScreeningDecision; page?: number; page_size?: number },
 ) {
   return useQuery({
     queryKey: ['screeningResults', projectId, params],

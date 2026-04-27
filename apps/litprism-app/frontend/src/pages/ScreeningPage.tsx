@@ -33,8 +33,8 @@ export function ScreeningPage() {
     ? [...runs].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0]
     : null
 
-  // no_run or cancelled → setup form
-  if (!latestRun || latestRun.status === 'cancelled') {
+  // no run yet → setup form
+  if (!latestRun) {
     return <ScreeningSetupForm projectId={projectId} />
   }
 
@@ -70,8 +70,8 @@ export function ScreeningPage() {
     )
   }
 
-  // running or paused → progress view
-  if (latestRun.status === 'running' || latestRun.status === 'paused') {
+  // running, paused, or cancelled/paused (resume in flight) → progress view
+  if (latestRun.status === 'running' || latestRun.status === 'paused' || latestRun.status === 'cancelled') {
     return (
       <ScreeningProgress
         projectId={projectId}

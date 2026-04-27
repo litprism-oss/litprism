@@ -147,9 +147,10 @@ export const api = {
   screeningResults: {
     list: (
       projectId: string,
-      params?: { decision?: ScreeningDecision; page?: number; page_size?: number },
+      params?: { run_id?: string; decision?: ScreeningDecision; page?: number; page_size?: number },
     ) => {
       const qs = new URLSearchParams()
+      if (params?.run_id) qs.set('run_id', params.run_id)
       if (params?.decision) qs.set('decision', params.decision)
       if (params?.page) qs.set('page', String(params.page))
       if (params?.page_size) qs.set('page_size', String(params.page_size))

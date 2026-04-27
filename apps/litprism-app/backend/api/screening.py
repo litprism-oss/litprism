@@ -186,7 +186,27 @@ async def list_screening_runs(
             .order_by(ScreeningRun.created_at.desc())
         )
     ).all()
-    return list(runs)
+
+    # Compute include counts per run. Legacy rows (screening_run_id IS NULL) are
+    # attributed to the run whose criteria_id matches — fallback for pre-migration data.
+    out = []
+    for run in runs:
+        obj = ScreeningRunOut.model_validate(run)
+        n = await db.scalar(
+            select(func.count())
+            .where(ScreeningResult.project_id == project_id)
+            .where(ScreeningResult.decision == "include")
+            .where(
+                (ScreeningResult.screening_run_id == run.id)
+                | (
+                    ScreeningResult.screening_run_id.is_(None)
+                    & (ScreeningResult.criteria_id == run.criteria_id)
+                )
+            )
+        )
+        obj.included_count = n or 0
+        out.append(obj)
+    return out
 
 
 @router.get("/{project_id}/screening/runs/{run_id}", response_model=ScreeningRunOut)
@@ -214,11 +234,12 @@ async def resume_screening_run(
     run = await db.get(ScreeningRun, run_id)
     if run is None or run.project_id != project_id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Screening run not found")
-    if run.status in ("completed", "cancelled"):
+    if run.status == "completed":
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Cannot resume a run with status '{run.status}'",
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Cannot resume a completed run",
         )
+    run.status = "pending"
     run.resumed_at = datetime.now(UTC)
     await db.commit()
     screen_coordinator.delay(run.id)
@@ -290,22 +311,40 @@ def _result_to_out(sr: ScreeningResult) -> ScreeningResultOut:
 async def list_screening_results(
     project_id: str,
     db: DB,
+    run_id: str | None = Query(default=None),
     decision: str | None = Query(default=None),
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=50, ge=1, le=200),
 ) -> ArticleWithResultListOut:
-    """Return project articles with their latest screening result."""
+    """Return project articles with their screening result for a specific run (or latest)."""
     project = await db.get(Project, project_id)
     if project is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
 
-    # Subquery: latest screening_result id per article in this project
+    # Subquery: latest screening_result id per article, optionally scoped to a run.
+    # Legacy rows (screening_run_id IS NULL) are attributed to the run whose criteria_id
+    # matches — fallback for results written before the migration added this column.
+    sr_filter = ScreeningResult.project_id == project_id
+    if run_id:
+        target_run = await db.get(ScreeningRun, run_id)
+        if target_run is None or target_run.project_id != project_id:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail="Screening run not found"
+            )
+        sr_filter = sr_filter & (
+            (ScreeningResult.screening_run_id == run_id)
+            | (
+                ScreeningResult.screening_run_id.is_(None)
+                & (ScreeningResult.criteria_id == target_run.criteria_id)
+            )
+        )
+
     latest_sr_subq = (
         select(
             ScreeningResult.article_id,
             func.max(ScreeningResult.screened_at).label("max_screened_at"),
         )
-        .where(ScreeningResult.project_id == project_id)
+        .where(sr_filter)
         .group_by(ScreeningResult.article_id)
         .subquery()
     )

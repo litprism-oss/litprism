@@ -38,6 +38,7 @@ async def write_tombstone(
     criteria_id: str,
     cause: str,
     db: AsyncSession,
+    screening_run_id: str | None = None,
 ) -> None:
     """
     Writes a ScreeningResult tombstone for a persistently failing article.
@@ -49,6 +50,7 @@ async def write_tombstone(
         article_id=article_id,
         project_id=project_id,
         criteria_id=criteria_id,
+        screening_run_id=screening_run_id,
         stage="abstract",
         decision="uncertain",
         confidence=0.0,
