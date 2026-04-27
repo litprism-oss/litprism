@@ -11,6 +11,7 @@ import type {
   UploadRecordOut,
   UploadResponseOut,
   PRISMAFlowCounts,
+  CriteriaOut,
 } from '@/lib/types'
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
@@ -100,5 +101,16 @@ export const api = {
   prisma: {
     counts: (projectId: string) =>
       request<PRISMAFlowCounts>(`/projects/${projectId}/prisma-counts`),
+  },
+  criteria: {
+    get: (projectId: string) =>
+      request<CriteriaOut>(`/projects/${projectId}/criteria`),
+    history: (projectId: string) =>
+      request<CriteriaOut[]>(`/projects/${projectId}/criteria/history`),
+    create: (projectId: string, body: { inclusion: string[]; exclusion: string[] }) =>
+      request<CriteriaOut>(`/projects/${projectId}/criteria`, {
+        method: 'POST',
+        body: JSON.stringify(body),
+      }),
   },
 }

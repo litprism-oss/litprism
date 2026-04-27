@@ -1,6 +1,7 @@
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom'
 import { useSearchRuns } from '@/hooks/useSearchRuns'
 import { useUploads } from '@/hooks/useUpload'
+import { useCriteria } from '@/hooks/useCriteria'
 
 interface NavItemProps {
   label: string
@@ -74,6 +75,7 @@ export function ProjectSidebar() {
 
   const { data: searchRuns } = useSearchRuns(projectId ?? '')
   const { data: uploads } = useUploads(projectId ?? '')
+  const { data: activeCriteria } = useCriteria(projectId ?? '')
 
   if (!projectId || projectId === 'new') return null
 
@@ -142,6 +144,13 @@ export function ProjectSidebar() {
           <SubItem key={item.id} label={item.label} to={item.to} active={item.active} />
         ))}
         <NavItem label="Criteria" to={`${base}/criteria`} active={active('criteria')} />
+        {activeCriteria && (
+          <SubItem
+            label={`v${activeCriteria.version} · active`}
+            to={`${base}/criteria`}
+            active={false}
+          />
+        )}
         <NavItem label="PRISMA"   to={`${base}/prisma`}   active={active('prisma')} />
       </div>
     </nav>

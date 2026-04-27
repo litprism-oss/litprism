@@ -67,11 +67,15 @@ export const GUIDE_CONTENT: Record<string, GuideEntry> = {
     sections: [
       {
         heading: 'Define before screening',
-        body: 'Set inclusion and exclusion criteria before screening begins. Changes after screening create a new criteria version — all articles are re-screened and both versions are preserved.',
+        body: 'Set your inclusion and exclusion criteria before running screening. Every criterion you add will be assessed by the LLM for each abstract.',
       },
       {
-        heading: 'PRISMA-S item 5',
-        body: 'Criteria are versioned with timestamps. If you update them, the change history appears in your screening report with the date and nature of the change.',
+        heading: 'Versioning',
+        body: 'Each save creates a new version. If you update criteria after screening has started, articles already screened are flagged as stale and can be re-screened under the new version.',
+      },
+      {
+        heading: 'Writing good criteria',
+        body: 'Be specific and assessable from an abstract. "Randomised controlled trial" is assessable. "High-quality study" is not — the LLM cannot judge quality from a title and abstract alone.',
       },
     ],
   },

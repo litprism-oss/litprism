@@ -139,6 +139,16 @@ export interface UploadResponseOut {
   project_id: string
 }
 
+export interface CriteriaOut {
+  id: string
+  project_id: string
+  version: number
+  inclusion: string[]
+  exclusion: string[]
+  is_active: boolean
+  created_at: string
+}
+
 export interface PRISMAFlowCounts {
   db_records: number
   other_records: number
