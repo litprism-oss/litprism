@@ -67,11 +67,15 @@ export const GUIDE_CONTENT: Record<string, GuideEntry> = {
     sections: [
       {
         heading: 'Define before screening',
-        body: 'Set inclusion and exclusion criteria before screening begins. Changes after screening create a new criteria version — all articles are re-screened and both versions are preserved.',
+        body: 'Set your inclusion and exclusion criteria before running screening. Every criterion you add will be assessed by the LLM for each abstract.',
       },
       {
-        heading: 'PRISMA-S item 5',
-        body: 'Criteria are versioned with timestamps. If you update them, the change history appears in your screening report with the date and nature of the change.',
+        heading: 'Versioning',
+        body: 'Each save creates a new version. If you update criteria after screening has started, articles already screened are flagged as stale and can be re-screened under the new version.',
+      },
+      {
+        heading: 'Writing good criteria',
+        body: 'Be specific and assessable from an abstract. "Randomised controlled trial" is assessable. "High-quality study" is not — the LLM cannot judge quality from a title and abstract alone.',
       },
     ],
   },
@@ -79,25 +83,46 @@ export const GUIDE_CONTENT: Record<string, GuideEntry> = {
     title: 'Abstract screening',
     sections: [
       {
-        heading: 'LLM-assisted decisions',
-        body: 'Each abstract is assessed against every criterion. Every decision is grounded in an exact quote. The LLM cannot exclude an article for a criterion that is simply not mentioned — absence of information routes the article to full-text review.',
+        heading: 'How it works',
+        body: 'Each abstract is assessed against every criterion. The LLM must cite an exact quote to confirm or refute a criterion — silence is never treated as negative evidence.',
       },
       {
-        heading: 'Human review',
-        body: 'Low-confidence decisions (below your threshold) are flagged for human review. Overrides are recorded in the audit trail.',
+        heading: 'Decisions',
+        body: 'Include: all inclusion criteria confirmed, no exclusions triggered. Exclude: any exclusion confirmed, or any inclusion clearly refuted. Uncertain: insufficient information — routes to full-text review.',
+      },
+      {
+        heading: 'Uncertain articles',
+        body: 'Articles marked uncertain are not excluded — they proceed to full-text review. This is the correct trade-off for a systematic review: better to retrieve one extra article than to miss a relevant one.',
+      },
+    ],
+  },
+  'screening/results': {
+    title: 'Screening results',
+    sections: [
+      {
+        heading: 'Reviewing decisions',
+        body: 'Click any article to see the full per-criterion assessment with supporting quotes. Override decisions where you disagree — overrides are recorded in the audit trail.',
+      },
+      {
+        heading: 'Uncertain articles',
+        body: 'Uncertain articles had insufficient information in the abstract to assess one or more criteria. These need full-text review before a final decision.',
+      },
+      {
+        heading: 'Confidence score',
+        body: 'Confidence reflects how clearly the abstract addressed all criteria. Low confidence (<75%) warrants human spot-check even when the decision looks correct.',
       },
     ],
   },
   export: {
-    title: 'Reporting & export',
+    title: 'Export',
     sections: [
       {
-        heading: 'PRISMA-S supplementary table',
-        body: 'Automatically generated from your search history. Includes query strings, filters, dates, and result counts for every database searched and every file uploaded.',
+        heading: 'Reference formats',
+        body: 'RIS and NBIB can be imported directly into Zotero, EndNote, or any reference manager. CSV and JSON are for custom pipelines.',
       },
       {
-        heading: 'Screening report',
-        body: 'Includes exclusion reasons by criterion, confidence distribution, and criteria version history — all required for methods section reporting.',
+        heading: 'PRISMA-S table',
+        body: 'The supplementary search strategy document includes query strings, filters, dates, and result counts for every database searched — required by most journals for systematic review submission.',
       },
     ],
   },

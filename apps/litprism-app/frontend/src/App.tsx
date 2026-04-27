@@ -8,6 +8,7 @@ import { SearchPage } from '@/pages/SearchPage'
 import { UploadPage } from '@/pages/UploadPage'
 import { CriteriaPage } from '@/pages/CriteriaPage'
 import { ScreeningPage } from '@/pages/ScreeningPage'
+import { ScreeningResultsPage } from '@/pages/ScreeningResultsPage'
 import { ExportPage } from '@/pages/ExportPage'
 import { PRISMAPage } from '@/pages/PRISMAPage'
 import { ArticleListPage } from '@/pages/ArticleListPage'
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="projects/:projectId/upload" element={<UploadPage />} />
             <Route path="projects/:projectId/criteria" element={<CriteriaPage />} />
             <Route path="projects/:projectId/screening" element={<ScreeningPage />} />
+            <Route path="projects/:projectId/screening/results" element={<ScreeningResultsPage />} />
             <Route path="projects/:projectId/export" element={<ExportPage />} />
             <Route path="projects/:projectId/prisma" element={<PRISMAPage />} />
             <Route path="projects/:projectId/articles" element={<ArticleListPage />} />

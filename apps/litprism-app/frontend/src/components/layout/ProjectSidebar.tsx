@@ -1,6 +1,9 @@
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom'
 import { useSearchRuns } from '@/hooks/useSearchRuns'
 import { useUploads } from '@/hooks/useUpload'
+import { useCriteria, useCriteriaHistory } from '@/hooks/useCriteria'
+import { useScreeningRuns } from '@/hooks/useScreening'
+import { useScreeningResults } from '@/hooks/useScreeningResults'
 
 interface NavItemProps {
   label: string
@@ -74,6 +77,21 @@ export function ProjectSidebar() {
 
   const { data: searchRuns } = useSearchRuns(projectId ?? '')
   const { data: uploads } = useUploads(projectId ?? '')
+  const { data: activeCriteria } = useCriteria(projectId ?? '')
+  const { data: criteriaHistory } = useCriteriaHistory(projectId ?? '')
+  const { data: screeningRuns } = useScreeningRuns(projectId ?? '')
+
+  const completedScreeningRun =
+    Array.isArray(screeningRuns) && screeningRuns.length > 0
+      ? [...screeningRuns]
+          .filter(r => r.status === 'completed')
+          .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0]
+      : undefined
+
+  const { data: includedData } = useScreeningResults(
+    projectId ?? '',
+    { decision: 'include', page: 1, page_size: 1 },
+  )
 
   if (!projectId || projectId === 'new') return null
 
@@ -98,6 +116,15 @@ export function ProjectSidebar() {
         active: currentUrl === to,
       }
     }) ?? []
+
+  const latestScreeningRun =
+    Array.isArray(screeningRuns) && screeningRuns.length > 0
+      ? [...screeningRuns].sort(
+          (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+        )[0]
+      : undefined
+
+  const resultsTo = `${base}/screening/results`
 
   const uploadSubItems = Array.isArray(uploads)
     ? uploads.map((u) => {
@@ -126,7 +153,29 @@ export function ProjectSidebar() {
         {sourceSubItems.map((item) => (
           <SubItem key={item.id} label={item.label} to={item.to} active={item.active} />
         ))}
-        <NavItem label="Screen"   to={`${base}/screening`} active={active('screening')} />
+        <NavItem label="Screen"   to={`${base}/screening`} active={active('screening') && !pathname.includes('/results')} />
+        {latestScreeningRun && (() => {
+          const cv = criteriaHistory?.find((c) => c.id === latestScreeningRun.criteria_id)
+          const vLabel = cv ? `v${cv.version}` : ''
+          const statusLabel =
+            latestScreeningRun.status === 'running'
+              ? `${latestScreeningRun.screened_count.toLocaleString()} / ${latestScreeningRun.total_articles.toLocaleString()}`
+              : latestScreeningRun.status
+          return (
+            <SubItem
+              label={[vLabel, statusLabel].filter(Boolean).join(' · ')}
+              to={`${base}/screening`}
+              active={false}
+            />
+          )
+        })()}
+        {completedScreeningRun && (
+          <SubItem
+            label={`results${includedData != null ? ` · ${includedData.total.toLocaleString()} included` : ''}`}
+            to={resultsTo}
+            active={pathname === resultsTo}
+          />
+        )}
         <NavItem label="Export"   to={`${base}/export`}    active={active('export')} />
       </div>
 
@@ -142,6 +191,13 @@ export function ProjectSidebar() {
           <SubItem key={item.id} label={item.label} to={item.to} active={item.active} />
         ))}
         <NavItem label="Criteria" to={`${base}/criteria`} active={active('criteria')} />
+        {activeCriteria && (
+          <SubItem
+            label={`v${activeCriteria.version} · active`}
+            to={`${base}/criteria`}
+            active={false}
+          />
+        )}
         <NavItem label="PRISMA"   to={`${base}/prisma`}   active={active('prisma')} />
       </div>
     </nav>

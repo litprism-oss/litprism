@@ -3,20 +3,25 @@ from datetime import UTC, datetime
 from typing import Annotated
 
 from db.engine import get_db
-from db.models import Article, Project, ScreeningRun
+from db.models import Article, Project, ScreeningResult, ScreeningRun
 from db.models import Criteria as DBCriteria
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from litprism.screen.criteria import Criteria
 from litprism.screen.models import ReviewType as ScreenReviewType
 from litprism.screen.screener import Screener
-from sqlalchemy import func, select
+from sqlalchemy import case, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from tasks.screening import screen_coordinator
 
 from api.schemas import (
+    ArticleWithResult,
+    ArticleWithResultListOut,
+    CriteriaHitOut,
+    HumanOverrideRequest,
     PreviewCriteriaHit,
     ScreeningPreviewRequest,
     ScreeningPreviewResult,
+    ScreeningResultOut,
     ScreeningRunCreate,
     ScreeningRunOut,
     ScreeningRunUpdate,
@@ -253,3 +258,135 @@ async def cancel_screening_run(
     run.status = "cancelled"
     await db.commit()
     return run
+
+
+# ---------------------------------------------------------------------------
+# Screening results + override (Session 10.4)
+# ---------------------------------------------------------------------------
+
+
+def _effective_decision(sr: ScreeningResult) -> str:
+    return sr.human_decision if sr.human_override and sr.human_decision else sr.decision
+
+
+def _result_to_out(sr: ScreeningResult) -> ScreeningResultOut:
+    hits = [CriteriaHitOut(**h) for h in (sr.criteria_hits or [])]
+    return ScreeningResultOut(
+        article_id=sr.article_id,
+        decision=_effective_decision(sr),
+        confidence=sr.confidence,
+        reasoning=sr.reasoning,
+        criteria_hits=hits,
+        stage=sr.stage,
+        model_used=sr.model_used,
+        screened_at=sr.screened_at,
+        human_override=sr.human_override,
+        human_decision=sr.human_decision,
+        human_note=sr.human_note,
+    )
+
+
+@router.get("/{project_id}/screening/results", response_model=ArticleWithResultListOut)
+async def list_screening_results(
+    project_id: str,
+    db: DB,
+    decision: str | None = Query(default=None),
+    page: int = Query(default=1, ge=1),
+    page_size: int = Query(default=50, ge=1, le=200),
+) -> ArticleWithResultListOut:
+    """Return project articles with their latest screening result."""
+    project = await db.get(Project, project_id)
+    if project is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+
+    # Subquery: latest screening_result id per article in this project
+    latest_sr_subq = (
+        select(
+            ScreeningResult.article_id,
+            func.max(ScreeningResult.screened_at).label("max_screened_at"),
+        )
+        .where(ScreeningResult.project_id == project_id)
+        .group_by(ScreeningResult.article_id)
+        .subquery()
+    )
+
+    # Join articles → latest screening result
+    base_q = (
+        select(Article, ScreeningResult)
+        .outerjoin(
+            latest_sr_subq,
+            Article.id == latest_sr_subq.c.article_id,
+        )
+        .outerjoin(
+            ScreeningResult,
+            (ScreeningResult.article_id == latest_sr_subq.c.article_id)
+            & (ScreeningResult.screened_at == latest_sr_subq.c.max_screened_at),
+        )
+        .where(Article.project_id == project_id)
+    )
+
+    if decision:
+        has_override = ScreeningResult.human_override.is_(
+            True
+        ) & ScreeningResult.human_decision.isnot(None)
+        effective = case(
+            (has_override, ScreeningResult.human_decision),
+            else_=ScreeningResult.decision,
+        )
+        base_q = base_q.where(effective == decision)
+
+    total = await db.scalar(select(func.count()).select_from(base_q.subquery()))
+
+    rows = (
+        await db.execute(
+            base_q.order_by(Article.created_at.desc())
+            .offset((page - 1) * page_size)
+            .limit(page_size)
+        )
+    ).all()
+
+    items: list[ArticleWithResult] = []
+    for article, sr in rows:
+        result_out = _result_to_out(sr) if sr is not None else None
+        aw = ArticleWithResult.model_validate(article)
+        aw.screening_result = result_out
+        items.append(aw)
+
+    return ArticleWithResultListOut(items=items, total=total or 0, page=page, page_size=page_size)
+
+
+@router.post("/{project_id}/screening/{article_id}/override", response_model=ScreeningResultOut)
+async def override_screening_decision(
+    project_id: str,
+    article_id: str,
+    body: HumanOverrideRequest,
+    db: DB,
+) -> ScreeningResultOut:
+    """Apply a human override to the latest screening result for an article."""
+    project = await db.get(Project, project_id)
+    if project is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+
+    sr = (
+        await db.scalars(
+            select(ScreeningResult)
+            .where(ScreeningResult.project_id == project_id)
+            .where(ScreeningResult.article_id == article_id)
+            .order_by(ScreeningResult.screened_at.desc())
+            .limit(1)
+        )
+    ).first()
+
+    if sr is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No screening result found for this article",
+        )
+
+    sr.human_override = True
+    sr.human_decision = body.decision
+    sr.human_note = body.note
+    sr.overridden_at = datetime.now(UTC)
+    await db.commit()
+    await db.refresh(sr)
+    return _result_to_out(sr)

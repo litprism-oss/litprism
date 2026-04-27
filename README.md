@@ -54,8 +54,11 @@ uv run uvicorn main:app --reload --port 8000
 
 ```bash
 cd apps/litprism-app/backend
-uv run celery -A tasks.screening worker --loglevel=info
+PYTHONPATH=$(pwd) uv run celery -A tasks.screening worker --loglevel=info
 ```
+
+> `PYTHONPATH=$(pwd)` is required so that Celery's forked worker processes can locate
+> the local `db/`, `tasks/`, and `services/` packages inside `backend/`.
 
 **Frontend** (runs on http://localhost:5173):
 

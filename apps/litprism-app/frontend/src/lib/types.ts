@@ -139,6 +139,61 @@ export interface UploadResponseOut {
   project_id: string
 }
 
+export interface CriteriaOut {
+  id: string
+  project_id: string
+  version: number
+  inclusion: string[]
+  exclusion: string[]
+  is_active: boolean
+  created_at: string
+}
+
+export interface ScreeningRunOut {
+  id: string
+  project_id: string
+  stage: 'abstract' | 'fulltext'
+  status: 'pending' | 'running' | 'paused' | 'completed' | 'failed' | 'cancelled'
+  criteria_id: string
+  total_articles: number
+  screened_count: number
+  error_count: number
+  chunk_size: number
+  reviewer_name: string | null
+  review_notes: string | null
+  started_at: string | null
+  completed_at: string | null
+  resumed_at: string | null
+  created_at: string
+}
+
+export interface PreviewCriteriaHit {
+  criterion: string
+  criterion_type: 'inclusion' | 'exclusion'
+  assessment: 'confirmed' | 'refuted' | 'unassessable'
+  supporting_quote: string | null
+  unassessable_reason: string | null
+}
+
+export interface ScreeningPreviewResult {
+  article_id: string
+  decision: 'include' | 'exclude' | 'uncertain'
+  confidence: number
+  reasoning: string
+  criteria_hits: PreviewCriteriaHit[]
+  model_used: string
+}
+
+export interface ScreeningRunCreate {
+  stage?: 'abstract'
+  concurrency?: number
+}
+
+export type ScreeningProgressEvent =
+  | { event: 'screening_progress'; article_id: string; decision: string; confidence: number; processed: number; total: number }
+  | { event: 'screening_complete'; total_processed: number; included: number; excluded: number; uncertain: number }
+  | { event: 'screening_error'; article_id: string; message: string }
+
 export interface PRISMAFlowCounts {
   db_records: number
   other_records: number
@@ -149,4 +204,41 @@ export interface PRISMAFlowCounts {
   fulltext_assessed: number | null
   fulltext_excluded: number | null
   studies_included: number
+}
+
+export type ScreeningDecision = 'include' | 'exclude' | 'uncertain'
+export type CriteriaAssessment = 'confirmed' | 'refuted' | 'unassessable'
+
+export interface CriteriaHitOut {
+  criterion: string
+  criterion_type: 'inclusion' | 'exclusion'
+  assessment: CriteriaAssessment
+  supporting_quote: string | null
+  quote_location: 'title' | 'abstract' | null
+  unassessable_reason: string | null
+}
+
+export interface ScreeningResultOut {
+  article_id: string
+  decision: ScreeningDecision
+  confidence: number
+  reasoning: string
+  criteria_hits: CriteriaHitOut[]
+  stage: 'abstract' | 'fulltext'
+  model_used: string
+  screened_at: string
+  human_override: boolean
+  human_decision: string | null
+  human_note: string | null
+}
+
+export interface ArticleWithResult extends ArticleOut {
+  screening_result: ScreeningResultOut | null
+}
+
+export interface ArticleWithResultListOut {
+  items: ArticleWithResult[]
+  total: number
+  page: number
+  page_size: number
 }

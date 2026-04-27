@@ -1,3 +1,15 @@
+import { useParams } from 'react-router-dom'
+import { useProjects } from '@/hooks/useProjects'
+import { ExportPanel } from '@/components/export/ExportPanel'
+
 export function ExportPage() {
-  return <p style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>Export — coming in Session 10</p>
+  const { projectId = '' } = useParams()
+  const { data: projects } = useProjects()
+  const project = projects?.find(p => p.id === projectId)
+
+  return (
+    <div style={{ padding: '24px', maxWidth: 480 }}>
+      <ExportPanel projectId={projectId} projectName={project?.name} />
+    </div>
+  )
 }
