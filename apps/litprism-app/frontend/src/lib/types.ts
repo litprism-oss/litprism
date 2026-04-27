@@ -205,3 +205,40 @@ export interface PRISMAFlowCounts {
   fulltext_excluded: number | null
   studies_included: number
 }
+
+export type ScreeningDecision = 'include' | 'exclude' | 'uncertain'
+export type CriteriaAssessment = 'confirmed' | 'refuted' | 'unassessable'
+
+export interface CriteriaHitOut {
+  criterion: string
+  criterion_type: 'inclusion' | 'exclusion'
+  assessment: CriteriaAssessment
+  supporting_quote: string | null
+  quote_location: 'title' | 'abstract' | null
+  unassessable_reason: string | null
+}
+
+export interface ScreeningResultOut {
+  article_id: string
+  decision: ScreeningDecision
+  confidence: number
+  reasoning: string
+  criteria_hits: CriteriaHitOut[]
+  stage: 'abstract' | 'fulltext'
+  model_used: string
+  screened_at: string
+  human_override: boolean
+  human_decision: string | null
+  human_note: string | null
+}
+
+export interface ArticleWithResult extends ArticleOut {
+  screening_result: ScreeningResultOut | null
+}
+
+export interface ArticleWithResultListOut {
+  items: ArticleWithResult[]
+  total: number
+  page: number
+  page_size: number
+}

@@ -3,6 +3,7 @@ import { useSearchRuns } from '@/hooks/useSearchRuns'
 import { useUploads } from '@/hooks/useUpload'
 import { useCriteria, useCriteriaHistory } from '@/hooks/useCriteria'
 import { useScreeningRuns } from '@/hooks/useScreening'
+import { useScreeningResults } from '@/hooks/useScreeningResults'
 
 interface NavItemProps {
   label: string
@@ -80,6 +81,18 @@ export function ProjectSidebar() {
   const { data: criteriaHistory } = useCriteriaHistory(projectId ?? '')
   const { data: screeningRuns } = useScreeningRuns(projectId ?? '')
 
+  const completedScreeningRun =
+    Array.isArray(screeningRuns) && screeningRuns.length > 0
+      ? [...screeningRuns]
+          .filter(r => r.status === 'completed')
+          .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())[0]
+      : undefined
+
+  const { data: includedData } = useScreeningResults(
+    projectId ?? '',
+    { decision: 'include', page: 1, page_size: 1 },
+  )
+
   if (!projectId || projectId === 'new') return null
 
   const base = `/projects/${projectId}`
@@ -111,6 +124,8 @@ export function ProjectSidebar() {
         )[0]
       : undefined
 
+  const resultsTo = `${base}/screening/results`
+
   const uploadSubItems = Array.isArray(uploads)
     ? uploads.map((u) => {
         const name = u.filename.length > 14 ? u.filename.slice(0, 12) + '…' : u.filename
@@ -138,7 +153,7 @@ export function ProjectSidebar() {
         {sourceSubItems.map((item) => (
           <SubItem key={item.id} label={item.label} to={item.to} active={item.active} />
         ))}
-        <NavItem label="Screen"   to={`${base}/screening`} active={active('screening')} />
+        <NavItem label="Screen"   to={`${base}/screening`} active={active('screening') && !pathname.includes('/results')} />
         {latestScreeningRun && (() => {
           const cv = criteriaHistory?.find((c) => c.id === latestScreeningRun.criteria_id)
           const vLabel = cv ? `v${cv.version}` : ''
@@ -154,6 +169,13 @@ export function ProjectSidebar() {
             />
           )
         })()}
+        {completedScreeningRun && (
+          <SubItem
+            label={`results${includedData != null ? ` · ${includedData.total.toLocaleString()} included` : ''}`}
+            to={resultsTo}
+            active={pathname === resultsTo}
+          />
+        )}
         <NavItem label="Export"   to={`${base}/export`}    active={active('export')} />
       </div>
 

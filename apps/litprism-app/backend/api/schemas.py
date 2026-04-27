@@ -277,6 +277,51 @@ class UploadRecordOut(BaseModel):
 
 
 # ---------------------------------------------------------------------------
+# Screening results + override (Session 10.4)
+# ---------------------------------------------------------------------------
+
+
+class CriteriaHitOut(BaseModel):
+    criterion: str
+    criterion_type: Literal["inclusion", "exclusion"]
+    assessment: Literal["confirmed", "refuted", "unassessable"]
+    supporting_quote: str | None
+    quote_location: Literal["title", "abstract", "section"] | None
+    unassessable_reason: str | None
+
+
+class ScreeningResultOut(BaseModel):
+    article_id: str
+    decision: str
+    confidence: float
+    reasoning: str
+    criteria_hits: list[CriteriaHitOut]
+    stage: str
+    model_used: str
+    screened_at: datetime
+    human_override: bool
+    human_decision: str | None
+    human_note: str | None
+    model_config = ConfigDict(from_attributes=True)
+
+
+class ArticleWithResult(ArticleOut):
+    screening_result: ScreeningResultOut | None = None
+
+
+class ArticleWithResultListOut(BaseModel):
+    items: list[ArticleWithResult]
+    total: int
+    page: int
+    page_size: int
+
+
+class HumanOverrideRequest(BaseModel):
+    decision: Literal["include", "exclude", "uncertain"]
+    note: str | None = None
+
+
+# ---------------------------------------------------------------------------
 # Search preview (Session 8.1)
 # ---------------------------------------------------------------------------
 

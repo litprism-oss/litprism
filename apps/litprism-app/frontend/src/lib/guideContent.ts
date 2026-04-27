@@ -96,16 +96,33 @@ export const GUIDE_CONTENT: Record<string, GuideEntry> = {
       },
     ],
   },
-  export: {
-    title: 'Reporting & export',
+  'screening/results': {
+    title: 'Screening results',
     sections: [
       {
-        heading: 'PRISMA-S supplementary table',
-        body: 'Automatically generated from your search history. Includes query strings, filters, dates, and result counts for every database searched and every file uploaded.',
+        heading: 'Reviewing decisions',
+        body: 'Click any article to see the full per-criterion assessment with supporting quotes. Override decisions where you disagree — overrides are recorded in the audit trail.',
       },
       {
-        heading: 'Screening report',
-        body: 'Includes exclusion reasons by criterion, confidence distribution, and criteria version history — all required for methods section reporting.',
+        heading: 'Uncertain articles',
+        body: 'Uncertain articles had insufficient information in the abstract to assess one or more criteria. These need full-text review before a final decision.',
+      },
+      {
+        heading: 'Confidence score',
+        body: 'Confidence reflects how clearly the abstract addressed all criteria. Low confidence (<75%) warrants human spot-check even when the decision looks correct.',
+      },
+    ],
+  },
+  export: {
+    title: 'Export',
+    sections: [
+      {
+        heading: 'Reference formats',
+        body: 'RIS and NBIB can be imported directly into Zotero, EndNote, or any reference manager. CSV and JSON are for custom pipelines.',
+      },
+      {
+        heading: 'PRISMA-S table',
+        body: 'The supplementary search strategy document includes query strings, filters, dates, and result counts for every database searched — required by most journals for systematic review submission.',
       },
     ],
   },

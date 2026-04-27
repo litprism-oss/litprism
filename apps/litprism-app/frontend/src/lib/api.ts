@@ -8,6 +8,7 @@ import type {
   SearchPreviewRequest,
   SearchPreviewResponse,
   ArticleListOut,
+  ArticleWithResultListOut,
   UploadRecordOut,
   UploadResponseOut,
   PRISMAFlowCounts,
@@ -15,6 +16,8 @@ import type {
   ScreeningRunOut,
   ScreeningRunCreate,
   ScreeningPreviewResult,
+  ScreeningResultOut,
+  ScreeningDecision,
 } from '@/lib/types'
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
@@ -140,5 +143,32 @@ export const api = {
         method: 'POST',
         body: JSON.stringify(body),
       }),
+  },
+  screeningResults: {
+    list: (
+      projectId: string,
+      params?: { decision?: ScreeningDecision; page?: number; page_size?: number },
+    ) => {
+      const qs = new URLSearchParams()
+      if (params?.decision) qs.set('decision', params.decision)
+      if (params?.page) qs.set('page', String(params.page))
+      if (params?.page_size) qs.set('page_size', String(params.page_size))
+      return request<ArticleWithResultListOut>(
+        `/projects/${projectId}/screening/results${qs.toString() ? '?' + qs : ''}`,
+      )
+    },
+    override: (
+      projectId: string,
+      articleId: string,
+      body: { decision: ScreeningDecision; note?: string },
+    ) =>
+      request<ScreeningResultOut>(
+        `/projects/${projectId}/screening/${articleId}/override`,
+        { method: 'POST', body: JSON.stringify(body) },
+      ),
+  },
+  export_: {
+    download: (projectId: string, format: string) =>
+      fetch(`${BASE_URL}/projects/${projectId}/export/${format}`).then(r => r.blob()),
   },
 }
