@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useScreeningRuns, useStartScreening, useCancelScreening } from '@/hooks/useScreening'
 import { useSearchProgress } from '@/hooks/useSearchProgress'
+import { useCriteria } from '@/hooks/useCriteria'
 import { ScreeningSetupForm } from '@/components/screening/ScreeningSetupForm'
 import { ScreeningProgress } from '@/components/screening/ScreeningProgress'
 import { ScreeningCompleteSummary } from '@/components/screening/ScreeningCompleteSummary'
@@ -8,6 +9,7 @@ import { ScreeningCompleteSummary } from '@/components/screening/ScreeningComple
 export function ScreeningPage() {
   const { projectId = '' } = useParams()
   const { data: runs, isLoading } = useScreeningRuns(projectId)
+  const { data: activeCriteria } = useCriteria(projectId)
   const { events } = useSearchProgress(projectId)
   const startScreening = useStartScreening(projectId)
   const cancelScreening = useCancelScreening(projectId)
@@ -79,8 +81,29 @@ export function ScreeningPage() {
     )
   }
 
-  // completed → summary
+  // completed → if criteria changed, show previous summary + setup form for new run
   if (latestRun.status === 'completed') {
+    const criteriaUpdated = activeCriteria && activeCriteria.id !== latestRun.criteria_id
+    if (criteriaUpdated) {
+      return (
+        <div>
+          <div style={{ borderBottom: '0.5px solid var(--color-border-tertiary)', marginBottom: '0' }}>
+            <div style={{ padding: '12px 24px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 500, color: 'var(--color-text-secondary)' }}>
+                Previous run
+              </span>
+              <span style={{ fontSize: '12px', color: 'var(--color-text-tertiary)' }}>
+                Criteria updated — start a new screening run below
+              </span>
+            </div>
+            <div style={{ opacity: 0.6, pointerEvents: 'none' }}>
+              <ScreeningCompleteSummary projectId={projectId} run={latestRun} />
+            </div>
+          </div>
+          <ScreeningSetupForm projectId={projectId} />
+        </div>
+      )
+    }
     return <ScreeningCompleteSummary projectId={projectId} run={latestRun} />
   }
 

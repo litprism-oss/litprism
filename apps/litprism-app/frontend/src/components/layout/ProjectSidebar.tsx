@@ -1,7 +1,7 @@
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom'
 import { useSearchRuns } from '@/hooks/useSearchRuns'
 import { useUploads } from '@/hooks/useUpload'
-import { useCriteria } from '@/hooks/useCriteria'
+import { useCriteria, useCriteriaHistory } from '@/hooks/useCriteria'
 import { useScreeningRuns } from '@/hooks/useScreening'
 
 interface NavItemProps {
@@ -77,6 +77,7 @@ export function ProjectSidebar() {
   const { data: searchRuns } = useSearchRuns(projectId ?? '')
   const { data: uploads } = useUploads(projectId ?? '')
   const { data: activeCriteria } = useCriteria(projectId ?? '')
+  const { data: criteriaHistory } = useCriteriaHistory(projectId ?? '')
   const { data: screeningRuns } = useScreeningRuns(projectId ?? '')
 
   if (!projectId || projectId === 'new') return null
@@ -138,17 +139,21 @@ export function ProjectSidebar() {
           <SubItem key={item.id} label={item.label} to={item.to} active={item.active} />
         ))}
         <NavItem label="Screen"   to={`${base}/screening`} active={active('screening')} />
-        {latestScreeningRun && (
-          <SubItem
-            label={
-              latestScreeningRun.status === 'running'
-                ? `${latestScreeningRun.screened_count.toLocaleString()} / ${latestScreeningRun.total_articles.toLocaleString()}`
-                : latestScreeningRun.status
-            }
-            to={`${base}/screening`}
-            active={false}
-          />
-        )}
+        {latestScreeningRun && (() => {
+          const cv = criteriaHistory?.find((c) => c.id === latestScreeningRun.criteria_id)
+          const vLabel = cv ? `v${cv.version}` : ''
+          const statusLabel =
+            latestScreeningRun.status === 'running'
+              ? `${latestScreeningRun.screened_count.toLocaleString()} / ${latestScreeningRun.total_articles.toLocaleString()}`
+              : latestScreeningRun.status
+          return (
+            <SubItem
+              label={[vLabel, statusLabel].filter(Boolean).join(' · ')}
+              to={`${base}/screening`}
+              active={false}
+            />
+          )
+        })()}
         <NavItem label="Export"   to={`${base}/export`}    active={active('export')} />
       </div>
 
