@@ -28,50 +28,54 @@ Natural language / PICO / direct query
 
 ## Running the app
 
-**Prerequisites:** Python ≥ 3.12, Node.js ≥ 18, [uv](https://astral.sh/uv), Redis
+**Prerequisites:** Python ≥ 3.12, Node.js ≥ 18, [uv](https://astral.sh/uv), Redis,
+[Overmind](https://github.com/DarthSim/overmind) — `brew install redis overmind`
 
 ```bash
-# 1. Install all dependencies
+# 1. Install dependencies
 uv sync --all-packages
+cd apps/litprism-app/frontend && npm install && cd ../../..
 
-# 2. Copy and edit env
+# 2. Configure environment
 cp apps/litprism-app/.env.example apps/litprism-app/.env
+# Edit apps/litprism-app/.env with your API keys
 
 # 3. Run database migrations
-cd apps/litprism-app/backend
-alembic upgrade head
-cd ../../..
+cd apps/litprism-app/backend && uv run alembic upgrade head && cd ../../..
+
+# 4. Start all services
+overmind start
 ```
 
-**Backend** (runs on http://localhost:8000):
+This launches the API (`:8000`), Celery worker, and frontend (`:5173`) in one terminal
+with colour-coded logs. Use `overmind connect web|worker|frontend` to attach to any process.
 
+<details>
+<summary>Manual startup (three terminals)</summary>
+
+**Backend** — `http://localhost:8000`
 ```bash
 cd apps/litprism-app/backend
 uv run uvicorn main:app --reload --port 8000
 ```
 
-**Celery worker** (required for screening):
-
+**Celery worker** (required for screening)
 ```bash
 cd apps/litprism-app/backend
 PYTHONPATH=$(pwd) uv run celery -A tasks.screening worker --loglevel=info
 ```
 
-> `PYTHONPATH=$(pwd)` is required so that Celery's forked worker processes can locate
-> the local `db/`, `tasks/`, and `services/` packages inside `backend/`.
-
-**Frontend** (runs on http://localhost:5173):
-
+**Frontend** — `http://localhost:5173`
 ```bash
 cd apps/litprism-app/frontend
-cp .env.example .env.local   # or set VITE_API_URL and VITE_WS_URL manually
-npm install
 npm run dev
 ```
 
+</details>
+
 ## Status
 
-Pre-release. See [litprism-spec-v4.md](litprism-spec-v4.md) for the full specification.
+Pre-release.
 
 ## Contributing
 
