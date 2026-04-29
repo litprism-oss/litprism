@@ -6,6 +6,8 @@ export function useArticles(
   params?: {
     source_query_id?: string
     upload_record_id?: string
+    enrichment_status?: string
+    missing?: string
     page?: number
     page_size?: number
   },

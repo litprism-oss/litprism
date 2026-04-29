@@ -18,6 +18,7 @@ import type {
   ScreeningPreviewResult,
   ScreeningResultOut,
   ScreeningDecision,
+  EnrichmentStatusOut,
 } from '@/lib/types'
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
@@ -84,12 +85,22 @@ export const api = {
     list: (projectId: string) =>
       request<UploadRecordOut[]>(`/projects/${projectId}/uploads`),
   },
+  enrichment: {
+    status: (projectId: string, uploadRecordId?: string) => {
+      const qs = uploadRecordId ? `?upload_record_id=${uploadRecordId}` : ''
+      return request<EnrichmentStatusOut>(
+        `/projects/${projectId}/enrichment/status${qs}`,
+      )
+    },
+  },
   articles: {
     list: (
       projectId: string,
       params?: {
         source_query_id?: string
         upload_record_id?: string
+        enrichment_status?: string
+        missing?: string
         page?: number
         page_size?: number
       },
@@ -97,6 +108,8 @@ export const api = {
       const qs = new URLSearchParams()
       if (params?.source_query_id) qs.set('source_query_id', params.source_query_id)
       if (params?.upload_record_id) qs.set('upload_record_id', params.upload_record_id)
+      if (params?.enrichment_status) qs.set('enrichment_status', params.enrichment_status)
+      if (params?.missing) qs.set('missing', params.missing)
       if (params?.page) qs.set('page', String(params.page))
       if (params?.page_size) qs.set('page_size', String(params.page_size))
       return request<ArticleListOut>(

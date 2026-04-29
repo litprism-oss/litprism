@@ -17,18 +17,22 @@ const PAGE_SIZE = 50
 
 export function ArticleListPage() {
   const { projectId } = useParams<{ projectId: string }>()
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
 
   const sourceQueryId = searchParams.get('source_query_id') ?? undefined
   const uploadRecordId = searchParams.get('upload_record_id') ?? undefined
+  const enrichmentStatus = searchParams.get('enrichment_status') ?? undefined
+  const missing = searchParams.get('missing') ?? undefined
 
   const { data: searchRuns } = useSearchRuns(projectId ?? '')
   const { data: uploads } = useUploads(projectId ?? '')
   const { data, isLoading } = useArticles(projectId ?? '', {
     source_query_id: sourceQueryId,
     upload_record_id: uploadRecordId,
+    enrichment_status: enrichmentStatus,
+    missing,
     page,
     page_size: PAGE_SIZE,
   })
@@ -113,8 +117,62 @@ export function ArticleListPage() {
       </div>
 
       {uploadRecord && data?.items && data.items.length > 0 && (
-        <ArticleQualityBanner filename={uploadRecord.filename} articles={data.items} />
+        <ArticleQualityBanner
+          filename={uploadRecord.filename}
+          articles={data.items}
+          projectId={projectId ?? ''}
+          uploadRecordId={uploadRecordId}
+        />
       )}
+
+      {(enrichmentStatus || missing) && (() => {
+        const FILTER_LABELS: Record<string, string> = {
+          enrichmentStatus: 'Showing articles where abstract could not be fetched',
+          doi:     'Showing articles missing DOI',
+          title:   'Showing articles missing title',
+          authors: 'Showing articles missing authors',
+        }
+        const label = enrichmentStatus
+          ? FILTER_LABELS.enrichmentStatus
+          : FILTER_LABELS[missing ?? ''] ?? `Showing articles missing ${missing}`
+        const clearKey = enrichmentStatus ? 'enrichment_status' : 'missing'
+        return (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            padding: '6px 12px',
+            marginBottom: 12,
+            background: 'var(--color-background-secondary)',
+            border: '0.5px solid var(--color-border-tertiary)',
+            borderRadius: 'var(--border-radius-md)',
+            fontSize: 12,
+            color: 'var(--color-text-secondary)',
+          }}>
+            <span>{label}</span>
+            <button
+              onClick={() => {
+                const next = new URLSearchParams(searchParams)
+                next.delete(clearKey)
+                setSearchParams(next)
+              }}
+              style={{
+                marginLeft: 'auto',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                color: 'var(--color-text-secondary)',
+                fontSize: 14,
+                lineHeight: 1,
+                padding: '0 2px',
+              }}
+              title="Clear filter"
+            >
+              ✕
+            </button>
+          </div>
+        )
+      })()}
 
       <div style={{
         display: 'flex',
