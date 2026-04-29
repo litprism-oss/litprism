@@ -247,6 +247,19 @@ class UploadResponseOut(BaseModel):
     new_articles: int
     duplicates_found: int
     project_id: str
+    enrichment_queued: int = 0
+
+
+class EnrichmentStatusOut(BaseModel):
+    total: int
+    pending: int
+    enriched: int
+    not_found: int
+    skipped: int
+    has_abstract: int
+    has_title: int
+    has_doi: int
+    has_authors: int
 
 
 class UploadDryRunOut(BaseModel):

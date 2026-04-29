@@ -174,6 +174,7 @@ class Article(Base):
     upload_format: Mapped[str | None] = mapped_column(String, nullable=True)
     file_path: Mapped[str | None] = mapped_column(String, nullable=True)
     pdf_path: Mapped[str | None] = mapped_column(String, nullable=True)
+    enrichment_status: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[str] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )

@@ -30,6 +30,7 @@ from ws import ConnectionManager
 from api.schemas import (
     ArticleListOut,
     ArticleOut,
+    EnrichmentStatusOut,
     SearchPreviewRequest,
     SearchPreviewResponse,
     SearchPreviewSource,
@@ -66,8 +67,21 @@ async def _run_search_task(
     ws_manager: ConnectionManager,
 ) -> None:
     """Background task wrapper — opens its own DB session."""
+    from tasks.enrichment import enrich_articles_task
+
     async with AsyncSessionLocal() as db:
         await run_search(project_id, search_run_id, db, ws_manager)
+
+        # Trigger enrichment for any articles without abstracts
+        result = await db.execute(
+            select(Article.id).where(
+                Article.search_run_id == search_run_id,
+                Article.abstract.is_(None),
+            )
+        )
+        ids = [row[0] for row in result]
+        if ids:
+            enrich_articles_task.delay(project_id, ids)
 
 
 # ---------------------------------------------------------------------------
@@ -413,6 +427,8 @@ async def list_project_articles(
     db: DB,
     source_query_id: str | None = Query(None),
     upload_record_id: str | None = Query(None),
+    enrichment_status: str | None = Query(None),
+    missing: str | None = Query(None),
     page: int = Query(1, ge=1),
     page_size: int = Query(50, ge=1, le=200),
 ) -> ArticleListOut:
@@ -447,6 +463,16 @@ async def list_project_articles(
         else:
             # Legacy upload (pre-join-table): fall back to all uploaded articles in project
             filters.append(Article.source == "upload")
+
+    if enrichment_status:
+        filters.append(Article.enrichment_status == enrichment_status)
+
+    if missing == "doi":
+        filters.append(Article.doi.is_(None))
+    elif missing == "title":
+        filters.append(Article.title.is_(None))
+    elif missing == "authors":
+        filters.append(func.json_array_length(Article.authors) == 0)
 
     offset = (page - 1) * page_size
     total: int = (await db.execute(select(func.count(Article.id)).where(*filters))).scalar_one()
@@ -506,6 +532,67 @@ async def list_search_run_articles(
         total=total,
         page=page,
         page_size=page_size,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Enrichment status
+# ---------------------------------------------------------------------------
+
+
+@router.get("/projects/{project_id}/enrichment/status", response_model=EnrichmentStatusOut)
+async def get_enrichment_status(
+    project_id: str,
+    db: DB,
+    upload_record_id: str | None = Query(None),
+) -> EnrichmentStatusOut:
+    """Enrichment progress counts for the quality banner."""
+    from sqlalchemy import case
+
+    # Articles with no abstract and no terminal status are implicitly pending
+    # (queued but Celery hasn't started yet)
+    implicitly_pending = Article.abstract.is_(None) & Article.enrichment_status.is_(None)
+    query = select(
+        func.count(Article.id).label("total"),
+        func.sum(
+            case(
+                (
+                    (Article.enrichment_status == "pending") | implicitly_pending,
+                    1,
+                ),
+                else_=0,
+            )
+        ).label("pending"),
+        func.sum(case((Article.enrichment_status == "enriched", 1), else_=0)).label("enriched"),
+        func.sum(case((Article.enrichment_status == "not_found", 1), else_=0)).label("not_found"),
+        func.sum(case((Article.enrichment_status == "skipped", 1), else_=0)).label("skipped"),
+        func.sum(case((Article.abstract.isnot(None), 1), else_=0)).label("has_abstract"),
+        func.sum(case((Article.title.isnot(None), 1), else_=0)).label("has_title"),
+        func.sum(case((Article.doi.isnot(None), 1), else_=0)).label("has_doi"),
+        func.sum(case((func.json_array_length(Article.authors) > 0, 1), else_=0)).label(
+            "has_authors"
+        ),
+    ).where(Article.project_id == project_id)
+
+    if upload_record_id:
+        from db.models import UploadArticle
+
+        linked = select(UploadArticle.article_id).where(
+            UploadArticle.upload_record_id == upload_record_id
+        )
+        query = query.where(Article.id.in_(linked))
+
+    row = (await db.execute(query)).one()
+    return EnrichmentStatusOut(
+        total=row.total or 0,
+        pending=row.pending or 0,
+        enriched=row.enriched or 0,
+        not_found=row.not_found or 0,
+        skipped=row.skipped or 0,
+        has_abstract=row.has_abstract or 0,
+        has_title=row.has_title or 0,
+        has_doi=row.has_doi or 0,
+        has_authors=row.has_authors or 0,
     )
 
 
