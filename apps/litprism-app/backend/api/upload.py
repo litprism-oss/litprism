@@ -20,6 +20,7 @@ from services.parsers.pdf import parse as parse_pdf
 from services.parsers.ris import parse as parse_ris
 from sqlalchemy import insert, select
 from sqlalchemy.ext.asyncio import AsyncSession
+from tasks.enrichment import enrich_articles_task
 
 from api.schemas import UploadDryRunOut, UploadRecordOut, UploadResponseOut
 
@@ -200,6 +201,32 @@ async def upload_references(
 
     await db.commit()
 
+    # Collect IDs needing enrichment:
+    # - new articles without an abstract
+    # - duplicate articles that are still missing an abstract (stuck or re-upload)
+    needs_enrichment = [
+        aid
+        for aid, a in zip(new_article_ids, dedup_result.new_articles, strict=False)
+        if not a.abstract
+    ]
+    if dedup_result.duplicate_article_ids:
+        dup_rows = (
+            (
+                await db.execute(
+                    select(Article.id).where(
+                        Article.id.in_(dedup_result.duplicate_article_ids),
+                        Article.abstract.is_(None),
+                    )
+                )
+            )
+            .scalars()
+            .all()
+        )
+        needs_enrichment.extend(dup_rows)
+
+    if needs_enrichment:
+        enrich_articles_task.delay(project_id, needs_enrichment)
+
     return UploadResponseOut(
         upload_id=upload_id,
         filename=filename,
@@ -208,6 +235,7 @@ async def upload_references(
         new_articles=len(dedup_result.new_articles),
         duplicates_found=len(dedup_result.duplicates),
         project_id=project_id,
+        enrichment_queued=len(needs_enrichment),
     )
 
 
