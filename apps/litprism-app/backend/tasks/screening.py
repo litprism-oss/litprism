@@ -4,6 +4,12 @@ from celery import Celery
 from celery.exceptions import MaxRetriesExceededError
 from config import settings
 
+
+def _exc_str(exc: BaseException) -> str:
+    msg = str(exc)
+    return msg if msg else repr(exc)
+
+
 celery_app = Celery(
     "litprism",
     broker=settings.celery_broker_url,
@@ -65,7 +71,7 @@ def screen_chunk(self, screening_run_id: str, article_ids: list[str]) -> None:
         try:
             raise self.retry(exc=exc)
         except MaxRetriesExceededError:
-            asyncio.run(_write_chunk_tombstones(screening_run_id, article_ids, str(exc)))
+            asyncio.run(_write_chunk_tombstones(screening_run_id, article_ids, _exc_str(exc)))
 
 
 async def _run_chunk(screening_run_id: str, article_ids: list[str]) -> None:
@@ -142,7 +148,7 @@ async def _run_chunk(screening_run_id: str, article_ids: list[str]) -> None:
                 error.article_id,
                 run.project_id,
                 run.criteria_id,
-                str(error.cause),
+                _exc_str(error.cause),
                 db,
                 screening_run_id=run.id,
             )

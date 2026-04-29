@@ -12,7 +12,7 @@ from litprism.screen.grounding import (
     derive_decision,
     validate_and_build,
 )
-from litprism.screen.llm import AzureOpenAIConfig, LLMConfig, call_llm
+from litprism.screen.llm import AzureOpenAIConfig, LLMConfig, _get_timeout, call_llm
 from litprism.screen.llm import from_env as _llm_from_env
 from litprism.screen.models import ScreenableArticle, ScreeningResult
 from litprism.screen.prompts import build_prompt
@@ -61,8 +61,8 @@ class Screener:
                 prompt = build_prompt(article, criteria, stage)
                 raw = await asyncio.wait_for(
                     call_llm(self._config, prompt),
-                    timeout=60.0,  # belt-and-suspenders: call_llm has its own per-attempt
-                )  # timeout, but this guards against any hang in between
+                    timeout=_get_timeout(self._config) + 5,  # belt-and-suspenders outer guard
+                )
                 llm_response = _LLMResponse.model_validate_json(_extract_json(raw))
                 hits = validate_and_build(llm_response, article.title, article.abstract)
                 decision = derive_decision(hits)

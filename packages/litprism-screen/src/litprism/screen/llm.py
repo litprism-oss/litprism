@@ -27,6 +27,7 @@ class OllamaConfig(BaseModel):
     provider: Literal["ollama"] = "ollama"
     base_url: str = "http://localhost:11434"
     model: str = "qwen2.5:7b"
+    timeout: float = 300.0
 
 
 LLMConfig = OpenAIConfig | AzureOpenAIConfig | OllamaConfig
@@ -57,14 +58,20 @@ def _build_call_kwargs(config: LLMConfig, prompt: str) -> dict:
 # A timeout means the provider is hanging, not rate-limiting.
 # Retrying a hang would block this semaphore slot for up to
 # 3 × 60 s = 3 minutes. Let it surface as ScreeningError immediately.
+def _get_timeout(config: LLMConfig) -> float:
+    if isinstance(config, OllamaConfig):
+        return config.timeout
+    return 60.0
+
+
 @retry(
     retry=retry_if_exception_type((litellm.RateLimitError, litellm.ServiceUnavailableError)),
     wait=wait_exponential(multiplier=1, min=1, max=60),
     stop=stop_after_attempt(3),
     reraise=True,
 )
-async def _call_with_retry(kwargs: dict) -> str:
-    response = await asyncio.wait_for(litellm.acompletion(**kwargs), timeout=60.0)
+async def _call_with_retry(kwargs: dict, timeout: float) -> str:
+    response = await asyncio.wait_for(litellm.acompletion(**kwargs), timeout=timeout)
     content = response.choices[0].message.content
     if content is None:
         raise ValueError("LLM returned an empty response")
@@ -73,7 +80,7 @@ async def _call_with_retry(kwargs: dict) -> str:
 
 async def call_llm(config: LLMConfig, prompt: str) -> str:
     """Call the configured LLM and return the raw JSON response string."""
-    return await _call_with_retry(_build_call_kwargs(config, prompt))
+    return await _call_with_retry(_build_call_kwargs(config, prompt), _get_timeout(config))
 
 
 def from_env() -> LLMConfig:
@@ -117,6 +124,7 @@ def from_env() -> LLMConfig:
         return OllamaConfig(
             base_url=os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434"),
             model=os.environ.get("LLM_MODEL", "llama3.2"),
+            timeout=float(os.environ.get("OLLAMA_TIMEOUT", "300")),
         )
 
     raise ValueError(f"Unknown LLM_PROVIDER {provider!r}. Must be one of: openai, azure, ollama")

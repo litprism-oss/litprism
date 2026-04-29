@@ -85,3 +85,4 @@ node_modules/
 apps/litprism-app/frontend/dist/
 apps/litprism-app/frontend/.vite/
 !apps/litprism-app/frontend/src/lib/
+dump.rdb
