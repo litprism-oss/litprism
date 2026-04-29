@@ -137,6 +137,19 @@ export interface UploadResponseOut {
   new_articles: number
   duplicates_found: number
   project_id: string
+  enrichment_queued: number
+}
+
+export interface EnrichmentStatusOut {
+  total: number
+  pending: number
+  enriched: number
+  not_found: number
+  skipped: number
+  has_abstract: number
+  has_title: number
+  has_doi: number
+  has_authors: number
 }
 
 export interface CriteriaOut {

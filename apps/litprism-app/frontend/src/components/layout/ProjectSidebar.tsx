@@ -119,7 +119,7 @@ export function ProjectSidebar() {
 
   // Per criteria version, keep only the most recent run.
   // This hides earlier cancelled runs once a completed (or newer) run exists for that version.
-  const latestPerCriteria = new Map<string, (typeof screeningRuns)[number]>()
+  const latestPerCriteria = new Map<string, NonNullable<typeof screeningRuns>[number]>()
   for (const run of screeningRuns ?? []) {
     const existing = latestPerCriteria.get(run.criteria_id)
     if (!existing || new Date(run.created_at) > new Date(existing.created_at)) {
