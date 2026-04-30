@@ -1,6 +1,6 @@
 import uuid
 from datetime import UTC, datetime
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 import pytest_asyncio
@@ -92,6 +92,25 @@ def mock_pubmed_client(fake_articles):
     client = AsyncMock()
     client.search_iter = _iter
     return client
+
+
+@pytest.fixture(autouse=True)
+def mock_enrich_task():
+    """Auto-mock enrich_articles_task.delay — prevents Celery/Redis connection in all tests."""
+    with patch("api.upload.enrich_articles_task") as m:
+        m.delay = MagicMock()
+        yield m
+
+
+@pytest.fixture(autouse=True)
+def mock_run_search_task():
+    """Auto-mock _run_search_task — prevents it opening AsyncSessionLocal (real DB) in tests."""
+
+    async def _noop(*args, **kwargs):
+        pass
+
+    with patch("api.search._run_search_task", side_effect=_noop):
+        yield
 
 
 @pytest.fixture
