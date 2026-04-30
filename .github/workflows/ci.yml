@@ -63,6 +63,4 @@ jobs:
       - name: Run backend tests
         run: |
           cd apps/litprism-app/backend
-          uv run pytest tests/ -v --tb=short \
-            -m "not integration" \
-            --cov=. --cov-report=term-missing
+          uv run pytest tests/ -v --tb=short -m "not integration"
