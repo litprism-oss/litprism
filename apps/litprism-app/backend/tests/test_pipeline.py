@@ -36,10 +36,10 @@ def ws_mock():
     return manager
 
 
-async def test_pipeline_writes_articles(db_session, project_id, fake_articles, ws_mock):
+async def test_pipeline_writes_articles(db, project_id, fake_articles, ws_mock):
     run = _make_run(project_id)
-    db_session.add(run)
-    await db_session.commit()
+    db.add(run)
+    await db.commit()
 
     client_mock = _make_client_mock(fake_articles)
 
@@ -48,17 +48,17 @@ async def test_pipeline_writes_articles(db_session, project_id, fake_articles, w
         patch("services.pipeline.EuropePMCClient", return_value=client_mock),
         patch("services.pipeline.SemanticScholarClient", return_value=client_mock),
     ):
-        await run_search(project_id, run.id, db_session, ws_mock)
+        await run_search(project_id, run.id, db, ws_mock)
 
-    count = (await db_session.execute(select(func.count(Article.id)))).scalar()
+    count = (await db.execute(select(func.count(Article.id)))).scalar()
     # 3 sources × 3 articles each
     assert count == len(fake_articles) * 3
 
 
-async def test_pipeline_writes_source_query(db_session, project_id, fake_articles, ws_mock):
+async def test_pipeline_writes_source_query(db, project_id, fake_articles, ws_mock):
     run = _make_run(project_id)
-    db_session.add(run)
-    await db_session.commit()
+    db.add(run)
+    await db.commit()
 
     client_mock = _make_client_mock(fake_articles)
 
@@ -67,17 +67,17 @@ async def test_pipeline_writes_source_query(db_session, project_id, fake_article
         patch("services.pipeline.EuropePMCClient", return_value=client_mock),
         patch("services.pipeline.SemanticScholarClient", return_value=client_mock),
     ):
-        await run_search(project_id, run.id, db_session, ws_mock)
+        await run_search(project_id, run.id, db, ws_mock)
 
     sq_count = (
-        await db_session.execute(
+        await db.execute(
             select(func.count(SourceQuery.id)).where(SourceQuery.search_run_id == run.id)
         )
     ).scalar()
     assert sq_count == 3  # one per source
 
     rows = (
-        (await db_session.execute(select(SourceQuery).where(SourceQuery.search_run_id == run.id)))
+        (await db.execute(select(SourceQuery).where(SourceQuery.search_run_id == run.id)))
         .scalars()
         .all()
     )
@@ -87,10 +87,10 @@ async def test_pipeline_writes_source_query(db_session, project_id, fake_article
         assert row.result_count == len(fake_articles)
 
 
-async def test_pipeline_sets_completed(db_session, project_id, fake_articles, ws_mock):
+async def test_pipeline_sets_completed(db, project_id, fake_articles, ws_mock):
     run = _make_run(project_id)
-    db_session.add(run)
-    await db_session.commit()
+    db.add(run)
+    await db.commit()
 
     client_mock = _make_client_mock(fake_articles)
 
@@ -99,17 +99,17 @@ async def test_pipeline_sets_completed(db_session, project_id, fake_articles, ws
         patch("services.pipeline.EuropePMCClient", return_value=client_mock),
         patch("services.pipeline.SemanticScholarClient", return_value=client_mock),
     ):
-        await run_search(project_id, run.id, db_session, ws_mock)
+        await run_search(project_id, run.id, db, ws_mock)
 
-    await db_session.refresh(run)
+    await db.refresh(run)
     assert run.status == "completed"
     assert run.completed_at is not None
 
 
-async def test_pipeline_sets_failed_on_exception(db_session, project_id, ws_mock):
+async def test_pipeline_sets_failed_on_exception(db, project_id, ws_mock):
     run = _make_run(project_id)
-    db_session.add(run)
-    await db_session.commit()
+    db.add(run)
+    await db.commit()
 
     class _BrokenClient:
         async def search_iter(self, *args, **kwargs):
@@ -124,7 +124,7 @@ async def test_pipeline_sets_failed_on_exception(db_session, project_id, ws_mock
         patch("services.pipeline.SemanticScholarClient", return_value=broken),
         pytest.raises(RuntimeError, match="simulated failure"),
     ):
-        await run_search(project_id, run.id, db_session, ws_mock)
+        await run_search(project_id, run.id, db, ws_mock)
 
-    await db_session.refresh(run)
+    await db.refresh(run)
     assert run.status == "failed"

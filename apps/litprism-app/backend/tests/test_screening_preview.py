@@ -40,8 +40,8 @@ async def test_preview_zero_articles_rejected(client, project_id):
     assert resp.status_code == 422
 
 
-async def test_preview_writes_nothing_to_db(client, project_id, mock_screener, db_session):
-    before = (await db_session.execute(select(func.count(Article.id)))).scalar()
+async def test_preview_writes_nothing_to_db(client, project_id, mock_screener, db):
+    before = (await db.execute(select(func.count(Article.id)))).scalar()
     await client.post(
         f"/projects/{project_id}/screening/preview",
         json={
@@ -49,7 +49,7 @@ async def test_preview_writes_nothing_to_db(client, project_id, mock_screener, d
             "articles": [{"id": "t1", "title": "Test", "abstract": "RCT study"}],
         },
     )
-    after = (await db_session.execute(select(func.count(Article.id)))).scalar()
+    after = (await db.execute(select(func.count(Article.id)))).scalar()
     assert before == after
 
 

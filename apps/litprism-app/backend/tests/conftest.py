@@ -1,6 +1,6 @@
 import uuid
 from datetime import UTC, datetime
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 import pytest_asyncio
@@ -17,8 +17,9 @@ from main import app
 TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"
 
 
-@pytest_asyncio.fixture
-async def db_session():
+@pytest_asyncio.fixture(scope="function")
+async def db():
+    """In-memory SQLite for tests — no real DB needed."""
     engine = create_async_engine(
         TEST_DATABASE_URL,
         connect_args={"check_same_thread": False},
@@ -34,16 +35,23 @@ async def db_session():
     await engine.dispose()
 
 
-@pytest_asyncio.fixture
-async def client(db_session):
-    app.dependency_overrides[get_db] = lambda: db_session
+@pytest_asyncio.fixture(scope="function")
+async def client(db):
+    """AsyncClient with ASGI transport, overrides get_db."""
+    app.dependency_overrides[get_db] = lambda: db
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as c:
         yield c
     app.dependency_overrides.clear()
 
 
+@pytest.fixture
+def sample_project_id():
+    return "test-project-123"
+
+
 @pytest_asyncio.fixture
 async def project_id(client):
+    """Helper fixture to create a real project in the DB."""
     resp = await client.post(
         "/projects", json={"name": "Test Project", "review_type": "systematic"}
     )
@@ -52,6 +60,7 @@ async def project_id(client):
 
 @pytest_asyncio.fixture
 async def criteria_id(client, project_id):
+    """Helper fixture to create real criteria in the DB."""
     resp = await client.post(
         f"/projects/{project_id}/criteria",
         json={
@@ -83,6 +92,25 @@ def mock_pubmed_client(fake_articles):
     client = AsyncMock()
     client.search_iter = _iter
     return client
+
+
+@pytest.fixture(autouse=True)
+def mock_enrich_task():
+    """Auto-mock enrich_articles_task.delay — prevents Celery/Redis connection in all tests."""
+    with patch("api.upload.enrich_articles_task") as m:
+        m.delay = MagicMock()
+        yield m
+
+
+@pytest.fixture(autouse=True)
+def mock_run_search_task():
+    """Auto-mock _run_search_task — prevents it opening AsyncSessionLocal (real DB) in tests."""
+
+    async def _noop(*args, **kwargs):
+        pass
+
+    with patch("api.search._run_search_task", side_effect=_noop):
+        yield
 
 
 @pytest.fixture
@@ -134,7 +162,7 @@ def mock_coordinator():
 
 
 @pytest_asyncio.fixture
-async def articles_in_db(db_session, project_id):
+async def articles_in_db(db, project_id):
     """Insert 5 articles directly into the DB for the project."""
     articles = []
     for i in range(5):
@@ -149,14 +177,14 @@ async def articles_in_db(db_session, project_id):
             upload_format="ris",
             doi=f"10.1234/test.{i:04d}",
         )
-        db_session.add(a)
+        db.add(a)
         articles.append(a)
-    await db_session.commit()
+    await db.commit()
     return articles
 
 
 @pytest_asyncio.fixture
-async def articles_with_decisions(db_session, project_id):
+async def articles_with_decisions(db, project_id):
     """Insert 5 articles + active criteria + screening_results (mix of decisions)."""
     # Create active criteria
     criteria = Criteria(
@@ -168,7 +196,7 @@ async def articles_with_decisions(db_session, project_id):
         uncertain_threshold=0.90,
         created_at=datetime.now(UTC),
     )
-    db_session.add(criteria)
+    db.add(criteria)
 
     decisions = ["include", "include", "exclude", "uncertain", "include"]
     articles = []
@@ -183,7 +211,7 @@ async def articles_with_decisions(db_session, project_id):
             upload_format="ris",
             doi=f"10.9999/screened.{i:04d}",
         )
-        db_session.add(a)
+        db.add(a)
         sr = ScreeningResult(
             id=str(uuid.uuid4()),
             article_id=a.id,
@@ -198,15 +226,15 @@ async def articles_with_decisions(db_session, project_id):
             llm_provider="openai",
             screened_at=datetime.now(UTC),
         )
-        db_session.add(sr)
+        db.add(sr)
         articles.append(a)
 
-    await db_session.commit()
+    await db.commit()
     return articles
 
 
 @pytest_asyncio.fixture
-async def search_run_with_source_queries(db_session, project_id):
+async def search_run_with_source_queries(db, project_id):
     """Insert a completed search_run + 2 source_query rows."""
     run = SearchRun(
         id=str(uuid.uuid4()),
@@ -217,7 +245,7 @@ async def search_run_with_source_queries(db_session, project_id):
         created_at=datetime.now(UTC),
         completed_at=datetime.now(UTC),
     )
-    db_session.add(run)
+    db.add(run)
 
     for source, interface in [("pubmed", "NCBI E-utilities"), ("europepmc", "REST API")]:
         sq = SourceQuery(
@@ -231,7 +259,94 @@ async def search_run_with_source_queries(db_session, project_id):
             searched_at=datetime.now(UTC),
             result_count=100,
         )
-        db_session.add(sq)
+        db.add(sq)
 
-    await db_session.commit()
+    await db.commit()
     return run
+
+
+# ---------------------------------------------------------------------------
+# Session 12 — file fixtures for parser and upload tests
+# ---------------------------------------------------------------------------
+
+
+@pytest.fixture
+def pubmed_csv_path(tmp_path):
+    """PubMed CSV export with BOM — the format that was broken."""
+    content = (
+        "\ufeffPMID,Title,Authors,Journal/Book,Publication Year,DOI\n"
+        "31009449,Probiotic therapy in Crohn's disease,Smith J,J Nutr,2024,10.1234/test\n"
+        "29256392,Gut microbiome in colitis,Jones A,Nutrients,2023,\n"
+    )
+    p = tmp_path / "pubmed_export.csv"
+    p.write_text(content, encoding="utf-8")
+    return str(p)
+
+
+@pytest.fixture
+def scopus_ris_path(tmp_path):
+    """Scopus RIS export — DOI present, no PMID."""
+    content = (
+        "TY  - JOUR\n"
+        "TI  - Iron bioavailability from fortified wheat\n"
+        "AU  - Smith, John\n"
+        "AU  - Jones, Alice\n"
+        "PY  - 2023\n"
+        "DO  - 10.1016/j.clnesp.2020.09.027\n"
+        "JO  - Clinical Nutrition ESPEN\n"
+        "AB  - Background: Iron deficiency affects 2 billion people worldwide...\n"
+        "ER  -\n"
+    )
+    p = tmp_path / "scopus_export.ris"
+    p.write_text(content)
+    return str(p)
+
+
+@pytest.fixture
+def pubmed_nbib_path(tmp_path):
+    """PubMed NBIB export — includes abstract."""
+    content = (
+        "PMID- 31009449\n"
+        "TI  - Probiotic therapy in Crohn's disease\n"
+        "AB  - Background: Probiotics have shown promise...\n"
+        "FAU - Smith, John Andrew\n"
+        "AU  - Smith JA\n"
+        "TA  - J Nutr\n"
+        "DP  - 2024 Feb\n"
+        "AID - 10.1234/test [doi]\n"
+        "\n"
+    )
+    p = tmp_path / "pubmed.nbib"
+    p.write_text(content)
+    return str(p)
+
+
+@pytest.fixture
+def pubmed_summary_txt_path(tmp_path):
+    """PubMed Summary .txt — positional parsing."""
+    content = (
+        "1: Smith JA, Jones AB. Probiotic therapy in Crohn's disease. "
+        "J Nutr. 2024 Feb;24(1):61-70. doi: 10.1234/test. PMID: 31009449.\n"
+        "\n"
+        "2: Jones AB. Gut microbiome in murine colitis. "
+        "Nutrients. 2023 Jul;15(7):1234. doi: 10.5678/test2. PMID: 29256392.\n"
+    )
+    p = tmp_path / "pubmed_summary.txt"
+    p.write_text(content)
+    return str(p)
+
+
+@pytest.fixture
+def pubmed_medline_txt_path(tmp_path):
+    """PubMed MEDLINE .txt — tagged format, starts with PMID-."""
+    content = (
+        "PMID- 31009449\n"
+        "TI  - Probiotic therapy in Crohn's disease\n"
+        "AB  - Background: Probiotics have shown promise...\n"
+        "FAU - Smith, John\n"
+        "DP  - 2024 Feb\n"
+        "\n"
+    )
+    p = tmp_path / "pubmed_medline.txt"
+    p.write_text(content)
+    return str(p)
