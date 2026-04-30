@@ -1,0 +1,915 @@
+PMID- 15838583
+OWN - NLM
+STAT- MEDLINE
+DCOM- 20070625
+LR  - 20220629
+IS  - 1807-5932 (Print)
+IS  - 1807-5932 (Linking)
+VI  - 60
+IP  - 1
+DP  - 2005 Feb
+TI  - Physical activity and mental health: the association between exercise and mood.
+PG  - 61-70
+AB  - Physical activity is an important public health tool used in the treatment and 
+      prevention of various physical diseases, as well as in the treatment of some 
+      psychiatric diseases such as depressive and anxiety disorders. However, studies 
+      have shown that in addition to its beneficial effects, physical activity can also 
+      be associated with impaired mental health, being related to disturbances like 
+      "excessive exercise" and "overtraining syndrome". Although the number of reports 
+      of the effects of physical activity on mental health is steadily increasing, 
+      these studies have not yet identified the mechanisms involved in the benefits and 
+      dangers to mental health associated with exercise. This article reviews the 
+      information available regarding the relationship between physical activity and 
+      mental health, specifically addressing the association between exercise and mood.
+FAU - Peluso, Marco Aurélio Monteiro
+AU  - Peluso MA
+AD  - Institute of Psychiatry, Hospital das Clínicas, Faculty of Medicine, University 
+      of São Paulo, São Paulo, SP, Brazil. mampeluso@hotmail.com
+FAU - Guerra de Andrade, Laura Helena Silveira
+AU  - Guerra de Andrade LH
+LA  - eng
+PT  - Journal Article
+PT  - Review
+DEP - 20050301
+PL  - United States
+TA  - Clinics (Sao Paulo)
+JT  - Clinics (Sao Paulo, Brazil)
+JID - 101244734
+SB  - IM
+MH  - Affect/*physiology
+MH  - Exercise/physiology/*psychology
+MH  - Humans
+MH  - *Mental Health
+MH  - Physical Exertion/physiology
+MH  - Sports
+RF  - 123
+EDAT- 2005/04/20 09:00
+MHDA- 2007/06/26 09:00
+CRDT- 2005/04/20 09:00
+PHST- 2005/04/20 09:00 [pubmed]
+PHST- 2007/06/26 09:00 [medline]
+PHST- 2005/04/20 09:00 [entrez]
+AID - S1807-5932(22)03217-3 [pii]
+AID - 10.1590/s1807-59322005000100012 [doi]
+PST - ppublish
+SO  - Clinics (Sao Paulo). 2005 Feb;60(1):61-70. doi: 10.1590/s1807-59322005000100012. 
+      Epub 2005 Mar 1.
+
+PMID- 33010902
+OWN - NLM
+STAT- MEDLINE
+DCOM- 20210910
+LR  - 20210910
+IS  - 1879-8853 (Electronic)
+IS  - 0749-0690 (Linking)
+VI  - 36
+IP  - 4
+DP  - 2020 Nov
+TI  - Physical Activity and Healthy Aging.
+PG  - 671-683
+LID - S0749-0690(20)30051-3 [pii]
+LID - 10.1016/j.cger.2020.06.009 [doi]
+AB  - Healthy aging is the ability to maintain independence, purpose, vitality, and 
+      quality of life into old age despite unexpected medical conditions, accidents, 
+      and unhelpful social determinants of health. Exercise, or physical activity, is 
+      an important component of healthy aging, preventing or mitigating falls, pain, 
+      sarcopenia, osteoporosis, and cognitive impairment. A well-balanced exercise 
+      program includes daily aerobic, strength, balance, and flexibility components. 
+      Most older adults do not meet the currently recommended minutes of regular 
+      physical activity weekly. Counseling by health care providers may help older 
+      adults improve exercise habits, but it is also important to take advantage of 
+      community-based exercise opportunities.
+CI  - Copyright © 2020 Elsevier Inc. All rights reserved.
+FAU - Eckstrom, Elizabeth
+AU  - Eckstrom E
+AD  - Division of General Internal Medicine & Geriatrics, Department of Medicine, 
+      Oregon Health & Science University, 3181 Southwest Sam Jackson Park Road, L475, 
+      Portland, OR 97239, USA. Electronic address: eckstrom@ohsu.edu.
+FAU - Neukam, Suvi
+AU  - Neukam S
+AD  - Division of General Internal Medicine & Geriatrics, Department of Medicine, 
+      Oregon Health & Science University, 3181 Southwest Sam Jackson Park Road, L475, 
+      Portland, OR 97239, USA.
+FAU - Kalin, Leah
+AU  - Kalin L
+AD  - Division of General Internal Medicine & Geriatrics, Department of Medicine, 
+      Oregon Health & Science University, 3181 Southwest Sam Jackson Park Road, L475, 
+      Portland, OR 97239, USA.
+FAU - Wright, Jessica
+AU  - Wright J
+AD  - Division of General Internal Medicine & Geriatrics, Department of Medicine, 
+      Oregon Health & Science University, 3181 Southwest Sam Jackson Park Road, L475, 
+      Portland, OR 97239, USA.
+LA  - eng
+PT  - Journal Article
+PT  - Review
+DEP - 20200819
+PL  - United States
+TA  - Clin Geriatr Med
+JT  - Clinics in geriatric medicine
+JID - 8603766
+SB  - IM
+MH  - Accidental Falls/prevention & control
+MH  - Aged
+MH  - Aging
+MH  - Exercise/*psychology
+MH  - *Healthy Aging
+MH  - Humans
+OTO - NOTNLM
+OT  - Exercise
+OT  - Healthy aging
+OT  - Older adults
+OT  - Physical activity
+COIS- Disclosure The authors have nothing to disclose.
+EDAT- 2020/10/05 06:00
+MHDA- 2021/09/11 06:00
+CRDT- 2020/10/04 20:20
+PHST- 2020/10/04 20:20 [entrez]
+PHST- 2020/10/05 06:00 [pubmed]
+PHST- 2021/09/11 06:00 [medline]
+AID - S0749-0690(20)30051-3 [pii]
+AID - 10.1016/j.cger.2020.06.009 [doi]
+PST - ppublish
+SO  - Clin Geriatr Med. 2020 Nov;36(4):671-683. doi: 10.1016/j.cger.2020.06.009. Epub 
+      2020 Aug 19.
+
+PMID- 33890431
+OWN - NLM
+STAT- MEDLINE
+DCOM- 20211203
+LR  - 20211214
+IS  - 2238-0019 (Electronic)
+IS  - 2237-6089 (Print)
+IS  - 2237-6089 (Linking)
+VI  - 43
+IP  - 3
+DP  - 2021 Jul-Sep
+TI  - Physical activity, exercise, and mental disorders: it is time to move on.
+PG  - 177-184
+LID - 10.47626/2237-6089-2021-0237 [doi]
+AB  - INTRODUCTION: Physical activity, conceptualized as any bodily movement that 
+      results in energy expenditure, and its structured form, exercise, play an 
+      important role in public health, preventing and treating a wide range of physical 
+      conditions, including metabolic and cardiovascular diseases and obesity. 
+      OBJECTIVE: This article aims to provide a brief overview and summary of the 
+      evidence on: 1) the preventive effects of physical activity on a wide range of 
+      mental disorders; 2) the role of physical activity in promoting the physical 
+      health of people with mental disorders; 3) the role of exercise as a strategy to 
+      manage mental health symptoms in a range of mental disorders; and 4) the 
+      challenges and barriers faced when implementing exercise in clinical practice. 
+      METHODS: This was a narrative review. RESULTS: Compelling evidence has 
+      demonstrated that physical activity and exercise can also prevent common mental 
+      disorders, such as depression and anxiety disorders, and have multiple beneficial 
+      effects on the physical and mental health of people with a wide range of mental 
+      disorders. This body of evidence has been incorporated in national and 
+      international guidelines over the last decades, which have recommended the 
+      inclusion of physical activity and exercise as therapeutic approaches for mental 
+      disorders, mainly for depression and schizophrenia. Nonetheless, implementation 
+      into clinical practice has been slow, probably due to barriers associated both 
+      with patients and mental health professionals. CONCLUSION: Increases in physical 
+      activity levels in populations are likely to reduce the mental health burden. 
+      Exercise interventions should be incorporated to the routine care of people with 
+      mental disorders due its multiple benefits on physical and mental health 
+      outcomes. A multidisciplinary approach is needed to overcome patients barriers 
+      and enhance adherence and benefits.
+FAU - Schuch, Felipe Barreto
+AU  - Schuch FB
+AD  - Departamento de Métodos e Técnicas Desportivas, Universidade Federal de Santa 
+      Maria (UFSM), Santa Maria, RS, Brazil.
+FAU - Vancampfort, Davy
+AU  - Vancampfort D
+AD  - Department of Rehabilitation Sciences, Katholieke Universiteit Leuven, Leuven, 
+      Belgium.
+LA  - eng
+GR  - Finance Code 001/CAPES/Coordenação de Aperfeiçoamento de Pessoal de Nível 
+      Superior/Brazil
+GR  - 001/CAPES/Coordenação de Aperfeiçoamento de Pessoal de Nível Superior/Brazil
+PT  - Journal Article
+PT  - Review
+DEP - 20210421
+PL  - Brazil
+TA  - Trends Psychiatry Psychother
+JT  - Trends in psychiatry and psychotherapy
+JID - 101610695
+SB  - IM
+MH  - Anxiety Disorders
+MH  - Exercise
+MH  - Humans
+MH  - *Mental Disorders/therapy
+MH  - Mental Health
+MH  - *Schizophrenia
+PMC - PMC8638711
+OTO - NOTNLM
+OT  - mental disorders
+OT  - mental health
+OT  - physical activity
+OT  - physical health
+COIS- No conflicts of interest declared concerning the publication of this article.
+EDAT- 2021/04/24 06:00
+MHDA- 2021/12/15 06:00
+PMCR- 2021/10/22
+CRDT- 2021/04/23 06:52
+PHST- 2021/02/18 00:00 [received]
+PHST- 2021/04/13 00:00 [accepted]
+PHST- 2021/04/24 06:00 [pubmed]
+PHST- 2021/12/15 06:00 [medline]
+PHST- 2021/04/23 06:52 [entrez]
+PHST- 2021/10/22 00:00 [pmc-release]
+AID - 2237-6089-2021-0237 [pii]
+AID - 10.47626/2237-6089-2021-0237 [doi]
+PST - ppublish
+SO  - Trends Psychiatry Psychother. 2021 Jul-Sep;43(3):177-184. doi: 
+      10.47626/2237-6089-2021-0237. Epub 2021 Apr 21.
+
+PMID- 36137954
+OWN - NLM
+STAT- MEDLINE
+DCOM- 20220926
+LR  - 20260127
+IS  - 0219-6352 (Print)
+IS  - 0219-6352 (Linking)
+VI  - 21
+IP  - 5
+DP  - 2022 Jul 22
+TI  - Physical Activity as a Clinical Tool against Depression: Opportunities and 
+      Challenges.
+PG  - 132
+LID - 10.31083/j.jin2105132 [doi]
+AB  - Depression is a major public health issue in numerous countries, with around 300 
+      million people worldwide suffering from it. Typically, depressed patients are 
+      treated with antidepressants or psychological therapy or a combination of both. 
+      However, there are some limitations associated with these therapies and as a 
+      result, over the past decades a number of alternative or complementary therapies 
+      have been developed. Exercise is one such option that is supported by published 
+      extensive basic and clinical research data. The aim of this review was to examine 
+      the beneficial effects of exercise in depression. Physical activity and exercise 
+      have been shown to be effective in treating mild-to-moderate depression and in 
+      reducing mortality and symptoms of major depression. However, physical activity 
+      and exercise are still underused in clinical practice. This review attempts to 
+      propose a framework to help clinicians in their decision-making process, how to 
+      incorporate physical activity in their toolkit of potential therapeutic responses 
+      for depressed patients. We first summarize the interactions between depression 
+      and physical activities, with a particular focus on the potential antidepressant 
+      physiological effects of physical activity. We then identify some of the barriers 
+      blocking physical activity from being used to fight depression. Finally, we 
+      present several perspectives and ideas that can help in optimizing mitigation 
+      strategies to challenge these barriers, including actions on physical activity 
+      representations, ways to increase the accessibility of physical activity, and the 
+      potential of technology to help both clinicians and patients.
+CI  - © 2022 The Author(s). Published by IMR Press.
+FAU - Chen, Chen
+AU  - Chen C
+AD  - Faculty of Medicine, University Montpellier, 34295 Montpellier, France.
+FAU - Beaunoyer, Elisabeth
+AU  - Beaunoyer E
+AD  - Faculty of Medicine, Université Laval, Quebec, QC 2G3, Canada.
+AD  - Faculty of Nursing, Université Laval, Quebec, QC 2G3, Canada.
+AD  - CERVO Brain Research Center, Quebec, QC 2G3, Canada.
+FAU - Guitton, Matthieu J
+AU  - Guitton MJ
+AD  - Faculty of Medicine, Université Laval, Quebec, QC 2G3, Canada.
+AD  - CERVO Brain Research Center, Quebec, QC 2G3, Canada.
+FAU - Wang, Jing
+AU  - Wang J
+AD  - Institute for Neurosciences of Montpellier (INM), University Montpellier, INSERM, 
+      34295 Montpellier, France.
+AD  - Department of ENT and Head and Neck Surgery, University Hospital of Montpellier, 
+      34295 Montpellier, France.
+LA  - eng
+PT  - Journal Article
+PT  - Review
+PL  - Singapore
+TA  - J Integr Neurosci
+JT  - Journal of integrative neuroscience
+JID - 101156357
+RN  - 0 (Antidepressive Agents)
+SB  - IM
+MH  - Antidepressive Agents/therapeutic use
+MH  - Anxiety
+MH  - *Depression/therapy
+MH  - *Major Depressive Disorder/therapy
+MH  - Exercise
+MH  - Humans
+OTO - NOTNLM
+OT  - depression
+OT  - exercise
+OT  - first-line interventions
+OT  - mental health
+OT  - physical activity
+COIS- The authors declare no conflict of interest.
+EDAT- 2022/09/23 06:00
+MHDA- 2022/09/28 06:00
+CRDT- 2022/09/22 22:47
+PHST- 2022/03/13 00:00 [received]
+PHST- 2022/05/10 00:00 [revised]
+PHST- 2022/05/16 00:00 [accepted]
+PHST- 2022/09/22 22:47 [entrez]
+PHST- 2022/09/23 06:00 [pubmed]
+PHST- 2022/09/28 06:00 [medline]
+AID - S0219-6352(22)00364-3 [pii]
+AID - 10.31083/j.jin2105132 [doi]
+PST - ppublish
+SO  - J Integr Neurosci. 2022 Jul 22;21(5):132. doi: 10.31083/j.jin2105132.
+
+PMID- 39003439
+OWN - NLM
+STAT- MEDLINE
+DCOM- 20240713
+LR  - 20240716
+IS  - 1472-6874 (Electronic)
+IS  - 1472-6874 (Linking)
+VI  - 24
+IP  - 1
+DP  - 2024 Jul 13
+TI  - The impact of physical activity and exercise interventions on symptoms for women 
+      experiencing menopause: overview of reviews.
+PG  - 399
+LID - 10.1186/s12905-024-03243-4 [doi]
+LID - 399
+AB  - BACKGROUND: Women experiencing problematic menopausal symptoms report lower 
+      health-related quality of life and greater healthcare use than women without 
+      symptoms. Not all women want to or are able to take hormone replacement therapy. 
+      Strengthening the evidence for menopause symptom-management options, including 
+      physical activity, improves agency for women. AIM: This overview assesses 
+      effectiveness of physical activity and exercise interventions targeting women 
+      experiencing menopause symptoms. METHODS: Medline, Embase, CINAHL, Scopus, The 
+      Cochrane Database of Systematic Reviews and Social Science Citation Index were 
+      searched (June 2023) for systematic reviews of physical activity and exercise 
+      interventions targeting women experiencing menopause. Reviews were assessed using 
+      AMSTAR-2 and a best-evidence approach to synthesis without meta-analysis (SWIM) 
+      was adopted. The protocol was registered on PROSPERO (CRD42022298908). RESULTS: 
+      Seventeen reviews included 80 unique relevant primary studies with 8983 
+      participants. There is evidence showing improvement of physical, urogenital, and 
+      total symptoms following yoga interventions. Evidence for vasomotor and 
+      psychological symptoms was inconclusive. Findings for aerobic exercise were 
+      inconclusive although there were some examples of beneficial effects on total and 
+      vasomotor symptoms. Evidence was very limited for other types of physical 
+      activity and impact on physical, sexual and urogenital symptoms. CONCLUSION: 
+      There is some evidence that yoga, and to lesser extent, aerobic exercise may be 
+      beneficial for some menopause symptoms, but there is insufficient evidence to 
+      recommend a particular form of exercise. Current reviews categorise women on 
+      menopause status; broadening this to include ethnicity, income status, employment 
+      and other factors will allow better understanding of context for successful 
+      interventions.
+CI  - © 2024. The Author(s).
+FAU - Money, Annemarie
+AU  - Money A
+AD  - National Institute for Health and Care Research, Applied Research Collaboration 
+      Greater Manchester, School of Health Sciences, Faculty of Biology, Medicine and 
+      Health, The University of Manchester, Manchester, M13 9PL, UK. 
+      Annemarie.money@manchester.ac.uk.
+AD  - School of Health Sciences, Faculty of Biology, Medicine and Health, The 
+      University of Manchester, Manchester, M13 9PL, UK. 
+      Annemarie.money@manchester.ac.uk.
+FAU - MacKenzie, Aylish
+AU  - MacKenzie A
+AD  - National Institute for Health and Care Research, Applied Research Collaboration 
+      Greater Manchester, School of Health Sciences, Faculty of Biology, Medicine and 
+      Health, The University of Manchester, Manchester, M13 9PL, UK.
+AD  - School of Health Sciences, Faculty of Biology, Medicine and Health, The 
+      University of Manchester, Manchester, M13 9PL, UK.
+FAU - Norman, Gill
+AU  - Norman G
+AD  - National Institute for Health and Care Research, Innovation Observatory, 
+      Newcastle University, Newcastle, NE4 5TG, UK.
+FAU - Eost-Telling, Charlotte
+AU  - Eost-Telling C
+AD  - National Institute for Health and Care Research, Applied Research Collaboration 
+      Greater Manchester, School of Health Sciences, Faculty of Biology, Medicine and 
+      Health, The University of Manchester, Manchester, M13 9PL, UK.
+AD  - School of Health Sciences, Faculty of Biology, Medicine and Health, The 
+      University of Manchester, Manchester, M13 9PL, UK.
+FAU - Harris, Danielle
+AU  - Harris D
+AD  - National Institute for Health and Care Research, Applied Research Collaboration 
+      Greater Manchester, School of Health Sciences, Faculty of Biology, Medicine and 
+      Health, The University of Manchester, Manchester, M13 9PL, UK.
+AD  - School of Health Sciences, Faculty of Biology, Medicine and Health, The 
+      University of Manchester, Manchester, M13 9PL, UK.
+FAU - McDermott, Jane
+AU  - McDermott J
+AD  - School of Health Sciences, Faculty of Biology, Medicine and Health, The 
+      University of Manchester, Manchester, M13 9PL, UK.
+FAU - Todd, Chris
+AU  - Todd C
+AD  - National Institute for Health and Care Research, Applied Research Collaboration 
+      Greater Manchester, School of Health Sciences, Faculty of Biology, Medicine and 
+      Health, The University of Manchester, Manchester, M13 9PL, UK.
+AD  - School of Health Sciences, Faculty of Biology, Medicine and Health, The 
+      University of Manchester, Manchester, M13 9PL, UK.
+AD  - Manchester University NHS Foundation Trust, Manchester, M13 9WL, UK.
+LA  - eng
+GR  - NIHR200174/National Institute for Health and Care Research, Applied Research 
+      Collaboration-Greater Manchester/
+GR  - NIHR200299/NIHR Senior Investigator Award (Prof Todd)/
+PT  - Journal Article
+PT  - Review
+DEP - 20240713
+PL  - England
+TA  - BMC Womens Health
+JT  - BMC women's health
+JID - 101088690
+SB  - IM
+MH  - Humans
+MH  - Female
+MH  - *Menopause/physiology/psychology
+MH  - *Exercise/psychology/physiology
+MH  - *Exercise Therapy/methods
+MH  - Quality of Life/psychology
+MH  - Yoga/psychology
+MH  - Hot Flashes/therapy
+PMC - PMC11245773
+OTO - NOTNLM
+OT  - Menopause
+OT  - Overview of reviews
+OT  - Physical activity/Exercise
+OT  - Quality of life
+OT  - Symptom management
+COIS- The authors declare no competing interests.
+EDAT- 2024/07/14 02:43
+MHDA- 2024/07/14 02:44
+PMCR- 2024/07/13
+CRDT- 2024/07/13 23:28
+PHST- 2023/11/14 00:00 [received]
+PHST- 2024/07/02 00:00 [accepted]
+PHST- 2024/07/14 02:44 [medline]
+PHST- 2024/07/14 02:43 [pubmed]
+PHST- 2024/07/13 23:28 [entrez]
+PHST- 2024/07/13 00:00 [pmc-release]
+AID - 10.1186/s12905-024-03243-4 [pii]
+AID - 3243 [pii]
+AID - 10.1186/s12905-024-03243-4 [doi]
+PST - epublish
+SO  - BMC Womens Health. 2024 Jul 13;24(1):399. doi: 10.1186/s12905-024-03243-4.
+
+PMID- 35291871
+OWN - NLM
+STAT- MEDLINE
+DCOM- 20220317
+LR  - 20220317
+IS  - 1661-8157 (Print)
+IS  - 1661-8157 (Linking)
+VI  - 110
+IP  - 4
+DP  - 2022
+TI  - [The Importance of Physical Activity for Mental Health].
+PG  - 186-191
+LID - 10.1024/1661-8157/a003831 [doi]
+AB  - The Importance of Physical Activity for Mental Health Abstract. Due to the 
+      worldwide high prevalence of psychiatric disorders and its association with 
+      sedentary behavior and comorbid physical diseases, increasing physical activity 
+      in psychiatric populations is of high importance. Regular physical activity is 
+      associated with increased mental wellbeing and has shown to have preventive 
+      effects on depression, anxiety disorders and probably sleep disorders. 
+      Additionally, positive effects on comorbid chronic physical diseases have been 
+      found. Exercise as treatment for several weeks has shown to have an 
+      antidepressant effect. Similar positive effects on symptoms have been found in 
+      anxiety disorders and schizophrenia. Therefore, assessing and promoting physical 
+      activity is advisable in clinical psychiatric practice. Patients should be 
+      coached to reach at least a weekly average of 150 minutes of moderate and/or 75 
+      minutes of vigorous physical activity. Establishing physical activity and 
+      exercise groups is of utmost importance for psychiatric outpatients.
+FAU - Imboden, Christian
+AU  - Imboden C
+AD  - Privatklinik Wyss AG, Münchenbuchsee.
+FAU - Claussen, Malte Christian
+AU  - Claussen MC
+AD  - Privatklinik Wyss AG, Münchenbuchsee.
+AD  - Klinik für Psychiatrie, Psychotherapie und Psychosomatik, Psychiatrische 
+      Universitätsklinik Zürich, Universität Zürich, Zürich.
+AD  - Erwachsenenpsychiatrie, Psychiatrische Dienste Graubünden, Chur.
+FAU - Seifritz, Erich
+AU  - Seifritz E
+AD  - Klinik für Psychiatrie, Psychotherapie und Psychosomatik, Psychiatrische 
+      Universitätsklinik Zürich, Universität Zürich, Zürich.
+FAU - Gerber, Markus
+AU  - Gerber M
+AD  - Departement für Sport, Bewegung und Gesundheit, Universität Basel, Basel.
+LA  - ger
+PT  - Journal Article
+PT  - Review
+TT  - Die Bedeutung von körperlicher Aktivität für die psychische Gesundheit.
+PL  - Switzerland
+TA  - Praxis (Bern 1994)
+JT  - Praxis
+JID - 101468093
+SB  - IM
+MH  - Anxiety Disorders/psychology
+MH  - *Exercise
+MH  - Humans
+MH  - *Mental Health
+MH  - Prevalence
+OTO - NOTNLM
+OT  - Bewegung
+OT  - Sport
+OT  - Sportpsychiatrie
+OT  - Sportpsychotherapie
+OT  - Sports
+OT  - activité physique
+OT  - exercise
+OT  - maladies psychiques
+OT  - mental disorders
+OT  - mental health
+OT  - physical activity
+OT  - psychiatrie du sport
+OT  - psychische Erkrankungen
+OT  - psychothérapie du sport
+OT  - sports psychiatry
+EDAT- 2022/03/17 06:00
+MHDA- 2022/03/18 06:00
+CRDT- 2022/03/16 05:39
+PHST- 2022/03/16 05:39 [entrez]
+PHST- 2022/03/17 06:00 [pubmed]
+PHST- 2022/03/18 06:00 [medline]
+AID - 10.1024/1661-8157/a003831 [doi]
+PST - ppublish
+SO  - Praxis (Bern 1994). 2022;110(4):186-191. doi: 10.1024/1661-8157/a003831.
+
+PMID- 33183519
+OWN - NLM
+STAT- MEDLINE
+DCOM- 20210920
+LR  - 20250530
+IS  - 2405-4577 (Electronic)
+IS  - 2405-4577 (Linking)
+VI  - 40
+DP  - 2020 Dec
+TI  - Physical activity and exercise training in cancer patients.
+PG  - 1-6
+LID - S2405-4577(20)30214-X [pii]
+LID - 10.1016/j.clnesp.2020.09.027 [doi]
+AB  - Reduced physical function, incorporating exercise intolerance, physical 
+      inactivity and dependency, is a common consequence of cancer and its treatment. 
+      Most guidelines for cancer survivors suggest that physical activity and exercise 
+      should be an integral and continuous part of care for all cancer survivors. 
+      However, the full potential of exercise will be only realized with careful and 
+      considered individual prescription. Strong evidence supports the promotion of 
+      physical activity and exercise for adult cancer patients before, during, and 
+      after cancer treatment, across all cancer types, and including patients with 
+      advanced disease. Combined aerobic and resistance exercise training, targeting 
+      fitness and muscle function, may be particularly relevant in patients with 
+      cachexia and other wasting related syndromes. Evidence for the added value of 
+      providing nutritional support alongside exercise is emerging. Patient, family and 
+      professional beliefs about the value and benefits of physical activity and 
+      exercise all influence patients' attitudes and motivation to participate in 
+      programmes.
+CI  - Crown Copyright © 2020. Published by Elsevier Ltd. All rights reserved.
+FAU - Maddocks, Matthew
+AU  - Maddocks M
+AD  - Cicely Saunders Institute of Palliative Care, Policy & Rehabilitation, King's 
+      College London, Bessmer Road, Denmark Hill, London, SE5 9PJ, UK. Electronic 
+      address: matthew.maddocks@kcl.ac.uk.
+LA  - eng
+GR  - CDF-2017-10-009/DH_/Department of Health/United Kingdom
+PT  - Journal Article
+PT  - Research Support, Non-U.S. Gov't
+DEP - 20201003
+PL  - England
+TA  - Clin Nutr ESPEN
+JT  - Clinical nutrition ESPEN
+JID - 101654592
+SB  - IM
+MH  - Adult
+MH  - Cachexia
+MH  - Exercise
+MH  - Exercise Therapy
+MH  - Humans
+MH  - *Neoplasms/therapy
+MH  - *Resistance Training
+OTO - NOTNLM
+OT  - Cachexia
+OT  - Cancer
+OT  - Exercise
+OT  - Nutrition
+OT  - Physical activity
+COIS- Declaration of competing interest MM has received consultancy and speaker fees 
+      from Helsinn, Fresenius Kabi, Abbott.
+EDAT- 2020/11/14 06:00
+MHDA- 2021/09/21 06:00
+CRDT- 2020/11/13 05:34
+PHST- 2020/08/17 00:00 [received]
+PHST- 2020/09/22 00:00 [accepted]
+PHST- 2020/11/13 05:34 [entrez]
+PHST- 2020/11/14 06:00 [pubmed]
+PHST- 2021/09/21 06:00 [medline]
+AID - S2405-4577(20)30214-X [pii]
+AID - 10.1016/j.clnesp.2020.09.027 [doi]
+PST - ppublish
+SO  - Clin Nutr ESPEN. 2020 Dec;40:1-6. doi: 10.1016/j.clnesp.2020.09.027. Epub 2020 
+      Oct 3.
+
+PMID- 32635457
+OWN - NLM
+STAT- MEDLINE
+DCOM- 20201116
+LR  - 20201116
+IS  - 1660-4601 (Electronic)
+IS  - 1661-7827 (Print)
+IS  - 1660-4601 (Linking)
+VI  - 17
+IP  - 13
+DP  - 2020 Jul 4
+TI  - The Relationships between Physical Activity and Life Satisfaction and Happiness 
+      among Young, Middle-Aged, and Older Adults.
+LID - 10.3390/ijerph17134817 [doi]
+LID - 4817
+AB  - Physical activity has benefits on physical and psychological health. The aims of 
+      this study were to investigate (1) the relationships between physical activity 
+      and life satisfaction and happiness in young, middle-aged, and older adults while 
+      controlling for demographic characteristics, and (2) the relationships between 
+      age and life satisfaction and happiness for different physical activity levels. A 
+      total of 2345 healthy adults were recruited. Demographic characteristic, physical 
+      activity, life satisfaction, and happiness were collected. Participants were 
+      divided into young, middle-aged, and older adult groups based on age, and 
+      physical activity was categorized as high, moderate, and low. After controlling 
+      for demographic characteristics, participants with high and moderate activity 
+      levels had significantly higher life satisfaction and happiness than those with a 
+      low activity level across the total population and the three age groups. Age 
+      squared was a significant predictor of a positive curvilinear between age and 
+      life satisfaction and happiness. Physical activity was significantly related to 
+      life satisfaction and happiness in young, middle-aged, and older adults. In 
+      addition, life satisfaction and happiness increased with increasing age. The 
+      results support the promotion of physical activity.
+FAU - An, Hsin-Yu
+AU  - An HY
+AD  - Tribal Health Center, Ditmanson Medical Foundation Chia-Yi Christian Hospital, 
+      Chia-Yi 600, Taiwan.
+FAU - Chen, Wei
+AU  - Chen W
+AD  - Department of Community Health, Ditmanson Medical Foundation Chia-Yi Christian 
+      Hospital, Chia-Yi 600, Taiwan.
+FAU - Wang, Cheng-Wei
+AU  - Wang CW
+AD  - Health Business Development Center, Ditmanson Medical Foundation Chia-Yi 
+      Christian Hospital, Chia-Yi 600, Taiwan.
+FAU - Yang, Hui-Fei
+AU  - Yang HF
+AD  - Department of Community Health, Ditmanson Medical Foundation Chia-Yi Christian 
+      Hospital, Chia-Yi 600, Taiwan.
+FAU - Huang, Wan-Ting
+AU  - Huang WT
+AD  - Clinical Medicine Research Center, Ditmanson Medical Foundation Chia-Yi Christian 
+      Hospital, Chia-Yi 600, Taiwan.
+FAU - Fan, Sheng-Yu
+AU  - Fan SY
+AUID- ORCID: 0000-0001-7932-2405
+AD  - Institute of Gerontology, College of Medicine, National Cheng Kung University, 
+      Tainan 701, Taiwan.
+LA  - eng
+PT  - Journal Article
+DEP - 20200704
+PL  - Switzerland
+TA  - Int J Environ Res Public Health
+JT  - International journal of environmental research and public health
+JID - 101238455
+SB  - IM
+MH  - Aged
+MH  - *Exercise/physiology/psychology
+MH  - Female
+MH  - *Happiness
+MH  - Humans
+MH  - Male
+MH  - Mental Health/*statistics & numerical data
+MH  - Middle Aged
+MH  - *Personal Satisfaction
+MH  - *Quality of Life
+MH  - Young Adult
+PMC - PMC7369812
+OTO - NOTNLM
+OT  - exercise
+OT  - happiness
+OT  - life satisfaction
+OT  - life span
+OT  - physical activity subjective well-being
+COIS- The authors declare no conflict of interest.
+EDAT- 2020/07/09 06:00
+MHDA- 2020/11/18 06:00
+PMCR- 2020/07/01
+CRDT- 2020/07/09 06:00
+PHST- 2020/06/11 00:00 [received]
+PHST- 2020/07/03 00:00 [revised]
+PHST- 2020/07/03 00:00 [accepted]
+PHST- 2020/07/09 06:00 [entrez]
+PHST- 2020/07/09 06:00 [pubmed]
+PHST- 2020/11/18 06:00 [medline]
+PHST- 2020/07/01 00:00 [pmc-release]
+AID - ijerph17134817 [pii]
+AID - ijerph-17-04817 [pii]
+AID - 10.3390/ijerph17134817 [doi]
+PST - epublish
+SO  - Int J Environ Res Public Health. 2020 Jul 4;17(13):4817. doi: 
+      10.3390/ijerph17134817.
+
+PMID- 31203925
+OWN - NLM
+STAT- MEDLINE
+DCOM- 20191002
+LR  - 20191002
+IS  - 1532-1770 (Electronic)
+IS  - 1521-6942 (Linking)
+VI  - 32
+IP  - 5
+DP  - 2018 Oct
+TI  - Physical activity, exercise and rheumatoid arthritis: Effectiveness, mechanisms 
+      and implementation.
+PG  - 669-682
+LID - S1521-6942(19)30048-8 [pii]
+LID - 10.1016/j.berh.2019.03.013 [doi]
+AB  - Rheumatoid arthritis (RA) is characterised by functional disability, pain, 
+      fatigue and body composition alterations that can further impact on the physical 
+      dysfunction seen in RA. RA is also associated with systemic manifestations, most 
+      notably an increased risk for cardiovascular disease. There is strong evidence to 
+      suggest that increasing physical activity and/or exercise can simultaneously 
+      improve symptoms and reduce the impact of systemic manifestations in RA. However, 
+      implementation of interventions to facilitate increased physical activity and/or 
+      exercise within routine clinical practice is slow because of not only 
+      patient-specific and healthcare professional-related barriers but also lack of 
+      relevant infrastructure and provision. We review the evidence supporting the 
+      physiological adaptations and beneficial effects occurring as a result of 
+      increased physical activity and/or exercise in RA and propose an implementation 
+      model for facilitating the long-term engagement of patients with RA. We propose 
+      that implementation should be led, in a pragmatic manner, by rheumatology 
+      healthcare practitioners and supported by social innovation.
+CI  - Copyright © 2019 Elsevier Ltd. All rights reserved.
+FAU - Metsios, George S
+AU  - Metsios GS
+AD  - Faculty of Education, Health and Wellbeing, University of Wolverhampton, UK; 
+      Department of Rheumatology, Russells Hall Hospital, Dudley Group NHS Foundation 
+      Trust, Dudley, UK; School of Physical Education and Sport Science, University of 
+      Thessaly, Greece. Electronic address: g.metsios@wlv.ac.uk.
+FAU - Kitas, George D
+AU  - Kitas GD
+AD  - Department of Rheumatology, Russells Hall Hospital, Dudley Group NHS Foundation 
+      Trust, Dudley, UK; School of Sport, Exercise and Rehabilitation Sciences, 
+      University of Birmingham, UK.
+LA  - eng
+PT  - Journal Article
+PT  - Review
+DEP - 20190417
+PL  - Netherlands
+TA  - Best Pract Res Clin Rheumatol
+JT  - Best practice & research. Clinical rheumatology
+JID - 101121149
+SB  - IM
+MH  - Arthritis, Rheumatoid/*rehabilitation
+MH  - Exercise/*physiology
+MH  - *Exercise Therapy
+MH  - Humans
+OTO - NOTNLM
+OT  - Autoimmune disease
+OT  - Cardiovascular disease
+OT  - Exercise
+OT  - Inflammation
+OT  - Physical activity
+OT  - Rehabilitation
+OT  - Rheumatoid arthritis
+EDAT- 2019/06/18 06:00
+MHDA- 2019/10/03 06:00
+CRDT- 2019/06/18 06:00
+PHST- 2019/06/18 06:00 [entrez]
+PHST- 2019/06/18 06:00 [pubmed]
+PHST- 2019/10/03 06:00 [medline]
+AID - S1521-6942(19)30048-8 [pii]
+AID - 10.1016/j.berh.2019.03.013 [doi]
+PST - ppublish
+SO  - Best Pract Res Clin Rheumatol. 2018 Oct;32(5):669-682. doi: 
+      10.1016/j.berh.2019.03.013. Epub 2019 Apr 17.
+
+PMID- 32323606
+OWN - NLM
+STAT- MEDLINE
+DCOM- 20210924
+LR  - 20250103
+IS  - 1477-0970 (Electronic)
+IS  - 1352-4585 (Print)
+IS  - 1352-4585 (Linking)
+VI  - 26
+IP  - 12
+DP  - 2020 Oct
+TI  - Exercise and lifestyle physical activity recommendations for people with multiple 
+      sclerosis throughout the disease course.
+PG  - 1459-1469
+LID - 10.1177/1352458520915629 [doi]
+AB  - OBJECTIVES: To provide clinicians who treat multiple sclerosis (MS) patients with 
+      evidence-based or expert opinion-based recommendations for promoting exercise and 
+      lifestyle physical activity across disability levels. METHODS: The National MS 
+      Society ("Society") convened clinical and research experts in the fields of MS, 
+      exercise, rehabilitation, and physical activity to (1) reach consensus on optimal 
+      exercise and lifestyle physical activity recommendations for individuals with MS 
+      at disability levels 0-9.0 on the Expanded Disability Status Scale (EDSS) and (2) 
+      identify and address barriers/facilitators for participation. RECOMMENDATIONS: 
+      Based on current evidence and expert opinion, the Society makes the following 
+      recommendations, endorsed by the Consortium of Multiple Sclerosis 
+      Centers:Healthcare providers should endorse and promote the benefits/safety of 
+      exercise and lifestyle physical activity for every person with MS.Early 
+      evaluation by a physical or occupational therapist or exercise or sport 
+      scientist, experienced in MS (hereafter referred to as "specialists"), is 
+      recommended to establish an individualized exercise and/or lifestyle physical 
+      activity plan.Taking into account comorbidities and symptom fluctuations, 
+      healthcare providers should encourage ⩾150 min/week of exercise and/or 
+      ⩾150 min/week of lifestyle physical activity.Progress toward these targets should 
+      be gradual, based on the person's abilities, preferences, and safety.If 
+      disability increases and exercise/physical activity becomes more challenging, 
+      referrals to specialists are essential to ensure safe and appropriate 
+      prescriptions.When physical mobility is very limited, exercise should be 
+      facilitated by a trained assistant.
+FAU - Kalb, Rosalind
+AU  - Kalb R
+AD  - National Multiple Sclerosis Society, New York, NY, USA.
+FAU - Brown, Theodore R
+AU  - Brown TR
+AD  - EvergreenHealth, Kirkland, WA, USA.
+FAU - Coote, Susan
+AU  - Coote S
+AD  - School of Allied Health and Health Research Institute, University of Limerick, 
+      Limerick, Ireland.
+FAU - Costello, Kathleen
+AU  - Costello K
+AD  - National Multiple Sclerosis Society, New York, NY, USA.
+FAU - Dalgas, Ulrik
+AU  - Dalgas U
+AUID- ORCID: 0000-0003-4132-2789
+AD  - Section of Sport Science, Department of Public Health, Aarhus University, Aarhus, 
+      Denmark.
+FAU - Garmon, Eric
+AU  - Garmon E
+AD  - National Multiple Sclerosis Society, New York, NY, USA.
+FAU - Giesser, Barbara
+AU  - Giesser B
+AD  - Pacific Neuroscience Institute, Santa Monica, CA, USA.
+FAU - Halper, June
+AU  - Halper J
+AD  - Consortium of Multiple Sclerosis Centers and International Organization of MS 
+      Nurses, Hackensack, NJ, USA.
+FAU - Karpatkin, Herb
+AU  - Karpatkin H
+AD  - Program in Physical Therapy, Hunter College, New York, NY, USA.
+FAU - Keller, Jennifer
+AU  - Keller J
+AD  - Motion Analysis Lab, Kennedy Krieger Institute, Baltimore, MD, USA.
+FAU - Ng, Alexander V
+AU  - Ng AV
+AD  - Exercise Science Program, Department of Physical Therapy, Marquette University, 
+      Milwaukee, WI, USA.
+FAU - Pilutti, Lara A
+AU  - Pilutti LA
+AD  - Interdisciplinary School of Health Sciences, University of Ottawa, Ottawa, ON, 
+      Canada.
+FAU - Rohrig, Amanda
+AU  - Rohrig A
+AD  - Horizon Rehabilitation Centers, Omaha, NE, USA.
+FAU - Van Asch, Paul
+AU  - Van Asch P
+AD  - Fit Up Neurological and Sport Physiotherapy, Antwerp, Belgium.
+FAU - Zackowski, Kathleen
+AU  - Zackowski K
+AD  - National Multiple Sclerosis Society, New York, NY, USA.
+FAU - Motl, Robert W
+AU  - Motl RW
+AUID- ORCID: 0000-0002-5894-2290
+AD  - UAB/Lakeshore Research Collaborative, The University of Alabama at Birmingham, 
+      Birmingham, AL, USA.
+LA  - eng
+PT  - Journal Article
+DEP - 20200423
+PL  - England
+TA  - Mult Scler
+JT  - Multiple sclerosis (Houndmills, Basingstoke, England)
+JID - 9509185
+SB  - IM
+MH  - *Persons with Disabilities
+MH  - Exercise
+MH  - Exercise Therapy
+MH  - Humans
+MH  - Life Style
+MH  - *Multiple Sclerosis/therapy
+PMC - PMC7575303
+OTO - NOTNLM
+OT  - Multiple sclerosis
+OT  - disability
+OT  - exercise
+OT  - lifestyle physical activity
+OT  - physical activity
+OT  - recommendations
+OT  - wellness
+COIS- Declaration of Conflicting Interests: The author(s) declared the following 
+      potential conflicts of interest with respect to the research, authorship, and/or 
+      publication of this article: Dr Rosalind Kalb received a consulting fee from the 
+      National Multiple Sclerosis Society for the preparation of this manuscript. Dr 
+      Susan Coote receives funding from Novartis Pharmaceuticals to develop an exercise 
+      program for MS patients. The remaining authors declare no potential conflicts of 
+      interest with respect to the research, authorship, and/or publication of this 
+      article.
+EDAT- 2020/04/24 06:00
+MHDA- 2021/09/25 06:00
+PMCR- 2020/10/20
+CRDT- 2020/04/24 06:00
+PHST- 2020/04/24 06:00 [pubmed]
+PHST- 2021/09/25 06:00 [medline]
+PHST- 2020/04/24 06:00 [entrez]
+PHST- 2020/10/20 00:00 [pmc-release]
+AID - 10.1177_1352458520915629 [pii]
+AID - 10.1177/1352458520915629 [doi]
+PST - ppublish
+SO  - Mult Scler. 2020 Oct;26(12):1459-1469. doi: 10.1177/1352458520915629. Epub 2020 
+      Apr 23.
