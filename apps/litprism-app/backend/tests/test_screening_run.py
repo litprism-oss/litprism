@@ -43,41 +43,41 @@ def _make_screening_result(article_id: str, project_id: str, criteria_id: str) -
 # ---------------------------------------------------------------------------
 
 
-async def test_get_unscreened_returns_all_when_no_results(db_session, project_id, criteria_id):
+async def test_get_unscreened_returns_all_when_no_results(db, project_id, criteria_id):
     articles = [_make_article(project_id, i) for i in range(3)]
     for a in articles:
-        db_session.add(a)
-    await db_session.commit()
+        db.add(a)
+    await db.commit()
 
-    result = await get_unscreened_articles(project_id, criteria_id, db_session)
+    result = await get_unscreened_articles(project_id, criteria_id, db)
 
     assert len(result) == 3
 
 
-async def test_get_unscreened_excludes_screened_articles(db_session, project_id, criteria_id):
+async def test_get_unscreened_excludes_screened_articles(db, project_id, criteria_id):
     articles = [_make_article(project_id, i) for i in range(3)]
     for a in articles:
-        db_session.add(a)
-    await db_session.commit()
+        db.add(a)
+    await db.commit()
 
-    db_session.add(_make_screening_result(articles[0].id, project_id, criteria_id))
-    await db_session.commit()
+    db.add(_make_screening_result(articles[0].id, project_id, criteria_id))
+    await db.commit()
 
-    result = await get_unscreened_articles(project_id, criteria_id, db_session)
+    result = await get_unscreened_articles(project_id, criteria_id, db)
     result_ids = [a.id for a in result]
 
     assert len(result) == 2
     assert articles[0].id not in result_ids
 
 
-async def test_get_unscreened_includes_stale_results(db_session, project_id, criteria_id):
+async def test_get_unscreened_includes_stale_results(db, project_id, criteria_id):
     """A result under an old criteria version does not count as screened under the new one."""
     article = _make_article(project_id)
-    db_session.add(article)
-    await db_session.commit()
+    db.add(article)
+    await db.commit()
 
     # Result exists under v1 (criteria_id from fixture).
-    db_session.add(_make_screening_result(article.id, project_id, criteria_id))
+    db.add(_make_screening_result(article.id, project_id, criteria_id))
 
     # New criteria version v2.
     criteria_v2 = DBCriteria(
@@ -89,24 +89,24 @@ async def test_get_unscreened_includes_stale_results(db_session, project_id, cri
         uncertain_threshold=0.90,
         created_at=datetime.now(UTC),
     )
-    db_session.add(criteria_v2)
-    await db_session.commit()
+    db.add(criteria_v2)
+    await db.commit()
 
-    result = await get_unscreened_articles(project_id, criteria_v2.id, db_session)
+    result = await get_unscreened_articles(project_id, criteria_v2.id, db)
 
     assert len(result) == 1
     assert result[0].id == article.id
 
 
-async def test_get_unscreened_tombstones_excluded(db_session, project_id, criteria_id):
+async def test_get_unscreened_tombstones_excluded(db, project_id, criteria_id):
     """A tombstone ScreeningResult marks the article as handled — not re-queued on resume."""
     article = _make_article(project_id)
-    db_session.add(article)
-    await db_session.commit()
+    db.add(article)
+    await db.commit()
 
-    await write_tombstone(article.id, project_id, criteria_id, "test error", db_session)
+    await write_tombstone(article.id, project_id, criteria_id, "test error", db)
 
-    result = await get_unscreened_articles(project_id, criteria_id, db_session)
+    result = await get_unscreened_articles(project_id, criteria_id, db)
 
     assert len(result) == 0
 
@@ -154,18 +154,18 @@ async def test_cancel_screening_run(client, project_id, criteria_id, mock_coordi
 
 
 async def test_resume_completed_run_rejected(
-    client, db_session, project_id, criteria_id, mock_coordinator
+    client, db, project_id, criteria_id, mock_coordinator
 ):
-    """Attempting to resume a completed run returns 404."""
+    """Attempting to resume a completed run returns 409 Conflict."""
     create = await client.post(f"/projects/{project_id}/screening/run", json={"stage": "abstract"})
     run_id = create.json()["id"]
 
-    run = await db_session.get(ScreeningRun, run_id)
+    run = await db.get(ScreeningRun, run_id)
     run.status = "completed"
-    await db_session.commit()
+    await db.commit()
 
     resp = await client.post(f"/projects/{project_id}/screening/runs/{run_id}/resume")
-    assert resp.status_code == 404
+    assert resp.status_code == 409
 
 
 async def test_list_screening_runs(client, project_id, criteria_id, mock_coordinator):

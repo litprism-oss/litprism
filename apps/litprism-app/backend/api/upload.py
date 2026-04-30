@@ -9,6 +9,7 @@ from fastapi import (  # noqa: F401 (Depends used via Annotated)
     Form,
     HTTPException,
     Query,
+    Response,
     UploadFile,
 )
 from services.dedup import deduplicate
@@ -63,6 +64,7 @@ async def upload_references(
     project_id: str,
     file: UploadFile,
     db: DB,
+    response: Response,
     dry_run: bool = Query(False),
     source_label: str | None = Form(None),
     search_strategy_used: str | None = Form(None),
@@ -134,6 +136,7 @@ async def upload_references(
 
     # 7. Dry-run — return parse preview without any DB writes
     if dry_run:
+        response.status_code = 200
         sample = parsed[:3]
         return UploadDryRunOut(
             total_parsed=len(parsed),
