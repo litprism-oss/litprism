@@ -16,7 +16,8 @@ from db.models import (
     UploadRecord,
 )
 from docx import Document
-from docx.shared import Pt
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.shared import Inches, Pt
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -255,21 +256,161 @@ def _to_asreview(articles_with_decisions: list[tuple]) -> bytes:
 # ---------------------------------------------------------------------------
 
 
+def generate_prisma_s_docx(
+    project: Project,
+    source_queries: list[SourceQuery],
+    upload_records: list[UploadRecord],
+    prisma_counts: dict,
+) -> bytes:
+    """
+    Generate a PRISMA-S supplementary search strategy document.
+    Returns bytes suitable for streaming as a file download.
+
+    prisma_counts keys: db_records, other_records, duplicates_removed, records_screened
+    """
+    doc = Document()
+
+    # Document title
+    title = doc.add_heading("PRISMA-S Supplementary Search Strategy", level=1)
+    title.runs[0].font.size = Pt(14)
+    title.runs[0].font.bold = True
+
+    # Metadata block
+    meta = doc.add_paragraph()
+    meta.add_run("Review title: ").bold = True
+    meta.add_run(project.name)
+    doc.add_paragraph(f"Date of document: {date.today().strftime('%d %B %Y')}")
+    doc.add_paragraph()
+
+    # Table S1 heading
+    doc.add_heading("Table S1. Search strategies for all databases searched", level=2)
+
+    # Source queries (API searches)
+    for sq in source_queries:
+        _add_source_query_section(doc, sq)
+
+    # Upload records (manual searches)
+    for upload in upload_records:
+        _add_upload_section(doc, upload)
+
+    # Summary counts
+    doc.add_paragraph()
+    doc.add_heading("Summary", level=2)
+
+    total = prisma_counts["db_records"] + prisma_counts["other_records"]
+    dups = prisma_counts["duplicates_removed"]
+    summary_tbl = doc.add_table(rows=4, cols=2)
+    summary_tbl.style = "Table Grid"
+    rows_data = [
+        ("Total records identified", f"{total:,}"),
+        ("Duplicate records removed", f"{dups:,}"),
+        ("Records after deduplication", f"{total - dups:,}"),
+        ("Records screened", f"{prisma_counts['records_screened']:,}"),
+    ]
+    for i, (label, value) in enumerate(rows_data):
+        summary_tbl.rows[i].cells[0].text = label
+        summary_tbl.rows[i].cells[1].text = value
+        summary_tbl.rows[i].cells[1].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.RIGHT
+
+    # Reference
+    doc.add_paragraph()
+    ref = doc.add_paragraph()
+    ref.add_run("Reference: ").bold = True
+    ref.add_run(
+        "Rethlefsen ML, Kirtley S, Waffenschmidt S, et al. "
+        "PRISMA-S: an extension to the PRISMA Statement for "
+        "Reporting Literature Searches in Systematic Reviews. "
+        "Systematic Reviews. 2021;10(1):39."
+    )
+
+    buf = io.BytesIO()
+    doc.save(buf)
+    return buf.getvalue()
+
+
+def _add_source_query_section(doc: Document, sq: SourceQuery) -> None:
+    """Add one API source query as a formatted section."""
+    searched_at = sq.searched_at
+    date_str = (
+        searched_at.strftime("%d %B %Y")
+        if hasattr(searched_at, "strftime")
+        else str(searched_at)[:10]
+    )
+    result_count = sq.result_count or 0
+
+    header = doc.add_paragraph()
+    header.add_run(_source_display_name(sq.source)).bold = True
+    header.add_run(f"  |  {sq.interface}  |  {date_str}  |  {result_count:,} records")
+
+    doc.add_paragraph("Query:")
+    query_para = doc.add_paragraph()
+    query_run = query_para.add_run(sq.query_string or "")
+    # Set font AFTER adding text — python-docx requires this order
+    query_run.font.name = "Courier New"
+    query_run.font.size = Pt(9)
+    query_para.paragraph_format.left_indent = Inches(0.5)
+
+    if sq.filters_human_readable and sq.filters_human_readable not in ("None", ""):
+        doc.add_paragraph(f"Filters: {sq.filters_human_readable}")
+
+    doc.add_paragraph()  # spacer
+
+
+def _add_upload_section(doc: Document, upload: UploadRecord) -> None:
+    """Add one uploaded file as a formatted section."""
+    source_label = getattr(upload, "source_label", None) or "Manual search / other source"
+    uploaded_at = upload.uploaded_at
+    date_str = (
+        uploaded_at.strftime("%d %B %Y")
+        if hasattr(uploaded_at, "strftime")
+        else str(uploaded_at)[:10]
+    )
+    record_count = upload.record_count or 0
+
+    header = doc.add_paragraph()
+    header.add_run(source_label).bold = True
+    header.add_run(f"  |  Web interface  |  {date_str}  |  {record_count:,} records")
+    header.add_run(f"  (uploaded file: {upload.filename})").italic = True
+
+    search_strategy = getattr(upload, "search_strategy_used", None)
+    if search_strategy:
+        doc.add_paragraph("Query:")
+        q_para = doc.add_paragraph()
+        q_run = q_para.add_run(search_strategy)
+        q_run.font.name = "Courier New"
+        q_run.font.size = Pt(9)
+        q_para.paragraph_format.left_indent = Inches(0.5)
+
+    limits = getattr(upload, "limits_applied", None)
+    if limits:
+        doc.add_paragraph(f"Limits: {limits}")
+
+    doc.add_paragraph()
+
+
+def _source_display_name(source: str) -> str:
+    return {
+        "pubmed": "MEDLINE",
+        "europepmc": "Europe PMC",
+        "semanticscholar": "Semantic Scholar",
+    }.get(source, source.title())
+
+
 async def _to_prisma_s(project_id: str, db: AsyncSession) -> bytes:
     # Load project
     project_result = await db.execute(select(Project).where(Project.id == project_id))
     project = project_result.scalar_one_or_none()
-    project_name = project.name if project else project_id
+    if project is None:
+        # Fallback: build a minimal Project-like object
+        project = type("_P", (), {"name": project_id, "id": project_id})()
 
-    # Load completed search runs with their source queries
+    # Load source queries across all search runs for this project
     runs_result = await db.execute(
         select(SearchRun).where(SearchRun.project_id == project_id).order_by(SearchRun.created_at)
     )
     search_runs = list(runs_result.scalars())
-
-    # Load source queries for each run
     run_ids = [r.id for r in search_runs]
-    source_queries: list = []
+    source_queries: list[SourceQuery] = []
     if run_ids:
         sq_result = await db.execute(
             select(SourceQuery)
@@ -286,19 +427,15 @@ async def _to_prisma_s(project_id: str, db: AsyncSession) -> bytes:
     )
     upload_records = list(ur_result.scalars())
 
-    # Aggregate counts
-    total_articles_result = await db.execute(
-        select(func.count()).where(Article.project_id == project_id)
-    )
-    total_articles: int = total_articles_result.scalar_one() or 0
-
+    # Counts
     dedup_result = await db.execute(
         select(func.count()).where(DeduplicationLog.project_id == project_id)
     )
     duplicates_removed: int = dedup_result.scalar_one() or 0
-    after_dedup = total_articles  # articles already deduplicated before insert
 
-    # Screening counts
+    db_records = sum(sq.result_count or 0 for sq in source_queries)
+    other_records = sum(ur.record_count or 0 for ur in upload_records)
+
     active_criteria_result = await db.execute(
         select(Criteria)
         .where(Criteria.project_id == project_id, Criteria.superseded_at.is_(None))
@@ -306,124 +443,21 @@ async def _to_prisma_s(project_id: str, db: AsyncSession) -> bytes:
         .limit(1)
     )
     active_criteria = active_criteria_result.scalar_one_or_none()
-
-    screened = included = excluded = uncertain = 0
+    records_screened = 0
     if active_criteria:
-        sr_counts = await db.execute(
-            select(ScreeningResult.decision, func.count())
-            .where(
+        sr_count_result = await db.execute(
+            select(func.count()).where(
                 ScreeningResult.project_id == project_id,
                 ScreeningResult.criteria_id == active_criteria.id,
             )
-            .group_by(ScreeningResult.decision)
         )
-        for dec, cnt in sr_counts:
-            screened += cnt
-            if dec == "include":
-                included += cnt
-            elif dec == "exclude":
-                excluded += cnt
-            elif dec == "uncertain":
-                uncertain += cnt
+        records_screened = sr_count_result.scalar_one() or 0
 
-    # Build document
-    doc = Document()
-    doc.add_heading(f"Search Record (PRISMA-S) — {project_name}", level=1)
+    prisma_counts = {
+        "db_records": db_records,
+        "other_records": other_records,
+        "duplicates_removed": duplicates_removed,
+        "records_screened": records_screened,
+    }
 
-    # --- Search source sections ---
-    if source_queries:
-        doc.add_heading("Database Searches", level=2)
-        # Group source queries by search_run
-        sq_by_run: dict[str, list] = {}
-        for sq in source_queries:
-            sq_by_run.setdefault(sq.search_run_id, []).append(sq)
-
-        for run in search_runs:
-            queries = sq_by_run.get(run.id, [])
-            if not queries:
-                continue
-            for sq in queries:
-                tbl = doc.add_table(rows=2, cols=4)
-                tbl.style = "Table Grid"
-                hdr = tbl.rows[0].cells
-                hdr[0].text = "Source"
-                hdr[1].text = "Interface"
-                hdr[2].text = "Date searched"
-                hdr[3].text = "Results"
-                for cell in hdr:
-                    for para in cell.paragraphs:
-                        for run_obj in para.runs:
-                            run_obj.bold = True
-
-                searched_at = sq.searched_at
-                date_str = (
-                    searched_at.strftime("%d %b %Y")
-                    if hasattr(searched_at, "strftime")
-                    else str(searched_at)[:10]
-                )
-                data = tbl.rows[1].cells
-                data[0].text = sq.source
-                data[1].text = sq.interface
-                data[2].text = date_str
-                data[3].text = str(sq.result_count)
-
-                doc.add_paragraph(f"Query: {sq.query_string}")
-                if sq.filters_human_readable:
-                    doc.add_paragraph(f"Filters: {sq.filters_human_readable}")
-                doc.add_paragraph("")
-
-    # --- Upload record sections ---
-    if upload_records:
-        doc.add_heading("File Uploads", level=2)
-        tbl = doc.add_table(rows=1 + len(upload_records), cols=3)
-        tbl.style = "Table Grid"
-        hdr = tbl.rows[0].cells
-        hdr[0].text = "Filename"
-        hdr[1].text = "Format"
-        hdr[2].text = "Records"
-        for cell in hdr:
-            for para in cell.paragraphs:
-                for run_obj in para.runs:
-                    run_obj.bold = True
-        for i, ur in enumerate(upload_records, start=1):
-            row = tbl.rows[i].cells
-            row[0].text = ur.filename
-            row[1].text = ur.format
-            row[2].text = str(ur.record_count)
-        doc.add_paragraph("")
-
-    # --- Totals section ---
-    doc.add_heading("Summary Counts", level=2)
-    totals = [
-        ("Total identified", total_articles + duplicates_removed),
-        ("Duplicates removed", duplicates_removed),
-        ("After deduplication", after_dedup),
-        ("Screened (abstract)", screened),
-        ("Included", included),
-        ("Excluded", excluded),
-        ("Uncertain", uncertain),
-    ]
-    tbl = doc.add_table(rows=len(totals), cols=2)
-    tbl.style = "Table Grid"
-    for i, (label, count) in enumerate(totals):
-        row = tbl.rows[i].cells
-        row[0].text = label
-        # Bold the label
-        for para in row[0].paragraphs:
-            for run_obj in para.runs:
-                run_obj.bold = True
-        row[1].text = f"{count:,}"
-
-    # Add PRISMA-S note
-    doc.add_paragraph("")
-    note = doc.add_paragraph(
-        "Generated by LitPrism. "
-        "Cite search strategies per PRISMA-S guidelines "
-        "(Rethlefsen et al., 2021, Syst Rev 10:39)."
-    )
-    note.runs[0].font.size = Pt(9)
-    note.runs[0].italic = True
-
-    buf = io.BytesIO()
-    doc.save(buf)
-    return buf.getvalue()
+    return generate_prisma_s_docx(project, source_queries, upload_records, prisma_counts)
