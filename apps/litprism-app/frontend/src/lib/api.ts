@@ -19,6 +19,7 @@ import type {
   ScreeningResultOut,
   ScreeningDecision,
   EnrichmentStatusOut,
+  FulltextScreeningEligibilityOut,
   FulltextStatusOut,
   RetryFailedOut,
 } from '@/lib/types'
@@ -152,6 +153,8 @@ export const api = {
       request<ScreeningRunOut>(`/projects/${projectId}/screening/runs/${runId}/cancel`, { method: 'POST' }),
     retryFailed: (projectId: string, runId: string) =>
       request<RetryFailedOut>(`/projects/${projectId}/screening/runs/${runId}/retry-failed`, { method: 'POST' }),
+    deleteRun: (projectId: string, runId: string) =>
+      request<void>(`/projects/${projectId}/screening/runs/${runId}`, { method: 'DELETE' }),
     preview: (
       projectId: string,
       body: { criteria: { inclusion: string[]; exclusion: string[] }; articles: { id: string; title: string; abstract: string | null }[] },
@@ -160,6 +163,15 @@ export const api = {
         method: 'POST',
         body: JSON.stringify(body),
       }),
+    startFulltext: (projectId: string, body: ScreeningRunCreate) =>
+      request<ScreeningRunOut>(`/projects/${projectId}/screening/fulltext-run`, {
+        method: 'POST',
+        body: JSON.stringify(body),
+      }),
+    fulltextEligibility: (projectId: string) =>
+      request<FulltextScreeningEligibilityOut>(
+        `/projects/${projectId}/screening/fulltext-eligibility`,
+      ),
   },
   screeningResults: {
     list: (

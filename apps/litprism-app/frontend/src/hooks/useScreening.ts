@@ -12,7 +12,7 @@ export function useScreeningRuns(projectId: string) {
       const hasActive = data?.some(
         (r) => r.status === 'running' || r.status === 'pending',
       )
-      return hasActive ? 5000 : false
+      return hasActive ? 3000 : false
     },
   })
 }

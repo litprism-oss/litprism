@@ -17,6 +17,7 @@ from api.schemas import (
     ArticleWithResult,
     ArticleWithResultListOut,
     CriteriaHitOut,
+    FulltextScreeningEligibilityOut,
     HumanOverrideRequest,
     PreviewCriteriaHit,
     RetryFailedOut,
@@ -263,6 +264,30 @@ async def update_screening_run(
     return run
 
 
+@router.delete("/{project_id}/screening/runs/{run_id}", status_code=204)
+async def delete_screening_run(
+    project_id: str,
+    run_id: str,
+    db: DB,
+) -> None:
+    run = await db.get(ScreeningRun, run_id)
+    if run is None or run.project_id != project_id:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Screening run not found")
+    if run.status in ("running", "pending"):
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Cannot delete a run that is currently active — pause it first",
+        )
+    # Delete associated results then the run itself
+    results = (
+        await db.scalars(select(ScreeningResult).where(ScreeningResult.screening_run_id == run_id))
+    ).all()
+    for r in results:
+        await db.delete(r)
+    await db.delete(run)
+    await db.commit()
+
+
 @router.post("/{project_id}/screening/runs/{run_id}/cancel", response_model=ScreeningRunOut)
 async def cancel_screening_run(
     project_id: str,
@@ -272,12 +297,12 @@ async def cancel_screening_run(
     run = await db.get(ScreeningRun, run_id)
     if run is None or run.project_id != project_id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Screening run not found")
-    if run.status in ("completed", "cancelled"):
+    if run.status in ("completed", "paused"):
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail=f"Cannot cancel a run with status '{run.status}'",
+            detail=f"Cannot pause a run with status '{run.status}'",
         )
-    run.status = "cancelled"
+    run.status = "paused"
     await db.commit()
     return run
 
@@ -495,3 +520,120 @@ async def override_screening_decision(
     await db.commit()
     await db.refresh(sr)
     return _result_to_out(sr)
+
+
+# ---------------------------------------------------------------------------
+# Full-text screening (Session 15)
+# ---------------------------------------------------------------------------
+
+
+async def _get_active_criteria(project_id: str, db: AsyncSession) -> DBCriteria | None:
+    return (
+        await db.scalars(
+            select(DBCriteria)
+            .where(DBCriteria.project_id == project_id)
+            .where(DBCriteria.superseded_at.is_(None))
+            .order_by(DBCriteria.version.desc())
+            .limit(1)
+        )
+    ).first()
+
+
+async def _fulltext_eligibility_counts(
+    project_id: str, db: AsyncSession
+) -> FulltextScreeningEligibilityOut:
+    """
+    Count uncertain articles (from abstract screening) broken down by
+    full-text retrieval status.
+    """
+    rows = (
+        await db.execute(
+            select(Article.fulltext_status, func.count(Article.id).label("n"))
+            .join(ScreeningResult, ScreeningResult.article_id == Article.id)
+            .where(
+                Article.project_id == project_id,
+                ScreeningResult.decision == "uncertain",
+                ScreeningResult.stage == "abstract",
+            )
+            .group_by(Article.fulltext_status)
+            .distinct()
+        )
+    ).all()
+
+    counts: dict[str | None, int] = {r.fulltext_status: r.n for r in rows}
+    retrieved = counts.get("retrieved", 0)
+    unavailable = counts.get("unavailable", 0)
+    uncertain_total = sum(counts.values())
+
+    return FulltextScreeningEligibilityOut(
+        eligible=retrieved,
+        uncertain_total=uncertain_total,
+        retrieved=retrieved,
+        unavailable=unavailable,
+    )
+
+
+@router.get(
+    "/{project_id}/screening/fulltext-eligibility",
+    response_model=FulltextScreeningEligibilityOut,
+)
+async def get_fulltext_eligibility(
+    project_id: str,
+    db: DB,
+) -> FulltextScreeningEligibilityOut:
+    """Returns counts to inform the full-text screening UI."""
+    project = await db.get(Project, project_id)
+    if project is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+    return await _fulltext_eligibility_counts(project_id, db)
+
+
+@router.post(
+    "/{project_id}/screening/fulltext-run",
+    status_code=202,
+    response_model=ScreeningRunOut,
+)
+async def start_fulltext_screening(
+    project_id: str,
+    body: ScreeningRunCreate,
+    db: DB,
+) -> ScreeningRunOut:
+    """
+    Start a full-text screening run targeting uncertain articles that have
+    retrieved full text available.
+    """
+    project = await db.get(Project, project_id)
+    if project is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+
+    criteria = await _get_active_criteria(project_id, db)
+    if criteria is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No active criteria — set up criteria first",
+        )
+
+    eligibility = await _fulltext_eligibility_counts(project_id, db)
+    if eligibility.eligible == 0:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No articles ready for full-text screening. Run full-text retrieval first.",
+        )
+
+    run = ScreeningRun(
+        id=str(uuid.uuid4()),
+        project_id=project_id,
+        criteria_id=criteria.id,
+        stage="fulltext",
+        status="pending",
+        total_articles=eligibility.eligible,
+        screened_count=0,
+        error_count=0,
+        chunk_size=body.chunk_size,
+        created_at=datetime.now(UTC),
+    )
+    db.add(run)
+    await db.commit()
+
+    screen_coordinator.delay(run.id)
+    return run

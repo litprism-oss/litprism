@@ -6,6 +6,29 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
+async def get_fulltext_eligible_articles(
+    project_id: str,
+    db: AsyncSession,
+) -> list[Article]:
+    """
+    Returns articles that are uncertain from abstract screening and have
+    retrieved full text — the eligible set for full-text screening.
+    """
+    stmt = (
+        select(Article)
+        .join(ScreeningResult, ScreeningResult.article_id == Article.id)
+        .where(
+            Article.project_id == project_id,
+            ScreeningResult.decision == "uncertain",
+            ScreeningResult.stage == "abstract",
+            Article.fulltext_status == "retrieved",
+        )
+        .distinct()
+        .order_by(Article.created_at)
+    )
+    return list((await db.scalars(stmt)).all())
+
+
 async def get_unscreened_articles(
     project_id: str,
     criteria_id: str,

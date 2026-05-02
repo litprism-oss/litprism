@@ -94,6 +94,10 @@ export const GUIDE_CONTENT: Record<string, GuideEntry> = {
         heading: 'Uncertain articles',
         body: 'Articles marked uncertain are not excluded — they proceed to full-text review. This is the correct trade-off for a systematic review: better to retrieve one extra article than to miss a relevant one.',
       },
+      {
+        heading: 'Full-text screening',
+        body: 'Uncertain articles from abstract screening proceed to full-text review. LitPrism retrieves full text automatically where available (PMC, Unpaywall) and runs the same LLM screening logic against the complete article.',
+      },
     ],
   },
   'screening/results': {
