@@ -220,7 +220,7 @@ export interface PRISMAFlowCounts {
   studies_included: number
 }
 
-export type ScreeningDecision = 'include' | 'exclude' | 'uncertain'
+export type ScreeningDecision = 'include' | 'exclude' | 'uncertain' | 'error'
 export type CriteriaAssessment = 'confirmed' | 'refuted' | 'unassessable'
 
 export interface CriteriaHitOut {
@@ -255,6 +255,12 @@ export interface ArticleWithResultListOut {
   total: number
   page: number
   page_size: number
+}
+
+export interface RetryFailedOut {
+  deleted: number
+  requeued: number
+  run_id: string
 }
 
 export interface FulltextStatusOut {

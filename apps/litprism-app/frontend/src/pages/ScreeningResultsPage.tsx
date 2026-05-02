@@ -90,11 +90,27 @@ export function ScreeningResultsPage() {
     page: 1,
     page_size: 1,
   })
+  const { data: errorData } = useScreeningResults(projectId, {
+    ...runParam,
+    decision: 'error',
+    page: 1,
+    page_size: 1,
+  })
+
+  const retryMutation = useMutation({
+    mutationFn: () => api.screening.retryFailed(projectId, targetRun!.id),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: ['screeningRuns', projectId] })
+      qc.invalidateQueries({ queryKey: ['screeningResults', projectId] })
+      navigate(`/projects/${projectId}/screening?run_id=${data.run_id}`)
+    },
+  })
 
   const STATS = [
-    { label: 'Include', count: includeData?.total, colour: '#27500A' },
-    { label: 'Exclude', count: excludeData?.total, colour: '#791F1F' },
+    { label: 'Include',  count: includeData?.total,  colour: '#27500A' },
+    { label: 'Exclude',  count: excludeData?.total,  colour: '#791F1F' },
     { label: 'Uncertain', count: uncertainData?.total, colour: '#633806' },
+    { label: 'Failed',   count: errorData?.total,    colour: '#791F1F' },
   ]
 
   const isCancelled = targetRun?.status === 'cancelled'
@@ -287,6 +303,48 @@ export function ScreeningResultsPage() {
                   Retrieve full text →
                 </button>
               )}
+            </div>
+          )}
+          {/* Failed screening banner — shown when error tab is active */}
+          {activeTab === 'error' && (errorData?.total ?? 0) > 0 && (
+            <div
+              style={{
+                background: '#FDECEA',
+                border: '0.5px solid #791F1F',
+                borderRadius: 'var(--border-radius-md)',
+                padding: '12px 16px',
+                marginBottom: 16,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <div>
+                <p style={{ fontSize: 13, fontWeight: 500, color: '#791F1F', margin: 0 }}>
+                  {errorData!.total} article{errorData!.total !== 1 ? 's' : ''} failed screening
+                </p>
+                <p style={{ fontSize: 12, color: '#791F1F', marginTop: 2, marginBottom: 0 }}>
+                  Likely caused by rate limits. Retry to re-screen these articles.
+                </p>
+              </div>
+              <button
+                onClick={() => retryMutation.mutate()}
+                disabled={retryMutation.isPending}
+                style={{
+                  fontSize: 13,
+                  background: '#791F1F',
+                  color: '#fff',
+                  border: 'none',
+                  padding: '7px 16px',
+                  borderRadius: 'var(--border-radius-md)',
+                  cursor: retryMutation.isPending ? 'default' : 'pointer',
+                  flexShrink: 0,
+                  marginLeft: 16,
+                  opacity: retryMutation.isPending ? 0.6 : 1,
+                }}
+              >
+                {retryMutation.isPending ? 'Retrying…' : 'Retry failed →'}
+              </button>
             </div>
           )}
           <ResultsTable

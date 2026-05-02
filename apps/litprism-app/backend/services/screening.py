@@ -52,7 +52,7 @@ async def write_tombstone(
         criteria_id=criteria_id,
         screening_run_id=screening_run_id,
         stage="abstract",
-        decision="uncertain",
+        decision="error",
         confidence=0.0,
         reasoning=f"Screening failed: {cause}",
         criteria_hits=[],

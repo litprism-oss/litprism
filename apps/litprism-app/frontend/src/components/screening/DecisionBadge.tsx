@@ -4,12 +4,14 @@ const DECISION_COLOURS: Record<ScreeningDecision, { bg: string; text: string }> 
   include:   { bg: '#EAF3DE', text: '#27500A' },
   exclude:   { bg: '#FCEBEB', text: '#791F1F' },
   uncertain: { bg: '#FAEEDA', text: '#633806' },
+  error:     { bg: '#F5F5F5', text: '#666666' },
 }
 
 const DECISION_LABELS: Record<ScreeningDecision, string> = {
   include:   'Include',
   exclude:   'Exclude',
   uncertain: 'Uncertain',
+  error:     'Failed',
 }
 
 interface DecisionBadgeProps {
