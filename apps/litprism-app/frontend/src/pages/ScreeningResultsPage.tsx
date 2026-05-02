@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useScreeningRuns } from '@/hooks/useScreening'
 import { useScreeningResults } from '@/hooks/useScreeningResults'
 import { useCriteriaHistory } from '@/hooks/useCriteria'
@@ -7,6 +8,9 @@ import { ResultsTable } from '@/components/screening/ResultsTable'
 import { ExportPanel } from '@/components/export/ExportPanel'
 import { useProjects } from '@/hooks/useProjects'
 import { api } from '@/lib/api'
+import type { ScreeningDecision } from '@/lib/types'
+
+type FilterTab = 'all' | ScreeningDecision
 
 function formatTime(iso: string) {
   return (
@@ -23,6 +27,7 @@ export function ScreeningResultsPage() {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const qc = useQueryClient()
+  const [activeTab, setActiveTab] = useState<FilterTab>('all')
 
   const runId = searchParams.get('run_id')
 
@@ -50,6 +55,19 @@ export function ScreeningResultsPage() {
       navigate(`/projects/${projectId}/screening`)
       qc.invalidateQueries({ queryKey: ['screeningRuns', projectId] })
     },
+  })
+
+  const fulltextMutation = useMutation({
+    mutationFn: () => api.fulltext.trigger(projectId),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['fulltextStatus', projectId] }),
+  })
+
+  const { data: fulltextStatus } = useQuery({
+    queryKey: ['fulltextStatus', projectId],
+    queryFn: () => api.fulltext.status(projectId),
+    enabled: activeTab === 'uncertain',
+    refetchInterval: (query) =>
+      (query.state.data?.pending ?? 0) > 0 ? 5000 : false,
   })
 
   // Per-decision counts scoped to the target run
@@ -205,7 +223,78 @@ export function ScreeningResultsPage() {
 
         {/* Right — results table */}
         <div style={{ flex: 1, minWidth: 0 }}>
-          <ResultsTable projectId={projectId} runId={targetRun?.id} />
+          {/* Full-text retrieval banner — shown when uncertain tab is active */}
+          {activeTab === 'uncertain' && (
+            <div
+              style={{
+                background: '#FAEEDA',
+                border: '0.5px solid #633806',
+                borderRadius: 'var(--border-radius-md)',
+                padding: '12px 16px',
+                marginBottom: 16,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <div>
+                {fulltextStatus && fulltextStatus.pending > 0 ? (
+                  <>
+                    <p style={{ fontSize: 13, fontWeight: 500, color: '#633806', margin: 0 }}>
+                      Retrieving full text…
+                    </p>
+                    <p style={{ fontSize: 12, color: '#633806', marginTop: 2, marginBottom: 0 }}>
+                      {fulltextStatus.retrieved + fulltextStatus.error} / {fulltextStatus.pending + fulltextStatus.retrieved + fulltextStatus.error} articles processed
+                    </p>
+                  </>
+                ) : fulltextStatus && fulltextStatus.retrieved + fulltextStatus.unavailable + fulltextStatus.error > 0 ? (
+                  <>
+                    <p style={{ fontSize: 13, fontWeight: 500, color: '#633806', margin: 0 }}>
+                      Full text retrieval complete
+                    </p>
+                    <p style={{ fontSize: 12, color: '#633806', marginTop: 2, marginBottom: 0 }}>
+                      {fulltextStatus.retrieved} retrieved · {fulltextStatus.unavailable} unavailable{fulltextStatus.error > 0 ? ` · ${fulltextStatus.error} errors` : ''}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p style={{ fontSize: 13, fontWeight: 500, color: '#633806', margin: 0 }}>
+                      {uncertainData?.total ?? 0} articles need full-text review
+                    </p>
+                    <p style={{ fontSize: 12, color: '#633806', marginTop: 2, marginBottom: 0 }}>
+                      Retrieve full text automatically where available (PMC, Unpaywall)
+                    </p>
+                  </>
+                )}
+              </div>
+              {(!fulltextStatus || fulltextStatus.not_attempted > 0) && fulltextStatus?.pending === 0 && (
+                <button
+                  onClick={() => fulltextMutation.mutate()}
+                  disabled={fulltextMutation.isPending}
+                  style={{
+                    fontSize: 13,
+                    background: 'var(--color-text-primary)',
+                    color: 'var(--color-background-primary)',
+                    border: 'none',
+                    padding: '7px 16px',
+                    borderRadius: 'var(--border-radius-md)',
+                    cursor: fulltextMutation.isPending ? 'default' : 'pointer',
+                    flexShrink: 0,
+                    marginLeft: 16,
+                    opacity: fulltextMutation.isPending ? 0.6 : 1,
+                  }}
+                >
+                  Retrieve full text →
+                </button>
+              )}
+            </div>
+          )}
+          <ResultsTable
+            projectId={projectId}
+            runId={targetRun?.id}
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+          />
         </div>
       </div>
     </div>
