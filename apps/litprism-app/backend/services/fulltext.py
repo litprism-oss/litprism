@@ -25,7 +25,7 @@ async def retrieve_fulltext_for_project(
         select(Article).where(
             Article.project_id == project_id,
             Article.fulltext_text.is_(None),
-            Article.fulltext_status.is_(None),
+            Article.fulltext_status.in_([None, "pending"]),
         )
     )
     articles = result.scalars().all()

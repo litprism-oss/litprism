@@ -1,8 +1,11 @@
+import { useState } from 'react'
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useSearchRuns } from '@/hooks/useSearchRuns'
 import { useUploads } from '@/hooks/useUpload'
 import { useCriteria, useCriteriaHistory } from '@/hooks/useCriteria'
 import { useScreeningRuns } from '@/hooks/useScreening'
+import { api } from '@/lib/api'
 
 interface NavItemProps {
   label: string
@@ -77,6 +80,85 @@ function SubItem({ label, to, active, muted }: SubItemProps) {
   )
 }
 
+interface RunSubItemProps {
+  label: string
+  date: string | null
+  to: string
+  active: boolean
+  projectId: string
+  runId: string
+}
+
+function RunSubItem({ label, date, to, active, projectId, runId }: RunSubItemProps) {
+  const [hovered, setHovered] = useState(false)
+  const qc = useQueryClient()
+  const navigate = useNavigate()
+
+  const deleteMutation = useMutation({
+    mutationFn: () => api.screening.deleteRun(projectId, runId),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['screeningRuns', projectId] })
+      navigate(`/projects/${projectId}/screening`)
+    },
+  })
+
+  return (
+    <div
+      style={{ position: 'relative' }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <Link
+        to={to}
+        style={{
+          display: 'block',
+          padding: '5px 32px 5px 28px',
+          fontSize: 12,
+          color: active ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+          fontWeight: active ? 500 : 400,
+          background: hovered || active ? 'var(--color-background-secondary)' : 'transparent',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          textDecoration: 'none',
+          borderLeft: active ? '2px solid var(--color-text-primary)' : '2px solid transparent',
+        }}
+      >
+        · {label}
+        {date && (
+          <span style={{ color: 'var(--color-text-tertiary)', fontWeight: 400 }}> · {date}</span>
+        )}
+      </Link>
+      {hovered && (
+        <button
+          onClick={(e) => {
+            e.preventDefault()
+            if (!deleteMutation.isPending &&
+              window.confirm('Remove these screening results? You won\'t be able to get them back.'))
+              deleteMutation.mutate()
+          }}
+          title="Remove from list"
+          style={{
+            position: 'absolute',
+            right: 8,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            color: 'var(--color-text-tertiary)',
+            fontSize: 14,
+            lineHeight: 1,
+            padding: '0 2px',
+          }}
+        >
+          ×
+        </button>
+      )}
+    </div>
+  )
+}
+
 export function ProjectSidebar() {
   const { projectId } = useParams<{ projectId: string }>()
   const { pathname, search } = useLocation()
@@ -117,18 +199,40 @@ export function ProjectSidebar() {
   // Build criteriaMap: id → version number
   const criteriaMap = new Map(criteriaHistory?.map((c) => [c.id, c.version]) ?? [])
 
-  // Per criteria version, keep only the most recent run.
-  // This hides earlier cancelled runs once a completed (or newer) run exists for that version.
-  const latestPerCriteria = new Map<string, NonNullable<typeof screeningRuns>[number]>()
+  // Group all runs by criteria version. Abstract + full-text runs for the same
+  // criteria collapse into one sidebar entry.
+  type Run = NonNullable<typeof screeningRuns>[number]
+  const groupedByCriteria = new Map<string, Run[]>()
   for (const run of screeningRuns ?? []) {
-    const existing = latestPerCriteria.get(run.criteria_id)
-    if (!existing || new Date(run.created_at) > new Date(existing.created_at)) {
-      latestPerCriteria.set(run.criteria_id, run)
-    }
+    const group = groupedByCriteria.get(run.criteria_id) ?? []
+    group.push(run)
+    groupedByCriteria.set(run.criteria_id, group)
   }
-  const sortedRuns = [...latestPerCriteria.values()].sort(
-    (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
-  )
+
+  const criteriaEntries = [...groupedByCriteria.entries()]
+    .map(([criteriaId, runs]) => {
+      const version = criteriaMap.get(criteriaId) ?? '?'
+      const hasRunning = runs.some(r => r.status === 'running' || r.status === 'pending')
+      const allDone = runs.every(r => r.status === 'completed')
+      const latest = [...runs].sort(
+        (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+      )[0]
+      const statusLabel = hasRunning ? 'in progress…'
+        : allDone ? 'done'
+        : latest.status === 'cancelled' || latest.status === 'paused' ? 'paused'
+        : latest.status
+      // Link to the fulltext completed run if available, otherwise latest completed, otherwise latest
+      const linkRun =
+        runs.find(r => r.status === 'completed' && r.stage === 'fulltext') ??
+        runs.find(r => r.status === 'completed') ??
+        latest
+      return { criteriaId, version, statusLabel, linkRun, latest }
+    })
+    .sort((a, b) => {
+      const aVer = typeof a.version === 'number' ? a.version : 0
+      const bVer = typeof b.version === 'number' ? b.version : 0
+      return aVer - bVer
+    })
 
   return (
     <nav
@@ -164,30 +268,25 @@ export function ProjectSidebar() {
           to={`${base}/screening`}
           active={active('screening') && !pathname.includes('/results')}
         />
-        {sortedRuns.map((run) => {
-          const version = criteriaMap.get(run.criteria_id) ?? '?'
-          const isFailed = run.status === 'failed'
-          const isRunning = run.status === 'running' || run.status === 'pending'
-
-          const label =
-            run.status === 'completed'
-              ? `v${version} · completed`
-              : run.status === 'cancelled'
-                ? `v${version} · paused →`
-                : isRunning
-                  ? `v${version} · ${run.screened_count ?? 0}/${run.total_articles}…`
-                  : `v${version} · ${run.status}`
-
-          const to = `${base}/screening/results?run_id=${run.id}`
-          const isActive = currentUrl === to
+        {criteriaEntries.map(({ criteriaId, version, statusLabel, linkRun, latest }) => {
+          const label = `Version ${version} · ${statusLabel}`
+          const dateStr = linkRun.completed_at ?? linkRun.created_at
+          const date = dateStr
+            ? new Date(dateStr).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })
+            : null
+          const to = `${base}/screening/results?run_id=${linkRun.id}`
+          const isActive = currentUrl.startsWith(`${base}/screening/results`) &&
+            (currentUrl.includes(linkRun.id) || currentUrl.includes(latest.id))
 
           return (
-            <SubItem
-              key={run.id}
+            <RunSubItem
+              key={criteriaId}
               label={label}
+              date={date}
               to={to}
               active={isActive}
-              muted={isFailed}
+              projectId={projectId}
+              runId={latest.id}
             />
           )
         })}

@@ -271,3 +271,10 @@ export interface FulltextStatusOut {
   error: number
   not_attempted: number
 }
+
+export interface FulltextScreeningEligibilityOut {
+  eligible: number
+  uncertain_total: number
+  retrieved: number
+  unavailable: number
+}

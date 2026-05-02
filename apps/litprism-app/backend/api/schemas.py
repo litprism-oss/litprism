@@ -380,3 +380,10 @@ class FulltextStatusOut(BaseModel):
     unavailable: int
     error: int
     not_attempted: int
+
+
+class FulltextScreeningEligibilityOut(BaseModel):
+    eligible: int  # uncertain (abstract) + fulltext_status=retrieved
+    uncertain_total: int  # all uncertain from abstract screening
+    retrieved: int  # fulltext_status=retrieved among uncertain
+    unavailable: int  # fulltext_status=unavailable among uncertain

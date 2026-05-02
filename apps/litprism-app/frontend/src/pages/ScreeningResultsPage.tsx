@@ -62,12 +62,29 @@ export function ScreeningResultsPage() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['fulltextStatus', projectId] }),
   })
 
+  const fulltextScreeningMutation = useMutation({
+    mutationFn: () => api.screening.startFulltext(projectId, { stage: 'fulltext', chunk_size: 50 }),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: ['screeningRuns', projectId] })
+      navigate(`/projects/${projectId}/screening?run_id=${data.id}`)
+    },
+  })
+
   const { data: fulltextStatus } = useQuery({
     queryKey: ['fulltextStatus', projectId],
     queryFn: () => api.fulltext.status(projectId),
     enabled: activeTab === 'uncertain',
     refetchInterval: (query) =>
       (query.state.data?.pending ?? 0) > 0 ? 5000 : false,
+  })
+
+  const retrievalComplete =
+    fulltextStatus !== undefined && fulltextStatus.pending === 0 && fulltextStatus.total > 0
+
+  const { data: eligibility } = useQuery({
+    queryKey: ['fulltextEligibility', projectId],
+    queryFn: () => api.screening.fulltextEligibility(projectId),
+    enabled: activeTab === 'uncertain' && retrievalComplete,
   })
 
   // Per-decision counts scoped to the target run
@@ -113,7 +130,7 @@ export function ScreeningResultsPage() {
     { label: 'Failed',   count: errorData?.total,    colour: '#791F1F' },
   ]
 
-  const isCancelled = targetRun?.status === 'cancelled'
+  const isCancelled = targetRun?.status === 'cancelled' || targetRun?.status === 'paused'
   const hasActiveRun = runs?.some(r => r.status === 'running' || r.status === 'pending')
   const stageLabel =
     targetRun?.stage === 'abstract' ? 'Abstract screening' : 'Full-text screening'
@@ -257,19 +274,37 @@ export function ScreeningResultsPage() {
                 {fulltextStatus && fulltextStatus.pending > 0 ? (
                   <>
                     <p style={{ fontSize: 13, fontWeight: 500, color: '#633806', margin: 0 }}>
-                      Retrieving full text…
+                      Retrieving full text… ({fulltextStatus.pending} remaining)
                     </p>
                     <p style={{ fontSize: 12, color: '#633806', marginTop: 2, marginBottom: 0 }}>
-                      {fulltextStatus.retrieved + fulltextStatus.error} / {fulltextStatus.pending + fulltextStatus.retrieved + fulltextStatus.error} articles processed
+                      {fulltextStatus.retrieved} retrieved · {fulltextStatus.unavailable} unavailable · {fulltextStatus.error} errors
+                      {' '}out of {fulltextStatus.total} total
+                    </p>
+                    <p style={{ fontSize: 12, color: '#633806', marginTop: 4, marginBottom: 0 }}>
+                      Articles without full text will remain uncertain and need manual review.
                     </p>
                   </>
-                ) : fulltextStatus && fulltextStatus.retrieved + fulltextStatus.unavailable + fulltextStatus.error > 0 ? (
+                ) : retrievalComplete && (eligibility?.eligible ?? 0) > 0 ? (
+                  <>
+                    <p style={{ fontSize: 13, fontWeight: 500, color: '#633806', margin: 0 }}>
+                      {eligibility!.eligible} article{eligibility!.eligible !== 1 ? 's' : ''} ready
+                      for full-text screening
+                    </p>
+                    <p style={{ fontSize: 12, color: '#633806', marginTop: 2, marginBottom: 0 }}>
+                      {eligibility!.unavailable > 0 &&
+                        `${eligibility!.unavailable} articles unavailable — manual review needed. `}
+                      Full text retrieved for {eligibility!.retrieved} articles.
+                    </p>
+                  </>
+                ) : retrievalComplete ? (
                   <>
                     <p style={{ fontSize: 13, fontWeight: 500, color: '#633806', margin: 0 }}>
                       Full text retrieval complete
                     </p>
                     <p style={{ fontSize: 12, color: '#633806', marginTop: 2, marginBottom: 0 }}>
-                      {fulltextStatus.retrieved} retrieved · {fulltextStatus.unavailable} unavailable{fulltextStatus.error > 0 ? ` · ${fulltextStatus.error} errors` : ''}
+                      {fulltextStatus!.retrieved} retrieved · {fulltextStatus!.unavailable}{' '}
+                      unavailable
+                      {fulltextStatus!.error > 0 ? ` · ${fulltextStatus!.error} errors` : ''}
                     </p>
                   </>
                 ) : (
@@ -283,7 +318,27 @@ export function ScreeningResultsPage() {
                   </>
                 )}
               </div>
-              {(!fulltextStatus || fulltextStatus.not_attempted > 0) && fulltextStatus?.pending === 0 && (
+              {retrievalComplete && (eligibility?.eligible ?? 0) > 0 ? (
+                <button
+                  onClick={() => fulltextScreeningMutation.mutate()}
+                  disabled={fulltextScreeningMutation.isPending}
+                  style={{
+                    fontSize: 13,
+                    background: 'var(--color-text-primary)',
+                    color: 'var(--color-background-primary)',
+                    border: 'none',
+                    padding: '7px 16px',
+                    borderRadius: 'var(--border-radius-md)',
+                    cursor: fulltextScreeningMutation.isPending ? 'default' : 'pointer',
+                    flexShrink: 0,
+                    marginLeft: 16,
+                    opacity: fulltextScreeningMutation.isPending ? 0.6 : 1,
+                  }}
+                >
+                  {fulltextScreeningMutation.isPending ? 'Starting…' : 'Run full-text screening →'}
+                </button>
+              ) : (!fulltextStatus || fulltextStatus.not_attempted > 0) &&
+                fulltextStatus?.pending === 0 ? (
                 <button
                   onClick={() => fulltextMutation.mutate()}
                   disabled={fulltextMutation.isPending}
@@ -302,7 +357,7 @@ export function ScreeningResultsPage() {
                 >
                   Retrieve full text →
                 </button>
-              )}
+              ) : null}
             </div>
           )}
           {/* Failed screening banner — shown when error tab is active */}

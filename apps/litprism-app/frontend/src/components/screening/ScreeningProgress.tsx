@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import type { ProgressEvent } from '@/hooks/useSearchProgress'
 import type { ScreeningRunOut } from '@/lib/types'
@@ -115,6 +115,28 @@ export function ScreeningProgress({ projectId, run, events }: Props) {
 
   const isPaused = run.status === 'paused'
   const isCancelled = run.status === 'cancelled'
+  const isRunning = run.status === 'running'
+  const isCompleted = run.status === 'completed'
+
+  // Detect stuck: no progress for > 2 minutes while running
+  const lastProgressRef = useRef<{ count: number; at: number }>({ count: processed, at: Date.now() })
+  const [isStuck, setIsStuck] = useState(false)
+
+  useEffect(() => {
+    if (processed !== lastProgressRef.current.count) {
+      lastProgressRef.current = { count: processed, at: Date.now() }
+      setIsStuck(false)
+    }
+  }, [processed])
+
+  useEffect(() => {
+    if (!isRunning) { setIsStuck(false); return }
+    const interval = setInterval(() => {
+      const stale = Date.now() - lastProgressRef.current.at > 120_000
+      setIsStuck(stale)
+    }, 10_000)
+    return () => clearInterval(interval)
+  }, [isRunning])
 
   const criteriaVersion = criteriaHistory?.find((c) => c.id === run.criteria_id)?.version
   const completedSearchRun = searchRuns?.find((r) => r.status === 'completed')
@@ -130,9 +152,33 @@ export function ScreeningProgress({ projectId, run, events }: Props) {
 
   return (
     <div style={{ padding: '24px', maxWidth: '600px' }}>
+      {isCompleted && (
+        <div
+          style={{
+            background: '#F0F7E6',
+            border: '0.5px solid #639922',
+            borderRadius: 'var(--border-radius-md)',
+            padding: '10px 14px',
+            marginBottom: 16,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <div>
+            <p style={{ fontSize: 13, fontWeight: 500, color: '#27500A', margin: 0 }}>
+              Screening complete
+            </p>
+            <p style={{ fontSize: 12, color: '#27500A', marginTop: 2, marginBottom: 0 }}>
+              All articles have been screened. View the results below.
+            </p>
+          </div>
+        </div>
+      )}
+
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
         <span style={{ fontSize: '15px', fontWeight: 500, color: 'var(--color-text-primary)' }}>
-          {isCancelled ? 'Resuming screening…' : isPaused ? 'Screening paused' : 'Screening in progress'}
+          {isCancelled ? 'Resuming screening…' : isPaused ? 'Screening paused' : isCompleted ? 'Screening complete' : 'Screening in progress'}
         </span>
         {isPaused ? (
           <button
@@ -192,6 +238,26 @@ export function ScreeningProgress({ projectId, run, events }: Props) {
           </span>
         )}
       </div>
+
+      {/* Stuck banner */}
+      {isStuck && (
+        <div
+          style={{
+            background: '#FAEEDA',
+            border: '0.5px solid #633806',
+            borderRadius: 'var(--border-radius-md)',
+            padding: '10px 14px',
+            marginBottom: 16,
+          }}
+        >
+          <p style={{ fontSize: 13, fontWeight: 500, color: '#633806', margin: 0 }}>
+            Screening seems slow
+          </p>
+          <p style={{ fontSize: 12, color: '#633806', marginTop: 2, marginBottom: 0 }}>
+            No progress in the last 2 minutes. The system will recover automatically — no action needed.
+          </p>
+        </div>
+      )}
 
       {/* Progress bar */}
       <div
