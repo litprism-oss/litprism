@@ -126,6 +126,23 @@ export const GUIDE_CONTENT: Record<string, GuideEntry> = {
       },
     ],
   },
+  fulltext: {
+    title: 'Full-text retrieval',
+    sections: [
+      {
+        heading: 'Why retrieve full text?',
+        body: 'Uncertain articles could not be assessed from their abstract alone. Full-text review is standard practice in systematic reviews — it gives the LLM (and human reviewers) complete information to make a final eligibility decision.',
+      },
+      {
+        heading: 'What gets retrieved',
+        body: 'LitPrism checks PMC Open Access for articles with a PMID, then Unpaywall for open-access PDFs. Around 50–70% of recent biomedical articles have an open-access version available.',
+      },
+      {
+        heading: 'Unavailable articles',
+        body: 'Articles marked "unavailable" are behind a paywall with no open-access version. These need manual retrieval — download the PDF from your institution and upload it, or review the full text manually and record your decision.',
+      },
+    ],
+  },
   prisma: {
     title: 'PRISMA 2020 flow diagram',
     sections: [

@@ -100,6 +100,9 @@ class ArticleOut(BaseModel):
     authors: list[dict]
     journal: str | None
     pub_date: date | None
+    enrichment_status: str | None
+    fulltext_status: str | None
+    fulltext_source: str | None
     created_at: datetime
 
     @computed_field
@@ -357,3 +360,17 @@ class SearchPreviewResponse(BaseModel):
     total_estimated: int
     sources: list[SearchPreviewSource]
     query_translations: dict[str, str]
+
+
+# ---------------------------------------------------------------------------
+# Full-text retrieval (Session 14)
+# ---------------------------------------------------------------------------
+
+
+class FulltextStatusOut(BaseModel):
+    total: int
+    pending: int
+    retrieved: int
+    unavailable: int
+    error: int
+    not_attempted: int

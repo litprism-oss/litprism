@@ -19,6 +19,7 @@ import type {
   ScreeningResultOut,
   ScreeningDecision,
   EnrichmentStatusOut,
+  FulltextStatusOut,
 } from '@/lib/types'
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
@@ -184,5 +185,14 @@ export const api = {
   export_: {
     download: (projectId: string, format: string) =>
       fetch(`${BASE_URL}/projects/${projectId}/export/${format}`).then(r => r.blob()),
+  },
+  fulltext: {
+    trigger: (projectId: string) =>
+      request<{ queued: number; message: string }>(
+        `/projects/${projectId}/fulltext/retrieve`,
+        { method: 'POST' },
+      ),
+    status: (projectId: string) =>
+      request<FulltextStatusOut>(`/projects/${projectId}/fulltext/status`),
   },
 }

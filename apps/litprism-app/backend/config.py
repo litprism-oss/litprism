@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     celery_result_backend: str = "redis://localhost:6379/0"
     debug: bool = False
     secret_key: str = ""
+    unpaywall_email: str = ""
 
 
 settings = Settings()

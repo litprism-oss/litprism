@@ -32,10 +32,13 @@ const PAGE_SIZE = 50
 interface ResultsTableProps {
   projectId: string
   runId?: string
+  activeTab?: FilterTab
+  onTabChange?: (tab: FilterTab) => void
 }
 
-export function ResultsTable({ projectId, runId }: ResultsTableProps) {
-  const [activeTab, setActiveTab]       = useState<FilterTab>('all')
+export function ResultsTable({ projectId, runId, activeTab: controlledTab, onTabChange }: ResultsTableProps) {
+  const [internalTab, setInternalTab]   = useState<FilterTab>('all')
+  const activeTab = controlledTab ?? internalTab
   const [page, setPage]                 = useState(1)
   const [selected, setSelected]         = useState<ArticleWithResult | null>(null)
 
@@ -49,7 +52,8 @@ export function ResultsTable({ projectId, runId }: ResultsTableProps) {
   const { data, isLoading, isError } = useScreeningResults(projectId, params)
 
   function handleTabChange(tab: FilterTab) {
-    setActiveTab(tab)
+    setInternalTab(tab)
+    onTabChange?.(tab)
     setPage(1)
   }
 

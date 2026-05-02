@@ -3,6 +3,7 @@ from contextlib import asynccontextmanager
 from api.chat import router as chat_router
 from api.criteria import router as criteria_router
 from api.export import router as export_router
+from api.fulltext import router as fulltext_router
 from api.projects import router as projects_router
 from api.screening import router as screening_router
 from api.search import router as search_router
@@ -37,4 +38,5 @@ app.include_router(search_router)
 app.include_router(screening_router)
 app.include_router(upload_router)
 app.include_router(export_router)
+app.include_router(fulltext_router)
 app.include_router(chat_router)

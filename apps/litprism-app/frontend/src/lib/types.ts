@@ -256,3 +256,12 @@ export interface ArticleWithResultListOut {
   page: number
   page_size: number
 }
+
+export interface FulltextStatusOut {
+  total: number
+  pending: number
+  retrieved: number
+  unavailable: number
+  error: number
+  not_attempted: number
+}
