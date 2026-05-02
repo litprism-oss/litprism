@@ -63,13 +63,6 @@ def screen_chunk(self, screening_run_id: str, article_ids: list[str]) -> None:
     try:
         asyncio.run(_run_chunk(screening_run_id, article_ids))
     except Exception as exc:
-        # Content policy violations are deterministic — retrying won't help.
-        # Mark affected articles uncertain so they flow to full-text screening.
-        from litellm import ContentPolicyViolationError
-
-        if isinstance(exc, ContentPolicyViolationError):
-            asyncio.run(_write_content_policy_uncertain(screening_run_id, article_ids))
-            return
         try:
             raise self.retry(exc=exc)
         except MaxRetriesExceededError:
@@ -177,7 +170,32 @@ async def _run_chunk(screening_run_id: str, article_ids: list[str]) -> None:
                 )
             )
 
-        for error in errors:
+        from litellm import ContentPolicyViolationError
+
+        policy_errors = [e for e in errors if isinstance(e.cause, ContentPolicyViolationError)]
+        real_errors = [e for e in errors if not isinstance(e.cause, ContentPolicyViolationError)]
+
+        # Content policy violations are deterministic — route to uncertain instead of error.
+        for error in policy_errors:
+            db.add(
+                ScreeningResult(
+                    id=str(uuid.uuid4()),
+                    article_id=error.article_id,
+                    project_id=run.project_id,
+                    criteria_id=run.criteria_id,
+                    screening_run_id=run.id,
+                    stage=run.stage,
+                    decision="uncertain",
+                    confidence=0.0,
+                    reasoning="Abstract flagged by content filter — routed to full-text review.",
+                    criteria_hits=[],
+                    model_used="content-filter",
+                    llm_provider="azure",
+                    screened_at=now,
+                )
+            )
+
+        for error in real_errors:
             await write_tombstone(
                 error.article_id,
                 run.project_id,
@@ -190,7 +208,7 @@ async def _run_chunk(screening_run_id: str, article_ids: list[str]) -> None:
         run.screened_count = (
             (run.screened_count or 0) + len(results) + len(errors) + len(no_fulltext)
         )
-        run.error_count = (run.error_count or 0) + len(errors)
+        run.error_count = (run.error_count or 0) + len(real_errors)
         await db.commit()
 
         # Mark run completed if no articles remain unscreened.

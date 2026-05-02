@@ -5,6 +5,12 @@ celery_app = Celery(
     "litprism",
     broker=settings.celery_broker_url,
     backend=settings.celery_result_backend,
+    include=[
+        "tasks.screening",
+        "tasks.enrichment",
+        "tasks.fulltext",
+        "tasks.watchdog",
+    ],
 )
 celery_app.conf.task_serializer = "json"
 celery_app.conf.result_serializer = "json"
