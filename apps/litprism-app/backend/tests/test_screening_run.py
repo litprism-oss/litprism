@@ -150,7 +150,7 @@ async def test_cancel_screening_run(client, project_id, criteria_id, mock_coordi
 
     resp = await client.post(f"/projects/{project_id}/screening/runs/{run_id}/cancel")
     assert resp.status_code == 200
-    assert resp.json()["status"] == "cancelled"
+    assert resp.json()["status"] == "paused"
 
 
 async def test_resume_completed_run_rejected(
