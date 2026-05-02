@@ -19,6 +19,7 @@ from api.schemas import (
     CriteriaHitOut,
     HumanOverrideRequest,
     PreviewCriteriaHit,
+    RetryFailedOut,
     ScreeningPreviewRequest,
     ScreeningPreviewResult,
     ScreeningResultOut,
@@ -392,6 +393,71 @@ async def list_screening_results(
         items.append(aw)
 
     return ArticleWithResultListOut(items=items, total=total or 0, page=page, page_size=page_size)
+
+
+@router.post(
+    "/{project_id}/screening/runs/{run_id}/retry-failed",
+    status_code=202,
+    response_model=RetryFailedOut,
+)
+async def retry_failed_screening(
+    project_id: str,
+    run_id: str,
+    db: DB,
+) -> RetryFailedOut:
+    """
+    Delete error tombstones from a run and re-queue those articles in a new screening run.
+    Error tombstones have decision='error' and model_used='error'.
+    Deleting them makes the articles visible to get_unscreened_articles again.
+    """
+    run = await db.get(ScreeningRun, run_id)
+    if run is None or run.project_id != project_id:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Screening run not found")
+
+    # Find error tombstones scoped to this run's criteria version
+    error_results = (
+        await db.scalars(
+            select(ScreeningResult)
+            .where(ScreeningResult.project_id == project_id)
+            .where(ScreeningResult.criteria_id == run.criteria_id)
+            .where(ScreeningResult.decision == "error")
+        )
+    ).all()
+
+    if not error_results:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No failed articles found for this run",
+        )
+
+    # Delete tombstones — articles become unscreened again
+    for er in error_results:
+        await db.delete(er)
+    await db.flush()
+
+    # Create a new run to track the retry
+    retry_run = ScreeningRun(
+        id=str(uuid.uuid4()),
+        project_id=project_id,
+        criteria_id=run.criteria_id,
+        stage=run.stage,
+        status="pending",
+        total_articles=len(error_results),
+        screened_count=0,
+        error_count=0,
+        chunk_size=run.chunk_size,
+        created_at=datetime.now(UTC),
+    )
+    db.add(retry_run)
+    await db.commit()
+
+    screen_coordinator.delay(retry_run.id)
+
+    return RetryFailedOut(
+        deleted=len(error_results),
+        requeued=len(error_results),
+        run_id=retry_run.id,
+    )
 
 
 @router.post("/{project_id}/screening/{article_id}/override", response_model=ScreeningResultOut)

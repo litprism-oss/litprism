@@ -20,6 +20,7 @@ import type {
   ScreeningDecision,
   EnrichmentStatusOut,
   FulltextStatusOut,
+  RetryFailedOut,
 } from '@/lib/types'
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
@@ -149,6 +150,8 @@ export const api = {
       }),
     cancel: (projectId: string, runId: string) =>
       request<ScreeningRunOut>(`/projects/${projectId}/screening/runs/${runId}/cancel`, { method: 'POST' }),
+    retryFailed: (projectId: string, runId: string) =>
+      request<RetryFailedOut>(`/projects/${projectId}/screening/runs/${runId}/retry-failed`, { method: 'POST' }),
     preview: (
       projectId: string,
       body: { criteria: { inclusion: string[]; exclusion: string[] }; articles: { id: string; title: string; abstract: string | null }[] },

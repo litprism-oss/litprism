@@ -338,6 +338,12 @@ class HumanOverrideRequest(BaseModel):
     note: str | None = None
 
 
+class RetryFailedOut(BaseModel):
+    deleted: int
+    requeued: int
+    run_id: str
+
+
 # ---------------------------------------------------------------------------
 # Search preview (Session 8.1)
 # ---------------------------------------------------------------------------

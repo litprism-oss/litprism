@@ -25,6 +25,7 @@ const TABS: { key: FilterTab; label: string }[] = [
   { key: 'include',   label: 'Include' },
   { key: 'exclude',   label: 'Exclude' },
   { key: 'uncertain', label: 'Uncertain' },
+  { key: 'error',     label: 'Failed' },
 ]
 
 const PAGE_SIZE = 50
