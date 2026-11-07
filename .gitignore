@@ -6,6 +6,7 @@ docs/litprism-session7.2-search-pipeline.md
 docs/litprism-session7.3-screening-pipeline.md
 docs/litprism-session8-upload-dedup-export.md
 .claude/*
+!.claude/skills/
 CLAUDE.md
 docs/*.md
 
@@ -21,6 +22,7 @@ __pycache__/
 *.so
 .Python
 build/
+!.claude/skills/build/
 develop-eggs/
 dist/
 downloads/
