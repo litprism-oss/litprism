@@ -387,3 +387,20 @@ class FulltextScreeningEligibilityOut(BaseModel):
     uncertain_total: int  # all uncertain from abstract screening
     retrieved: int  # fulltext_status=retrieved among uncertain
     unavailable: int  # fulltext_status=unavailable among uncertain
+
+
+# ---------------------------------------------------------------------------
+# PRISMA flow counts
+# ---------------------------------------------------------------------------
+
+
+class PRISMAFlowCountsOut(BaseModel):
+    db_records: int
+    other_records: int
+    duplicates_removed: int
+    records_screened: int  # distinct articles with a non-error abstract result
+    excluded_screening: int
+    uncertain: int  # routed to full-text review
+    fulltext_assessed: int | None  # None until any full-text result exists
+    fulltext_excluded: int | None
+    studies_included: int  # abstract includes + full-text includes
