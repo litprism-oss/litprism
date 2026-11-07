@@ -1,0 +1,67 @@
+name: Deploy to Azure
+
+# Manual only: start it from the Actions tab (works from the GitHub mobile site).
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-azure
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  RESOURCE_GROUP: litprism-rg
+  LOCATION: westeurope
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Provision registry, environment and Redis
+        run: bash apps/litprism-app/azure/deploy.sh infra
+
+      - name: Build and push backend image
+        run: |
+          ACR_USER="$(az acr credential show -n "$ACR_NAME" --query username -o tsv)"
+          ACR_PASS="$(az acr credential show -n "$ACR_NAME" --query 'passwords[0].value' -o tsv)"
+          echo "::add-mask::$ACR_PASS"
+          echo "$ACR_PASS" | docker login "$ACR_SERVER" -u "$ACR_USER" --password-stdin
+          IMAGE="$ACR_SERVER/litprism-backend:${GITHUB_SHA::12}"
+          docker build -f apps/litprism-app/Dockerfile -t "$IMAGE" .
+          docker push "$IMAGE"
+          echo "IMAGE=$IMAGE" >> "$GITHUB_ENV"
+
+      - uses: astral-sh/setup-uv@v3
+
+      - name: Run database migrations
+        env:
+          # Supabase SESSION pooler string (port 5432). The "direct" host is
+          # IPv6-only and GitHub runners are IPv4.
+          DATABASE_URL: ${{ secrets.DATABASE_URL_DIRECT }}
+        run: |
+          uv python install 3.12
+          uv sync --frozen --package litprism-app
+          cd apps/litprism-app/backend
+          uv run alembic upgrade head
+
+      - name: Deploy API and worker
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL_POOLER }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PUBMED_API_KEY: ${{ secrets.PUBMED_API_KEY }}
+          SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
+          UNPAYWALL_EMAIL: ${{ secrets.UNPAYWALL_EMAIL }}
+          CORS_ORIGINS: ${{ vars.CORS_ORIGINS || '*' }}
+          LLM_MODEL: ${{ vars.LLM_MODEL }}
+        run: bash apps/litprism-app/azure/deploy.sh apps

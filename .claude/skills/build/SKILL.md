@@ -66,5 +66,23 @@ overmind connect web      # attach to one process's logs
 re-dispatched. Redis must be reachable at the broker URL in `apps/litprism-app/.env`
 (`redis-cli ping` → `PONG`).
 
+Locally, beat runs as its own process. In production on Azure, the worker embeds it
+(`celery … worker -B`, see `apps/litprism-app/docker-entrypoint.sh`).
+
+## Deploy artifacts
+
+If you touched the Dockerfile, `docker-entrypoint.sh`, `azure/deploy.sh` or
+`.github/workflows/deploy-azure.yml`, check them before the PR:
+
+```bash
+bash -n apps/litprism-app/azure/deploy.sh && sh -n apps/litprism-app/docker-entrypoint.sh
+docker build -f apps/litprism-app/Dockerfile -t litprism-backend .     # from repo root; needs a Docker daemon
+docker run --rm -e LITPRISM_ROLE=api -p 8000:8000 --env-file apps/litprism-app/.env litprism-backend
+```
+
+The image only builds from the repo root; `.dockerignore` keeps the frontend and
+`.env` out of it. CI doesn't build the image. The first real check is the deploy
+workflow (see `release`), so say so if you couldn't run `docker build`.
+
 To exercise a change in the real app rather than in tests, the built-in `run` skill
 can drive it once the stack is up.
