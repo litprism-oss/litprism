@@ -85,6 +85,9 @@ apps() {
     "CORS_ORIGINS=${CORS_ORIGINS:-*}"
     "CELERY_BROKER_URL=${REDIS_URL}"
     "CELERY_RESULT_BACKEND=${REDIS_URL}"
+    # Changes on every run so each deploy creates a new revision. Secrets are
+    # app-scoped: without a new revision, a rotated secret is not picked up.
+    "DEPLOY_ID=${GITHUB_RUN_ID:-local}.${GITHUB_RUN_ATTEMPT:-$(date +%s)}"
   )
   if [[ -n "${LLM_MODEL:-}" ]]; then envvars+=("LLM_MODEL=${LLM_MODEL}"); fi
   local pair name var
