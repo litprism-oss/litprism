@@ -9,6 +9,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from litprism.screen.criteria import Criteria
 from litprism.screen.models import ReviewType as ScreenReviewType
 from litprism.screen.screener import Screener
+from services.screening import get_fulltext_eligible_articles
 from sqlalchemy import case, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from tasks.screening import screen_coordinator
@@ -148,6 +149,12 @@ async def create_or_resume_screening_run(
     ).first()
 
     if existing_run is not None:
+        # Already dispatched — re-dispatching would queue its articles a second time.
+        if existing_run.status == "running":
+            return existing_run
+        # The coordinator ignores paused runs, so un-pause before re-dispatching.
+        if existing_run.status == "paused":
+            existing_run.status = "pending"
         existing_run.resumed_at = datetime.now(UTC)
         await db.commit()
         screen_coordinator.delay(existing_run.id)
@@ -241,6 +248,11 @@ async def resume_screening_run(
             status_code=status.HTTP_409_CONFLICT,
             detail="Cannot resume a completed run",
         )
+    if run.status == "running":
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="Run is already running",
+        )
     run.status = "pending"
     run.resumed_at = datetime.now(UTC)
     await db.commit()
@@ -278,10 +290,17 @@ async def delete_screening_run(
             status_code=status.HTTP_409_CONFLICT,
             detail="Cannot delete a run that is currently active — pause it first",
         )
-    # Delete associated results then the run itself
     results = (
         await db.scalars(select(ScreeningResult).where(ScreeningResult.screening_run_id == run_id))
     ).all()
+    # Human overrides are the audit trail — never delete them silently.
+    overridden = sum(1 for r in results if r.human_override)
+    if overridden:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=f"Cannot delete a run with {overridden} human-overridden decision(s)",
+        )
+    # Delete associated results then the run itself
     for r in results:
         await db.delete(r)
     await db.delete(run)
@@ -548,7 +567,8 @@ async def _fulltext_eligibility_counts(
     """
     rows = (
         await db.execute(
-            select(Article.fulltext_status, func.count(Article.id).label("n"))
+            # An article can be uncertain under several criteria versions — count it once.
+            select(Article.fulltext_status, func.count(Article.id.distinct()).label("n"))
             .join(ScreeningResult, ScreeningResult.article_id == Article.id)
             .where(
                 Article.project_id == project_id,
@@ -556,7 +576,6 @@ async def _fulltext_eligibility_counts(
                 ScreeningResult.stage == "abstract",
             )
             .group_by(Article.fulltext_status)
-            .distinct()
         )
     ).all()
 
@@ -620,13 +639,21 @@ async def start_fulltext_screening(
             detail="No articles ready for full-text screening. Run full-text retrieval first.",
         )
 
+    # Same cursor the coordinator uses, so total_articles matches what will actually be screened.
+    to_screen = await get_fulltext_eligible_articles(project_id, db, criteria_id=criteria.id)
+    if not to_screen:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="All eligible articles have already been full-text screened",
+        )
+
     run = ScreeningRun(
         id=str(uuid.uuid4()),
         project_id=project_id,
         criteria_id=criteria.id,
         stage="fulltext",
         status="pending",
-        total_articles=eligibility.eligible,
+        total_articles=len(to_screen),
         screened_count=0,
         error_count=0,
         chunk_size=body.chunk_size,

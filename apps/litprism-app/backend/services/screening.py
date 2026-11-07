@@ -9,10 +9,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 async def get_fulltext_eligible_articles(
     project_id: str,
     db: AsyncSession,
+    criteria_id: str | None = None,
 ) -> list[Article]:
     """
     Returns articles that are uncertain from abstract screening and have
     retrieved full text — the eligible set for full-text screening.
+
+    When criteria_id is given, articles that already have a full-text result
+    under that criteria version are excluded, so this doubles as the resume cursor.
     """
     stmt = (
         select(Article)
@@ -26,6 +30,17 @@ async def get_fulltext_eligible_articles(
         .distinct()
         .order_by(Article.created_at)
     )
+    if criteria_id is not None:
+        stmt = stmt.where(
+            ~(
+                select(ScreeningResult.id)
+                .where(ScreeningResult.article_id == Article.id)
+                .where(ScreeningResult.criteria_id == criteria_id)
+                .where(ScreeningResult.stage == "fulltext")
+                .correlate(Article)
+                .exists()
+            )
+        )
     return list((await db.scalars(stmt)).all())
 
 

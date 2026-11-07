@@ -13,6 +13,19 @@ def watchdog() -> None:
     asyncio.run(_run_watchdog())
 
 
+def _in_flight_task_args() -> list[str]:
+    """
+    Stringified args of every task a worker has picked up (active) or prefetched (reserved).
+    These are no longer in the Redis queue, so queue length alone can't see them.
+    """
+    inspector = celery_app.control.inspect(timeout=2.0)
+    in_flight: list[str] = []
+    for snapshot in (inspector.active(), inspector.reserved()):
+        for tasks in (snapshot or {}).values():
+            in_flight.extend(f"{t.get('name')} {t.get('args')}" for t in tasks)
+    return in_flight
+
+
 async def _run_watchdog() -> None:
     from datetime import UTC, datetime
 
@@ -24,6 +37,8 @@ async def _run_watchdog() -> None:
 
     r = redis_lib.from_url(settings.celery_broker_url)
     queue_len = r.llen("celery")
+    # Blocking broadcast to workers — keep it off the event loop.
+    in_flight = await asyncio.to_thread(_in_flight_task_args)
 
     async with AsyncSessionLocal() as db:
         # --- Stuck screening runs ---
@@ -36,6 +51,9 @@ async def _run_watchdog() -> None:
             anchor = run.resumed_at or run.started_at or run.created_at
             age_seconds = (datetime.now(UTC) - anchor.replace(tzinfo=UTC)).total_seconds()
             if age_seconds < _STUCK_THRESHOLD_SECONDS:
+                continue
+
+            if any(run.id in args for args in in_flight):
                 continue
 
             if queue_len == 0:
@@ -68,6 +86,10 @@ async def _run_watchdog() -> None:
             ).all()
 
             for project_id in project_ids:
+                if any(
+                    "retrieve_fulltext_task" in args and project_id in args for args in in_flight
+                ):
+                    continue
                 logger.warning(
                     "Watchdog: fulltext retrieval stuck for project %s — re-dispatching",
                     project_id,

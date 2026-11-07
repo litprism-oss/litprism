@@ -150,7 +150,7 @@ function PRISMADiagram({ counts }: { counts: PRISMAFlowCounts }) {
         {/* Eligibility */}
         <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-start', marginBottom: '4px' }}>
           {pending ? (
-            <PendingBox label="Assessed for eligibility" sub="Full-text · Session 10" />
+            <PendingBox label="Assessed for eligibility" sub="Run full-text screening" />
           ) : (
             <LiveBox
               label="Assessed for eligibility"
@@ -161,7 +161,7 @@ function PRISMADiagram({ counts }: { counts: PRISMAFlowCounts }) {
           )}
           <ArrowRight faded={pending} />
           {pending ? (
-            <PendingBox label="Reports excluded" sub="With reasons · Session 10" />
+            <PendingBox label="Reports excluded" sub="After full-text screening" />
           ) : (
             <LiveBox
               label="Reports excluded"
