@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
 import { useSearchRuns } from '@/hooks/useSearchRuns'
 import { useUploads } from '@/hooks/useUpload'
 import { useCriteria, useCriteriaHistory } from '@/hooks/useCriteria'
@@ -99,6 +100,10 @@ function RunSubItem({ label, date, to, active, projectId, runId }: RunSubItemPro
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['screeningRuns', projectId] })
       navigate(`/projects/${projectId}/screening`)
+    },
+    // e.g. 409 when the run is active or has human-overridden decisions
+    onError: (err) => {
+      toast.error(err instanceof Error ? err.message : 'Failed to remove screening run')
     },
   })
 

@@ -1,6 +1,8 @@
 import asyncio
+import contextlib
 
 from celery.exceptions import MaxRetriesExceededError
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from tasks.celery_app import celery_app
 
@@ -15,7 +17,39 @@ def screen_coordinator(screening_run_id: str) -> None:
     asyncio.run(_run_coordinator(screening_run_id))
 
 
+# Coordinating is a few queries + dispatches; the TTL only matters if a worker dies holding it.
+_COORDINATOR_LOCK_TTL_SECONDS = 60
+
+
+def _coordinator_lock(screening_run_id: str):
+    import redis as redis_lib
+    from config import settings
+
+    r = redis_lib.from_url(settings.celery_broker_url)
+    return r.lock(
+        f"litprism:screen-coordinator:{screening_run_id}",
+        timeout=_COORDINATOR_LOCK_TTL_SECONDS,
+    )
+
+
 async def _run_coordinator(screening_run_id: str) -> None:
+    """
+    Two coordinators for the same run would each chunk the same unscreened set and
+    screen every article twice — so only one may run at a time.
+    """
+    from redis.exceptions import LockError
+
+    lock = _coordinator_lock(screening_run_id)
+    if not lock.acquire(blocking=False):
+        return
+    try:
+        await _dispatch_unscreened(screening_run_id)
+    finally:
+        with contextlib.suppress(LockError):  # expired under us — nothing to release
+            lock.release()
+
+
+async def _dispatch_unscreened(screening_run_id: str) -> None:
     from datetime import UTC, datetime
 
     from db.engine import AsyncSessionLocal
@@ -30,7 +64,9 @@ async def _run_coordinator(screening_run_id: str) -> None:
         if run.stage == "fulltext":
             from services.screening import get_fulltext_eligible_articles
 
-            unscreened = await get_fulltext_eligible_articles(run.project_id, db)
+            unscreened = await get_fulltext_eligible_articles(
+                run.project_id, db, criteria_id=run.criteria_id
+            )
         else:
             unscreened = await get_unscreened_articles(run.project_id, run.criteria_id, db)
 
@@ -103,6 +139,8 @@ async def _run_chunk(screening_run_id: str, article_ids: list[str]) -> None:
         remaining_ids = [aid for aid in article_ids if aid not in already]
 
         if not remaining_ids:
+            # Duplicate/late chunk: nothing to do, but the run may still need closing.
+            await _maybe_complete_run(run.id, run.project_id, run.criteria_id, run.stage, db)
             return
 
         articles = list(
@@ -176,6 +214,11 @@ async def _run_chunk(screening_run_id: str, article_ids: list[str]) -> None:
         real_errors = [e for e in errors if not isinstance(e.cause, ContentPolicyViolationError)]
 
         # Content policy violations are deterministic — route to uncertain instead of error.
+        policy_reasoning = (
+            "Full text flagged by content filter — needs manual review."
+            if run.stage == "fulltext"
+            else "Abstract flagged by content filter — routed to full-text review."
+        )
         for error in policy_errors:
             db.add(
                 ScreeningResult(
@@ -187,10 +230,10 @@ async def _run_chunk(screening_run_id: str, article_ids: list[str]) -> None:
                     stage=run.stage,
                     decision="uncertain",
                     confidence=0.0,
-                    reasoning="Abstract flagged by content filter — routed to full-text review.",
+                    reasoning=policy_reasoning,
                     criteria_hits=[],
                     model_used="content-filter",
-                    llm_provider="azure",
+                    llm_provider=screener._config.provider,  # type: ignore[union-attr]
                     screened_at=now,
                 )
             )
@@ -220,7 +263,7 @@ async def _maybe_complete_run(
     project_id: str,
     criteria_id: str,
     stage: str,
-    db: object,
+    db: AsyncSession,
 ) -> None:
     """Mark the run completed if no unscreened articles remain."""
     from datetime import UTC, datetime
@@ -229,22 +272,7 @@ async def _maybe_complete_run(
     from services.screening import get_fulltext_eligible_articles, get_unscreened_articles
 
     if stage == "fulltext":
-        remaining = await get_fulltext_eligible_articles(project_id, db)
-        # Filter to only those not yet screened in this stage
-        from db.models import ScreeningResult
-        from sqlalchemy import select
-
-        screened_ids = set(
-            (
-                await db.scalars(
-                    select(ScreeningResult.article_id)
-                    .where(ScreeningResult.project_id == project_id)
-                    .where(ScreeningResult.criteria_id == criteria_id)
-                    .where(ScreeningResult.stage == "fulltext")
-                )
-            ).all()
-        )
-        remaining = [a for a in remaining if a.id not in screened_ids]
+        remaining = await get_fulltext_eligible_articles(project_id, db, criteria_id=criteria_id)
     else:
         remaining = await get_unscreened_articles(project_id, criteria_id, db)
 
@@ -258,12 +286,17 @@ async def _maybe_complete_run(
         await db.commit()
 
 
+# ~15k tokens; keeps a single paper from blowing the model's context window.
+_FULLTEXT_MAX_CHARS = 60_000
+
+
 def _prepare_fulltext_articles(
     articles: list,
 ) -> tuple[list, list]:
     """
     Split articles into (screenable, no_fulltext).
-    Screenable articles are wrapped so their abstract == fulltext_text.
+    Screenable articles are wrapped so their abstract == fulltext_text, truncated to
+    _FULLTEXT_MAX_CHARS.
     """
     from dataclasses import dataclass
 
@@ -277,64 +310,11 @@ def _prepare_fulltext_articles(
     no_fulltext = []
     for a in articles:
         if a.fulltext_text:
-            screenable.append(_FulltextAdapter(id=a.id, title=a.title, abstract=a.fulltext_text))
+            text = a.fulltext_text[:_FULLTEXT_MAX_CHARS]
+            screenable.append(_FulltextAdapter(id=a.id, title=a.title, abstract=text))
         else:
             no_fulltext.append(a)
     return screenable, no_fulltext
-
-
-async def _write_content_policy_uncertain(screening_run_id: str, article_ids: list[str]) -> None:
-    """
-    Write uncertain results for articles blocked by Azure content policy.
-    These are not errors — the abstract triggered the filter, so we route
-    them to full-text screening where the content may be less sensitive.
-    """
-    import uuid
-    from datetime import UTC, datetime
-
-    from db.engine import AsyncSessionLocal
-    from db.models import ScreeningResult, ScreeningRun
-    from sqlalchemy import select
-
-    async with AsyncSessionLocal() as db:
-        run = await db.get(ScreeningRun, screening_run_id)
-        if not run:
-            return
-
-        already = set(
-            (
-                await db.scalars(
-                    select(ScreeningResult.article_id)
-                    .where(ScreeningResult.article_id.in_(article_ids))
-                    .where(ScreeningResult.criteria_id == run.criteria_id)
-                    .where(ScreeningResult.stage == run.stage)
-                )
-            ).all()
-        )
-        remaining_ids = [aid for aid in article_ids if aid not in already]
-        now = datetime.now(UTC)
-
-        for article_id in remaining_ids:
-            db.add(
-                ScreeningResult(
-                    id=str(uuid.uuid4()),
-                    article_id=article_id,
-                    project_id=run.project_id,
-                    criteria_id=run.criteria_id,
-                    screening_run_id=run.id,
-                    stage=run.stage,
-                    decision="uncertain",
-                    confidence=0.0,
-                    reasoning="Abstract flagged by content filter — routed to full-text review.",
-                    criteria_hits=[],
-                    model_used="content-filter",
-                    llm_provider="azure",
-                    screened_at=now,
-                )
-            )
-
-        run.screened_count = (run.screened_count or 0) + len(remaining_ids)
-        await db.commit()
 
 
 async def _write_chunk_tombstones(

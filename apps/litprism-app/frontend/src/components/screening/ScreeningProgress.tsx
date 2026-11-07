@@ -131,12 +131,17 @@ export function ScreeningProgress({ projectId, run, events }: Props) {
 
   useEffect(() => {
     if (!isRunning) { setIsStuck(false); return }
+    // Restart the clock when a different run is shown or a paused run resumes.
+    lastProgressRef.current = { count: processed, at: Date.now() }
+    setIsStuck(false)
     const interval = setInterval(() => {
       const stale = Date.now() - lastProgressRef.current.at > 120_000
       setIsStuck(stale)
     }, 10_000)
     return () => clearInterval(interval)
-  }, [isRunning])
+    // processed is read only to seed the reset above; progress changes are handled separately.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isRunning, run.id])
 
   const criteriaVersion = criteriaHistory?.find((c) => c.id === run.criteria_id)?.version
   const completedSearchRun = searchRuns?.find((r) => r.status === 'completed')
@@ -254,7 +259,8 @@ export function ScreeningProgress({ projectId, run, events }: Props) {
             Screening seems slow
           </p>
           <p style={{ fontSize: 12, color: '#633806', marginTop: 2, marginBottom: 0 }}>
-            No progress in the last 2 minutes. The system will recover automatically — no action needed.
+            No progress in the last 2 minutes. Large batches can take a few minutes between updates;
+            if this persists, pause and resume the run.
           </p>
         </div>
       )}
