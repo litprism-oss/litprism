@@ -199,7 +199,8 @@ export interface ScreeningPreviewResult {
 }
 
 export interface ScreeningRunCreate {
-  stage?: 'abstract'
+  stage?: 'abstract' | 'fulltext'
+  chunk_size?: number
   concurrency?: number
 }
 
