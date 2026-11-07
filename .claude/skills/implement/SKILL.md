@@ -52,6 +52,12 @@ Backend habits that matter here:
   `return` still lets the run reach `completed`.
 - Schema change → `uv run alembic revision --autogenerate -m "<what>"`, then read the
   generated file; autogenerate misses renames and server defaults.
+- New setting in `config.py` that production needs → also wire it into the Azure deploy
+  (workflow `env:`, `azure/deploy.sh`, `DEPLOY.md`). The `release` skill lists the steps.
+- Don't rely on in-process state shared across requests beyond what's there now
+  (WebSocket `ConnectionManager`), or on local disk. Production runs one API replica
+  and one worker, as separate containers with no shared volume. Anything the worker
+  needs has to be in the DB or Redis.
 
 Frontend habits:
 - Work one file at a time and tell the user what changed (CLAUDE.md asks for this).

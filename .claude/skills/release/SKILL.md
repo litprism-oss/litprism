@@ -1,6 +1,6 @@
 ---
 name: release
-description: Ship LitPrism changes — open and merge PRs into dev, promote dev to main, publish packages to PyPI by tag, and deploy the app (Fly.io backend, Supabase Postgres, Vercel frontend). Use this whenever the user says commit, push, open a PR, merge, ship, release, deploy, publish, cut a version, "promote to main", or "merge when ready", and whenever they ask what's needed to get a change live.
+description: Ship LitPrism changes — open and merge PRs into dev, promote dev to main, publish packages to PyPI by tag, and deploy the app (Azure Container Apps backend via the "Deploy to Azure" workflow, Supabase Postgres, Vercel frontend). Use this whenever the user says commit, push, open a PR, merge, ship, release, deploy, publish, cut a version, "promote to main", or "merge when ready", and whenever they ask what's needed to get a change live.
 ---
 
 # Release LitPrism
@@ -78,30 +78,55 @@ layout:
 
 | Piece | Where | Config |
 |---|---|---|
-| Frontend | Vercel (root dir `apps/litprism-app/frontend`) | `frontend/vercel.json` — `npm ci` + `npm run build` |
-| Postgres | Supabase | `DATABASE_URL` secret (transaction pooler, port 6543) |
-| API + Celery worker + beat | Fly.io, one image | `apps/litprism-app/fly.toml` (`web`/`worker`/`beat` process groups), `apps/litprism-app/Dockerfile` |
-| Redis broker | Upstash via `fly redis create` | `CELERY_BROKER_URL` / `CELERY_RESULT_BACKEND` secrets |
+| Frontend | Vercel (root dir `apps/litprism-app/frontend`, production branch `dev`) | `frontend/vercel.json` — `npm ci` + `npm run build` |
+| Postgres | Supabase | `DATABASE_URL_POOLER` (transaction pooler, 6543) for the app, `DATABASE_URL_DIRECT` (*session* pooler, 5432) for migrations |
+| API (`litprism-api`) + worker (`litprism-worker`, Celery with beat embedded via `-B`) | Azure Container Apps, resource group `litprism-rg`, `westeurope` | one image: `apps/litprism-app/Dockerfile` + `docker-entrypoint.sh`, role from `LITPRISM_ROLE=api\|worker` |
+| Redis broker (`litprism-redis`) | Container App, internal TCP, no persistence | `redis://litprism-redis:6379/0`, set by `azure/deploy.sh` |
 
-There is no deploy workflow: deploys are manual, and they touch shared infrastructure.
-Confirm with the user before each one and say what will change. The order matters:
+### Deploying the backend
 
-1. **Migrations first** if the release adds any. Use the Supabase *direct* connection
-   (port 5432):
-   `cd apps/litprism-app/backend && DATABASE_URL='<direct url>' uv run alembic upgrade head`.
-   The API calls `create_all` on boot, so starting a new API before migrating can
-   create tables outside Alembic.
-2. **Backend**, from the repo root:
-   `fly deploy . --config apps/litprism-app/fly.toml --dockerfile apps/litprism-app/Dockerfile`.
-   Keep `beat` at exactly one machine (`fly scale count web=1 worker=1 beat=1`). Two
-   beats double-fire the watchdog.
-3. **Frontend**: Vercel builds on push. `VITE_API_URL` / `VITE_WS_URL` are baked in at
-   build time, so changing them needs a redeploy. A new frontend domain must go into the
-   backend's `CORS_ORIGINS` secret.
+The backend deploys through the manual workflow `.github/workflows/deploy-azure.yml`
+("Deploy to Azure"). It's the only supported path. It provisions infra if missing,
+builds and pushes the image to ACR, runs `alembic upgrade head`, then creates or
+updates both apps through `apps/litprism-app/azure/deploy.sh`. A re-run is safe, and
+that's how you redeploy.
 
-Check that `flyctl` is installed and logged in (`fly auth whoami`) before step 2. If it
-isn't, hand the user the commands rather than working around it.
+A deploy changes the live app and spends the Azure credit, so confirm with the user
+first and say which commit goes out. Then:
 
-Known gap (from `DEPLOY.md`): the upload volume is mounted on `web` only, so worker
-tasks that read uploaded PDFs can't see them in production. Mention it when a change
-touches full-text or upload paths.
+```bash
+gh workflow run deploy-azure.yml --ref dev
+gh run list --workflow deploy-azure.yml --limit 1     # get the run id
+gh run watch <run-id> --exit-status
+gh run view <run-id> --log-failed                     # if it fails
+```
+
+The run summary prints the API URL and the `VITE_API_URL` / `VITE_WS_URL` values for
+Vercel. Check `https://<fqdn>/docs` afterwards.
+
+Rules that keep it working:
+- **API and worker stay at exactly one replica** (`--min-replicas 1 --max-replicas 1`).
+  WebSocket progress state is in the API process, and a second worker would run beat
+  (the screening watchdog) twice. Never scale them up as a "fix".
+- **Migrations run inside the workflow, before the apps update.** The API calls
+  `create_all` on boot, so never point a new API at an unmigrated DB. Migrations use
+  the session pooler: the Supabase direct host is IPv6-only, and GitHub runners are IPv4.
+- **New env var or secret:** add it in four places: `config.py`, the workflow step's
+  `env:`, the `secrets`/`envvars` arrays in `azure/deploy.sh`, and the tables in
+  `DEPLOY.md`. Then add the GitHub secret, or a variable for non-secret values.
+- **Changing only a secret's value:** Container Apps secrets are app-scoped and don't
+  restart containers on their own. `deploy.sh` sets a per-run `DEPLOY_ID` env var, so
+  every workflow run creates a new revision that reads the current secrets. A re-run
+  is enough; keep that line if you edit the script.
+- **Frontend:** Vercel builds on push to `dev`. `VITE_*` values are baked in at build
+  time, so changing them needs a redeploy. A new frontend domain goes into the GitHub
+  variable `CORS_ORIGINS`, then re-run the deploy workflow.
+
+Local `az` commands need `az login` to the user's Visual Studio subscription. If `az`
+isn't installed or logged in, hand the user the commands; Cloud Shell works too.
+Never run `az group delete -n litprism-rg` (it tears down the whole backend) unless the
+user asks for it in so many words.
+
+The app has **no authentication**. The API URL is public, and anyone who finds it
+can start LLM screening on the configured OpenAI key. Mention this whenever a deploy is
+about to make the API reachable, and suggest an OpenAI spend limit.
