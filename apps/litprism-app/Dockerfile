@@ -1,4 +1,5 @@
-# Backend image (API + Celery worker + beat share it; fly.toml picks the process).
+# Backend image. The same image runs the API and the Celery worker; the role is
+# picked with the LITPRISM_ROLE env var (see docker-entrypoint.sh).
 # Build from the repository root:
 #   docker build -f apps/litprism-app/Dockerfile -t litprism-backend .
 FROM python:3.12-slim
@@ -16,7 +17,8 @@ COPY pyproject.toml uv.lock .python-version ./
 COPY packages ./packages
 COPY apps/litprism-app ./apps/litprism-app
 
-RUN uv sync --frozen --no-dev --package litprism-app
+RUN uv sync --frozen --no-dev --package litprism-app \
+    && chmod +x /app/apps/litprism-app/docker-entrypoint.sh
 
 ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONPATH="/app/apps/litprism-app/backend"
@@ -24,4 +26,4 @@ ENV PATH="/app/.venv/bin:$PATH" \
 WORKDIR /app/apps/litprism-app/backend
 
 EXPOSE 8000
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+ENTRYPOINT ["/app/apps/litprism-app/docker-entrypoint.sh"]
