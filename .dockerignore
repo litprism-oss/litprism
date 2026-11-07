@@ -1,0 +1,12 @@
+.git
+.venv
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+.env
+.env.*
+!.env.example
+**/node_modules
+apps/litprism-app/frontend
+**/*.db
+docs

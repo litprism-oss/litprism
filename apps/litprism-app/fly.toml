@@ -1,0 +1,42 @@
+# Run from the repository root:  fly deploy -c apps/litprism-app/fly.toml
+# Replace `app` with your own unique Fly app name before the first deploy.
+app = "litprism-api"
+primary_region = "fra"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  LLM_PROVIDER = "openai"
+  UPLOAD_DIR = "/data/uploads"
+
+[processes]
+  web = "uvicorn main:app --host 0.0.0.0 --port 8000"
+  worker = "celery -A tasks worker --loglevel=info"
+  # Exactly one beat instance — never scale this group above 1.
+  beat = "celery -A tasks.celery_app beat --loglevel=info"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = "off"
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["web"]
+
+  [[http_service.checks]]
+    method = "GET"
+    path = "/docs"
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "20s"
+
+[[mounts]]
+  source = "litprism_data"
+  destination = "/data"
+  processes = ["web"]
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "1gb"
+  processes = ["web", "worker", "beat"]

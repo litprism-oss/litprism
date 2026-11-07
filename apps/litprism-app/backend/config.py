@@ -1,3 +1,4 @@
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -20,6 +21,22 @@ class Settings(BaseSettings):
     debug: bool = False
     secret_key: str = ""
     unpaywall_email: str = ""
+    # Comma-separated list of allowed browser origins, e.g.
+    # "https://litprism.vercel.app,https://litprism.org". "*" allows any origin.
+    cors_origins: str = "*"
+
+    @field_validator("database_url")
+    @classmethod
+    def _use_asyncpg_driver(cls, v: str) -> str:
+        """Hosted Postgres (Supabase, Fly, Neon) hands out plain postgres:// URLs."""
+        for prefix in ("postgres://", "postgresql://"):
+            if v.startswith(prefix):
+                return "postgresql+asyncpg://" + v[len(prefix) :]
+        return v
+
+    @property
+    def cors_origin_list(self) -> list[str]:
+        return [o.strip() for o in self.cors_origins.split(",") if o.strip()]
 
 
 settings = Settings()

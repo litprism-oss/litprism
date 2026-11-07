@@ -8,6 +8,7 @@ from api.projects import router as projects_router
 from api.screening import router as screening_router
 from api.search import router as search_router
 from api.upload import router as upload_router
+from config import settings
 from db.engine import engine
 from db.models import Base
 from fastapi import FastAPI
@@ -26,8 +27,8 @@ app = FastAPI(title="LitPrism API", version="0.1.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=settings.cors_origin_list,
+    allow_credentials=settings.cors_origin_list != ["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
