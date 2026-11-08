@@ -672,6 +672,12 @@ def test_every_project_route_checks_ownership():
 PUBLIC_PATHS = {"/openapi.json", "/docs", "/docs/oauth2-redirect", "/redoc"}
 
 
+def test_chat_stub_router_is_guarded_before_it_has_any_routes():
+    from api.chat import router as chat_router
+
+    assert [d.dependency for d in chat_router.dependencies] == [get_current_user]
+
+
 def test_every_http_route_requires_authentication():
     open_routes = []
     for route in app.routes:
@@ -729,6 +735,7 @@ class FakeWebSocket:
         self.accepted = False
         self.close_code: int | None = None
         self.registered_during_loop = False
+        self.on_loop = None  # called once the handshake passed and the socket idles
         self.manager: ConnectionManager | None = None
         self.project_id = ""
         self.received_json = False
@@ -750,6 +757,8 @@ class FakeWebSocket:
         # Reached only once the handshake passed; record whether the socket was registered.
         conns = self.manager._connections.get(self.project_id, [])
         self.registered_during_loop = self in conns
+        if self.on_loop:
+            self.on_loop()
         raise WebSocketDisconnect()
 
     async def close(self, code: int = 1000):
@@ -777,6 +786,38 @@ async def test_ws_owner_with_valid_token_is_registered(db, auth_settings):
     assert ws.close_code is None
     assert ws.registered_during_loop
     assert manager._connections[project_id] == []  # removed again on disconnect
+
+
+async def test_ws_releases_its_db_connection_before_idling(db, auth_settings, monkeypatch):
+    """An open socket idles for as long as the page is open: it must not pin a pooled connection."""
+    closed: list[bool] = []
+    real_close = db.close
+
+    async def spy_close():
+        closed.append(True)
+        await real_close()
+
+    monkeypatch.setattr(db, "close", spy_close)
+    project_id = await _add_project(db, "u-owner")
+    ws = FakeWebSocket({"token": make_token(sub="u-owner")})
+    closed_when_idle: list[bool] = []
+    ws.on_loop = lambda: closed_when_idle.append(bool(closed))
+    await _handshake(db, project_id, ws)
+    assert closed_when_idle == [True]
+
+
+async def test_ws_releases_its_db_connection_when_refusing(db, auth_settings, monkeypatch):
+    closed: list[bool] = []
+    real_close = db.close
+
+    async def spy_close():
+        closed.append(True)
+        await real_close()
+
+    monkeypatch.setattr(db, "close", spy_close)
+    project_id = await _add_project(db, "u-owner")
+    await _handshake(db, project_id, FakeWebSocket({"token": make_token(sub="u-intruder")}))
+    assert closed == [True]
 
 
 async def test_ws_guest_can_watch_their_own_project(db, auth_settings):
