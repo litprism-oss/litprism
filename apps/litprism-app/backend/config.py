@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     database_url: str = "sqlite+aiosqlite:///./litprism.db"
     llm_provider: str = "openai"
     openai_api_key: str = ""
+    gemini_api_key: str = ""
     llm_model: str = "gpt-5.4-mini"
     azure_api_key: str = ""
     azure_api_base: str = ""

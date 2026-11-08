@@ -28,23 +28,39 @@ Everything is in one resource group, `litprism-rg`, in `westeurope`.
 
 ## 2. Azure (one-time, in Cloud Shell)
 
+GitHub logs in to Azure with OIDC through a user-assigned managed identity, so there is no
+password to store and no Entra app registration is needed (many tenants block those).
+
 Open Azure Cloud Shell (Bash) from the portal, then:
 
 ```bash
 az group create -n litprism-rg -l westeurope
-
 for p in Microsoft.App Microsoft.OperationalInsights Microsoft.ContainerRegistry; do
   az provider register -n "$p"
 done
 
 SUB=$(az account show --query id -o tsv)
-az ad sp create-for-rbac --name litprism-deploy --role contributor \
-  --scopes "/subscriptions/$SUB/resourceGroups/litprism-rg" -o json \
-  | jq --arg s "$SUB" '{clientId:.appId, clientSecret:.password, tenantId:.tenant, subscriptionId:$s}'
+TENANT=$(az account show --query tenantId -o tsv)
+az identity create -n litprism-deploy -g litprism-rg -l westeurope
+CLIENT=$(az identity show -n litprism-deploy -g litprism-rg --query clientId -o tsv)
+PRINC=$(az identity show -n litprism-deploy -g litprism-rg --query principalId -o tsv)
+
+az role assignment create --assignee-object-id "$PRINC" --assignee-principal-type ServicePrincipal \
+  --role Contributor --scope "/subscriptions/$SUB/resourceGroups/litprism-rg"
+
+az identity federated-credential create --name github-dev \
+  --identity-name litprism-deploy -g litprism-rg \
+  --issuer https://token.actions.githubusercontent.com \
+  --subject repo:litprism-oss/litprism:ref:refs/heads/dev \
+  --audiences api://AzureADTokenExchange
+
+echo "AZURE_CLIENT_ID=$CLIENT"
+echo "AZURE_TENANT_ID=$TENANT"
+echo "AZURE_SUBSCRIPTION_ID=$SUB"
 ```
 
-The last command prints a JSON object. Copy all of it into the GitHub secret
-`AZURE_CREDENTIALS`. It contains a password: don't paste it anywhere else.
+The three printed IDs go into GitHub secrets (step 3). They are identifiers, not passwords.
+The federated credential only trusts workflow runs on the `dev` branch of this repository.
 
 Provider registration takes a few minutes. `az provider show -n Microsoft.App --query registrationState`
 should say `Registered` before you run the workflow.
@@ -60,11 +76,13 @@ Secrets:
 
 | Name | Value |
 |---|---|
-| `AZURE_CREDENTIALS` | JSON from step 2 |
+| `AZURE_CLIENT_ID` | printed in step 2 |
+| `AZURE_TENANT_ID` | printed in step 2 |
+| `AZURE_SUBSCRIPTION_ID` | printed in step 2 |
 | `DATABASE_URL_POOLER` | Supabase transaction pooler string (6543) |
 | `DATABASE_URL_DIRECT` | Supabase session pooler string (5432) |
 | `SECRET_KEY` | any random string, 40+ characters |
-| `OPENAI_API_KEY` | your OpenAI key |
+| `OPENAI_API_KEY` **or** `GEMINI_API_KEY` | key for the LLM that screens abstracts (set one; Google AI Studio keys work for Gemini) |
 
 Optional secrets: `PUBMED_API_KEY`, `SEMANTIC_SCHOLAR_API_KEY`, `UNPAYWALL_EMAIL`.
 
@@ -76,7 +94,8 @@ Variables (Variables tab, not Secrets):
 | `BOOTSTRAP_OWNER_EMAIL` | first deploy | your Google/GitHub email. The first time you sign in with it, you take ownership of the projects that existed before login was added |
 | `ADMIN_EMAILS` | optional | comma-separated emails with unlimited credits (used from Session 16.3) |
 | `CORS_ORIGINS` | optional | default `*` |
-| `LLM_MODEL` | optional | |
+| `LLM_PROVIDER` | optional | `openai`, `gemini`, `azure` or `ollama`. Inferred from whichever API key you set |
+| `LLM_MODEL` | optional | defaults: `gpt-4o-mini` for OpenAI, `gemini-2.5-flash` for Gemini |
 
 Optional secret `SUPABASE_JWT_SECRET`: only for an older Supabase project that still signs
 tokens with a shared secret (Project Settings → API → JWT Secret). Leave it unset on a

@@ -77,12 +77,21 @@ apps() {
   acr_pass="$(az acr credential show -n "$ACR_NAME" -g "$RG" --query 'passwords[0].value' -o tsv)"
   echo "::add-mask::${acr_pass}"
 
+  # Provider: explicit LLM_PROVIDER wins; otherwise infer from whichever key is set.
+  local provider="${LLM_PROVIDER:-}"
+  if [[ -z "$provider" ]]; then
+    if [[ -n "${OPENAI_API_KEY:-}" ]]; then provider=openai
+    elif [[ -n "${GEMINI_API_KEY:-}" ]]; then provider=gemini
+    else provider=openai; fi
+  fi
+  echo "LLM provider: ${provider}"
+
   # Secrets live in Container Apps secrets, referenced by name from env vars.
   local -a secrets=("database-url=${DATABASE_URL}" "secret-key=${SECRET_KEY}")
   local -a envvars=(
     "DATABASE_URL=secretref:database-url"
     "SECRET_KEY=secretref:secret-key"
-    "LLM_PROVIDER=${LLM_PROVIDER:-openai}"
+    "LLM_PROVIDER=${provider}"
     "CORS_ORIGINS=${CORS_ORIGINS:-*}"
     "CELERY_BROKER_URL=${REDIS_URL}"
     "CELERY_RESULT_BACKEND=${REDIS_URL}"
@@ -97,7 +106,8 @@ apps() {
     envvars+=("BOOTSTRAP_OWNER_EMAIL=${BOOTSTRAP_OWNER_EMAIL}")
   fi
   local pair name var
-  for pair in openai-api-key:OPENAI_API_KEY pubmed-api-key:PUBMED_API_KEY \
+  for pair in openai-api-key:OPENAI_API_KEY gemini-api-key:GEMINI_API_KEY \
+              pubmed-api-key:PUBMED_API_KEY \
               semantic-scholar-api-key:SEMANTIC_SCHOLAR_API_KEY unpaywall-email:UNPAYWALL_EMAIL \
               supabase-jwt-secret:SUPABASE_JWT_SECRET; do
     name="${pair%%:*}"; var="${pair##*:}"
