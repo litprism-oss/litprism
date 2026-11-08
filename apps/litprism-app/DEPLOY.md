@@ -102,6 +102,20 @@ If the workflow misbehaves you can run the same script in Cloud Shell:
 `bash apps/litprism-app/azure/deploy.sh infra`, push an image to the registry, then set
 `IMAGE`, `DATABASE_URL`, `SECRET_KEY` and run `bash apps/litprism-app/azure/deploy.sh apps`.
 
+## Operating the deployed apps
+
+**Actions → Azure ops → Run workflow** (branch `dev`) works without a local `az` login:
+
+| Action | What it does |
+|---|---|
+| `status` | provisioning state, revisions, replica counts, and the *names* (never values) of the env vars set |
+| `logs` | the last N console log lines of `litprism-api` or `litprism-worker` |
+| `restart` | restarts the latest revision, which drops stale database connections |
+
+Log output goes through `azure/redact.py` first, because the Actions logs of a public repository
+are public: database and Redis URLs, host names, API keys, bearer tokens and long secrets are
+removed. It is a safety net, so still don't log secrets.
+
 ## 5. Vercel (frontend)
 
 1. Import the repo, set **Root Directory** to `apps/litprism-app/frontend` and
