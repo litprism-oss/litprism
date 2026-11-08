@@ -154,7 +154,24 @@ async def upload_references(
     upload_id = str(uuid.uuid4())
     fmt = _FORMAT_NAMES[ext]
 
-    # 10. Bulk insert new articles and collect all article IDs for the join table
+    # 10. Write the UploadRecord first: articles and the upload_article join rows reference
+    # it. Postgres enforces those foreign keys at insert time (SQLite does not by default),
+    # so inserting it last fails in production with a ForeignKeyViolationError.
+    upload_record = UploadRecord(
+        id=upload_id,
+        project_id=project_id,
+        search_run_id=None,
+        filename=filename,
+        format=fmt,
+        record_count=len(parsed),
+        source_label=source_label,
+        search_strategy_used=search_strategy_used,
+        limits_applied=limits_applied,
+    )
+    db.add(upload_record)
+    await db.flush()
+
+    # 11. Bulk insert new articles and collect all article IDs for the join table
     new_article_ids: list[str] = []
     if dedup_result.new_articles:
         article_rows = []
@@ -180,27 +197,13 @@ async def upload_references(
             )
         await db.execute(insert(Article), article_rows)
 
-    # 11. Write upload_article join rows for all articles in this upload
+    # 12. Write upload_article join rows for all articles in this upload
     all_article_ids = new_article_ids + dedup_result.duplicate_article_ids
     if all_article_ids:
         await db.execute(
             insert(UploadArticle),
             [{"upload_record_id": upload_id, "article_id": aid} for aid in all_article_ids],
         )
-
-    # 12. Write UploadRecord
-    upload_record = UploadRecord(
-        id=upload_id,
-        project_id=project_id,
-        search_run_id=None,
-        filename=filename,
-        format=fmt,
-        record_count=len(parsed),
-        source_label=source_label,
-        search_strategy_used=search_strategy_used,
-        limits_applied=limits_applied,
-    )
-    db.add(upload_record)
 
     await db.commit()
 
