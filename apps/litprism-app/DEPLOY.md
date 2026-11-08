@@ -94,6 +94,8 @@ Variables (Variables tab, not Secrets), optional: `CORS_ORIGINS` (default `*`), 
 environment and Redis, builds and pushes the image, runs `alembic upgrade head`, and
 creates or updates the API and worker. Re-running it is safe and is how you redeploy.
 
+The first step checks that both database secrets are reachable from a GitHub runner, and the run summary says which one is wrong (a Supabase *direct* host `db.<ref>.supabase.co` is IPv6-only and always fails). It prints no host names or passwords.
+
 The run summary prints the API URL. Open `<url>/docs` to check it is up.
 
 If the workflow misbehaves you can run the same script in Cloud Shell:

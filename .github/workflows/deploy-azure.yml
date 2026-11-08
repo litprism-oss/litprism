@@ -23,6 +23,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Fails in seconds, before the 20-minute build, if a runner can't reach the database.
+      - name: Check database connection strings
+        env:
+          DATABASE_URL_DIRECT: ${{ secrets.DATABASE_URL_DIRECT }}
+          DATABASE_URL_POOLER: ${{ secrets.DATABASE_URL_POOLER }}
+        run: python3 apps/litprism-app/azure/check_db_urls.py
+
       - name: Log in to Azure
         uses: azure/login@v2
         with:
