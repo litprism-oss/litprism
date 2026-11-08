@@ -15,6 +15,12 @@ class OpenAIConfig(BaseModel):
     model: str = "gpt-4o-mini"
 
 
+class GeminiConfig(BaseModel):
+    provider: Literal["gemini"] = "gemini"
+    api_key: str
+    model: str = "gemini-2.5-flash"
+
+
 class AzureOpenAIConfig(BaseModel):
     provider: Literal["azure"] = "azure"
     api_key: str
@@ -30,7 +36,7 @@ class OllamaConfig(BaseModel):
     timeout: float = 300.0
 
 
-LLMConfig = OpenAIConfig | AzureOpenAIConfig | OllamaConfig
+LLMConfig = OpenAIConfig | AzureOpenAIConfig | GeminiConfig | OllamaConfig
 
 
 def _build_call_kwargs(config: LLMConfig, prompt: str) -> dict:
@@ -38,6 +44,13 @@ def _build_call_kwargs(config: LLMConfig, prompt: str) -> dict:
     messages = [{"role": "user", "content": prompt}]
     if isinstance(config, OpenAIConfig):
         return {"model": config.model, "messages": messages, "api_key": config.api_key}
+    if isinstance(config, GeminiConfig):
+        # litellm routes "gemini/<model>" to the Google AI Studio API.
+        return {
+            "model": f"gemini/{config.model}",
+            "messages": messages,
+            "api_key": config.api_key,
+        }
     if isinstance(config, AzureOpenAIConfig):
         return {
             "model": f"azure/{config.azure_deployment}",
@@ -96,6 +109,15 @@ def from_env() -> LLMConfig:
             model=os.environ.get("LLM_MODEL", "gpt-4o-mini"),
         )
 
+    if provider == "gemini":
+        api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+        if not api_key:
+            raise ValueError("GEMINI_API_KEY is required when LLM_PROVIDER=gemini")
+        return GeminiConfig(
+            api_key=api_key,
+            model=os.environ.get("LLM_MODEL", "gemini-2.5-flash"),
+        )
+
     if provider == "azure":
         api_key = os.environ.get("AZURE_API_KEY")
         azure_endpoint = os.environ.get("AZURE_API_BASE")
@@ -127,4 +149,6 @@ def from_env() -> LLMConfig:
             timeout=float(os.environ.get("OLLAMA_TIMEOUT", "300")),
         )
 
-    raise ValueError(f"Unknown LLM_PROVIDER {provider!r}. Must be one of: openai, azure, ollama")
+    raise ValueError(
+        f"Unknown LLM_PROVIDER {provider!r}. Must be one of: openai, azure, gemini, ollama"
+    )

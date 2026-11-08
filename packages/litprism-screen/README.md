@@ -283,6 +283,11 @@ LLM_PROVIDER=openai
 OPENAI_API_KEY=sk-...
 LLM_MODEL=gpt-5.4-mini        # verified: passes all integration tests
 
+# Google Gemini (Google AI Studio key)
+LLM_PROVIDER=gemini
+GEMINI_API_KEY=...
+LLM_MODEL=gemini-2.5-flash
+
 # Azure OpenAI
 LLM_PROVIDER=azure
 AZURE_API_KEY=...
