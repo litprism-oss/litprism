@@ -54,11 +54,17 @@ def test_parse_without_a_host():
     assert check_db_urls.parse("not a url")[0] is None
 
 
-def test_the_direct_host_is_rejected_with_a_fix_even_if_it_resolves(network):
-    info, errors = check_db_urls.check("DATABASE_URL_DIRECT", DIRECT)
+def test_the_direct_host_is_rejected_when_it_has_no_ipv4_address(monkeypatch):
+    monkeypatch.setattr(check_db_urls, "addresses", lambda host, port, family: [])
+    errors = check_db_urls.check("DATABASE_URL_DIRECT", DIRECT)[1]
     assert len(errors) == 1
     assert "Session pooler" in errors[0]
     assert "IPv6-only" in errors[0]
+
+
+def test_the_direct_host_passes_once_it_has_an_ipv4_address(network):
+    """Supabase's paid IPv4 add-on gives the direct host an IPv4 address."""
+    assert check_db_urls.check("DATABASE_URL_DIRECT", DIRECT)[1] == []
 
 
 def test_a_session_pooler_url_passes(network):
@@ -107,7 +113,13 @@ def test_main_passes_with_two_good_urls(network, monkeypatch, capsys):
     assert "::error" not in capsys.readouterr().out
 
 
-def test_main_fails_when_one_url_is_the_direct_host(network, monkeypatch, capsys):
+def test_main_fails_when_one_url_is_the_ipv6_only_direct_host(monkeypatch, capsys):
+    monkeypatch.setattr(
+        check_db_urls,
+        "addresses",
+        lambda host, port, family: [] if host.startswith("db.") else ["203.0.113.7"],
+    )
+    monkeypatch.setattr(check_db_urls, "tcp_reachable_ipv4", lambda address, port: True)
     monkeypatch.setenv("DATABASE_URL_DIRECT", DIRECT)
     monkeypatch.setenv("DATABASE_URL_POOLER", TRANSACTION)
     assert check_db_urls.main() == 1
@@ -116,8 +128,10 @@ def test_main_fails_when_one_url_is_the_direct_host(network, monkeypatch, capsys
     assert "DATABASE_URL_POOLER::" not in out
 
 
-def test_output_never_contains_hosts_or_passwords(network, monkeypatch, capsys):
+def test_output_never_contains_hosts_or_passwords(monkeypatch, capsys):
     """Actions logs of a public repo are public."""
+    monkeypatch.setattr(check_db_urls, "addresses", lambda host, port, family: [])
+    monkeypatch.setattr(check_db_urls, "tcp_reachable_ipv4", lambda address, port: True)
     monkeypatch.setenv("DATABASE_URL_DIRECT", DIRECT)
     monkeypatch.setenv("DATABASE_URL_POOLER", SESSION)
     check_db_urls.main()
@@ -132,7 +146,13 @@ def test_output_never_contains_hosts_or_passwords(network, monkeypatch, capsys):
         assert value not in out
 
 
-def test_main_writes_a_step_summary(network, monkeypatch, tmp_path):
+def test_main_writes_a_step_summary(monkeypatch, tmp_path):
+    monkeypatch.setattr(
+        check_db_urls,
+        "addresses",
+        lambda host, port, family: [] if host.startswith("db.") else ["203.0.113.7"],
+    )
+    monkeypatch.setattr(check_db_urls, "tcp_reachable_ipv4", lambda address, port: True)
     summary = tmp_path / "summary.md"
     monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(summary))
     monkeypatch.setenv("DATABASE_URL_DIRECT", DIRECT)

@@ -72,17 +72,19 @@ def check(name: str, url: str | None) -> tuple[list[str], list[str]]:
     info = [f"{name}: host type {kind}, port {port}, IPv4 addresses {len(v4)}, IPv6 {len(v6)}"]
     errors: list[str] = []
 
-    if kind == "direct":
-        errors.append(
-            f"{name} uses the Supabase direct host (db.<ref>.supabase.co). It is IPv6-only and "
-            "GitHub runners are IPv4-only. In Supabase open Connect and copy the *Session pooler* "
-            "string (host aws-...pooler.supabase.com, user postgres.<project-ref>)."
-        )
-    elif not v4:
-        errors.append(
-            f"{name} has no IPv4 address, so a GitHub runner cannot reach it. Use a Supabase "
-            "pooler connection string."
-        )
+    if not v4:
+        if kind == "direct":
+            errors.append(
+                f"{name} uses the Supabase direct host (db.<ref>.supabase.co), which is "
+                "IPv6-only, and GitHub runners are IPv4-only. In Supabase open Connect and copy "
+                "the *Session pooler* string (host aws-...pooler.supabase.com, user "
+                "postgres.<project-ref>). Enabling Supabase's paid IPv4 add-on would also work."
+            )
+        else:
+            errors.append(
+                f"{name} has no IPv4 address, so a GitHub runner cannot reach it. Use a Supabase "
+                "pooler connection string."
+            )
     elif not tcp_reachable_ipv4(v4[0], port):
         errors.append(
             f"{name}: the host resolves but port {port} is not reachable over IPv4 from here. "
