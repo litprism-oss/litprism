@@ -1,8 +1,8 @@
-import asyncio
 import logging
 
 from config import settings
 
+from tasks._async import run_async
 from tasks.celery_app import celery_app
 
 logger = logging.getLogger(__name__)
@@ -19,7 +19,7 @@ def enrich_articles_task(self, project_id: str, article_ids: list[str]) -> dict:
             return await enrich_articles(project_id, article_ids, db, settings)
 
     try:
-        result = asyncio.run(_run())
+        result = run_async(_run())
         logger.info("Enrichment task complete result=%s", result)
         return result
     except Exception as exc:

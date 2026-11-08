@@ -1,9 +1,9 @@
-import asyncio
 import contextlib
 
 from celery.exceptions import MaxRetriesExceededError
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from tasks._async import run_async
 from tasks.celery_app import celery_app
 
 
@@ -14,7 +14,7 @@ def _exc_str(exc: BaseException) -> str:
 
 @celery_app.task
 def screen_coordinator(screening_run_id: str) -> None:
-    asyncio.run(_run_coordinator(screening_run_id))
+    run_async(_run_coordinator(screening_run_id))
 
 
 # Coordinating is a few queries + dispatches; the TTL only matters if a worker dies holding it.
@@ -97,12 +97,12 @@ async def _dispatch_unscreened(screening_run_id: str) -> None:
 @celery_app.task(bind=True, max_retries=3, default_retry_delay=10)
 def screen_chunk(self, screening_run_id: str, article_ids: list[str]) -> None:
     try:
-        asyncio.run(_run_chunk(screening_run_id, article_ids))
+        run_async(_run_chunk(screening_run_id, article_ids))
     except Exception as exc:
         try:
             raise self.retry(exc=exc)
         except MaxRetriesExceededError:
-            asyncio.run(_write_chunk_tombstones(screening_run_id, article_ids, _exc_str(exc)))
+            run_async(_write_chunk_tombstones(screening_run_id, article_ids, _exc_str(exc)))
 
 
 async def _run_chunk(screening_run_id: str, article_ids: list[str]) -> None:

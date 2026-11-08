@@ -37,6 +37,10 @@ def test_pooler_safe_kwargs_only_for_asyncpg():
     assert _engine_kwargs("sqlite+aiosqlite:///./x.db") == {}
     kwargs = _engine_kwargs("postgresql+asyncpg://u:p@h/db")
     assert kwargs["connect_args"]["statement_cache_size"] == 0
+    # SQLAlchemy's asyncpg dialect has its own prepared-statement cache (default 100). Left on,
+    # a statement prepared on one pooled connection is replayed on another behind Supabase's
+    # pooler: "prepared statement ... does not exist", a 500 on ~40% of requests under load.
+    assert kwargs["connect_args"]["prepared_statement_cache_size"] == 0
     assert kwargs["connect_args"]["prepared_statement_name_func"]() != (
         kwargs["connect_args"]["prepared_statement_name_func"]()
     )
