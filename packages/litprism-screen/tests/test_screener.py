@@ -187,3 +187,75 @@ async def test_ascreen_batch_returns_correct_tuple_types():
     assert isinstance(results, list)
     assert isinstance(errors, list)
     assert errors == []
+
+
+# ---------------------------------------------------------------------------
+# Malformed JSON from the model is retried once, then reported as an error
+# ---------------------------------------------------------------------------
+
+# Real failure seen from Gemini 3.x: "key must be a string at line 15 column 7".
+_BROKEN_JSON = '{"confidence": 1.0, "reasoning": "x", "criteria_hits": [{"criterion": }]}'
+
+
+async def test_malformed_json_is_retried_and_the_retry_is_used():
+    screener = Screener(_LLM_CONFIG)
+    article = _Article(id="pmid:20", title="Probiotic RCT", abstract=_INCLUDE_ABSTRACT)
+    good = (FIXTURES / "include_response.json").read_text()
+
+    mock = AsyncMock(side_effect=[_BROKEN_JSON, good])
+    with patch(_PATCH, mock):
+        result = await screener._screen_one(article, _INCLUDE_CRITERIA, stage="abstract")
+
+    assert mock.await_count == 2
+    assert result.decision == "include"
+
+
+async def test_text_without_any_json_is_retried_too():
+    screener = Screener(_LLM_CONFIG)
+    article = _Article(id="pmid:21", title="Probiotic RCT", abstract=_INCLUDE_ABSTRACT)
+    good = (FIXTURES / "include_response.json").read_text()
+
+    mock = AsyncMock(side_effect=["I cannot help with that.", good])
+    with patch(_PATCH, mock):
+        result = await screener._screen_one(article, _INCLUDE_CRITERIA, stage="abstract")
+
+    assert mock.await_count == 2
+    assert result.decision == "include"
+
+
+async def test_persistently_malformed_json_gives_up_after_two_attempts():
+    screener = Screener(_LLM_CONFIG)
+    article = _Article(id="pmid:22", title="Probiotic RCT", abstract=_INCLUDE_ABSTRACT)
+
+    mock = AsyncMock(return_value=_BROKEN_JSON)
+    with patch(_PATCH, mock):
+        results, errors = await screener.ascreen_batch([article], _INCLUDE_CRITERIA)
+
+    assert mock.await_count == 2  # not an unbounded loop
+    assert results == []
+    assert [e.article_id for e in errors] == ["pmid:22"]
+
+
+async def test_valid_json_is_not_retried():
+    screener = Screener(_LLM_CONFIG)
+    article = _Article(id="pmid:23", title="Probiotic RCT", abstract=_INCLUDE_ABSTRACT)
+    good = (FIXTURES / "include_response.json").read_text()
+
+    mock = AsyncMock(return_value=good)
+    with patch(_PATCH, mock):
+        await screener._screen_one(article, _INCLUDE_CRITERIA, stage="abstract")
+
+    assert mock.await_count == 1
+
+
+async def test_a_failing_call_is_not_mistaken_for_bad_json():
+    """Transport errors propagate untouched; only unparseable replies are retried here."""
+    screener = Screener(_LLM_CONFIG)
+    article = _Article(id="pmid:24", title="Probiotic RCT", abstract=_INCLUDE_ABSTRACT)
+
+    mock = AsyncMock(side_effect=RuntimeError("503"))
+    with patch(_PATCH, mock):
+        _, errors = await screener.ascreen_batch([article], _INCLUDE_CRITERIA)
+
+    assert mock.await_count == 1
+    assert isinstance(errors[0].cause, RuntimeError)

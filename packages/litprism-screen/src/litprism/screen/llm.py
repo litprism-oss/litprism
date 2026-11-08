@@ -18,7 +18,7 @@ class OpenAIConfig(BaseModel):
 class GeminiConfig(BaseModel):
     provider: Literal["gemini"] = "gemini"
     api_key: str
-    model: str = "gemini-2.5-flash"
+    model: str = "gemini-3.5-flash-lite"
 
 
 class AzureOpenAIConfig(BaseModel):
@@ -50,6 +50,9 @@ def _build_call_kwargs(config: LLMConfig, prompt: str) -> dict:
             "model": f"gemini/{config.model}",
             "messages": messages,
             "api_key": config.api_key,
+            # Sent as responseMimeType=application/json. Without it Gemini 3.x models
+            # sometimes return syntactically broken JSON.
+            "response_format": {"type": "json_object"},
         }
     if isinstance(config, AzureOpenAIConfig):
         return {
@@ -96,6 +99,11 @@ async def call_llm(config: LLMConfig, prompt: str) -> str:
     return await _call_with_retry(_build_call_kwargs(config, prompt), _get_timeout(config))
 
 
+def _env(name: str, default: str) -> str:
+    """Like os.environ.get, but a blank value (`LLM_MODEL=` in a .env) uses the default."""
+    return os.environ.get(name) or default
+
+
 def from_env() -> LLMConfig:
     """Construct an LLMConfig from environment variables."""
     provider = os.environ.get("LLM_PROVIDER", "openai")
@@ -106,7 +114,7 @@ def from_env() -> LLMConfig:
             raise ValueError("OPENAI_API_KEY is required when LLM_PROVIDER=openai")
         return OpenAIConfig(
             api_key=api_key,
-            model=os.environ.get("LLM_MODEL", "gpt-4o-mini"),
+            model=_env("LLM_MODEL", "gpt-4o-mini"),
         )
 
     if provider == "gemini":
@@ -115,7 +123,7 @@ def from_env() -> LLMConfig:
             raise ValueError("GEMINI_API_KEY is required when LLM_PROVIDER=gemini")
         return GeminiConfig(
             api_key=api_key,
-            model=os.environ.get("LLM_MODEL", "gemini-2.5-flash"),
+            model=_env("LLM_MODEL", "gemini-3.5-flash-lite"),
         )
 
     if provider == "azure":
@@ -139,14 +147,14 @@ def from_env() -> LLMConfig:
             api_key=api_key,
             azure_endpoint=azure_endpoint,
             azure_deployment=azure_deployment,
-            api_version=os.environ.get("AZURE_API_VERSION", "2026-03-17"),
+            api_version=_env("AZURE_API_VERSION", "2026-03-17"),
         )
 
     if provider == "ollama":
         return OllamaConfig(
-            base_url=os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434"),
-            model=os.environ.get("LLM_MODEL", "llama3.2"),
-            timeout=float(os.environ.get("OLLAMA_TIMEOUT", "300")),
+            base_url=_env("OLLAMA_BASE_URL", "http://localhost:11434"),
+            model=_env("LLM_MODEL", "llama3.2"),
+            timeout=float(_env("OLLAMA_TIMEOUT", "300")),
         )
 
     raise ValueError(

@@ -286,7 +286,9 @@ LLM_MODEL=gpt-5.4-mini        # verified: passes all integration tests
 # Google Gemini (Google AI Studio key)
 LLM_PROVIDER=gemini
 GEMINI_API_KEY=...
-LLM_MODEL=gemini-2.5-flash
+LLM_MODEL=gemini-3.5-flash-lite   # verified against the live API; 3.5-flash also works
+# Google retires older models for new keys (gemini-2.5-* now returns 404), so pin a current
+# one. Avoid the *-latest aliases for reviews: model_used would not name the exact version.
 
 # Azure OpenAI
 LLM_PROVIDER=azure
