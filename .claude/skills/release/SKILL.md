@@ -104,6 +104,12 @@ gh run view <run-id> --log-failed                     # if it fails
 The run summary prints the API URL and the `VITE_API_URL` / `VITE_WS_URL` values for
 Vercel. Check `https://<fqdn>/docs` afterwards.
 
+Auth settings: `SUPABASE_URL` is a **required** GitHub variable (the API won't boot
+without it, and `deploy.sh` stops early). `BOOTSTRAP_OWNER_EMAIL` and `ADMIN_EMAILS` are
+variables. `SUPABASE_JWT_SECRET` is a secret needed only for legacy HS256 projects. Don't
+deploy the backend publicly before the login UI has shipped: a frontend that sends no
+token gets 401 on everything.
+
 Rules that keep it working:
 - **API and worker stay at exactly one replica** (`--min-replicas 1 --max-replicas 1`).
   WebSocket progress state is in the API process, and a second worker would run beat
@@ -127,6 +133,8 @@ isn't installed or logged in, hand the user the commands; Cloud Shell works too.
 Never run `az group delete -n litprism-rg` (it tears down the whole backend) unless the
 user asks for it in so many words.
 
-The app has **no authentication**. The API URL is public, and anyone who finds it
-can start LLM screening on the configured OpenAI key. Mention this whenever a deploy is
-about to make the API reachable, and suggest an OpenAI spend limit.
+The API requires a Supabase login (Session 16). Guests are anonymous sessions: they can
+create projects, upload, search and preview screening, but not run screening or
+full-text retrieval. Per-user cost limits arrive in Session 16.3. Until then a signed-in
+user can still spend the OpenAI key, so mention that whenever a deploy makes the API
+reachable, and suggest an OpenAI spend limit.

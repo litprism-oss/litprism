@@ -52,6 +52,11 @@ Backend habits that matter here:
   `return` still lets the run reach `completed`.
 - Schema change → `uv run alembic revision --autogenerate -m "<what>"`, then read the
   generated file; autogenerate misses renames and server defaults.
+- New route under `/projects/{project_id}`: put it on a router that has
+  `dependencies=[Depends(get_owned_project)]` (or add it per route). A stranger must get
+  404 `Project not found`. Features that cost money (LLM, paid APIs) also take
+  `Depends(require_member)`, which blocks guests. `tests/test_auth.py` fails if a route
+  skips the check, and its `PROJECT_ROUTES` list must include the new route.
 - New setting in `config.py` that production needs → also wire it into the Azure deploy
   (workflow `env:`, `azure/deploy.sh`, `DEPLOY.md`). The `release` skill lists the steps.
 - Don't rely on in-process state shared across requests beyond what's there now

@@ -30,6 +30,11 @@ Two traps:
 
 - In-memory SQLite (`sqlite+aiosqlite:///:memory:` + `StaticPool`); `conftest.py`
   provides `db`, `client`, `project_id`, `criteria_id`, `articles_with_decisions`, …
+- Auth: every route needs a user. The `client` fixture is signed in as the member
+  `test-user`; `other_client` (a second member) and `guest_client` (anonymous) share the
+  same app, switched by an `X-Test-User` header. Tests of real token checking use
+  `raw_client` in `tests/test_auth.py` (HS256 test secret). A custom app fixture (like the
+  e2e `harness`) must request `seed_test_users` and call it with its session.
 - Never hit real services in unit tests: `mock_coordinator` patches
   `screen_coordinator.delay`; patch `Screener.from_env` for LLM calls; source clients
   with `AsyncMock`.
