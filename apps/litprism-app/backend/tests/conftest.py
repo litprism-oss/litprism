@@ -5,16 +5,50 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 import pytest_asyncio
 from db.engine import get_db
-from db.models import Article, Base, Criteria, ScreeningResult, SearchRun, SourceQuery
+from db.models import Article, Base, Criteria, ScreeningResult, SearchRun, SourceQuery, User
+from dependencies import get_current_user
+from fastapi import Request
 from httpx import ASGITransport, AsyncClient
 from litprism.pubmed.models import Article as PubMedArticle
 from litprism.screen import ScreeningResult as ScreenResult
+from services.auth import AuthUser
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.pool import StaticPool
 
 from main import app
 
 TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"
+
+# Who a request acts as is picked per client with the X-Test-User header, so several
+# clients (owner, another member, a guest) can hit the same app at once.
+TEST_USERS = {
+    "member": AuthUser(
+        id="test-user", email="member@example.com", is_anonymous=False, is_admin=False
+    ),
+    "other": AuthUser(
+        id="other-user", email="other@example.com", is_anonymous=False, is_admin=False
+    ),
+    "guest": AuthUser(id="guest-user", email=None, is_anonymous=True, is_admin=False),
+}
+
+
+async def _test_current_user(request: Request) -> AuthUser:
+    return TEST_USERS[request.headers.get("X-Test-User", "member")]
+
+
+@pytest.fixture
+def seed_test_users():
+    """Returns an async fn(session): insert the TEST_USERS rows and make requests act as
+    the user named by X-Test-User (default "member"). Cleared with the dependency overrides."""
+
+    async def _seed(session) -> None:
+        for u in TEST_USERS.values():
+            if await session.get(User, u.id) is None:
+                session.add(User(id=u.id, email=u.email, is_anonymous=u.is_anonymous))
+        await session.commit()
+        app.dependency_overrides[get_current_user] = _test_current_user
+
+    return _seed
 
 
 @pytest_asyncio.fixture(scope="function")
@@ -36,12 +70,33 @@ async def db():
 
 
 @pytest_asyncio.fixture(scope="function")
-async def client(db):
-    """AsyncClient with ASGI transport, overrides get_db."""
+async def client(db, seed_test_users):
+    """AsyncClient with ASGI transport, signed in as the "member" test user."""
     app.dependency_overrides[get_db] = lambda: db
+    await seed_test_users(db)
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as c:
         yield c
     app.dependency_overrides.clear()
+
+
+def _client_as(who: str) -> AsyncClient:
+    return AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test", headers={"X-Test-User": who}
+    )
+
+
+@pytest_asyncio.fixture
+async def other_client(client):
+    """A second signed-in member, with their own (empty) account."""
+    async with _client_as("other") as c:
+        yield c
+
+
+@pytest_asyncio.fixture
+async def guest_client(client):
+    """An anonymous (guest) session."""
+    async with _client_as("guest") as c:
+        yield c
 
 
 @pytest.fixture
