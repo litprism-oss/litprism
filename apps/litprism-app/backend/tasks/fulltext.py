@@ -1,6 +1,6 @@
-import asyncio
 import logging
 
+from tasks._async import run_async
 from tasks.celery_app import celery_app
 
 logger = logging.getLogger(__name__)
@@ -17,7 +17,7 @@ def retrieve_fulltext_task(self, project_id: str) -> dict:
             return await retrieve_fulltext_for_project(project_id, db)
 
     try:
-        result = asyncio.run(_run())
+        result = run_async(_run())
         logger.info("Full text retrieval task complete: %s", result)
         return result
     except Exception as exc:
