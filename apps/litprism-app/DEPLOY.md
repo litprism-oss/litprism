@@ -86,7 +86,7 @@ Secrets:
 
 Optional secrets: `PUBMED_API_KEY`, `SEMANTIC_SCHOLAR_API_KEY`, `UNPAYWALL_EMAIL`.
 
-Variables (Variables tab, not Secrets), optional: `CORS_ORIGINS` (default `*`), `LLM_PROVIDER` (`openai`, `gemini`, `azure` or `ollama`; inferred from whichever API key you set) and `LLM_MODEL` (defaults: `gpt-4o-mini` for OpenAI, `gemini-2.5-flash` for Gemini).
+Variables (Variables tab, not Secrets), optional: `CORS_ORIGINS` (default `*`), `LLM_PROVIDER` (`openai`, `gemini`, `azure` or `ollama`; inferred from whichever API key you set) and `LLM_MODEL` (defaults: `gpt-4o-mini` for OpenAI, `gemini-3.5-flash-lite` for Gemini).
 
 ## 4. Deploy the backend
 
