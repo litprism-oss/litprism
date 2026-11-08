@@ -64,4 +64,8 @@ jobs:
           UNPAYWALL_EMAIL: ${{ secrets.UNPAYWALL_EMAIL }}
           CORS_ORIGINS: ${{ vars.CORS_ORIGINS || '*' }}
           LLM_MODEL: ${{ vars.LLM_MODEL }}
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_JWT_SECRET: ${{ secrets.SUPABASE_JWT_SECRET }}
+          ADMIN_EMAILS: ${{ vars.ADMIN_EMAILS }}
+          BOOTSTRAP_OWNER_EMAIL: ${{ vars.BOOTSTRAP_OWNER_EMAIL }}
         run: bash apps/litprism-app/azure/deploy.sh apps
