@@ -95,7 +95,7 @@ Variables (Variables tab, not Secrets):
 | `ADMIN_EMAILS` | optional | comma-separated emails with unlimited credits (used from Session 16.3) |
 | `CORS_ORIGINS` | optional | default `*` |
 | `LLM_PROVIDER` | optional | `openai`, `gemini`, `azure` or `ollama`. Inferred from whichever API key you set |
-| `LLM_MODEL` | optional | defaults: `gpt-4o-mini` for OpenAI, `gemini-2.5-flash` for Gemini |
+| `LLM_MODEL` | optional | defaults: `gpt-4o-mini` for OpenAI, `gemini-3.5-flash-lite` for Gemini |
 
 Optional secret `SUPABASE_JWT_SECRET`: only for an older Supabase project that still signs
 tokens with a shared secret (Project Settings → API → JWT Secret). Leave it unset on a

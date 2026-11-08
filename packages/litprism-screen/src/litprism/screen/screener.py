@@ -17,6 +17,9 @@ from litprism.screen.llm import from_env as _llm_from_env
 from litprism.screen.models import ScreenableArticle, ScreeningResult
 from litprism.screen.prompts import build_prompt
 
+# A reply that isn't parseable JSON is retried this many times in total.
+_MAX_ATTEMPTS = 2
+
 
 class Screener:
     def __init__(self, llm_config: LLMConfig, concurrency: int = 10) -> None:
@@ -27,6 +30,25 @@ class Screener:
     def from_env(cls, concurrency: int = 10) -> "Screener":
         """Construct a Screener from environment variables."""
         return cls(_llm_from_env(), concurrency)
+
+    async def _ask(self, prompt: str) -> _LLMResponse:
+        """Call the LLM and parse its JSON reply.
+
+        Models occasionally return syntactically broken JSON. The next generation almost
+        always parses, so retry once instead of recording a permanent error. Transport
+        failures are not retried here (see llm._call_with_retry).
+        """
+        for attempt in range(1, _MAX_ATTEMPTS + 1):
+            raw = await asyncio.wait_for(
+                call_llm(self._config, prompt),
+                timeout=_get_timeout(self._config) + 5,  # belt-and-suspenders outer guard
+            )
+            try:
+                return _LLMResponse.model_validate_json(_extract_json(raw))
+            except ValueError:  # includes pydantic.ValidationError
+                if attempt == _MAX_ATTEMPTS:
+                    raise
+        raise AssertionError("unreachable")  # pragma: no cover
 
     async def _screen_one(
         self,
@@ -59,11 +81,7 @@ class Screener:
         async with self._sem:
             try:
                 prompt = build_prompt(article, criteria, stage)
-                raw = await asyncio.wait_for(
-                    call_llm(self._config, prompt),
-                    timeout=_get_timeout(self._config) + 5,  # belt-and-suspenders outer guard
-                )
-                llm_response = _LLMResponse.model_validate_json(_extract_json(raw))
+                llm_response = await self._ask(prompt)
                 hits = validate_and_build(llm_response, article.title, article.abstract)
                 decision = derive_decision(hits)
                 return ScreeningResult(
