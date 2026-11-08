@@ -82,11 +82,11 @@ Secrets:
 | `DATABASE_URL_POOLER` | Supabase transaction pooler string (6543) |
 | `DATABASE_URL_DIRECT` | Supabase session pooler string (5432) |
 | `SECRET_KEY` | any random string, 40+ characters |
-| `OPENAI_API_KEY` | your OpenAI key |
+| `OPENAI_API_KEY` **or** `GEMINI_API_KEY` | key for the LLM that screens abstracts (set one; Google AI Studio keys work for Gemini) |
 
 Optional secrets: `PUBMED_API_KEY`, `SEMANTIC_SCHOLAR_API_KEY`, `UNPAYWALL_EMAIL`.
 
-Variables (Variables tab, not Secrets), optional: `CORS_ORIGINS` (default `*`) and `LLM_MODEL`.
+Variables (Variables tab, not Secrets), optional: `CORS_ORIGINS` (default `*`), `LLM_PROVIDER` (`openai`, `gemini`, `azure` or `ollama`; inferred from whichever API key you set) and `LLM_MODEL` (defaults: `gpt-4o-mini` for OpenAI, `gemini-2.5-flash` for Gemini).
 
 ## 4. Deploy the backend
 
