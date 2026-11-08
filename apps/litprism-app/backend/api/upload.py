@@ -3,6 +3,7 @@ from typing import Annotated
 
 from db.engine import get_db
 from db.models import Article, Project, UploadArticle, UploadRecord
+from dependencies import get_owned_project
 from fastapi import (  # noqa: F401 (Depends used via Annotated)
     APIRouter,
     Depends,
@@ -27,7 +28,7 @@ from api.schemas import UploadDryRunOut, UploadRecordOut, UploadResponseOut
 
 DB = Annotated[AsyncSession, Depends(get_db)]
 
-router = APIRouter(prefix="/projects", tags=["upload"])
+router = APIRouter(prefix="/projects", tags=["upload"], dependencies=[Depends(get_owned_project)])
 
 _ALLOWED_EXTENSIONS = {".nbib", ".ris", ".bib", ".csv", ".xlsx", ".pdf", ".txt"}
 _MAX_FILE_SIZE = 50 * 1024 * 1024  # 50 MB

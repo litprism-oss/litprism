@@ -3,13 +3,16 @@ from typing import Annotated
 
 from db.engine import get_db
 from db.models import Article, Criteria, Project, ScreeningResult
+from dependencies import get_owned_project
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.schemas import CriteriaCreate, CriteriaOut, StaleCountOut
 
-router = APIRouter(prefix="/projects/{project_id}", tags=["criteria"])
+router = APIRouter(
+    prefix="/projects/{project_id}", tags=["criteria"], dependencies=[Depends(get_owned_project)]
+)
 
 DB = Annotated[AsyncSession, Depends(get_db)]
 

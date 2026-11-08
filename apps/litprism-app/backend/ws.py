@@ -7,9 +7,13 @@ class ConnectionManager:
     def __init__(self) -> None:
         self._connections: dict[str, list[WebSocket]] = {}
 
+    def register(self, project_id: str, websocket: WebSocket) -> None:
+        """Track an already-accepted socket. The auth handshake runs between accept and this."""
+        self._connections.setdefault(project_id, []).append(websocket)
+
     async def connect(self, project_id: str, websocket: WebSocket) -> None:
         await websocket.accept()
-        self._connections.setdefault(project_id, []).append(websocket)
+        self.register(project_id, websocket)
 
     def disconnect(self, project_id: str, websocket: WebSocket) -> None:
         conns = self._connections.get(project_id, [])
