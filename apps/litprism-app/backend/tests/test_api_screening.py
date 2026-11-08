@@ -56,6 +56,7 @@ async def test_screening_results_filter_by_run_id(client, project_id, db):
         authors=[],
     )
     db.add(article)
+    await db.flush()  # the result references the rows above; SQLAlchemy won't order them
 
     sr = ScreeningResult(
         id=str(uuid.uuid4()),
