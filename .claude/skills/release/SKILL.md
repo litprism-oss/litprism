@@ -104,6 +104,24 @@ gh run view <run-id> --log-failed                     # if it fails
 The run summary prints the API URL and the `VITE_API_URL` / `VITE_WS_URL` values for
 Vercel. Check `https://<fqdn>/docs` afterwards.
 
+### When the deployed app misbehaves
+
+Run **Actions → Azure ops** (branch `dev`; it works without a local `az` login):
+`gh workflow run azure-ops.yml --ref dev -f action=logs -f app=litprism-api -f lines=150`
+(`action`: `status` | `logs` | `restart`; `app`: `litprism-api` | `litprism-worker`). The output is
+public, so `azure/redact.py` strips URLs, hosts and keys first. Read it with
+`gh run view <id> --log` and look at the traceback, not the HTTP status. Check **both** apps:
+the API and the worker fail for different reasons (a stale pool shows as 500s on the API and as
+"Event loop is closed" in the worker).
+
+The first step of **Deploy to Azure** checks both database secrets are reachable over IPv4 and
+names the bad one in seconds. The Supabase *direct* host (`db.<ref>.supabase.co`) is IPv6-only and
+can never work from a GitHub runner; use the Session pooler (5432) for `DATABASE_URL_DIRECT`.
+
+After every deploy, smoke-test the live API before calling it done: create a project, upload a
+file, run a screening and read the results, then delete the project. Delete only what you
+created (check names and times first); the owner may have made test projects of their own.
+
 Rules that keep it working:
 - **API and worker stay at exactly one replica** (`--min-replicas 1 --max-replicas 1`).
   WebSocket progress state is in the API process, and a second worker would run beat
