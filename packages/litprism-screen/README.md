@@ -289,6 +289,9 @@ GEMINI_API_KEY=...
 LLM_MODEL=gemini-3.5-flash-lite   # verified against the live API; 3.5-flash also works
 # Google retires older models for new keys (gemini-2.5-* now returns 404), so pin a current
 # one. Avoid the *-latest aliases for reviews: model_used would not name the exact version.
+# Free keys rate-limit within minutes. Gemini screens 3 articles at a time by default and, on a
+# 429, waits as long as Google asks (up to 90 s) before retrying. Raise or lower it with
+# LLM_CONCURRENCY=6   # any provider; default 3 for Gemini, 10 for the others
 
 # Azure OpenAI
 LLM_PROVIDER=azure

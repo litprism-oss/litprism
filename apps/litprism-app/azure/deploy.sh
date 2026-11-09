@@ -99,6 +99,7 @@ apps() {
     "DEPLOY_ID=${GITHUB_RUN_ID:-local}.${GITHUB_RUN_ATTEMPT:-$(date +%s)}"
   )
   if [[ -n "${LLM_MODEL:-}" ]]; then envvars+=("LLM_MODEL=${LLM_MODEL}"); fi
+  if [[ -n "${LLM_CONCURRENCY:-}" ]]; then envvars+=("LLM_CONCURRENCY=${LLM_CONCURRENCY}"); fi
   local pair name var
   for pair in openai-api-key:OPENAI_API_KEY gemini-api-key:GEMINI_API_KEY \
               pubmed-api-key:PUBMED_API_KEY \

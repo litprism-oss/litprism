@@ -76,4 +76,5 @@ jobs:
           CORS_ORIGINS: ${{ vars.CORS_ORIGINS || '*' }}
           LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
           LLM_MODEL: ${{ vars.LLM_MODEL }}
+          LLM_CONCURRENCY: ${{ vars.LLM_CONCURRENCY }}
         run: bash apps/litprism-app/azure/deploy.sh apps
