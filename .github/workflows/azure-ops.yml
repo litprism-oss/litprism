@@ -8,7 +8,7 @@ on:
       action:
         description: What to do
         type: choice
-        options: [status, logs, restart]
+        options: [status, logs, restart, domain-info, domain-bind, domain-status]
         default: logs
       app:
         description: Which app
@@ -18,6 +18,9 @@ on:
       lines:
         description: Log lines to show (logs only)
         default: "150"
+      hostname:
+        description: Name to bind, under litprism.org (domain-bind only), e.g. api.litprism.org
+        default: ""
 
 concurrency:
   group: azure-ops
@@ -50,4 +53,5 @@ jobs:
           ACTION: ${{ inputs.action }}
           APP: ${{ inputs.app }}
           LINES: ${{ inputs.lines }}
+          HOSTNAME_ARG: ${{ inputs.hostname }}
         run: bash apps/litprism-app/azure/ops.sh

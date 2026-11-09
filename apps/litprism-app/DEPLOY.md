@@ -111,10 +111,39 @@ If the workflow misbehaves you can run the same script in Cloud Shell:
 | `status` | provisioning state, revisions, replica counts, and the *names* (never values) of the env vars set |
 | `logs` | the last N console log lines of `litprism-api` or `litprism-worker` |
 | `restart` | restarts the latest revision, which drops stale database connections |
+| `domain-info` / `domain-bind` / `domain-status` | the DNS records a custom domain needs; attach a name under `litprism.org` to the API with a managed certificate; list what is bound |
 
 Log output goes through `azure/redact.py` first, because the Actions logs of a public repository
 are public: database and Redis URLs, host names, API keys, bearer tokens and long secrets are
 removed. It is a safety net, so still don't log secrets.
+
+## Custom domain (litprism.org on Cloudflare)
+
+Production names: the website at `litprism.org` (and `www`), the API at `api.litprism.org`.
+Do the steps in this order: the site keeps working on the old addresses until the last step.
+
+1. **Website.** Vercel → Settings → Domains → add `litprism.org` and `www.litprism.org` (make one
+   redirect to the other). Vercel lists the DNS records it wants; add exactly those in Cloudflare
+   (DNS → Records). Set each to **DNS only** (grey cloud).
+2. **API: DNS.** Run **Azure ops** with `domain-info`. It prints two values:
+   - a `CNAME` record: name `api`, target = the app's own address;
+   - a `TXT` record: name `asuid.api`, value = the verification id.
+
+   Add both in Cloudflare, **DNS only** (grey cloud), because Azure checks them directly when it
+   issues the certificate.
+3. **API: bind.** Run **Azure ops** with `domain-bind` and hostname `api.litprism.org`. It attaches
+   the name and requests a free managed certificate (a minute or two). Check
+   `https://api.litprism.org/docs`, and `domain-status` to see the binding.
+4. **Point the site at the new API.** In Vercel set `VITE_API_URL=https://api.litprism.org` and
+   `VITE_WS_URL=wss://api.litprism.org`, then Redeploy (they are baked in at build time).
+5. **Allow the new site in CORS.** GitHub variable `CORS_ORIGINS` =
+   `https://litprism.org,https://www.litprism.org` (add the `*.vercel.app` address while testing),
+   then re-run **Deploy to Azure**.
+
+Cloudflare notes: leave records on DNS only unless you know you need the proxy. If you turn the
+proxy on later, set SSL/TLS mode to **Full (strict)** or the browser gets redirect loops.
+
+Supabase's Site URL and redirect URLs (Session 16.2) should use `https://litprism.org`.
 
 ## 5. Vercel (frontend)
 
