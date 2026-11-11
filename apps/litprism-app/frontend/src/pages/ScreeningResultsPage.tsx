@@ -138,7 +138,7 @@ export function ScreeningResultsPage() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       {/* Page header */}
-      <div style={{ padding: '20px 24px 0' }}>
+      <div className="lp-page-pad" style={{ padding: '20px 24px 0' }}>
         <p
           style={{
             fontSize: 15,
@@ -222,6 +222,7 @@ export function ScreeningResultsPage() {
 
       {/* Two-column body */}
       <div
+        className="lp-page-pad lp-stack"
         style={{
           display: 'flex',
           gap: 0,
@@ -231,7 +232,8 @@ export function ScreeningResultsPage() {
         }}
       >
         {/* Left sidebar — summary + export */}
-        <div style={{ width: 160, flexShrink: 0, marginRight: 24 }}>
+        <div className="lp-side" style={{ width: 160, flexShrink: 0, marginRight: 24 }}>
+          <div className="lp-stats-row">
           {STATS.map(({ label, count, colour }) => (
             <div key={label} style={{ marginBottom: 14 }}>
               <p style={{ fontSize: 12, color: 'var(--color-text-secondary)', margin: '0 0 2px' }}>
@@ -242,6 +244,7 @@ export function ScreeningResultsPage() {
               </p>
             </div>
           ))}
+          </div>
 
           <hr
             style={{

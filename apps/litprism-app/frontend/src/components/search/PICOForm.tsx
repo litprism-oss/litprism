@@ -15,7 +15,7 @@ export function PICOForm({ values, onChange }: PICOFormProps) {
     onChange({ ...values, [field]: e.target.value })
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '16px' }}>
+    <div className="lp-one-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '16px' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
         <label style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>Population</label>
         <input

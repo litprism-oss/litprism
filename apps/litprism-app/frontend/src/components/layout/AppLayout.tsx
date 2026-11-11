@@ -1,11 +1,68 @@
-import { Outlet } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
 import { TopNav } from '@/components/layout/TopNav'
 import { ProjectSidebar } from '@/components/layout/ProjectSidebar'
 import { GuidancePanel } from '@/components/layout/GuidancePanel'
+import { useIsMobile } from '@/hooks/useIsMobile'
 import { useUIStore } from '@/store/useUIStore'
 
 export function AppLayout() {
-  const { sidebarOpen, toggleSidebar } = useUIStore()
+  const { sidebarOpen, toggleSidebar, mobileNavOpen, setMobileNavOpen, setMobileGuideOpen } =
+    useUIStore()
+  const isMobile = useIsMobile()
+  const { pathname } = useLocation()
+
+  // Close the slide-over panels whenever the user navigates.
+  useEffect(() => {
+    setMobileNavOpen(false)
+    setMobileGuideOpen(false)
+  }, [pathname, setMobileNavOpen, setMobileGuideOpen])
+
+  if (isMobile) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh' }}>
+        <TopNav />
+        <main
+          style={{
+            flex: 1,
+            padding: 16,
+            overflowY: 'auto',
+            background: 'var(--color-background-tertiary)',
+          }}
+        >
+          <Outlet />
+        </main>
+
+        {mobileNavOpen && (
+          <>
+            <div
+              onClick={() => setMobileNavOpen(false)}
+              style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.35)', zIndex: 40 }}
+            />
+            <div
+              role="dialog"
+              aria-label="Project navigation"
+              style={{
+                position: 'fixed',
+                top: 0,
+                bottom: 0,
+                left: 0,
+                width: 'min(300px, 85vw)',
+                background: 'var(--color-background-primary)',
+                zIndex: 41,
+                overflowY: 'auto',
+                paddingTop: 8,
+              }}
+            >
+              <ProjectSidebar />
+            </div>
+          </>
+        )}
+
+        <GuidancePanel />
+      </div>
+    )
+  }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
