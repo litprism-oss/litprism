@@ -3,6 +3,7 @@ import { Switch } from '@/components/ui/switch'
 import { useUIStore } from '@/store/useUIStore'
 import { useProject } from '@/hooks/useProjects'
 import { useIsMobile } from '@/hooks/useIsMobile'
+import { supabase } from '@/lib/supabase'
 
 function ProjectBreadcrumb({ projectId }: { projectId: string }) {
   const { data: project } = useProject(projectId)
@@ -97,6 +98,22 @@ export function TopNav() {
           <span>Guide</span>
           <Switch checked={guideEnabled} onCheckedChange={toggleGuide} />
         </label>
+        )}
+
+        {supabase && (
+          <button
+            onClick={() => void supabase?.auth.signOut()}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontSize: 13,
+              color: 'var(--color-text-secondary)',
+              cursor: 'pointer',
+              minHeight: 36,
+            }}
+          >
+            Sign out
+          </button>
         )}
 
         <button

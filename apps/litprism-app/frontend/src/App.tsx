@@ -13,6 +13,7 @@ import { ExportPage } from '@/pages/ExportPage'
 import { PRISMAPage } from '@/pages/PRISMAPage'
 import { ArticleListPage } from '@/pages/ArticleListPage'
 import { Toaster } from '@/components/ui/sonner'
+import { AuthGate } from '@/components/auth/AuthGate'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,6 +27,7 @@ const queryClient = new QueryClient({
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      <AuthGate>
       <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>
@@ -44,6 +46,7 @@ export default function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      </AuthGate>
       <Toaster position="bottom-right" />
     </QueryClientProvider>
   )
