@@ -69,7 +69,7 @@ export function ResultsTable({ projectId, runId, activeTab: controlledTab, onTab
   return (
     <>
       {/* Filter tabs */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 12 }}>
+      <div className="lp-tabs" style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 12 }}>
         {TABS.map(t => (
           <button
             key={t.key}

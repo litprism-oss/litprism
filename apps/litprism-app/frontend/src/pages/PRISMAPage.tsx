@@ -228,7 +228,7 @@ export function PRISMAPage() {
   }
 
   return (
-    <div style={{ padding: '24px' }}>
+    <div className="lp-page-pad" style={{ padding: '24px' }}>
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '4px' }}>
         <span style={{ fontSize: '16px', fontWeight: 500, color: 'var(--color-text-primary)' }}>
@@ -283,7 +283,7 @@ export function PRISMAPage() {
       </div>
 
       {/* Diagram */}
-      <div ref={diagramRef}>
+      <div ref={diagramRef} className="lp-scroll-x">
         {isLoading && (
           <p style={{ fontSize: '13px', color: 'var(--color-text-secondary)' }}>Loading…</p>
         )}

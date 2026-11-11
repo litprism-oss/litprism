@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom'
 import { useUIStore } from '@/store/useUIStore'
 import { GUIDE_CONTENT } from '@/lib/guideContent'
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 function routeToKey(pathname: string): string {
   if (pathname.includes('/search')) return 'search'
@@ -13,23 +14,62 @@ function routeToKey(pathname: string): string {
 }
 
 export function GuidancePanel() {
-  const { guideEnabled } = useUIStore()
+  const { guideEnabled, mobileGuideOpen, setMobileGuideOpen } = useUIStore()
   const { pathname } = useLocation()
+  const isMobile = useIsMobile()
 
-  if (!guideEnabled) return null
+  // Desktop: a fixed side panel toggled by the Guide switch.
+  // Phone: a full-height slide-over opened from the "?" button.
+  if (isMobile ? !mobileGuideOpen : !guideEnabled) return null
 
   const key = routeToKey(pathname)
   const content = GUIDE_CONTENT[key]
   if (!content) return null
 
   return (
-    <aside style={{
-      width: 240,
-      borderLeft: '0.5px solid var(--color-border-tertiary)',
-      padding: '20px 16px',
-      flexShrink: 0,
-      overflowY: 'auto',
-    }}>
+    <aside
+      style={
+        isMobile
+          ? {
+              position: 'fixed',
+              top: 0,
+              right: 0,
+              bottom: 0,
+              width: 'min(340px, 92vw)',
+              background: 'var(--color-background-primary)',
+              borderLeft: '0.5px solid var(--color-border-tertiary)',
+              padding: '20px 16px',
+              overflowY: 'auto',
+              zIndex: 41,
+              boxShadow: '-8px 0 24px rgba(0,0,0,0.12)',
+            }
+          : {
+              width: 240,
+              borderLeft: '0.5px solid var(--color-border-tertiary)',
+              padding: '20px 16px',
+              flexShrink: 0,
+              overflowY: 'auto',
+            }
+      }
+    >
+      {isMobile && (
+        <button
+          onClick={() => setMobileGuideOpen(false)}
+          aria-label="Close guide"
+          style={{
+            float: 'right',
+            background: 'none',
+            border: 'none',
+            fontSize: 22,
+            lineHeight: 1,
+            color: 'var(--color-text-secondary)',
+            cursor: 'pointer',
+            padding: 4,
+          }}
+        >
+          ×
+        </button>
+      )}
       <p style={{
         fontSize: 10,
         fontWeight: 500,
