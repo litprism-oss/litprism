@@ -6,8 +6,8 @@ final inclusion decision. Every record is a real publication; labels are the rev
 
 Each benchmark is a sample: all relevant records (up to 40) plus randomly drawn irrelevant
 ones, 150 records in total, with a fixed seed so the file is reproducible. The screening
-criteria are LitPrism's own plain-language summary of each review's scope (the original
-protocols are not part of the dataset).
+criteria are each review's own eligibility criteria, copied from the paper's Methods
+section and split into separate items.
 
 Usage:
     git clone --depth 1 https://github.com/asreview/systematic-review-datasets /tmp/srd
@@ -34,8 +34,8 @@ DATASETS = [
         "citation": "Appenzeller-Herzog C, Mathes T, Heeres MLS, Weiss KH, Houwen RHJ, Ewald H. Comparative effectiveness of common therapies for Wilson disease: a systematic review and meta-analysis of controlled studies. Liver Int 2019;39(11):2136-2152.",
         "doi": "https://doi.org/10.1111/liv.14179", "licence": "CC-BY 4.0",
         "criteria": {
-            "inclusion": ["Controlled study (a comparison group is reported)", "Participants have Wilson disease", "A treatment is evaluated or compared (for example chelators, zinc or liver transplantation)"],
-            "exclusion": ["Animal or in vitro study", "Case report, editorial or narrative review without original patient data"]},
+            "inclusion": ["Participants are patients with Wilson disease (any age or disease stage)", "The study drug is D-penicillamine, trientine, tetrathiomolybdate or zinc salts", "The study has a control group (placebo, no treatment, or another treatment that does not include the study drug)", "Prospective or retrospective controlled study (randomised or non-randomised trial, or comparative observational study)"],
+            "exclusion": ["Animal study", "Case report, case series, cross-sectional study, before-after study, review or letter"]},
     },
     {
         "slug": "anxiety-cbt", "id": "van_Dis_2020", "name": "CBT for anxiety-related disorders",
@@ -43,8 +43,8 @@ DATASETS = [
         "citation": "van Dis EAM, van Veen SC, Hagenaars MA, Batelaan NM, Bockting CLH, van den Heuvel RM, Cuijpers P, Engelhard IM. Long-term outcomes of cognitive behavioral therapy for anxiety-related disorders: a systematic review and meta-analysis. JAMA Psychiatry 2020;77(3):265-273.",
         "doi": "https://doi.org/10.1001/jamapsychiatry.2019.3986", "licence": "CC-BY 4.0",
         "criteria": {
-            "inclusion": ["Randomised controlled trial", "Participants have an anxiety-related disorder (anxiety disorder, obsessive-compulsive disorder or post-traumatic stress disorder)", "Intervention is cognitive behavioural therapy", "Outcomes are assessed at follow-up at least 6 months after treatment ended"],
-            "exclusion": ["Animal study", "Protocol, commentary or review without original trial data"]},
+            "inclusion": ["Randomised clinical trial of cognitive behavioural therapy (cognitive restructuring and/or behavioural therapy such as exposure, including third-wave CBT)", "Participants are adults (or mostly adults, with some adolescents aged 16 or older)", "Participants have a diagnosed anxiety-related disorder (generalised anxiety disorder, panic disorder, social anxiety disorder, specific phobia, PTSD or OCD), based on a structured diagnostic interview", "Outcomes are reported at follow-up at least 1 month after treatment completion", "The comparison group is care as usual, relaxation, psychoeducation, pill placebo, supportive therapy or a waiting list"],
+            "exclusion": ["Treatment is not CBT (for example EMDR or interpersonal therapy)", "Self-guided therapy without any guidance", "CBT combined with medication or pill placebo", "Participants are inpatients", "Symptoms are not reported separately for each disorder"]},
     },
     {
         "slug": "nudging-healthcare", "id": "Nagtegaal_2019", "name": "Nudging healthcare professionals",
@@ -52,8 +52,8 @@ DATASETS = [
         "citation": "Nagtegaal R, Tummers L, Noordegraaf M, Bekkers V. Nudging healthcare professionals towards evidence-based medicine: a systematic scoping review. Journal of Behavioral Public Administration 2019;2(2).",
         "doi": "https://doi.org/10.30636/jbpa.22.71", "licence": "CC0",
         "criteria": {
-            "inclusion": ["Empirical study of a nudge or choice-architecture intervention", "The target group is healthcare professionals (for example physicians, nurses or pharmacists)", "The aim is to promote evidence-based clinical practice"],
-            "exclusion": ["The intervention targets patients only", "Opinion piece or theoretical paper without empirical data"]},
+            "inclusion": ["A nudge (a behavioural intervention that changes choice architecture) is applied to healthcare professionals at the individual level", "The aim is to promote evidence-based medicine, including adherence to guidelines", "The report is an experiment (randomised controlled trial, before-and-after study or interrupted time series)"],
+            "exclusion": ["The report is not an experiment", "The intervention is not a nudge", "The target group is not healthcare professionals"]},
     },
     {
         "slug": "virus-metagenomics", "id": "Kwok_2020", "name": "Virus metagenomics in farm animals",
@@ -61,8 +61,8 @@ DATASETS = [
         "citation": "Kwok KTT, Nieuwenhuijse DF, Phan MVT, Koopmans MPG. Virus metagenomics in farm animals: a systematic review. Viruses 2020;12(1):107.",
         "doi": "https://doi.org/10.3390/v12010107", "licence": "CC-BY 4.0",
         "criteria": {
-            "inclusion": ["Uses viral metagenomics (untargeted sequencing to detect or characterise viruses)", "Samples come from farm animals (for example pigs, cattle, poultry, sheep or goats)"],
-            "exclusion": ["Human-only study", "Review article without original sequencing data"]},
+            "inclusion": ["The study performed viral metagenomic sequencing on specimens from farm animals", "The animals are cattle, small ruminants (goats or sheep), poultry or pigs"],
+            "exclusion": ["Conference abstract", "Article without original data (review paper, editorial or commentary)"]},
     },
 ]
 
@@ -89,9 +89,11 @@ def build(src: Path) -> None:
         ]
         source = (f"Real records sampled from the review's open dataset. {spec['citation']} {spec['doi']} "
                   f"Dataset licence: {spec['licence']} (via ASReview systematic-review-datasets). "
-                  f"Labels are the review authors' final inclusion decisions. The criteria below are LitPrism's own "
-                  f"summary of the review's scope, not the authors' protocol. Sample: all relevant records "
-                  f"(up to {MAX_REL}) plus random irrelevant ones.")
+                  f"Labels are the review authors' final inclusion decisions. The criteria are the review's own eligibility "
+                  f"criteria from its Methods section, split into separate items (language and publication-year "
+                  f"rules are left out). Some are full-text rules, so an abstract may not settle them and the AI "
+                  f"will then answer uncertain. Sample: all relevant records (up to {MAX_REL}) plus random "
+                  f"irrelevant ones.")
         data = {
             "slug": spec["slug"], "name": spec["name"], "description": spec["topic"],
             "source": source, "criteria": spec["criteria"], "records": records,
