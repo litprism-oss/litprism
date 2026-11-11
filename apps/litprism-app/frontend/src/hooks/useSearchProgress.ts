@@ -1,0 +1,47 @@
+import { useEffect, useRef, useState } from 'react'
+import type { ScreeningProgressEvent } from '@/lib/types'
+import { getAccessToken } from '@/lib/supabase'
+
+export interface SearchProgressEvent {
+  event: 'search_progress' | 'search_complete' | 'search_error'
+  source?: string
+  fetched?: number
+  total?: number
+  total_articles?: number
+  duplicates_removed?: number
+  message?: string
+}
+
+export type ProgressEvent = SearchProgressEvent | ScreeningProgressEvent
+
+export function useSearchProgress(projectId: string | null) {
+  const [events, setEvents] = useState<ProgressEvent[]>([])
+  const [isConnected, setIsConnected] = useState(false)
+  const wsRef = useRef<WebSocket | null>(null)
+
+  useEffect(() => {
+    if (!projectId) return
+    const WS_URL = import.meta.env.VITE_WS_URL ?? 'ws://localhost:8000'
+    const ws = new WebSocket(`${WS_URL}/ws/${projectId}`)
+    wsRef.current = ws
+    ws.onopen = () => {
+      setIsConnected(true)
+      // The server expects the access token as the first message when auth is on.
+      void getAccessToken().then((token) => {
+        if (token && ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify({ token }))
+      })
+    }
+    ws.onclose = () => setIsConnected(false)
+    ws.onmessage = (e) => {
+      const data = JSON.parse(e.data) as ProgressEvent
+      setEvents((prev) => [...prev, data])
+    }
+    return () => {
+      ws.close()
+      setIsConnected(false)
+    }
+  }, [projectId])
+
+  const clearEvents = () => setEvents([])
+  return { events, isConnected, clearEvents }
+}

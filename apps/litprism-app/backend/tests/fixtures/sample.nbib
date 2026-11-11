@@ -1,0 +1,36 @@
+PMID- 12345678
+TI  - Effects of probiotics on gut microbiome in Crohn disease
+AB  - This randomised controlled trial investigated the impact of probiotic supplementation on gut microbiome diversity in patients with Crohn disease. Significant improvements were observed in the intervention group.
+AU  - Smith, John A
+AU  - Jones, Mary B
+TA  - Gut
+DP  - 2023 Mar 15
+MH  - Probiotics
+MH  - Crohn Disease
+MH  - Gastrointestinal Microbiome
+OT  - probiotics
+OT  - Crohn disease
+OT  - gut microbiome
+AID - 10.1136/gutjnl-2023-00001 [doi]
+PT  - Randomized Controlled Trial
+PT  - Journal Article
+
+PMID- 23456789
+TI  - Systematic review of dietary interventions in inflammatory bowel disease
+AU  - Brown, Carol
+AU  - Wilson, David
+TA  - Inflamm Bowel Dis
+DP  - 2022 Nov
+MH  - Inflammatory Bowel Diseases/diet therapy
+OT  - dietary interventions
+OT  - IBD
+PT  - Review
+
+TI  - Microbiome composition and disease activity in ulcerative colitis
+AU  - Taylor, Emma R
+TA  - J Crohns Colitis
+DP  - 2021
+MH  - Colitis, Ulcerative/microbiology
+OT  - ulcerative colitis
+AID - 10.1093/ecco-jcc/jjab001 [doi]
+PT  - Journal Article

@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+:root {
+  /* Surfaces */
+  --color-background-primary:   #ffffff;
+  --color-background-secondary: #f5f5f4;
+  --color-background-tertiary:  #fafaf9;
+
+  /* Text */
+  --color-text-primary:   #1c1917;
+  --color-text-secondary: #78716c;
+  --color-text-tertiary:  #a8a29e;
+
+  /* Borders */
+  --color-border-tertiary: #e7e5e4;
+  --color-border-secondary: #d6d3d1;
+
+  /* Border radius */
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--color-background-tertiary);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Phone layout helpers (pages use inline styles, so these override with !important) */
+@media (max-width: 767px) {
+  .lp-page-pad { padding-left: 0 !important; padding-right: 0 !important; }
+  .lp-stack { flex-direction: column !important; }
+  .lp-stack > .lp-side { width: 100% !important; margin-right: 0 !important; margin-bottom: 16px; }
+  .lp-stats-row { display: grid !important; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .lp-stats-row > div { margin-bottom: 0 !important; }
+  .lp-one-col { grid-template-columns: 1fr !important; }
+  .lp-scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .lp-tabs { overflow-x: auto; flex-wrap: nowrap !important; padding-bottom: 4px; }
+  .lp-tabs > button { flex-shrink: 0; }
+}

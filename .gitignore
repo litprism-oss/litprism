@@ -1,6 +1,14 @@
 # Local spec and dev docs (never commit)
-litprism-spec-*.md
-litprism-dev-guide.md
+docs/litprism-spec-*.md
+docs/litprism-dev-guide.md
+docs/litprism-session7.1-foundation.md
+docs/litprism-session7.2-search-pipeline.md
+docs/litprism-session7.3-screening-pipeline.md
+docs/litprism-session8-upload-dedup-export.md
+.claude/*
+!.claude/skills/
+CLAUDE.md
+docs/*.md
 
 # Environment variables
 .env
@@ -14,6 +22,7 @@ __pycache__/
 *.so
 .Python
 build/
+!.claude/skills/build/
 develop-eggs/
 dist/
 downloads/
@@ -77,3 +86,6 @@ uploads/
 node_modules/
 apps/litprism-app/frontend/dist/
 apps/litprism-app/frontend/.vite/
+!apps/litprism-app/frontend/src/lib/
+dump.rdb
+*.rdb

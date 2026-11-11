@@ -1,0 +1,22 @@
+{
+  "confidence": 0.60,
+  "reasoning": "Study design not stated in abstract.",
+  "criteria_hits": [
+    {
+      "criterion": "Randomised controlled trial",
+      "criterion_type": "inclusion",
+      "assessment": "unassessable",
+      "supporting_quote": null,
+      "quote_location": null,
+      "unassessable_reason": "study design not mentioned"
+    },
+    {
+      "criterion": "Animal or in vitro study",
+      "criterion_type": "exclusion",
+      "assessment": "refuted",
+      "supporting_quote": "human subjects with inflammatory bowel disease",
+      "quote_location": "abstract",
+      "unassessable_reason": null
+    }
+  ]
+}

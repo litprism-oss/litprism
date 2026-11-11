@@ -1,0 +1,14 @@
+{
+  "confidence": 0.70,
+  "reasoning": "Inclusion confirmed but no quote provided.",
+  "criteria_hits": [
+    {
+      "criterion": "Randomised controlled trial",
+      "criterion_type": "inclusion",
+      "assessment": "confirmed",
+      "supporting_quote": null,
+      "quote_location": null,
+      "unassessable_reason": null
+    }
+  ]
+}

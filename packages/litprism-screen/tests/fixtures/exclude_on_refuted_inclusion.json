@@ -1,0 +1,22 @@
+{
+  "confidence": 0.85,
+  "reasoning": "Retrospective design explicitly stated — RCT criterion not met.",
+  "criteria_hits": [
+    {
+      "criterion": "Randomised controlled trial",
+      "criterion_type": "inclusion",
+      "assessment": "refuted",
+      "supporting_quote": "retrospective cohort study",
+      "quote_location": "abstract",
+      "unassessable_reason": null
+    },
+    {
+      "criterion": "Animal or in vitro study",
+      "criterion_type": "exclusion",
+      "assessment": "refuted",
+      "supporting_quote": "patients with confirmed Crohn's disease",
+      "quote_location": "abstract",
+      "unassessable_reason": null
+    }
+  ]
+}
