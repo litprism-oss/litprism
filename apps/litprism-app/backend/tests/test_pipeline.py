@@ -128,3 +128,31 @@ async def test_pipeline_sets_failed_on_exception(db, project_id, ws_mock):
 
     await db.refresh(run)
     assert run.status == "failed"
+
+
+async def test_pipeline_survives_one_failing_source(db, project_id, fake_articles, ws_mock):
+    """A rate-limited source must not discard the other sources' results."""
+    run = _make_run(project_id)
+    db.add(run)
+    await db.commit()
+
+    good = _make_client_mock(fake_articles)
+
+    class _RateLimited:
+        async def search_iter(self, *args, **kwargs):
+            yield fake_articles[:1]  # partial rows, then the failure
+            raise RuntimeError("Rate limit exceeded")
+
+    with (
+        patch("services.pipeline.AsyncPubMedClient", return_value=good),
+        patch("services.pipeline.EuropePMCClient", return_value=good),
+        patch("services.pipeline.SemanticScholarClient", return_value=_RateLimited()),
+    ):
+        await run_search(project_id, run.id, db, ws_mock)
+
+    await db.refresh(run)
+    assert run.status == "completed"
+    # Only the two healthy sources are kept; the failed source's partial row is rolled back.
+    assert (await db.execute(select(func.count(Article.id)))).scalar() == len(fake_articles) * 2
+    sources = (await db.execute(select(SourceQuery.source))).scalars().all()
+    assert set(sources) == {"pubmed", "europepmc"}
