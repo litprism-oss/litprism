@@ -100,6 +100,22 @@ export function TopNav() {
         </label>
         )}
 
+        {!isMobile && (
+          <button
+            onClick={() => navigate('/benchmarks')}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontSize: 13,
+              color: 'var(--color-text-secondary)',
+              cursor: 'pointer',
+              minHeight: 36,
+            }}
+          >
+            Benchmarks
+          </button>
+        )}
+
         {supabase && (
           <button
             onClick={() => void supabase?.auth.signOut()}

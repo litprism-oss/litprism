@@ -437,3 +437,28 @@ class LabelCheckOut(BaseModel):
     work_saved: float = 0.0
     missed: int = 0
     missed_titles: list[str] = []
+
+
+class BenchmarkRunOut(BaseModel):
+    id: str
+    dataset_id: str
+    status: str
+    total: int
+    processed: int
+    model_used: str | None = None
+    metrics: dict | None = None
+    error: str | None = None
+    created_at: datetime
+    completed_at: datetime | None = None
+
+    model_config = {"from_attributes": True}
+
+
+class BenchmarkDatasetOut(BaseModel):
+    slug: str
+    name: str
+    description: str
+    criteria: dict
+    record_count: int
+    relevant_count: int
+    latest_run: BenchmarkRunOut | None = None
