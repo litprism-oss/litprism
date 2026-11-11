@@ -339,6 +339,7 @@ class BenchmarkDataset(Base):
     slug: Mapped[str] = mapped_column(String, unique=True, nullable=False)
     name: Mapped[str] = mapped_column(String, nullable=False)
     description: Mapped[str] = mapped_column(Text, nullable=False)
+    source: Mapped[str | None] = mapped_column(Text, nullable=True)
     criteria: Mapped[dict] = mapped_column(JSON, nullable=False)
     record_count: Mapped[int] = mapped_column(Integer, nullable=False)
     relevant_count: Mapped[int] = mapped_column(Integer, nullable=False)

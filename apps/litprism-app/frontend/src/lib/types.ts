@@ -325,6 +325,7 @@ export interface BenchmarkDatasetOut {
   slug: string
   name: string
   description: string
+  source: string | null
   criteria: { inclusion: string[]; exclusion: string[] }
   record_count: number
   relevant_count: number

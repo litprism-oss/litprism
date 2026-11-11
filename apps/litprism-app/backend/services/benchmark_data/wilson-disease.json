@@ -1,0 +1,1069 @@
+{
+ "slug": "wilson-disease",
+ "name": "Wilson disease therapies",
+ "description": "Comparative effectiveness of common therapies for Wilson disease (controlled studies)",
+ "source": "Real records sampled from the review's open dataset. Appenzeller-Herzog C, Mathes T, Heeres MLS, Weiss KH, Houwen RHJ, Ewald H. Comparative effectiveness of common therapies for Wilson disease: a systematic review and meta-analysis of controlled studies. Liver Int 2019;39(11):2136-2152. https://doi.org/10.1111/liv.14179 Dataset licence: CC-BY 4.0 (via ASReview systematic-review-datasets). Labels are the review authors' final inclusion decisions. The criteria below are LitPrism's own summary of the review's scope, not the authors' protocol. Sample: all relevant records (up to 40) plus random irrelevant ones.",
+ "criteria": {
+  "inclusion": [
+   "Controlled study (a comparison group is reported)",
+   "Participants have Wilson disease",
+   "A treatment is evaluated or compared (for example chelators, zinc or liver transplantation)"
+  ],
+  "exclusion": [
+   "Animal or in vitro study",
+   "Case report, editorial or narrative review without original patient data"
+  ]
+ },
+ "records": [
+  {
+   "title": "Penicillamine nephropathy",
+   "abstract": "Treatment with penicillamine for rheumatoid arthritis, Wilson's disease, cystinuria, or lead poisoning may be complicated by damage to the kidneys. In such cases proteinuria usually appears within four to 18 months but occasionally the onset may be later. The incidence of proteinuria is greater in patients with rheumatoid arthritis and cystinuria (30%) than in those with Wilson's disease (4%), and its occurrence is linked with the mean daily dose of penicillamine and the speed with which this maintenance dose is reached. Patients with rheumatoid arthritis who have low serum concentrations of IgG and IgA may be more susceptible, and those with the DRW2 and DWR3 antigens are more likely to react to either penicillamine or gold, perhaps reflecting pharmacological properties common to the two drugs. Penicillamine is a valuable drug in rheumatoid arthritis and may be life saving in Wilson's disease and cystinuria. With appropriate prescribing, the incidence of proteinuria and the nephrotic syndrome may be kept to a minimum and the potential benefits made available to the maximum number of patients.",
+   "label": false,
+   "doi": "",
+   "year": "1981"
+  },
+  {
+   "title": "Wilson's disease: a clinico-neuropathological autopsy study",
+   "abstract": "Wilson's disease (WD), a familial neurological disorder involving the brain and liver secondary to altered copper metabolism, is common in South India. In view of the paucity of studies on this condition, the pathomorphological features of eight cases of WD were studied in detail at autopsy (brain alone, 1; brain and liver biopsy, 1; brain and visceral organs, 6), and are described with a discussion of the differential features of the neurological and hepatic forms. Of the six patients presenting with neurological manifestations, five had central pontine myelinolysis, five had subcortical white matter cavitations, four had putaminal softening, and six had variable ventricular dilatation, unlike the hepatic form. The presence of Opalski cells and pontine myelinolysis appear to be specific to the neurological form of WD. Liver abnormalities were observed in all cases (cirrhosis, 6; steatosis, 4; chronic active hepatitis, 2). Contrary to the rubric 'hepatolenticular degeneration', involvement of the lenticular nucleus was not universal, and nor was the pathology restricted to these anatomical areas.",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1016/j.jocn.2006.07.017",
+   "year": "2008"
+  },
+  {
+   "title": "Familial Hepatic Copper Storage Disease: A Variant of Wilson's Disease",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1964"
+  },
+  {
+   "title": "Effect of Adrenocortical Steroids on the Hypercalciuria of Wilson's Disease (Hepatolenticular Degeneration)",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1965"
+  },
+  {
+   "title": "Nephrotic syndrome after treatment with D-penicillamine",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1968"
+  },
+  {
+   "title": "D penicillamine induced IgA deficiency in Wilson's disease",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1976"
+  },
+  {
+   "title": "Checking of urinary copper in patients with Wilson's disease during treatment with D-penicillamine. [Italian]",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1979"
+  },
+  {
+   "title": "Tetrathiomolybdate versus trientine in the initial treatment of neurologic Wilson's disease",
+   "abstract": "Background: The initial treatment of the neurologic presentation of Wilson's disease is problematic. Penicillamine, used for years on most patients, causes neurologic worsening in up to half of such patients, and half of those who worsen never recover. Zinc, ideal for maintenance therapy, is too slow for these acutely ill patients. We have developed tetrathiomolybdate (TM) for this type of patient, and it has worked well in open label studies. Trientine, another anticopper drug on the market approved for penicillamine intolerant patients, had not been tried in this type of patient. Here, we report on a double blind trial of TM versus trientine in the neurologically presenting Wilson's disease patient. Design and Methods: The study was a double blind design in which patients received either TM plus zinc, or trientine plus zinc, for 8 weeks* Patients were accepted if they presented with neurologic symptoms from Wilson's disease, if they had not been treated longer than 4 weeks with penicillamine or trientine. Patients were followed in the hospital for the 8 weeks of treatment with weekly semiquantitative neurologic and speech examinations, to evaluate possible neurologic worsening. They also had blood and urine studies done weekly. At discharge from hospital they were continued on zinc maintenance therapy, and returned at yearly intervals for 3 years for further evaluation. Results: Twenty-three patients were entered into the trientine arm and 6 reached criteria for neurologic deterioration, while 25 patients were entered into the TM arm and only 1 deteriorated (p < 0.05). One patient on trientine had an adverse event while 7 on TM had adverse events. All adverse events were mild. Four patients in the trientine arm died during follow-up, 3 having shown initial neurologic deterioration, 2 patients in the TM arm died. In those patients who did not deteriorate or die, neurologic and speech recovery over 3 years was good. Interpretation: TM is a superior choice to trientine for the initial therapy of neurologic Wilson's disease. © 2008 Cambridge University Press.",
+   "label": true,
+   "doi": "http://dx.doi.org/10.1017/S1748232107000043",
+   "year": "2008"
+  },
+  {
+   "title": "The treatment of wilson's disease",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1999"
+  },
+  {
+   "title": "Response to different therapeutic approaches in Wilson disease. A long-term follow up study",
+   "abstract": "BACKGROUND AND AIMS: There are certain areas of uncertainty regarding the best therapeutic approach in patients diagnosed with Wilson Disease (WD). Our aim was to assess treatment response to different therapies in a cohort of WD patients followed in a single center. MATERIAL AND METHODS: This is an observational, descriptive study in which clinical, laboratory and imaging data are reviewed in a series of 20 WD patients with a median follow-up of 14 years. Type of presentation, treatment used, biochemical and copper homeostasis parameters were elicited. RESULTS: Median age at diagnosis was 22 years. The most frequent form of presentation was hepatic (n = 10, 50%; mean age: 21.5 years), followed by neurological (25%; mean age: 34.5 years) and mixed (15%). The initial treatment in both symptomatic and asymptomatic patients at diagnosis was d-penicillamine in 90% and Zinc (Zn) in 10%, respectively. Patients who were maintained on d-penicillamine for the whole period had complete biochemical normalization (baseline ALT: 220 IU/l; last follow up 38 IU/l). In contrast, patients in whom d-penicillamine was switched to Zn, irrespective of the cause, did not show a complete biochemical remission (baseline ALT: 100 IU/l vs. 66 IU/l at last follow-up). CONCLUSIONS: Treatment was found to be effective in most cases regardless of the drug used. However, side effects were common in those treated with d-penicillamine agents, and required switching to zinc. Therapy with zinc was well tolerated and appeared to have a good efficacy. However, in 33%, a complete normalization of liver enzymes was never reached.",
+   "label": true,
+   "doi": "",
+   "year": "2012"
+  },
+  {
+   "title": "Zinc monotherapy is effective in Wilson's disease patients with mild liver disease diagnosed in childhood: a retrospective study",
+   "abstract": "BACKGROUND: Wilson's disease (WD) evolves rapidly and is fatal if untreated. The treatment of WD patients with mild liver disease is not clearly defined. To address this issue, we evaluated long-term outcomes of three treatment regimens (D-penicillamine, zinc or both) in patients diagnosed in childhood. METHODS: We retrospectively evaluated efficacy, compliance and reasons for treatment discontinuation in 42 WD patients (median age at diagnosis: 6 years; median follow-up: 12 years) with mild liver disease. Treatment duration for each treatment block until a medication change or completion of follow-up was analyzed. Events of change of treatment were evaluated using Kaplan-Meier analysis. RESULTS: Total discontinuations due to treatment failure or adverse events were more frequent in patients receiving D-penicillamine (45%) or combination (36%) therapy than in patients receiving zinc (12%) (P = .001 and P = .02, respectively). Treatment failure was more frequent on D-penicillamine (28%) and combination therapy (36%) than on zinc (12%); the difference was statistically significant only between zinc and combination therapy (P = .03). First-line zinc monotherapy controlled WD-related liver disease in 13/15 patients (87%); the two subjects that failed on zinc were poor adherent. Zinc was effective in 3/5 (60%) patients that failed on D-penicillamine and combination regimens. All 15 D-penicillamine responders that switched to zinc had good control of liver disease at a median follow-up of 13.1 years. Among 6 D-penicillamine non-responders that switched to zinc, 4 (67%) responded. At follow-up completion, only 5/42 (12%) patients failed. Adverse event-induced discontinuation was significantly more frequent in patients on D-penicillamine than in patients receiving zinc (P = .03). CONCLUSIONS: Zinc monotherapy is effective in controlling WD-related liver disease both as first-line and as maintenance treatment in patients with mild liver disease diagnosed in childhood.",
+   "label": true,
+   "doi": "https://dx.doi.org/10.1186/1750-1172-9-41",
+   "year": "2014"
+  },
+  {
+   "title": "Unusual osseous presentation of Wilson disease in a child",
+   "abstract": "",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1016/j.arcped.2017.09.005",
+   "year": "2017"
+  },
+  {
+   "title": "Three atypical cases of Wilson disease: Assessment of the Leipzig scoring system in making a diagnosis",
+   "abstract": "Background/Aims: The diagnosis of this condition in the absence of any neurological findings may pose a dilemma. In 2001, experts from The 8th International Conference on Wilson disease (WD) and Menkes disease in Leipzig, Germany proposed a scoring system that may facilitate diagnosis of WD. Methods/Results: Three patients were identified as having an atypical presentation of WD as they all presented after the age 40. Two of the three presented with established cirrhosis, and none had any neuropsychiatric manifestations. All three patients fulfilled the Leipzig diagnostic criteria proposed by EASL prior to confirmatory mutation analysis. Patient A died of liver failure despite treatment. Patients B and C have remained with stable liver disease on chelation therapy. Conclusions: We believe these patients represent a group most likely to be missed in the diagnostic work-up of liver disease due to a combination of atypical features such as older age of onset, presence of other confounders for liver disease, and sometimes absence of Kayser-Fleischer rings. The Leipzig scoring system proposed in 2003 was helpful in support of an initial diagnosis of Wilson disease in these patients, validated later by genetic testing. © 2007 European Association for the Study of the Liver.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1016/j.jhep.2007.05.016",
+   "year": "2007"
+  },
+  {
+   "title": "Pallidal surgery for dystonia in Wilson's disease",
+   "abstract": "Objective: Wilson's disease is disease characterized by increased copper content in liver & brain. Surgical intervention has been limited in Wilson's disease as most symptoms potentially reverse with medical therapy. However, certain symptoms like disabling tremors are resistant to drug therapy and may require surgical intervention. Case report: A 20 year female patient with Wilson's disease since the age of four years, presented with jaundice. She was treated over the next nine years with penicillamine, trientine and zinc over various time intervals. At the age thirteen she worsened to develop tremor, with difficulty in writing. She was started on trihexyphenidyl, tetrabenazine and injectable botulinum toxin and her penicillamine dose was increased. At the age of fifteen years she was admitted as an emergency with unresponsiveness, hypotension, papilloedema, suspected hepatic encephalopathy. CSF revealed lymphocytic pleocy- tosis, high proteins, viral serology in serum CSF were negative, serum mycoplasma IgM was positive. She was treated with intravenous Acyclovir, Azithromycin, and pulsed with Methyl prednisolone, Dopa was added. Patient was on unable to eat or swallow. She was bedridden and unable to ambulate. [Video 1]. she was treated with high dose of penicillamine at 3gms /day over period of two years. She recovered partially and had significant residual dystonia, akinesia and rigidity. She was unable to speak clearly and was wheel chair bound. Her bradykinesia would respond to dopa replacement partially with worsening of dyskinesia of the mouth. [Video 2] She underwent DBS - Globus pallidal internus electrode placement with placement of IPG under general anaesthesia. Post surgery on serial follow ups her tone, mobility has improved, with minimal assistance in mobility. She is on tablet penicillamine 1500 mg per day with zinc[Video 3]. Conclusions: This young girl with Wilson's disease had persistent dystonia, parkinsonism, mutism causing significant disability despite adequate medical treatment and she thereafter improved with deep brain stimulation, (DBS) which has never been attempted in the past in dystonia due to Wilson's disease. Only a few case reports of surgery in Wilson's disease have been noted in the literature. The most common surgery was thalamotomy for resistant tremors.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1002/mds.23764",
+   "year": "2011"
+  },
+  {
+   "title": "Diagnosis and management of Wilson's disease: results of a single center experience",
+   "abstract": "AIMS: To report on the diagnostic features, management, and clinical outcome after different treatments of Wilson's disease patients followed over a mean period of 15 years. PATIENTS: Thirty-five patients with Wilson's disease referred to the University of Padova's Department of Gastroenterology for diagnosis or treatment were observed for a mean 15 years. The diagnosis was based on clinical symptoms, laboratory tests (ceruloplasmin, urinary, and hepatic copper concentrations), and uptake of the radiostable isotope Cu into the plasma protein pool. Hepatic Cu content was measured by regular follow-up biopsies. Neurologic outcome after therapy was assessed using a newly developed scoring system. RESULTS: Twenty-three (65.7%) patients presented with liver disease; 12 (34.3%) had mixed neurologic and hepatic involvement. All patients had been initially treated with either penicillamine (23) or zinc sulfate (12). The neurologic symptoms became worse or remained stationary in 75% of those treated with penicillamine, whereas zinc treatment improved these symptoms in 90% of treated cases. Both treatments were effective in improving the hepatic symptoms. No differences in hepatic Cu content emerged between follow-up biopsies in either treatment group. Six patients (26%) had to abandon the penicillamine treatment due to side effects. In all, 4 patients underwent liver transplantation, which was successful in 3, with a mean survival after transplantation of 4.6 years; the fourth, who had a severe neurologic impairment, died of central pontine myelinolysis. CONCLUSIONS: Penicillamine and zinc can effectively treat Wilson's disease, though the side effects of penicillamine may be severe enough to prompt its suspension. Liver transplantation remains the treatment of choice for end-stage liver disease.",
+   "label": true,
+   "doi": "https://dx.doi.org/10.1097/01.mcg.0000225670.91722.59",
+   "year": "2006"
+  },
+  {
+   "title": "Quality of life and psychiatric symptoms in wilson's disease: The relevance of bipolar disorders",
+   "abstract": "Introduction: Wilson's disease is an inherited disorder caused by a gene located on chromosome 13, which involved copper transportation across cell membranes. The disease can cause a reduced incorporation of copper into ceruloplasmin resulting in accumulation of this metal in the liver, central nervous system, kidneys and other organs. The objective is to define the frequencies of psychiatric disorders in WD, the amount of impairment of Quality of Life [QoL] in patients with WD and the relevance of the psychiatric disorders in the QoL of people suffering by WD. Methods: This is a systematic review. The search of the significant articles was carried out in PubMed using specific key words. Results: Such other neurological diseases, WD is characterized by chronic course and need of treatments, impairment of functional outcomes and high frequency of psychiatric symptoms, although a specific association between Bipolar Disorders and WD was recently found. Despite this, since today few studies are carried on WD patients' quality of life related to psychiatric symptoms. Some new reports showed a link between presence of Bipolar Disorders diagnosis, cerebral damage and low Qol. Conclusion: Prospective studies on large cohorts are required to establish the effective impact of psychiatric disorders comorbidity, particularly Bipolar Disorders, on quality of life in WD and to clarify the causal link between brain damage, psychiatric disorders and worsening of QoL. © Carta et al.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.2174/1745017901208010102",
+   "year": "2012"
+  },
+  {
+   "title": "Wilson's disease: Cranial MRI observations and clinical correlation",
+   "abstract": "Introduction: Study of MRI changes may be useful in diagnosis, prognosis and better understanding of the pathophysiology of Wilson's disease (WD). We aimed to describe and correlate the MRI abnormalities of the brain with clinical features in WD. Methods: MRI evaluation was carried out in 100 patients (57 males, 43 females; mean age 19.3+/-8.9 years) using standard protocols. All but 18 patients were on de-coppering agents. Their history, clinical manifestations and scores for severity of disease were noted. Results: The mean duration of illness and treatment were 8.3+/-10.8 years and 7.5+/-7.1 years respectively. MRI of the brain was abnormal in all the 93 symptomatic patients. The most conspicuous observations were atrophy of the cerebrum (70%), brainstem (66%) and cerebellum (52%). Signal abnormalities were also noted: putamen (72%), caudate (61%), thalami (58%), midbrain (49%), pons (20%), cerebral white matter (25%), cortex (9%), medulla (12%) and cerebellum (10%). The characteristic T2-W globus pallidal hypointensity (34%), \"Face of giant panda\" sign (12%), T1-W striatal hyperintensity (6%), central pontine myelinosis (7%), and bright claustral sign (4%) were also detected. MRI changes correlated with disease severity scores (P<0.001) but did not correlate with the duration of illness. Conclusion: MRI changes were universal but diverse and involved almost all the structures of the brain in symptomatic patients. A fair correlation between MRI observations and various clinical features provides an explanation for the protean manifestations of the disease. © Springer-Verlag 2006.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1007/s00234-006-0101-4",
+   "year": "2006"
+  },
+  {
+   "title": "A severe case of esophageal ulcer causing a tight stricture despite long-term D-penicillamine treatment",
+   "abstract": "D-penicillamine has long been used in the management of rheumatic diseases due to the effects on inhibition of collagen synthesis. Herein, we report a severe case of esophageal ulcer causing a tight stricture extending through the distal esophagus despite the long-term D-penicillamine treatment in a patient with Wilson's disease. D-penicillamine would theoretically be expected to contribute to the healing of an esophageal ulcer. However, the drug failed to have a favorable outcome, which is notable and worth reporting.",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1007/s00508-014-0610-9",
+   "year": "2014"
+  },
+  {
+   "title": "Efficacy and safety of oral chelators in treatment of patients with wilson disease",
+   "abstract": "BACKGROUND & AIMS: Wilson disease is a genetic copper storage disorder that causes hepatic and neurologic symptoms. Chelating agents (D-penicillamine, trientine) are used as first-line therapies for symptomatic patients, but there are few data from large cohorts. We assessed the safety of D-penicillamine and trientine therapy and outcomes of patients with Wilson disease. METHODS: We performed a retrospective analysis of data on 380 patients with Wilson disease from tertiary care centers in Germany and Austria, and 25 additional patients from the EUROWILSON registry. Chelator-based treatment regimens were analyzed for their effect on neurologic and hepatic symptoms and for adverse events that led to discontinuation of therapy (Kaplan-Meier estimation; data were collected for a mean of 13.3 y after therapy began). RESULTS: Changes in medication were common, resulting in analysis of 471 chelator monotherapies (326 patients receiving D-penicillamine and 141 receiving trientine). Nine of 326 patients treated with D-penicillamine and 3 of 141 patients given trientine underwent liver transplantation. Adverse events leading to discontinuation of treatment were more frequent among those receiving D-penicillamine than trientine (P = .039). Forty-eight months after therapy, hepatic deterioration was reported in only 4 of 333 patients treated initially with a chelating agent. Hepatic improvements were observed in more than 90%, and neurologic improvements were observed in more than 55%, of therapy-naive patients, and values did not differ significantly between treatments. However, neurologic deterioration was observed less frequently in patients given D-penicillamine first (6 of 295) than those given trientine first (4 of 38; P = .018). CONCLUSIONS: Chelating agents are effective therapies for most patients with Wilson disease; D-penicillamine and trientine produce comparable outcomes, although D-penicillamine had a higher rate of adverse events. Few patients receiving chelation therapy had neurologic deterioration, which occurred more frequently in patients who received trientine. © 2013 AGA Institute.",
+   "label": true,
+   "doi": "http://dx.doi.org/10.1016/j.cgh.2013.03.012",
+   "year": "2013"
+  },
+  {
+   "title": "Review article: diagnosis and current therapy of Wilson's disease",
+   "abstract": "Wilson's disease is an autosomal recessive inherited disorder of hepatic copper metabolism resulting in liver disease and/or neuropsychiatric disease. The diagnosis of neurological disease is straightforward if the following symptoms are present: Kayser-Fleischer rings, typical neurological symptoms and low serum ceruloplasmin levels. The diagnosis is more complex in patients presenting with liver diseases. None of the commonly used parameters alone allows a diagnosis with certainty. A combination of various laboratory parameters is necessary to firmly establish the diagnosis. In the future, limited mutation analysis may play an important diagnostic role. Recently, a group of international experts has proposed a score based on a variety of tests and clinical symptoms. The validity of this score needs to be assessed prospectively. Treatment requires life-long administration of copper chelators (d-penicillamine, trientine). A frequently used alternative is zinc. None of these treatments has been tested by prospective randomized controlled studies. Liver transplantation is reserved for severe or treatment-resistant cases with advanced liver disease, whilst experience with refractory neuropsychiatric disease is limited. [References: 57]",
+   "label": false,
+   "doi": "",
+   "year": "2004"
+  },
+  {
+   "title": "Wilson's disease with severe hepatic insufficiency: beneficial effects of early administration of D-penicillamine",
+   "abstract": "BACKGROUND: Wilson's disease, heralded by severe hepatic insufficiency, is a rare disorder for which emergency liver transplantation is considered to be the only effective therapy. AIMS: To report the features of Wilson's disease with severe hepatic insufficiency in a series of 17 patients and, during the second period of the study, to assess the efficacy of a policy consisting of early administration of D-penicillamine. PATIENTS: Seventeen consecutive patients with Wilson's disease were studied. During the first period of the study (up to 1979), none of the patients received D-penicillamine. During the second period (after 1979), all patients without encephalopathy at admission received D-penicillamine. RESULTS: The four patients observed during the first period who did not have encephalopathy at admission and did not receive D-penicillamine progressed to encephalopathy and died. Among the 13 consecutive patients observed during the second period, two patients with encephalopathy at admission did not receive D-penicillamine and were transplanted. The 11 remaining patients all received D-penicillamine. Ten of these patients survived without the need for transplantation and returned to compensated liver disease without liver insufficiency. In one patient, liver insufficiency progressed and transplantation had to be performed. CONCLUSIONS: In most patients with Wilson's disease heralded by severe hepatic insufficiency and without encephalopathy at admission, early administration of D-penicillamine was associated with survival without transplantation. These results suggest the importance of early diagnosis of this form of Wilson's disease before the onset of encephalopathy, and favour early administration of D-penicillamine which could avoid the need for transplantation in most cases.",
+   "label": true,
+   "doi": "",
+   "year": "2001"
+  },
+  {
+   "title": "Possible errors in sampling percutaneous liver biopsies for determination of trace element status: Application to patients with primary biliary cirrhosis",
+   "abstract": "A growing use is being made of percutaneous liver biopsies for trace element analysis, especially of iron in case of haemochromatosis and of copper in case of Wilson's disease and primary biliary cirrhosis (PBC). Various authors warn against the risks of contamination of the sample with trace elements, especially by the needle; positive errors of up to 30% for copper and up to 10% for zinc have been reported. Furthermore, the variability of the copper distribution, especially in cirrhotic livers, also may be a cause of erroneous results: the copper may be unevenly distributed within the tissues, e.g. as a result of variable amounts of fibrous tissue. To test this last problem duplicate samples were taken with the Tru-cut needle from 50 patients, who met certain clinical criteria of PBC (including positive antimitochondrial antibody test, increased alkaline phosphatase, raised serum IgM and a normal extrahepatic cholangiogram).",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1016/0009-8981%2881%2990288-6",
+   "year": "1981"
+  },
+  {
+   "title": "Coincidence of 2 severe chronic diseases: presymptomatic diagnosis of Wilson disease in a boy with severe haemophilia A",
+   "abstract": "",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1055/s-0033-1343482",
+   "year": "2013"
+  },
+  {
+   "title": "Diagnosis and management of chronic liver disease",
+   "abstract": "* The most common causes of chronic liver disease are fatty liver, alcohol, viral hepatitis and drug toxicity. * A routine initial approach to investigation helps both diagnosis and treatment decisions. * General management includes dietary and vaccination considerations. * Specific treatment varies with the primary disorder and can significantly improve prognosis. * Sudden weight loss in patients with fatty liver can precipitate worsening LFTs. * Evidence of decompensation is associated with decreased survival. * Liver transplantation provides good outcomes in selected patients.",
+   "label": false,
+   "doi": "",
+   "year": "2001"
+  },
+  {
+   "title": "Personality traits in treated Wilson's disease determined by means of the Karolinska Scales of Personality (KSP)",
+   "abstract": "OBJECTIVE: The aim was to elucidate the personality traits of patients with treated Wilsons disease (WD) in comparison to healthy volunteers. METHOD: Twenty-five WD patients, ten females and 15 males, with a mean age of 35.2 +/- 8.3 years completed the Karolinska Scales of Personality (KSP), a self-report inventory comprising 15 separate scales. The results were compared to a control series comprising 200 men and 200 women drawn from the general population. RESULTS: The patients with treated WD scored significantly lower than the healthy controls on aggressivity-hostility-related scales and the scale measuring Psychic Anxiety. Patients with predominantly hepatic symptoms had the lowest aggressivity-related scores and patients with predominantly neurological symptoms had the lowest Irritability, Guilt and Detachment scores and the highest Impulsiveness and Muscular Tension scores. Both groups scored low on the Somatic Anxiety scale. CONCLUSION: The present results illustrate that patients with treated WD have significant deviations in personality traits, especially in aggressivity-hostility-related scales and Psychic Anxiety, compared to healthy controls when investigated by means of a self-report inventory, the KSP. The deviations were not related to age, age at onset or duration of the disease.",
+   "label": false,
+   "doi": "",
+   "year": "2001"
+  },
+  {
+   "title": "Functional analysis and drug response to zinc and D-penicillamine in stable ATP7B mutant hepatic cell lines",
+   "abstract": "AIM: To study the effect of anti-copper treatment for survival of hepatic cells expressing different ATP7B mutations in cell culture. METHODS: The most common Wilson disease (WD) mutations p.H1069Q, p.R778L and p.C271*, found in the ATP7B gene encoding a liver copper transporter, were studied. The mutations represent major genotypes of the United States and Europe, China, and India, respectively. A human hepatoma cell line previously established to carry a knockout of ATP7B was used to stably express WD mutants. mRNA and protein expression of mutant ATP7B , survival of cells, apoptosis, and protein trafficking were determined. RESULTS: Low temperature increased ATP7B protein expression in several mutants. Intracellular ATP7B localization was significantly impaired in the mutants. Mutants were classified as high, moderate, and no survival based on their viability on exposure to toxic copper. Survival of mutant p.H1069Q and to a lesser extent p.C271* improved by D-penicillamine (DPA) treatment, while mutant p.R778L showed a pronounced response to zinc (Zn) treatment. Overall, DPA treatment resulted in higher cell survival as compared to Zn treatment; however, only combined Zn + DPA treatment fully restored cell viability. CONCLUSION: The data indicate that the basic impact of a genotype might be characterized by analysis of mutant hepatic cell lines. Copyright © 2016 Baishideng Publishing Group Inc. All rights reserved.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.3748/wjg.v22.i16.4109",
+   "year": "2016"
+  },
+  {
+   "title": "D-penicillamine-induced elastosis perforans serpiginosa and localized cutis laxa in a patient with Wilson's disease",
+   "abstract": "A patient with Wilson's disease who developed elastosis perforans serpiginosa and localized cutis laxa during prolonged treatment with D-penicillamine is described. Induction of elastosis perforans serpiginosa and of cutis laxa by D-penicillamine may be due to a similar mechanism.",
+   "label": false,
+   "doi": "",
+   "year": "1994"
+  },
+  {
+   "title": "Complete neurological recovery in wilson disease: Experience with 100 consecutive patients seen from 2005-2013",
+   "abstract": "OBJECTIVE: Tostudy the neurological outcomes of Wilson disease (WD) following decoppering.BACKGROUND: Judicious decoppering can prevent WD related mortality and reverse neurological disability. DESIGN/METHODS: From 2005-2013 we prospectively recruited 100 consecutive patients with WD and WD related neurological disability. All received, penicillamine or trientine in recommmended doses (125 mg/day - up to 2 gm/day), in the initial decoppering phase of treatment. Treatment was tracked by using the standard WD specific scale, the Global Assessment Scale of Wilson Disease (GAS for WD).RESULTS: There was no mortality over the eight year study period. Of the 100 patients, 56 were men. The mean age at disease onset was 12.4 years (range 3-35). As per the three point disease severity scale (SS3), on recruitment, 43 % patients had severe neurological disability (defined as being bedbound, mute, requiring enteral feeding & bladder catheterization). While 37% had moderate and, 20% had mild neurological disability. Dystonia was the most frequent movement disorder (77%) followedby parkinsonism (53%) and tremor (47%). Of the 100 patients, 4 were lost to follow up after the initial visit and two were refractory to decoppering. All of the other 94 patients showed significant neurological recovery over a mean follow up of 20.7 months (range 4-36). Seventy per cent of the 94 patients (including 68% of patients with severe neurologic disability) showed complete neurological recovery and could resume normal lives at par with their peers. At last follow up, 30 % of the 94 patients exhibit on-going recovery. Promisingly, improvements were also seen in various movements disorders including dystonia and parkinsonism. Adverse events observed included, transient decoppering induced neurological deterioration (n=15), thrombocytopenia (n=20), emergent psychosis (n=10), skin rash (n=6), non-traumatic fracture (n=4), and penicillamine induced lupus (n=2). CONCLUSIONS: Our report reinforces that remarkable neurological recovery can be expected in patients with WD with judicious decoppering. Objective clinical assessments help in monitoring treatment and tracking resolution of disability.",
+   "label": false,
+   "doi": "",
+   "year": "2014"
+  },
+  {
+   "title": "Antitumor and antiinflammatory effects of tetrathiotungstate in comparison with tetrathiomolybdate",
+   "abstract": "Tetrathiomolybdate (TM) is an anticopper drug under development for treating Wilson's disease. Its mechanism of action involves forming a tight tripartite complex in the blood with serum albumin and available copper. When available copper levels are lowered in animals with TM, strong antiangiogenic and antitumor effects are observed. Similarly, TM has excellent efficacy in animal models of fibrotic, inflammatory, and autoimmune diseases, and it protects against heart damage from doxorubicin (DXR) and liver damage from acetaminophen, carbon tetrachloride, and concanavalin A. Tetrathiotungstate (TT) also forms a similar tripartite complex in the blood and has similar effects to TM on copper. In this article, whether TT had similar antitumor effects, and similar effects in protecting the heart against DXR toxicity, as TM was evaluated. It was found that the 2 drugs were comparable in their effects when doses were used that lowered copper availability to the same extent. © 2007 Mosby, Inc. All rights reserved.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1016/j.trsl.2006.12.003",
+   "year": "2007"
+  },
+  {
+   "title": "Penicillamine should not be used as initial therapy in Wilson's disease",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1999"
+  },
+  {
+   "title": "Wilson's disease in the adult. A copper retention study with <sup>64</sup>Cu",
+   "abstract": "3 cases of Wilson's disease occurring in adults are reported. Onset of Wilson's disease occurs between 4 and 40 yrs of age, but is relatively rare in adults. In a typically progressed stage the disease may easily be diagnosed from findings of Kayser-Fleischer's corneal ring in addition to the clinical features as neurologic manifestation and liver involvement, but many problems remain concerning abnormal copper metabolism in Wilson's disease. The retention of radioactive copper (<sup>64</sup>Cu) was measured with a whole body counter in 3 patients with Wilson's disease, 4 of their family members and 2 control subjects. The <sup>64</sup>Cu retained in the body showed a high value in the patients with Wilson's disease which may reflect a larger copper pool than in normal subjects. The applicability of retention measurement with <sup>64</sup>Cu as a screening test is discussed. Study of the body retention of <sup>64</sup>Cu may be useful as a screening test to differentiate the carrier from normal individuals in the family of Wilson's disease. In Wilson's disease, excretion of urinary copper and body retention of radiocopper increased. Urinary copper in Wilson's disease may be excreted via the copper pool, rather than directly after absorption through the intestine.",
+   "label": false,
+   "doi": "",
+   "year": "1977"
+  },
+  {
+   "title": "Wilson's disease: MRI with clinical correlation",
+   "abstract": "We tried to establish possible correlations between clinical data and MRI in a group of patients with Wilson's disease. Eleven patients (6 male, 5 female), aged between 11 and 50 years old, with a duration of illness from 5 months to 32 years, were submitted to MRI on a 1.5 T System. Three patients were asymptomatic, two had mild neurological disturbances, two were moderately affected and the remaining four had a severe form of the disease. All were receiving D-penicillamine at the time of the study. In the most symptomatic patients there were abnormalities in five or more sites on MRI. The putamen was affected in all symptomatic patients, including five with dystonia. A striking feature was the peripheral location of high signal putaminal lesions on T2-weighted images. In five cases, lesions in the corpus striatum or substancia nigra explained the patient's Parkinsonian features. MRI is an efficient method for studying involvement of the central nervous system in Wilson's disease, and allows some interesting anatomoclinical correlations.",
+   "label": false,
+   "doi": "",
+   "year": "1994"
+  },
+  {
+   "title": "Penicillamine-induced elastosis perforans serpiginosa. Tip of the iceberg?",
+   "abstract": "Elastosis perforans serpiginosa (EPS) is now a well-recognized potential complication of long-term penicillamine therapy. By itself, EPS appears to be a relatively innocuous cutaneous side effect of penicillamine. However, suspicion has been raised in recent literature that EPS may represent only a superficial manifestation of more serious penicillamine-induced systemic elastic tissue damage, particularly involving blood vessels. This is a report of a patient with Wilson's disease who was treated with penicillamine for 14 years. She developed EPS, and histologic examination of the skin revealed the characteristic penicillamine-induced \"lumpy-bumpy\" elastic fibers in the dermis. More important, nonlesional skin showed the same elastic fiber changes. Of greatest significance was the finding of identical elastic fiber alterations in an artery.",
+   "label": false,
+   "doi": "",
+   "year": "1986"
+  },
+  {
+   "title": "Usefulness of dynamic hepatobiliary scintigraphy in Wilson's disease",
+   "abstract": "Wilson disease (WD) is an autosomal recessive disorder of copper transport due to defective hepatocyte-biliary copper excretion, resulting in pathological accumulation of copper in many organs and tissues, primarily in the liver and brain. Clinical manifestations related to copper accumulation in the liver include hepatic disease ranging from mild hepatitis to acute liver failure or cirrhosis. The aim of this study was to investigate the potential role of dynamic hepatobiliary scintigraphy (DHBS) in the evaluation of liver dysfunction in patient with Wilson's disease. Material and Methods: DHBS with 99mTc Mebrofenin were performed in 39 consecutive WD patients treated with zinc and/or penicillamine (19 males e 20 females; mean age 39+/-4 years) with clinical evidence of hepatic disease. All patients underwent standard biochemical liver function tests including ALT, AST,GGT,AP, TOT BIL, ALB, serum copper and caeruloplasmin, and 24-h urinary copper excretion. Liver biopsies were performed in all WD patients. Liver tissue was examined for routine liver histology (grading and staging of fibrosis) and hepatic copper content. DHBS was performed after 110 MBq99mTc Mebrofenin i.v. injection by time/frame acquisition 30 sec for 60 min. Time-activity curves were recorded from regions of interest placed over hepatic parenchyma (H) and main intra-hepatic biliary ducts (B). Quantitative analysis of the curves was performed using deconvolutional analysis and non-linear regression measuring the time to maximum peak counts intra-parenchimal (HTmax) and intra-ductal (B Tmax) and the time to T1/2 excretion (HT1/2 ;BT1/2 ) . Results: All patients had low serum caeruplasmin and copper levels, respectively (3.05+/-0.2mg/dl and 57+/-18mug/dl) and high 24h urinary copper excretion (201+/-42mug/24h). According to Metavir fibrosis staging 16 patients (41%) was classified as F1, 7 as F2 (18%), 10 as F3 (25%) and remaining 6 as F4 (16%) The analysis of DHBS quantitative data showed in almost patients slow hepatic uptake (>HTmax) and hepatobiliary excretion (>HT1/2). A positive correlation was observed between histological findings and Htmax (p=0,001), HT1/2 (p=0.006) and BTmax (p=0.02) values. Furthermore, in multivariate analysis, significative correlation was found between HTmax, HT1/2 BT1/2 and high fibrosis degree (F4) vs the other grading of fibrosis. No correlation was found between biochemical liver function tests, but bilirubin; (p < 0.01) and DHBS parameters. Conclusion: This study showed the clinical utility of the DHBS as noninvasive diagnostic modality to evaluate the liver fibrosis degree allowing to reduce the number of liver biopsy in the long-term follow-up in Wilson disease patients.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1007/s00259-012-222-x",
+   "year": "2012"
+  },
+  {
+   "title": "Excretion of copper in copper-overloaded Fischer and Long-Evans cinnamon rats treated with tetrathiomolybdate",
+   "abstract": "The mode of excretion of Cu from the liver was studied in Long-Evans Cinnamon (LEC) rats with an inherently abnormal Cu metabolism and in Cu-loaded Fischer rats by using tetrathiomolybdate (TTM). LEC rats were fed a semisynthetic diet containing 10 ppm Cu for 40 days. Fischer rats were fed the same diet containing 10 or 500 ppm Cu for 40 days. TTM was injected subcutaneously into the rats at a dose of 5.0 mg/kg at 24-h intervals for the last 3 days. The hepatic Cu concentrations were 392 and 194 mug/g in Fischer and LEC rats not treated with TTM, respectively. However, the hepatic MT concentration was about 10 times higher in the LEC rats than in the Fischer rats. In Fischer rats, the excretion of Cu into the bile and serum was increased by TTM, resulting in a reduction of the hepatic Cu concentration (264 mug/g). In LEC rats, leakage of Cu into the serum, but not biliary excretion of Cu, was accelerated by TTM injection. The increased serum Cu concentration was 0.7 mug/ml in LEC rats compared with 14.4 mug/ml in Fischer rats. The hepatic Cu concentration was 170 mug/g in LEC rats treated with TTM. Serum ceruloplasmin activity (as oxidase) in LEC rats was not increased by the injection of TTM. Our results suggest that TTM can remove Cu from the liver, via blood and, furthermore, that the Cu metabolism in LEC rats is different from that in Cu-fed rats.",
+   "label": false,
+   "doi": "",
+   "year": "1995"
+  },
+  {
+   "title": "Direct diagnosis of Wilson disease by molecular genetics",
+   "abstract": "In 3 children with chronic liver disease, although multiple studies of copper metabolism were normal, which made the diagnosis of Wilson disease unlikely, analysis of ATP7B gene showed disease causing mutations in all. Molecular diagnosis should be considered in children with enigmatic liver disease, especially those with features of nonalcoholic fatty liver disease.",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1016/j.jpeds.2005.07.036",
+   "year": "2006"
+  },
+  {
+   "title": "[Electrophysiological impairment profile of patients with Wilson's disease]",
+   "abstract": "In addition to hepatic and extrapyramidal motor clinical symptoms, Wilson's disease patients also exhibit subclinical disorders of other central nervous pathways. In this study, an impairment profile is described by means of eight electrophysiological tests (EAEP, MSEP, TSEP, T-VEP, MEP, EEG, heart frequency variability, and SSR) for 37 patients (28 with neurological, nine with tnon-neurological form) undergoing long-term drug therapy. The occurrence in 64.3% of a delayed wave III and/or IPL III-V prolongation in patients with the neurological form makes pathological FAEP the most common form of the disorder, followed by disorders in MSEP, TSEP, MEP, and T-VEP. Patients with the non-neurological form usually have normal values, although latency prolongations occur in isolated cases. The range of evoked potential findings is characterised primarily by latency prolongations, i.e. a demyelinising impairment type, and significant losses of potential hardly occur (except in the MEP). The electrophysiological impairment profile does not include EEG changes or vegetative disorders.",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1007/s00115-003-1564-8",
+   "year": "2003"
+  },
+  {
+   "title": "Clinical features of hemolysis, elevated liver enzymes, and low platelet count syndrome in undiagnosed Wilson disease: Report of two cases",
+   "abstract": "Introduction: Wilson's disease (WD) is an autosomal recessive disorder characterized by toxic accumulation of copper mainly in the liver and brain. The hepatic manifestation of WD is diverse and may include asymptomatic elevation of aminotransferase, chronic hepatitis, cirrhosis, or acute/fulminant hepatic failure. Characteristic of acute hepatic failure in WD is concomitance of acute intravascular hemolytic anemia that in some patients may represent a first clinical symptom of WD. The diagnosis of acute Wilsonian liver failure is difficult, as similar signs may be observed in other clinical conditions. In pregnant patients with unrecognized WD, liver failure with hemolysis may be interpreted as the low platelet count (HELLP) syndrome. Patients: We describe two women, who developed the clinical features of hemolysis, elevated liver enzymes, and HELLP syndrome. In both, further diagnostics confirmed WD. Conclusion: WD should be remembered in the differential diagnostics of HELLP syndrome. © 2009 Springer-Verlag.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1007/s00404-009-1080-6",
+   "year": "2010"
+  },
+  {
+   "title": "Recent clinical features of Wilson's disease with hepatic presentation",
+   "abstract": "BACKGROUND: We carried out this study to evaluate recent clinical features of Wilson's disease (WD) with hepatic presentation, especially in terms of age, degree of liver injury, and association with hepatocellular carcinoma (HCC). METHODS: Sixteen patients with hepatic manifestations were diagnosed with WD in the period 1976-2003. We divided this period into two periods, \"past\" and \"recent\". The diagnosis was based on the presence of Kayser-Fleisher rings, low serum copper levels, low serum ceruloplasmin levels, increased urinary copper concentrations before or after D-penicillamine challenge, and increased hepatic copper concentrations. This retrospective study was done at Ehime University Hospital. RESULTS: Four patients, including a pair of siblings, had a family history of WD. Four patients had parental consanguinity. There were 6 patients aged over 40 years in the recent period, whereas no patients in the past period were over 40. Four patients had neurological manifestations. Ten patients had liver cirrhosis and 5 had chronic hepatitis. Two had fatty liver without obesity. All patients in the past period had liver cirrhosis. Three patients with liver cirrhosis were found to have HCC during the follow up. All patients were treated with either D-penicillamine or trientine chloride, or both. However, four patients had to discontinue these agents due to the side effects. CONCLUSIONS: Recently, the number of patients diagnosed with WD has been increasing, not only in terms of those with classical-type WD but also in terms of elderly patients or patients with non-cirrhotic liver injury such as fatty liver and chronic hepatitis. The various clinical features of WD should be recognized and particular attention should focus on HCC as a complication.",
+   "label": true,
+   "doi": "https://dx.doi.org/10.1007/s00535-004-1466-y",
+   "year": "2004"
+  },
+  {
+   "title": "D-Penicillamine improved laparoscopic and histological findings of the liver in a patient with Wilson's disease: 3-year follow-up after diagnosis of Coombs-negative hemolytic anemia of Wilson's disease",
+   "abstract": "We report a 13-year-old girl who presented with hepatic failure and hemolytic anemia. Laboratory findings showed a normal serum copper level (104 microg/dl), high urinary copper level (2370 microg/dl), and low serum ceruloplasmin level (14.3 microg/dl). Slit-lamp examination revealed Kayser-Fleischer rings on her cornea, and she was diagnosed with Wilson's disease. Plasma exchange and continuous hemodiafiltration relieved the serious condition, after that laparoscopic examination was performed. Administration of D-penicillamine and restriction of dietary copper (<1 mg/day) were started, leading to a normalized serum alanine amino transferase (ALT) level. After 3 years, she again underwent laparoscopic examination, and the laparoscopic and histological findings of her liver were obviously improved. Management of the copper level can reverse severe liver fibrosis in Wilson's disease.",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1007/s00535-005-1600-5",
+   "year": "2005"
+  },
+  {
+   "title": "Outcome and management of 207 pregnancies in Wilson disease",
+   "abstract": "Introduction: Wilson disease (WD) is a genetic copper storage disorder, leading to liver failure and neurological deterioration. Lifelong medical treatment is necessary to maintain copper homeostasis. Optimal treatment regimens in pregnant women are under debate in respect to abortion rate, teratogenicity and therapeutic efficacy. Aim: The current study aimed to assess outcomes of pregnancies in a retrospective multicenter cohort study Patients and methods: A total of 207 pregnancies in 100 WD patients in European tertiary care centers were analysed retrospectively. Medical regimens (D-penicillamine, Trientine, zinc salts, or a combination of a chelator and zinc) were classified and files were reviewed for maternal hepatic or neurological deterioration during pregnancy. Outcome of pregnancies and abortion rate were analyzed in respect to the maternal treatment and disease presentation. Results: Worsening of liver function tests was evident in 10 cases and occurred under all treatments to a similar extent. Liver function resolved after delivery in all cases. Neurologic deterioration in pregnancy was rare and was observed only in 2 cases (one under zinc, one under D-penicillamine therapy), but resulted in permanent worsening of the neurologic symptoms. Overall abortion rate was 48/207 (23.2%) in the study group. Of these, 46 abortions were recorded within the first three months; two still births were associated with placental insufficiency. Abortion rate under Trientine treatment (8/20; 40%; p=0.04) was higher than under D-penicillamine (14/96; 14.7%) or zinc (2/19; 10.5%). We observed inborn defects in 2/159 newborn: One child presented with partial oesophageal atresia (under D-penicillamine therapy of the mother), another child was diagnosed with a Glu-6-P-DH deficiency (under zinc therapy). Conclusion: In most cases control of liver function was maintained during pregnancy regardless of the chosen medical regimen. Neurologic deterioration was rare but resulted in severe disability in two cases. Thus, careful monitoring of WD patients during pregnancy is recommended. Contrary to previous reports we observed a higher rate of miscarriages under Trientine treatment. Potential teratogenicity remains a concern especially under D-penicilamine therapy.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1002/hep.24666",
+   "year": "2011"
+  },
+  {
+   "title": "Wilson's disease. 3 cases treated with penicillamine. [Spanish]",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1976"
+  },
+  {
+   "title": "Complementary Naturopathic Medicine for Periodontitis",
+   "abstract": "This study aims to assess selected naturopathic medicines for adult periodontitis and to identify variables that influence successful outcomes when traditional and alternative approaches to preventing and treating periodontal diseases are combined. Collaboration between Kaiser Permanente, Oregon Health Science University and the National College of Naturopathic Medicine provides an unsurpassed environment for such investigations. Periodontitis is a major cause of tooth loss and negatively impacts systemic health. The limitations of traditional periodontal treatment have compelled scientists and clinicians to investigate new remedies, and naturopathic medicine holds several promising interventions. Because they are used to improve elements of host resistance that are known to be important in periodontal health and disease, three naturopathic medicines are potential adjuncts in preventing and treating periodontitis. Connective tissue components are enzymatically degraded in periodontitis. In naturopathy, Connective Tissue Nutrient Formula (CTNF) (vitamins A, C and D, glucosamine sulfate, oligoproanthocyanindins, copper, zinc, manganese, boron, silicon, magnesium, and calcium) is prescribed specifically to enhance the integrity of key connective tissue elements and improve their resistance to degradation. Periodontitis begins when permeability of the oral sulcular epithelium permits pathogenic bacterial components to invade deeper periodontal connective tissues. In naturopathy, glutamine is prescribed to reduce oral‐intestinal epithelial membrane permeability. Chronic activation of the hypothalamic‐pituitary‐adrenal (HPA) axis during the stress response, is a risk factor for periodontitis. Adaptogenic herbs (AH) (Panax ginseng, Withania somnifera and Eleutherococcus senticosus) are prescribed by naturopathic physicians to reverse the impact of bacterial and psychosocial stressors. Because glutamine, CTNF and AH target pathophysiologic mechanisms known to underline periodontitis, they are compelling candidates in clinical and mechanistic investigations of complementary medicine approaches to the management of periodontitis. Kaiser Permanente adult periodontitis patients will serve as subjects and receive standard periodontal treatment. Three of the four randomly assigned groups will also receive supplements of glutamine, CTNF, or AH. We will determine the effects of these supplements on clinical outcomes (attachment loss, pocket depths, indicators of inflammation, plaque composition, need for periodontal surgery, acute periodontal problems, tooth loss). In addition to completing the battery of self‐report measures (stress, coping, quality of life), study subjects will provide samples of blood, saliva, gingival cervicular fluid and bacterial dental plaque. These samples will be examined as part of the Laboratory Core to identify biologic and genetic characteristics that correlate with successful outcomes. Storage of portions of the samples will allow future examination of additional variables as part of the Developmental Projects carried out as the Craniofacial Complementary & Alternative Center is established and Phase III trials are undertaken.",
+   "label": false,
+   "doi": "",
+   "year": "2001"
+  },
+  {
+   "title": "Treatment of Wilson disease with ammonium tetrathiomolybdate: iV. Comparison of tetrathiomolybdate and trientine in a double-blind study of treatment of the neurologic presentation of Wilson disease",
+   "abstract": "DESIGNA randomized, double-blind, controlled, 2-arm study of 48 patients with the neurologic presentation of Wilson disease. Patients either received 500 mg of trientine hydrochloride 2 times per day or 20 mg of tetrathiomolybdate 3 times per day with meals and 20 mg 3 times per day between meals for 8 weeks. All patients received 50 mg of zinc 2 times per day. Patients were hospitalized for 8 weeks, with neurologic and speech function assessed weekly; discharged taking 50 mg of zinc 3 times per day, and returned annually for follow-up.SETTINGA university hospital referral setting.PATIENTSPrimarily newly diagnosed patients with Wilson disease presenting with neurologic symptoms who had not been treated longer than 4 weeks with an anticopper drug.INTERVENTIONTreatment with either trientine plus zinc or tetrathiomolybdate plus zinc.MAIN OUTCOME MEASURESNeurologic function was assessed by semiquantitative neurologic and speech examinations. Drug adverse events were evaluated by blood cell counts and biochemical measures.RESULTSSix of 23 patients in the trientine arm and 1 of 25 patients in the tetrathiomolybdate arm underwent neurologic deterioration (P<.05). Three patients receiving tetrathiomolybdate had adverse effects of anemia and/or leukopenia, and 4 had further transaminase elevations. One patient receiving trientine had an adverse effect of anemia. Four patients receiving trientine died during follow-up, 3 having shown initial neurologic deterioration. Neurologic and speech recovery during a 3-year follow-up period were quite good.CONCLUSIONTetrathiomolybdate is a better choice than trientine for preserving neurologic function in patients who present with neurologic disease.OBJECTIVETo compare tetrathiomolybdate and trientine in treating patients with the neurologic presentation of Wilson disease for the frequency of neurologic worsening, adverse effects, and degree of neurologic recovery.",
+   "label": true,
+   "doi": "10.1001/archneur.63.4.521",
+   "year": "2006"
+  },
+  {
+   "title": "Wilson's disease presenting as central pontine myelinolysis",
+   "abstract": "",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1007/s10072-017-3064-9",
+   "year": "2017"
+  },
+  {
+   "title": "Wilson disease: histopathological correlations with treatment on follow-up liver biopsies",
+   "abstract": "AIM: To investigate the progression of hepatic histopathology in serial liver biopsies from Wilson disease (WD) patients. METHODS: We report a group of 12 WD patients treated with zinc and/or penicillamine who underwent multiple follow-up liver biopsies. Demographic, clinical and laboratory data were gathered and all patients underwent an initial biopsy and at least one repeat biopsy. RESULTS: Time to repeat biopsy ranged from 2 to 12 years. Six patients (non-progressors) showed stable hepatic histology or improvement. In one case, we observed improvement of fibrosis from stage 2 to 0. Six patients (progressors) had worsening of fibrosis. There was no significant correlation between the histological findings and serum aminotransferases or copper metabolism parameters. The hepatic copper concentration reached normal levels in only two patients: one from the non-progressors and one from the progressors group. The estimated rate of progression of hepatic fibrosis in the entire group was 0 units per year in the time frame between the first and the second liver biopsy (4 years), and 0.25 between the second and the third (3 years). In the progressors group, the rate of progression of liver fibrosis was estimated at 0.11 fibrosis units per year between the first and second biopsy and, 0.6 fibrosis units between the second and third biopsy. CONCLUSION: The inability of clinical tools to detect fibrosis progression in WD suggests that a liver biopsy with hepatic copper quantification every 3 years should be considered.",
+   "label": true,
+   "doi": "",
+   "year": "2010"
+  },
+  {
+   "title": "Appropriate administration schedule of D-penicillamine for pediatric Wilson's disease patients based on urinary copper excretion. [Japanese]",
+   "abstract": "The purpose of this study was to increase the amount of copper excreted resulting from the administration of D-penicillamine(DP) in pediatric Wilson's disease(WD) patients. By measuring the urinary copper excretion after adjusting the administration schedules, the appropriate timing for DP administration was investigated. The subjects were three brothers with pediatric WD. The initial daily dose of DP was 5 mg/kg/day, and gradual1y increased to the maintenance dose of 20 mg/kg/day. Until the maintenance daily dose was reached, DP was administered 2 h after the morning and evening meal. After reaching the maintenance daily dose of DP, the appropriate timing for taking DP was investigated in both the morning and evening. Three schedules of DP administration were compared: 2 h after meals; 30 min before meals (with fasting); and 1 h before the morning and l.5 before the evening meal (direction 1). The resulting urinary copper excretion on each dosing schedule was compared. Little difference was found in urinary copper excretion on the first two schedules, i. e., 2 h after meals and 30 min before meals. When DP was administered 30 min before meals, urinary copper excretion [mug/day] was 1173 in the first brother, 918 in the second, and 875 in the third. When DP was administered according to direction 1, however, urinary copper excretion was increased significantly to 1701 in the first brother, 2701 in the second, and 3808 in the third. It is known that the efficiency of urinary copper excretion with DP administration depends on the maintenance of chelating ability after absorption from the gastrointestinal tract. Our results indicate that the excretion was lower when DP was administered 2 h after or 30 min before meals (with fasting), as recommended in the package insert. Thus to achieve better copper excretion efficiency, direction 1 is recommended for WD patients. © 2002 The Pharmaceutical Society of Japan.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1248/yakushi.122.585",
+   "year": "2002"
+  },
+  {
+   "title": "Modality of treatment and potential outcome of Wilson disease in Taiwan: A population-based longitudinal study",
+   "abstract": "BACKGROUND/PURPOSE: This study aimed to investigate the epidemiology, the preference of medication, and the potential outcome of Wilson disease in Taiwan. We aimed to provide better therapeutic options for patients with Wilson disease based on the data generated from this study. METHODS: We utilized the National Health Insurance Research Database (NHIRD), which stores clinical records of nearly 99% of Taiwan's residents. The database used is a random sample of two-million out of 23-million beneficiaries in Taiwan's NHIRD in 2005. The integrated medical records of these two-million cases were collected from 2000 to 2011. Subjects of Wilson disease were identified as those with International Classification of Diseases, Ninth Revision (ICD-9) code 275.1 and the specific prescription drugs (including d-penicillamine, zinc, and trientine) in either outpatient clinic or inpatient records. RESULTS: During the study period, 66 cases of Wilson disease were identified. The male to female ratio was 1.75. The average prevalence rate was 1.81 per 100,000 and the average annual diagnosis rate was 0.22 per 100,000. The diagnosis was mostly established at 20-24 and 10-14 years of age, followed by 25-29 years. Fifty four of all subjects (81.8%) started the treatment with d-penicillamine, compared with zinc (12.1%) and trientine (6.1%). Among these 66 cases, 27 (40.9%) had liver cirrhosis and three (4.5%) underwent liver transplantation due to liver failure. CONCLUSIONS: d-penicillamine is still the most popular prescription of Wilson disease, followed by zinc monotherapy. Although chronic liver injury cannot be avoided, a favorable potential outcome is well demonstrated in this population-based study. Copyright © 2017. Published by Elsevier B.V.",
+   "label": true,
+   "doi": "https://dx.doi.org/10.1016/j.jfma.2017.05.008",
+   "year": "2017"
+  },
+  {
+   "title": "Rapid and reliable diagnosis of Wilson disease using X-ray fluorescence",
+   "abstract": "Wilson's disease (WD) is a rare autosomal recessive disease due to mutations of the gene encoding the copper-transporter ATP7B. The diagnosis is hampered by the variability of symptoms induced by copper accumulation, the inconstancy of the pathognomonic signs and the absence of a reliable diagnostic test. We investigated the diagnostic potential of X-ray fluorescence (XRF) that allows quantitative analysis of multiple elements. Studies were performed on animal models using Wistar rats (n=10) and Long Evans Cinnamon (LEC) rats (n=11), and on human samples including normal livers (n=10), alcohol cirrhosis (n=8), haemochromatosis (n=10), cholestasis (n=6) and WD (n=22). XRF experiments were first performed using synchrotron radiation to address the elemental composition at the cellular level. High-resolution mapping of tissue sections allowed measurement of the intensity and the distribution of copper, iron and zinc while preserving the morphology. Investigations were further conducted using a laboratory X-ray source for irradiating whole pieces of tissue. The sensitivity of XRF was highlighted by the discrimination of LEC rats from wild type even under a regimen using copper deficient food. XRF on whole formalin-fixed paraffin embedded needle biopsies allowed profiling of the elements in a few minutes. The intensity of copper related to iron and zinc significantly discriminated WD from other genetic or chronic liver diseases with 97.6% specificity and 100% sensitivity. This study established a definite diagnosis of Wilson's disease based on XRF. This rapid and versatile method can be easily implemented in a clinical setting.",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1002/cjp2.48",
+   "year": "2016"
+  },
+  {
+   "title": "Diagnostic and management issues in myeloneuropathy associated with copper deficiency",
+   "abstract": "Background: Copper deficiency is a rare but under-recognised cause of myelopolyneuropathy. We present a case, coexisting with B<inf>12</inf> deficiency and discuss challenges in diagnosis and management Case Report: A 59-year-old man presented with a 14 month history of progressive sensory ataxia and spastic paraparesis. Initial blood tests showed low B<inf>12</inf>/folate. Ataxia progressed despite monthly intramuscular replacement therapy. Further investigations confirmed hypocupraemia and low caeruloplasmin with normal serum zinc. MRI brain showed only minor ischaemia. MRI spine was normal. Neurophysiology showed an axonal sensori-motor polyneuropathy. The imaging, normalnon-invasive liverstudies, normal24hoururinary copper and absence of Kayser-Fleischer rings excluded Wilson's disease. Treatment with oral copper picolinate lead to no significant clinical change. The cause of copper deficiency remains unexplained. Discussion: The largest series (13 patients) on this topic describes typical clinical features and in these cases replacement with copper halted clinical deterioration. It is important to exclude Wilson's disease, which can manifest similar serum copper measurements. Supplementation should be given with a preparation which does not contain zinc, as zinc hinders copper absorption. Copper deficiency should be considered in patients presenting with myeloneuropathy, even in the presence of low B<inf>12</inf>. Early diagnosis and treatment may prevent neurological deterioration.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1136/jnnp.2008.167387",
+   "year": "2009"
+  },
+  {
+   "title": "Wilson's disease: an update",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1995"
+  },
+  {
+   "title": "The therapeutic use of d-penicillamine in the light of most recent pharmacokinetic and clinical observations. [Polish]",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1979"
+  },
+  {
+   "title": "Wilson's disease and secondary copper hemochromatoses in hematological practice. [Russian]",
+   "abstract": "AIM: To characterize clinical, diagnostic and therapeutic syndromes of copper overloading in patients with hepatic lesion in combination with hemopoietic disorder. MATERIAL AND METHODS: Treatment results and diagnostic findings are presented for patients with clinical picture of liver cirrhosis, cytopenia and copper overloading. The examination included standard clinical and specific tests, morphological investigation of the bone marrow, copper metabolism in dynamics. RESULTS: A case of a patient is reported in whom Wilson's disease presented in debut with a picture of decompensated liver cirrhosis and immune thrombocytopania complicated by recurrent hemorrhagic syndrome. D-penicillomine treatment initiated ex juvantibus allowed verification of the diagnosis of Wilson's disease and achievement of marked clinical response. In another case laboratory signs of copper overloading were revealed in a patient with liver cirrhosis of viral etiology (HBsAg+) and deep cytopenia associated with uneffective hemopoiesis. Chelator therapy with D-penicillamine regressed cytopenic syndrome and improved functional capacity of the liver. CONCLUSION: Primary or secondary nature of copper overloading in patients with hepatic cirrhosis and critical cytopenia, pathogenesis of cytopenic syndrome, practical significance of copper hemochromatoses diagnosis are discussed.",
+   "label": false,
+   "doi": "",
+   "year": "2004"
+  },
+  {
+   "title": "Hepatic manifestations of Wilson's disease: 12-year experience in a Swiss tertiary referral centre",
+   "abstract": "BACKGROUND AND AIM: Wilson&rsquo;s disease is an inherited disorder of hepatic copper metabolism, leading to the accumulation of copper in the liver as well as the brain, cornea and other organs. Here, we describe the adult cases of hepatic Wilson&rsquo;s disease diagnosed at the Division of Gastroenterology and Hepatology of the University Hospital Lausanne, Switzerland between September 2004 and August 2016. METHOD(S): Clinical manifestations, results of diagnostic tests, management and outcomes of adult patients with hepatic Wilson&rsquo;s disease were assessed based on standardised medical records. In addition, liver histology was reviewed and the lesional patterns were recorded. RESULT(S): Ten new adult cases of hepatic Wilson&rsquo;s disease were diagnosed in our centre between September 2004 and August 2016. Male to female ratio was 1:1 and median age at diagnosis was 26 (range 18&ndash;56) years. Four patients presented with acute liver failure, four with persistently elevated liver function tests, and two with decompensated cirrhosis; none had neurological manifestations. Only one patient had a Kayser-Fleischer corneal ring. Median ceruloplasmin level at diagnosis was 0.13 (range <0.03&ndash;0.30) g/l, median 24-hour urinary copper excretion was 2.8 (range 0.3&ndash;77.3) &mu;mol, and median hepatic copper concentration was 789 (range 284&ndash;1677) &mu;g/g. At least one mutation in the ATP7B gene was identified in eight patients. Allelic frequency of the common H1069Q mutation was 19%. Leipzig score was &ge;5 in all patients. Three patients presenting with acute liver failure and the two with decompensated cirrhosis underwent successful liver transplantation. One patient with acute liver failure recovered under chelation therapy, as predicted by a Dhawan score <11. D-penicillamine was used as first-line chelator treatment, with a subsequent switch to trientine due to adverse effects in three out of six patients. CONCLUSION(S): The clinical presentation of hepatic Wilson&rsquo;s disease is highly variable. Three out of 10 patients were diagnosed at an age >35 years. A high index of suspicion in clinically compatible situations is key.",
+   "label": true,
+   "doi": "",
+   "year": "2018"
+  },
+  {
+   "title": "Anesthetic management of a patient with Wilson's disease. [Japanese]",
+   "abstract": "Wilson's disease, which is characterized by cirrhosis, extrapyramidal symptoms and Kayser-Fleischer corneal rings, is a rare congenital disorder with abnormal copper metabolism. In spite of many anesthetic problems, there are no reports in the field of dental anesthesiology. We report an anesthetic management case with Wilson's disease. The patient was a 24-year-old male who was scheduled for extraction of many teeth. He was diagnosed with Wilson's disease at the age of 11 years and treated with D-penicillamin. He was complicated with cirrhosis, but the liver laboratory profiles were normal without slight elevations of ZTT (12.6U) and TTT (5.2U) (Table 1). Esophageal varices had been treated by endoscopic varicosclerosation two years previously. Concentrations of serum copper (16 mug/dl) and ceruloplasmin (less than 0.4 mg/dl) were decreased remarkably, and urinary copper excretion was increased (130 mug/dl). He had extrapyramidal symptoms such as dysarthria, involuntary movement, and muscle rigidity, but intellectual function was preserved. After induction of anesthesia with thiamylal, vecuronium, nitrous oxide, oxygen, and isoflurane, general anesthesia was maintained with nitrous oxide, oxygen, and isoflurane (Fig. 1). Because the effect of vecuronium was expected to be prolonged due to liver disfunction, we monitored the degree of neuromuscular blockade with nerve stimulator, but the recovery from muscle relaxation was normal. During the operation, the ECG began to show first-degree AV block and then progressed to second-degree AV block (Wenckebach type) (Fig. 2). Second-degree AV block disappeared after administration of atropine sulfate (0.5 mg), and the hemodynamic state of the patient was stable until the end of surgery. No severe complications were encountered throughout the operation. No postoperative deterioration of liver or renal function or extrapyramidal symptoms was observed. The majority of Wilsonian patients respond to treatment with penicillamine, allowing them to resume a normal life. Because of involuntary movement or muscle rigidity, general anesthesia may be necessary for their dental treatment. We emphasize the need for sufficient preoperative screening of cardiac involvement such as electrocardiographic abnormalities and cardiomyopathy, as well as preoperative evaluation of liver function. In addition, it was also necessary to consider the side effects of D-penicillamin such as myasthenia gravis and fever.",
+   "label": false,
+   "doi": "",
+   "year": "1999"
+  },
+  {
+   "title": "Wilson's Disease-Treatment of Psychiatric Manifestations in Pregnancy",
+   "abstract": "",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1016/j.psym.2012.01.002",
+   "year": "2012"
+  },
+  {
+   "title": "Inborn errors of trace element metabolism",
+   "abstract": "Genetic disorders of trace element transport are now known in humans, mice, dogs and cattle. Those involving copper have been known longest and are best known clinically. Effects due to copper deficiency are seen in Menkes' disease, in X-linked cutis laxa and in the X-linked series of mottled mutants in the mouse. Copper accumulation is also harmful, causing damage initially to the liver and later to the kidneys and brain in Wilson's disease, in some Bedlington terriers and in toxic milk mice. Zinc deficiency is seen in acrodermatitis enteropathica and in premature babies born to women who seem to secrete milk that is zinc-deficient, as is seen in lethal milk mice. Study of animal mutants, especially mutant mice, is helpful in understanding the human diseases and identification of the basic defects in trace element transport in these diseases is improving knowledge relevant to trace element nutrition. [References: 59]",
+   "label": false,
+   "doi": "",
+   "year": "1985"
+  },
+  {
+   "title": "Clinical presentation, diagnosis and long-term outcome of Wilson's disease: a cohort study",
+   "abstract": "BACKGROUND: Wilson's disease is a rare inborn disease related to copper storage, leading to liver cirrhosis and neuropsychological deterioration. Clinical data on larger cohorts are limited owing to low disease frequency. OBJECTIVE AND METHODS: We performed a retrospective analysis of 163 patients with Wilson's disease, examined at the University of Heidelberg, Heidelberg, Germany, to determine clinical presentation, diagnostic course and long-term outcome. RESULTS: Diagnostic criteria for non-caeruloplasmin-bound serum copper, serum caeruloplasmin, 24-h urinary copper excretion, liver copper content, presence of Kayser-Fleischer rings and histological signs of chronic liver damage were reached in 86.6%, 88.2%, 87.1%, 92.7%, 66.3% and 73% of patients, respectively. By analysis of the coding region of ATP7B (except exons 2, 3 and 21), disease-causing mutations were detected in 57% and 29% of patients with Wilson's disease on both chromosomes and on one chromosome, respectively. No mutations were detected in 15% of patients with Wilson's disease. No significant differences were found in clinical parameters or initial presentation between patients grouped according to their mutations. The patients with neurological symptoms were significantly older at the onset of symptoms than patients with hepatitic symptoms (20.2 v 15.5 years of age, p<0.05), and the neurological symptoms were associated with a significantly longer time from onset to diagnosis than hepatic symptoms (44.4 v 14.4 months, p<0.05). After initiating treatment, 76.1% of the patients had a stable or improved course of the disease. Disease progression under treatment was more likely for neuropsychiatric than for hepatic symptoms. Side effects of treatment occurred in 74.4% of patients. CONCLUSIONS: Patients with Wilson's disease having predominantly neuropsychiatric symptoms manifest symptoms later, have a longer time delay from onset of symptoms until definitive diagnosis and have a poorer outcome than patients with hepatic symptoms.",
+   "label": true,
+   "doi": "https://dx.doi.org/10.1136/gut.2005.087262",
+   "year": "2007"
+  },
+  {
+   "title": "Clinical and magnetic resonance imaging findings in a case of Wilson disease",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1995"
+  },
+  {
+   "title": "Treatment of Wilson's disease with ammonium tetrathiomolybdate. I. Initial therapy in 17 neurologically affected patients",
+   "abstract": "OBJECTIVE: To test the efficacy and toxicity of a new drug, ammonium tetrathiomolybdate, in the initial treatment of a relatively large series of patients presenting with neurologic signs and symptoms caused by Wilson's disease. The key aspect of efficacy was to preserve the neurologic function present at the onset of therapy. DESIGN: An open study of 17 patients treated for 8 weeks each. Neurologic function was evaluated by frequent quantitative neurologic and speech examinations. Several copper-related variables were studied to evaluate the effect of the drug on copper, and a large number of biochemical and clinical variables were studied to evaluate potential toxicity. Patients were then followed up at yearly intervals, with follow-up periods of 1 to 5 years reported. SETTING: A university hospital referral setting INTERVENTION: Patients were generally treated for 8 weeks with tetrathiomolybdate, followed by zinc maintenance therapy. MAIN OUTCOME MEASURES: Neurologic function was evaluated by quantitative neurologic and speech examinations. RESULTS: None of the patients suffered a loss of neurologic function. Copper status and potential further toxic effects were generally well controlled quickly. No toxic effects resulted from administration of tetrathiomolybdate. During the ensuing period of follow-up of 1 to 5 years, neurologic recovery in most patients was good to excellent. CONCLUSIONS: Tetrathiomolybdate appears to be an excellent form of initial treatment in patients with Wilson's disease presenting with neurologic signs and symptoms. In contrast to penicillamine therapy, initial treatment with tetrathiomolybdate does not result in further, often irreversible neurologic deterioration.",
+   "label": false,
+   "doi": "",
+   "year": "1994"
+  },
+  {
+   "title": "Wilson disease. [Dutch]",
+   "abstract": "Two cases of Wilson's disease are reported. A review of the pathogenesis, the clinical aspects, the diagnosis and the therapy of this rare metabolic disorder is given. The disease should be suspected and searched for in all young patients with an unexplained hepatic or neuropsychiatric symptomatology. Investigation of the parameters of copper metabolism can confirm or exclude the diagnosis. Untreated, the disease unvariably runs a fatal course; when timely and adequately treated, however, life expectancy becomes normal.",
+   "label": false,
+   "doi": "",
+   "year": "1995"
+  },
+  {
+   "title": "Sleep in patients with treated Wilson's disease. A questionnaire study",
+   "abstract": "Objective: To examine general sleep habits and sleep disturbances among patients with treated Wilson's disease (WD), and in comparison with an age- and sex-matched reference group (RG). Methods: Twenty-four patients with WD with a mean (+/- s) age of 35.1 +/- 8.7 years and a disease duration of 17.7 +/- 5.1 years were investigated using a standardized sleep questionnaire comprising 87 questions concerning sleep habits, sleeping difficulties, demographic and lifestyle variables. The results were compared with those from a random sample of 72 individuals. Results: There was no significant difference in sleep time during the night, but WD patients had a significantly greater number of nocturnal awakenings compared with the RG. Fifty-nine per cent of the WD patients reported frequently being awake for more than 30 min during the night. Number of nocturnal awakenings was correlated to nightmares and palpitations only in the WD group. WD patients complained significantly more often than the RG over not feeling rested after sleep, taking frequent naps and fatigue during the daytime. Moreover, sleep paralysis and cataplexy occurred more often in the WD patients than in the RG. Conclusion: The sleep pattern of patients with treated WD differed from that of the reference group. The spectrum of reported symptoms by patients with treated WD suggests an altered REM sleep function. Future studies with objective methods are required to elucidate the mechanisms involved.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1080/08039480260242796",
+   "year": "2002"
+  },
+  {
+   "title": "Zinc vs. d-penicillamine treatment in children with Wilson disease and liver presentation",
+   "abstract": "Background: Zinc-based drugs seem to be as effective as d-penicillamine in the neurological presentation of Wilson disease but there are very limited data on its efficacy in patients with hepatic symptoms. The aim of the study was to compare the effects of treatment with zinc vs. d-penicillamine in a retrospective analysis of pediatric patients with Wilson disease and liver presentation. Material and Methods: We analyzed 27 children with Wilson disease before and after one year of treatment (14 pts. aged 11.7+/-3.3 y receiving zinc and 13 pts. aged 13.4+/-3.2y on d-penicillamine) in whom the therapy was not changed during the observation period. Wilson disease was diagnosed according to the Ferenci et al. scoring system and mutation analysis examination. Patients with acute and fulminant liver failure were excluded from this study. Results: Before the treatment ALT levels were slightly lower in zinc patients than in penicillamine patients (114+/-105 IU/L vs. 197+/-120 IU/L, mean +/-SD). We did not find any difference at baseline in AST, INR and GGTP between the groups. After one year of treatment there was no difference in ALT levels between the zinc and penicillamine group (respectively 56+/-22 IU/L and 50+/-18 IU/L) however the fall in ALT level was significant (p<0.05) in the penicillamine patients but not in the zinc patients. AST activity decreased significantly in both groups. Conclusions: Penicillamine induces a larger fall in ALT level than zinc therapy and might therefore be more effective in children with Wilson disease and liver presentation.",
+   "label": false,
+   "doi": "",
+   "year": "2009"
+  },
+  {
+   "title": "Measurement of urinary copper excretion after 48-h d-penicillamine cessation as a compliance assessment in Wilson's disease",
+   "abstract": "Treatment of Wilson's disease (WD) with anti-copper agents is effective in most compliant patients. During long-term treatment with chelating agents, a two-day interruption of the treatment should result in normal urinary copper concentrations (<50 mug/dl). The aim of this study was to establish the usefulness of this method as a compliance assessment in these patients. We examined consecutive patients treated with d-penicillamine (DPA) undergoing routine follow-up studies at our center. We performed 24-h urinary copper excretion analysis 48 h after interruption of chelating therapy. Thirty-two patients were enrolled. After DPA cessation, normalization of copper excretion was observed in 91% of reportedly compliant patients. The specificity and sensitivity values of this test were 87% and 77%, respectively. Measurement of 24-h urinary copper excretion after a 48-h interruption of DPA therapy in patients with WD is a reliable method for confirming patients' compliance.",
+   "label": false,
+   "doi": "",
+   "year": "2015"
+  },
+  {
+   "title": "New developments in the regulation of intestinal copper absorptionn",
+   "abstract": "The transition metal copper is an essential trace element involved in many enzymatic processes that require redox-chemistry. The redox-activity of copper is potentially harmful. Severe imbalance of copper homeostasis can occur with some hereditary disorders of copper metabolism. Copper is acquired from the diet by intestinal absorption and is subsequently distributed throughout the body. The regulation of intestinal copper absorption to maintain whole-body copper homeostasis is currently poorly understood. This review evaluates novel findings regarding the molecular mechanism of intestinal copper uptake. The role of recently identified transporters in enterocyte copper uptake and excretion into the portal circulation is described, and the regulation of dietary copper uptake during physiological and pathophysiological conditions is discussed. © 2009 International Life Sciences Institute.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1111/j.1753-4887.2009.00250.x",
+   "year": "2009"
+  },
+  {
+   "title": "[Treatment of Wilson's disease]",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1968"
+  },
+  {
+   "title": "Iatrogenic copper deficiency following information and drugs obtained over the internet",
+   "abstract": "We report the case of a 56-year-old woman with a 7-year history of metastatic cancer who presented with severe copper deficiency following self-treatment with the copper-chelating agent tetrathiomolybdate. This compound was used with the aim of inhibiting tumour angiogenesis and was obtained from the USA by placing an order on the internet. The patient exhibited severe neutropenia as her serum copper concentration fell from 19.8 mumol/L to 3.3 mumol/L and her caeruloplasmin concentration from 35 mg/dL to 4 mg/dL.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1258/0004563041731574",
+   "year": "2004"
+  },
+  {
+   "title": "Control of copper status for cancer therapy",
+   "abstract": "Copper is a trace element which is tightly regulated in mammals and lower animals. Disruptions of copper homeostasis in humans are rare and they cause serious disorders such as Wilson's disease and Menke's disease. Copper plays an important role in promoting physiological and malignant angiogenesis. Formation of new blood vessels by a tumor enables tumor growth, invasion, and metastasis are copper requiring processes. The copper chelator tetrathiomolybdate (TM), which quickly and effectively depletes copper stores, is under investigation as an anti-angiogenic agent. Promising results from in vitro experiments, in pre-clinical animal models, and in a phase I clinical trial have led to several phase II trials of TM in patients with advanced cancers. [References: 61]",
+   "label": false,
+   "doi": "",
+   "year": "2005"
+  },
+  {
+   "title": "Inhibitory effects of trientine, a copper-chelating agent, on induction of DNA strand breaks in kidney cells of Long-Evans Cinnamon (LEC) rats",
+   "abstract": "The effects of treatment with trientine, a specific copper-chelating agent, on the accumulation of copper and induction of DNA strand breaks were investigated in Long-Evans Cinnamon (LEC) rats, an animal model for human Wilson's disease. Copper accumulated in the kidneys of LEC rats in an age-dependent manner from 12 to 18 weeks of age. When LEC rats were treated with trientine from 10 weeks of age, renal copper contents did not increase and were maintained at the same levels as those in 4-week-old LEC rats. Estimation of the amounts of DNA single-strand breaks (SSBs) by comet assay showed that SSBs of DNA were induced in a substantial population of LEC rat renal cortex cells around 12 weeks of age and that the amounts of SSBs increased in an age-dependent manner from 12 to 18 weeks of age. When LEC rats were treated with trientine from 10 weeks of age, the observed number of cells with DNA damage decreased, suggesting that induction of SSBs of DNA was inhibited and/or SSBs were repaired during the period of treatment with trientine. The results show that SSBs of DNA in LEC rat kidney cells are induced prior to occurrence of clinical signs of hepatic injury and that treatment of LEC rats with trientine decreases the number of DNA strand breaks. Copyright © 2005 Japanese Association for Laboratory Animal Science.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1538/expanim.54.403",
+   "year": "2005"
+  },
+  {
+   "title": "Metal storage disorders: Wilson disease and hemochromatosis",
+   "abstract": "Hereditary hemochromatosis and Wilson disease are autosomal recessive storage disorders of iron and copper overload, respectively. These metals are involved in multiple redox reactions, and their abnormal accumulation can cause significant injury in the liver and other organs. Over the last few decades clinicians have developed a much better understanding of these metals and their mechanism of action. Moreover, sophisticated molecular genetic testing techniques that make diagnostic testing less invasive are now available. This article updates and discusses the pathogenesis, diagnosis, and management of these metal storage disorders. Copyright © 2014 Elsevier Inc. All rights reserved.",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1016/j.mcna.2013.09.008",
+   "year": "2014"
+  },
+  {
+   "title": "Diagnosis and treatment of Wilson's disease",
+   "abstract": "Wilson's disease is due to an inherited defect in copper excretion into the bile by the liver. The resulting copper accumulation and copper toxicity results in liver disease, and in some patients, brain damage. Patients present, generally between the ages of 10 and 40 years, with liver disease, neurological disease of a movement disorder type, or behavioral abnormalities, and often with a combination of these. Because Wilson's disease is effectively treated, it is extremely important for physicians to learn to recognize and diagnose the disease. Treatment options have evolved rapidly in the last few years, with zinc now being the drug of choice in most situations. [References: 66]",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1055/s-2008-1040842",
+   "year": "1999"
+  },
+  {
+   "title": "Wilson's disease: a new gene and an animal model for an old disease",
+   "abstract": "Wilson's disease is an autosomal recessive, inherited disorder of copper metabolism. In normal individuals, copper homeostasis is controlled by the balance between intestinal absorption of dietary copper and hepatic excretion of excess copper in bile. In Wilson's disease, hepatic copper is neither excreted in bile nor incorporated into ceruloplasmin and copper accumulates to toxic levels. The Wilson's disease gene (WND) encodes a putative copper-transporting protein that is expressed almost exclusively in the liver. The predicted structure of the protein product is that of a P-type ATPase with striking homology to bacterial copper transporters and the gene product of another inherited disorder of copper metabolism, Menkes' disease. A rat model of Wilson's disease has recently been identified. The Long-Evans Cinnamon (LEC) rat manifests elevated hepatic copper, defective incorporation of copper into ceruloplasmin, and reduced biliary excretion of copper. The rat homologue of the WND is abnormal in LEC rats. Clinical manifestations of Wilson's disease arise directly from copper-induced damage to hepatocytes (hepatic presentation) or indirectly after the release of copper from the liver with subsequent damage to the brain (neuropsychiatric presentation) and other organs. Genetic heterogeneity (different mutations in a single gene) may account for some of the variability in Wilsonian presentations. The diagnosis of Wilson's disease depends on the demonstration of disordered copper metabolism, manifested as elevated urinary and hepatic copper and low ceruloplasmin levels. However, none of the abnormal findings in Wilson's disease is pathognomonic. Genetic diagnosis, in the absence of family studies, is likely to be difficult since many different mutations result in the disease. Management of Wilson's disease involves decreasing excess levels of copper accumulated in the liver, brain, and other organs. Copper chelation therapy, to increase urinary excretion of copper, is the mainstay of treatment. In addition, oral zinc therapy may be useful at decreasing absorption of dietary copper and rendering tissue copper nontoxic, by increasing the formation of complexes with copper-binding proteins. Liver transplantation can be necessary for individuals with acute hepatic failure or complications of cirrhosis. Gene therapy may evolve in the future; however, medical management is effective in most patients. [References: 121]",
+   "label": false,
+   "doi": "",
+   "year": "1995"
+  },
+  {
+   "title": "Wilson's disease and monoamines",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1978"
+  },
+  {
+   "title": "Tetrathiomolybdate versus trientine in the initial treatment of neurologic Wilson's disease",
+   "abstract": "Background: The initial treatment of the neurologic presentation of Wilson's disease is problematic. Penicillamine, used for years on most patients, causes neurologic worsening in up to half of such patients, and half of those who worsen never recover. Zinc, ideal for maintenance therapy, is too slow for these acutely ill patients. We have developed tetrathiomolybdate (TM) for this type of patient, and it has worked well in open label studies. Trientine, another anticopper drug on the market approved for penicillamine intolerant patients, had not been tried in this type of patient. Here, we report on a double blind trial of TM versus trientine in the neurologically presenting Wilson's disease patient. Design and Methods: The study was a double blind design in which patients received either TM plus zinc, or trientine plus zinc, for 8 weeks* Patients were accepted if they presented with neurologic symptoms from Wilson's disease, if they had not been treated longer than 4 weeks with penicillamine or trientine. Patients were followed in the hospital for the 8 weeks of treatment with weekly semiquantitative neurologic and speech examinations, to evaluate possible neurologic worsening. They also had blood and urine studies done weekly. At discharge from hospital they were continued on zinc maintenance therapy, and returned at yearly intervals for 3 years for further evaluation. Results: Twenty-three patients were entered into the trientine arm and 6 reached criteria for neurologic deterioration, while 25 patients were entered into the TM arm and only 1 deteriorated (p < 0.05). One patient on trientine had an adverse event while 7 on TM had adverse events. All adverse events were mild. Four patients in the trientine arm died during follow-up, 3 having shown initial neurologic deterioration, 2 patients in the TM arm died. In those patients who did not deteriorate or die, neurologic and speech recovery over 3 years was good. Interpretation: TM is a superior choice to trientine for the initial therapy of neurologic Wilson's disease. © 2008 Cambridge University Press.",
+   "label": true,
+   "doi": "10.1017/S1748232107000043",
+   "year": "2008"
+  },
+  {
+   "title": "Wilson disease: Diagnostic dilemmas? [1]",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "2000"
+  },
+  {
+   "title": "Porphyria cutanea tarda complicating Wilson's disease",
+   "abstract": "A young woman is described in whom symptomatic porphyria cutanea tarda (PCT) developed during copper chelation therapy for Wilson's disease. Termination of ethanol ingestion and oral contraceptive use resulted in cessation of blistering skin lesions and reduction in urinary porphyrin excretion. This is the first recorded coincidence of these two rare hepatic diseases. Therapeutic implications are discussed.",
+   "label": false,
+   "doi": "",
+   "year": "1981"
+  },
+  {
+   "title": "Brain MRI and spectroscopy in the diagnosis of early neurological involvement in wilson's disease in children",
+   "abstract": "Objectives and study: Wilson's disease is an inherited disorder of cupper metabolism characterized by accumulation of cupper in the liver' brain' kidneys and other tissues resulting in hepatic and neuropsychiatric features. Magnetic resonance imaging (MRI) helps in the diagnosis of neurologic Wilson's disease. The literature regarding MR spectroscopy (MRS) in Wilson's disease is limited. The aim of this work was to evaluate the validity of brain MRI and spectroscopy in early detection of central nervous system abnormalities in children with Wilson's disease. Methods: A case-control study was carried out at the Gastroenterology unit' Pediatric department and the Radiology department' at Zagazig University Hospitals, Zagazig, Egypt between March 2011 and March 2014 after IRB approval. Twenty-six patients with Wilson's disease and 26 healthy volunteers were included. Detailed history taking; complete physical examination including anthropometry' regional examination, full abdominal examination and neurological assessment were done. Routine laboratory investigations included CBC' CRP' ESR, reticulocytic count, complete liver function tests, abdominal ultrasound, Immunoglobulin electrophoresis and kidney function tests. Specific investigations included serum ceruloplasmin level, copper concentration in 24-hour-urine collection, copper concentration in 24 hour-urine collection with D-penicillamine challenge test, autoantibodies panel (ANA, ASMA and ALKMA). Slit lamp examination for Kayser-Fleischer ring and percutaneous liver biopsy looking for consistent liver histology (fatty changes or glycogenated nuclei). MRI and MRS were done for all patients. Results: Eight patients showed abnormal magnetic resonance imaging in the form of bilateral increased signal intensity in the basal ganglia in T1-weighted axial MR images. Compared with control subjects, patients with WD had a highly significant decrease in N-acetyl aspartate, choline and creatine values (p<0.001) and significantly decreased N-acetyl aspartate /choline, N-acetyl aspartate /creatine and choline/creatine ratios (p<0.05) of right basal ganglia. Patients complicated with liver cell failure had a highly significant decrease in N-acetyl aspartate (p<0.001) and Significant decrease of choline, creatine values, N-acetyl aspartate /choline, N-acetyl aspartate /creatine and choline/creatine ratios (p<0.05) than patients without complications Conclusion: MRI abnormalities were detected in eight patients out of 26 (30.7%) while MRS showed decrease of N-acetyl aspartate, Choline, Creatinine, N-acetyl aspartate /choline, N-acetyl aspartate /creatine and choline/creatine in all patients. MRS in patients diagnosed as a Wilson's disease detects early neurological changes even with normal MR imaging.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1097/01.mpg.0000484500.48517.e7",
+   "year": "2016"
+  },
+  {
+   "title": "Erratum: Treatment of Wilson's disease with zinc from the time of diagnosis in pediatric patients: A single-hospital 10-year follow-up study (Journal of Laboratory and Clinical Medicine (2005) 145 (139-143) PII: S0022214305000089)",
+   "abstract": "",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1016/j.lab.2005.06.008",
+   "year": "2005"
+  },
+  {
+   "title": "Clozapine for psychiatric disorders in a patient with Wilson's disease [1]. [French]",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "2001"
+  },
+  {
+   "title": "The physiology of copper in man and its relation to Wilson's disease",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1967"
+  },
+  {
+   "title": "Modality of treatment and potential outcome of Wilson disease in Taiwan: A population-based longitudinal study",
+   "abstract": "Background/Purpose: This study aimed to investigate the epidemiology, the preference of medication, and the potential outcome of Wilson disease in Taiwan. We aimed to provide better therapeutic options for patients with Wilson disease based on the data generated from this study. Methods: We utilized the National Health Insurance Research Database (NHIRD), which stores clinical records of nearly 99% of Taiwan's residents. The database used is a random sample of two-million out of 23-million beneficiaries in Taiwan's NHIRD in 2005. The integrated medical records of these two-million cases were collected from 2000 to 2011. Subjects of Wilson disease were identified as those with International Classification of Diseases, Ninth Revision (ICD-9) code 275.1 and the specific prescription drugs (including D-penicillamine, zinc, and trientine) in either outpatient clinic or inpatient records. Results: During the study period, 66 cases of Wilson disease were identified. The male to female ratio was 1.75. The average prevalence rate was 1.81 per 100,000 and the average annual diagnosis rate was 0.22 per 100,000. The diagnosis was mostly established at 20-24 and 10-14 years of age, followed by 25-29 years. Fifty four of all subjects (81.8%) started the treatment with D-penicillamine, compared with zinc (12.1%) and trientine (6.1%). Among these 66 cases, 27 (40.9%) had liver cirrhosis and three (4.5%) underwent liver transplantation due to liver failure. Conclusion: D-penicillamine is still the most popular prescription of Wilson disease, followed by zinc monotherapy. Although chronic liver injury cannot be avoided, a favorable potential outcome is well demonstrated in this population-based study. Copyright © 2017",
+   "label": true,
+   "doi": "http://dx.doi.org/10.1016/j.jfma.2017.05.008",
+   "year": "2018"
+  },
+  {
+   "title": "Wilson disease: a matter of copper, but also of zinc",
+   "abstract": "",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1097/MPG.0000000000000725",
+   "year": "2015"
+  },
+  {
+   "title": "Trace element analysis of brain and liver tissues in Wilson-Konovalov's disease. [Russian]",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1989"
+  },
+  {
+   "title": "Treatment of Wilson disease with ammonium tetrathiomolybdate - IV. Comparison of tetrathiomolybdate and trientine in a double-blind study of treatment of the neurologic presentation of Wilson disease",
+   "abstract": "Objective: To compare tetrathiomolybdate and trientine in treating patients with the neurologic presentation of Wilson disease for the frequency of neurologic worsening, adverse effects, and degree of neurologic recovery. Design: A randomized, double-blind, controlled, 2-arm study of 48 patients with the neurologic presentation of Wilson disease. Patients either received 500 mg of trientine hydrochloride 2 times per day or 20 mg of tetrathiomolybdate 3 times per day with meals and 20 mg 3 times per day between meals for 8 weeks. All patients received 50 mg of zinc 2 times per day. Patients were hospitalized for 8 weeks, with neurologic and speech function assessed weekly; discharged taking 50 mg of zinc 3 times per day, and returned annually for follow-up. Setting: A university hospital referral setting. Patients: Primarily newly diagnosed patients with Wilson disease presenting with neurologic symptoms who had not been treated longer than 4 weeks with an anticopper drug. Intervention: Treatment with either trientine plus zinc or tetrathiomolybdate plus zinc. Main Outcome Measures: Neurologic function was assessed by semiquantitative neurologic and speech examinations. Drug adverse events were evaluated by blood cell counts and biochemical measures. Results: Six of 23 patients in the trientine arm and 1 of 25 patients in the tetrathiomolybdate arm underwent neurologic deterioration (P<.05). Three patients receiving tetrathiomolybdate had adverse effects of anemia and/or leukopenia, and 4 had further transaminase elevations. One patient receiving trientine had an adverse effect of anemia. Four patients receiving trientine died during follow-up, 3 having shown initial neurologic deterioration. Neurologic and speech recovery during a 3-year follow-up period were quite good. Conclusion: Tetrathiomolybdate is a better choice than trientine for preserving neurologic function in patients who present with neurologic disease. ©2006 American Medical Association. All rights reserved.",
+   "label": true,
+   "doi": "http://dx.doi.org/10.1001/archneur.63.4.521",
+   "year": "2006"
+  },
+  {
+   "title": "Serum transaminases in children with Wilson's disease",
+   "abstract": "OBJECTIVES: The response of serum transaminase levels to penicillamine and zinc treatment in Wilson's disease is poorly understood. The aim of this multicenter retrospective study was to evaluate transaminase levels after penicillamine and zinc treatment in children with Wilson's disease. PATIENTS AND METHODS: One hundred and nine patients with Wilson's disease (median age at diagnosis, 7.2 years; range, 1 to 18 years), treated for at least 12 months and observed in the last 20 years at 11 Paediatric Departments were studied. Clinical, laboratory and histologic features at diagnosis and initial treatment were recorded. Efficacy parameters were normalization of serum transaminase level and improved clinical and/or laboratory signs. One hundred and two patients had clinical or laboratory signs of liver disease. RESULTS: Fifty-six of 87 patients (64%) given penicillamine normalized serum alanine aminotransferase (ALT) levels within a median of 17 months (range, 2 to 96 months). Of the 29 patients with persistent hyper-ALT, 17 (59%) switched to zinc; only four of these normalized ALT on zinc within a median period of 38 months (range, 7 to 48 months). Eleven (50%) of the 22 patients given zinc alone normalized ALT within a median period of 6 months (range, 1 to 36 months). Of the 11 patients with persistent hyper-ALT, five switched to penicillamine. Three of the five normalized ALT within a median period of 6 months (range, 6 to 9 months). Overall, in penicillamine-treated and zinc-treated patients with persistent hypertransaminasemia, ALT decreased from a basal median of 236 IU/L (range, 54 to 640 IU/L) to a median of 78 (range, 46 to 960 IU/L) at the end of follow-up (P = 0.0245). Poor compliance was suspected in only 10% of cases. No predictive factor of persistent hypertransaminasemia was identified. Liver disease did not worsen in any patient during the study. CONCLUSIONS: Although the efficacy of penicillamine and zinc is well documented, it is notable that a subset of children with Wilson's disease-related liver disease (36%) had hypertransaminasemia despite appropriate treatment with penicillamine or zinc.",
+   "label": true,
+   "doi": "",
+   "year": "2004"
+  },
+  {
+   "title": "Plasma and erythrocyte copper, zinc, manganese and magnesium concentrations in Wilson's disease",
+   "abstract": "Plasma copper was significantly reduced in Wilson's disease with decreased ceruloplasmin levels, while there was no significant difference in erythrocyte copper levels between Wilson's disease and controls. Mean zinc and manganese levels in plasma were increased in Wilson's disease, but these differences were not significant. Mean magnesium level in plasma was normal. The levels of these metals in erythrocytes showed no difference between Wilson's disease and controls. Our results suggest that the abnormal copper level in plasma is not due to the primary metabolic defects, but is probanly due to the level of the binding proteins in plasma to this metal, ceruloplasmin, in Wilson's disease.",
+   "label": false,
+   "doi": "",
+   "year": "1986"
+  },
+  {
+   "title": "Novel D-penicillamine carrying nanoparticles for metal chelation therapy in Alzheimer's and other CNS diseases",
+   "abstract": "Metal ions accumulate in the brain with aging and in several neurodegenerative diseases. Aside from the copper storage disease, Wilson's disease, recent attention has focused on the accumulation of zinc, copper and iron in the Alzheimer's disease (AD) brain and the accumulation of iron in Parkinson's disease. In particular, the parenchymal deposition of beta-amyloid (Abeta) and its interaction with metal ions has been postulated to play a role in the progression of AD. Thus, the strategy of lowering brain metal ions and targeting the interaction of Abeta peptide and metal ions through the administration of chelators has merit. Our recent finding that nanoparticle delivery systems can cross the blood-brain barrier has led us to investigate whether chelators delivered conjugated to nanoparticles could act to reverse metal ion induced protein precipitation. In the present studies, the Cu (I) chelator D-penicillamine was covalently conjugated to nanoparticles via a disulfide bond or a thioether bond. Nanoparticle-chelator conjugates were stable between pH 6-8 in aqueous suspension if stored at 4 degrees C, and did not aggregate when challenged with salts and serum. Release of D-penicillamine from the nanoparticles was achieved using reducing agents such as dithiothreitol (as a model for glutathione). Nanoparticles treated only under reducing conditions that released the conjugated D-penicillamine were able to effectively resolubilize copper-Abeta (1-42) aggregates. These results indicate that nanoparticles have potential to deliver D-penicillamine to the brain for the prevention of Abeta (1-42) accumulation, as well as to reduce metal ion accumulation in other CNS diseases.",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1016/j.ejpb.2004.07.009",
+   "year": "2005"
+  },
+  {
+   "title": "Wilson's disease-cause of mortality in 164 patients during 1992-2003 observation period",
+   "abstract": "We studied the cause of death in a consecutive series of 164 patients with Wilson's disease (WD) diagnosed over an 11 year period. A total of 20 [12% (95% CI 10.3-16.0)] died during the observation period. The relative survival rate of all patients in our group was statistically smaller than in Polish population. The main cause of death was the diagnosis in advanced stage of disease, but in six patients presenting with mild signs, we observed the progression of the disease despite treatment. There was no difference in mortality rate in patients treated with d-penicillamine or zinc sulphate as initial therapy. The prognosis for survival in the majority of WD patients is favourable, provided that therapy is introduced early.",
+   "label": true,
+   "doi": "https://dx.doi.org/10.1007/s00415-005-0720-4",
+   "year": "2005"
+  },
+  {
+   "title": "D-penicillamine versus zinc sulfate as first-line therapy for Wilson's disease",
+   "abstract": "BACKGROUND AND PURPOSE: To compare the course of treatment in patients with symptomatic Wilson's disease (WD) receiving either D-penicillamine (DPA) or zinc sulfate (ZS) as first-line therapy. METHODS: In all, 143 consecutive patients diagnosed with symptomatic WD from January 2005 to December 2009, followed until December 2010, were included. The decision about first-line therapy was made individually after discussion with the patient. Physicians had no clear preference of one drug over the other. Data were analyzed in subgroups with predominantly neurological (DPA, 35; ZS, 21) and hepatic (DPA, 36; ZS, 51) presentation of WD. RESULTS: According to Kaplan-Meier analysis, neurological WD patients scheduled for DPA had a similar probability of not remaining on first-line therapy as patients receiving ZS (20% vs. 24% at the end of follow-up), with adjusted odds ratio (OR) of 0.9 (95% CI 0.2-3.5). In patients with hepatic WD, this probability was significantly higher for DPA (31% vs. 12%; adjusted OR 3.0, 95% CI 0.9-9.9), especially in the first 6 months. Early worsening occurred only in neurological WD patients, with no differences between both treatment groups (35% vs. 19%; OR 2.8, 95% CI 0.7-10.8). Neurological improvement and decrease of liver enzymes were achieved with similar frequency. Compliance with DPA was better in hepatic (97% vs. 80%) but not in neurological patients (91% vs. 81%). Drug adverse effects were more common on DPA (15% vs. 3%). CONCLUSIONS: DPA and ZS are effective in the majority of WD patients. Neither therapy appears to be clearly superior. Therefore ZS may be considered a reasonable alternative to DPA as a first-line therapy. Copyright © 2014 The Author(s) European Journal of Neurology © 2014 EFNS.",
+   "label": true,
+   "doi": "https://dx.doi.org/10.1111/ene.12348",
+   "year": "2014"
+  },
+  {
+   "title": "Effects of long-term treatment in Wilson's disease with D-penicillamine and zinc sulphate",
+   "abstract": "The results of treatment with D-penicillamine (D-P) or zinc sulphate (Zn) in 67 newly diagnosed cases of Wilson's disease have been compared. All patients (7 with hepatic, 1 with psychiatric and 59 with neurological or preclinical forms) were fully compliant. During 12 years of observation, 34 patients received d-P and 33 Zn as the primary treatment. Fifteen patients (44%) discontinued D-P, in 10 cases owing to side effects. Four (12%) patients discontinued Zn, in 2 cases because of side-effects. One patient who received Zn deteriorated during the first few months after the initiation of therapy. The effectiveness of long-term treatment with D-P and Zn was similar in those patients who were able to continue the initial therapy. Zn was tolerated better than D-P; we suggest, therefore, that it may be recommended as an initial therapy for patients in the preclinical stage of Wilson's disease or with neurological presentation of the disease. More observation is needed for patients with the hepatic and psychiatric forms of the disease.",
+   "label": true,
+   "doi": "",
+   "year": "1996"
+  },
+  {
+   "title": "Biomarkers of copper status: A brief update",
+   "abstract": "The essentiality of copper (Cu) in humans is demonstrated by various clinical features associated with deficiency, such as anaemia, hypercholesterolaemia and bone malformations. Despite significant effort over several decades a sensitive and specific Cu status biomarker has yet to be identified. The present article updates a comprehensive review recently published by the authors which assesses the reliability and robustness of current biomarkers and outlines the on-going search for novel indicators of status. The essential features of this earlier review are reiterated whilst considering whether there are other approaches, not yet tested, which may provide valuable information in the quest for an appropriate measure of copper status. Current biomarkers include a range of cuproenzymes such as the acute phase protein caeruloplasmin and Cu-Zn-superoxide dismutase all of which are influenced by a range of other dietary and environmental factors. A recent development is the identification of the Cu chaperone, CCS as a potential biomarker; although its reliability has yet to be established. This appears to be the most promising potential biomarker, responding to both Cu deficiency and excess. The potential for identifying a 'suite' of biomarkers using high-throughput technologies such as transcriptomics and proteomics is only now being examined. A combination of these technologies in conjunction with a range of innovative metal detection techniques is essential if the search for robust copper biomarkers is to be successful. © The Authors 2008.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1017/S0007114508006806",
+   "year": "2008"
+  },
+  {
+   "title": "A case of Wilson's disease with psoriasis vulgaris, complicated with hepatocellular carcinoma and successfully treated with sorafenib. [Japanese]",
+   "abstract": "A 55-year-old man had been diagnosed with Wilson's disease and was treated with D-penicillamine 36 years earlier. He also had a 20-year history of psoriasis vulgaris and cyclosporine treatment. In 2012, a he presented with a hepatocellular carcinoma (HCC) that was removed via partial hepatic resection. In 2014, multiple HCC and a portal vein tumor thrombus were found in his posterior lobe. Sorafenib treatment was initiated. Cyclosporine treatment was continued. Three months later, abdominal enhanced CT revealed marked tumor reduction and shrinkage of the portal vein tumor thrombus. The therapeutic effect of sorafenib continued for 6 months. We did not observe deterioration in his psoriasis vulgaris and Wilson's disease for 9 months after sorafenib initiation.",
+   "label": false,
+   "doi": "",
+   "year": "2015"
+  },
+  {
+   "title": "Long-term follow-up of Wilson disease: natural history, treatment, mutations analysis and phenotypic correlation",
+   "abstract": "BACKGROUND AND AIMS: Wilson disease (WD) is an inherited disorder of copper metabolism. When treated, the outcome can be excellent, although the long-term survival has yet to be well documented. The aim of this study was to describe the long-term outcome of a cohort of patients with WD and to assess those factors affecting the phenotypic manifestation of WD. METHODS: The presence of mutations to the ATP7B gene, the clinical manifestations, treatments and the long-term outcomes were analysed retrospectively in 117 patients with WD (59 men and 58 women, aged at evaluation 38.5 +/- 11, range 16-63 years). RESULTS: Fifty-five patients with a neurological presentation, 51 patients with a hepatic presentation and 11 asymptomatic patients were followed up for an average of 15.1 +/- 10 years (median 12 years, range 1-41 years). The H1069Q ATP7B gene mutation was the most frequent genetic variant (54.3%); the frequency of this mutation did not differ between patients with either the hepatic or the neurological presentation (P = 0.099). d-penicillamine or zinc salts (81 and 17% respectively) were used for treatment, and three patients underwent liver transplantation. The majority of symptomatic patients became asymptomatic, or improved, during the follow-up (82% patients with hepatic presentation, 69% with neurological presentation). The long-term survival of patients with WD did not differ from that of the general Czech population (P = 0.95). CONCLUSIONS: Long-term follow-up shows a satisfactory response in the great majority of adequately treated patients with WD and survival coincides with that of the general population. Copyright © 2010 John Wiley & Sons A/S.",
+   "label": true,
+   "doi": "https://dx.doi.org/10.1111/j.1478-3231.2010.02354.x",
+   "year": "2011"
+  },
+  {
+   "title": "Alterations of cortical excitability and central motor conduction time in Wilson's disease",
+   "abstract": "Wilson's disease (WD) leads to widespread structural alterations of central nervous system and our objectives were to determine the cortical excitability changes in WD by using transcranial magnetic stimulation (TMS). Thirteen patients with WD, diagnosed by the presence of Kayser-Fleischer ring and biochemical tests, were studied. TMS was performed using a figure-of-eight coil attached to Magstim 200 stimulator. Motor evoked potentials (MEP) were recorded from right first dorsal interosseous at rest. Resting motor threshold (RMT) was determined using standard techniques and central motor conduction time (CMCT) by 'F' wave method. Comparison was made with control data of our laboratory. Dysarthria was the presenting symptom in 5 patients (38.5%) and chorea, tremors, dystonia and abnormal gait in 2 patients each (15.4%). RMT was recordable in 10 patients and not recordable in 3. Compared to controls, patients in whom RMT was recordable, had significantly higher mean RMT (80.9 +/- 14.8 vs. 41.1 +/- 7, p<0.0001) and CMCT (6.7 +/- 0.5 ms vs. 4.8 +/- 0.6 ms; p<0.0001). In 2 of the 3 patients with non-recordable RMT, MEP could be obtained with active contraction. CMCT in these 2 patients was also prolonged. Patients with WD have reduced cortical excitability and prolonged CMCT which may be due to the intracortical presynaptic motor dysfunction. Copyright © 2013 Elsevier Ireland Ltd. All rights reserved.",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1016/j.neulet.2013.08.023",
+   "year": "2013"
+  },
+  {
+   "title": "Wilson disease. [Czech]",
+   "abstract": "Wilson's disease is an autosomal recessive genetic disorder in which copper accumulates in tissues, especially in the liver and the brain. The genetic defect affects the P type ATPase gene (ATP7B). More than 500 mutations causing Wilson's disease have been described. The most common mutation in Central Europe concerns H1069Q. The symptoms of Wilson's disease include hepatic or neurological conditions. The hepatic condition is manifested as steatosis, acute or chronic hepatitis or cirrhosis. The neurological conditions are most often manifested after the age of 20 as motor disorders (tremor, speech and writing disorders), which may result in severe extrapyramidal syndrome with rigidity, dysarthria and muscle contractions. The diagnosis is based on clinical and laboratory assessments (neurological signs, liver lesions, low ceruloplasmin, increased free serum copper, high Cu volumes in urine, Kayser-Fleischer ring). The diagnosis is confirmed by a high Cu level in liver tissue or genetic proof. Untreated Wilson's disease causes death of the patient. If treated properly the survival rate approximates to the survival rate of the common population. The treatment concerns either removal of copper from the body using chelating agents excreted into the urine (Penicillamine, Trientine) or limitation of copper absorption from the intestine and reducing the toxicity of copper (zinc, ammonium tetrathiomolybdate). In the Czech Republic, Penicillamine or zinc are used. A liver transplant is indicated in patients with fulminant hepatic failure or decompensated liver cirrhosis. In the family all siblings of the affected individual need to be screened in order to treat any asymptomatic subjects.",
+   "label": false,
+   "doi": "",
+   "year": "2014"
+  },
+  {
+   "title": "Iron, brain ageing and neurodegenerative disorders",
+   "abstract": "There is increasing evidence that iron is involved in the mechanisms that underlie many neurodegenerative diseases. Conditions such as neuroferritinopathy and Friedreich ataxia are associated with mutations in genes that encode proteins that are involved in iron metabolism, and as the brain ages, iron accumulates in regions that are affected by Alzheimer's disease and Parkinson's disease. High concentrations of reactive iron can increase oxidative-stress induced neuronal vulnerability, and iron accumulation might increase the toxicity of environmental or endogenous toxins. By studying the accumulation and cellular distribution of iron during ageing, we should be able to increase our understanding of these neurodegenerative disorders and develop new therapeutic strategies.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1038/nrn1537",
+   "year": "2004"
+  },
+  {
+   "title": "Immunological disturbances in Wilson's disease with reference to the effect of treatment with D penicillamine (Polish). [Polish]",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1976"
+  },
+  {
+   "title": "Controversies in diagnosing and treating Wilson disease in children - Results of an international survey",
+   "abstract": "Introduction: In rare pediatric metabolic diseases, insufficient evidence guiding the management may lead to variations in care. The aim of this study is to determine consensus and variation in how pediatric hepatologists (PH) diagnose and treat Wilson disease (WD) patients. Methods: PH, either members of AASLD Pediatric Liver Special Interest Group or ESPGHAN, were invited to participate in this web-based, international survey. Results: Participation was 43% (108 respondents, 253 invitations).The majority (64%) see 1-10 WD patients regularly and 30% see >=11. Publications by Roberts and Schilsky (Hepatology 2008) and Ferenci et al. (Liver Int. 2003) were preferentially used as guidelines (65% and 21%, respectively). Interpretation and use of laboratory data were variable. Whereas for 90%, basal 24-hr urine copper excretion (UCE) >0.6mumol (40mug)/24h indicated a need for further investigations, definition of normal liver copper content (LCC) varied (25% interpreted 50mug/g and 56% 250mug/g as pathological). Genetic testing is performed in all patients by 48% and not at all in 13% in suspected WD cases, although tests are commercially available. Regardless of disease severity, in patients from previously unaffected families, serum ceruloplasmin (CER), UCE and LCC were the preferred diagnostic tools. However, once genotype of an index patient was known, DNA analysis was 1 of 3 methods of preference (80%). Although not preferred, the penicillamine (PEN) challenge was similarly applied in asymptomatic and symptomatic patients (20% and 26%). Screening a child of an individual with WD, depending on CER, UCE and genetic testing, was chosen by 76%. Use of a low-copper diet was judged diversely: 45% recommend indefinite, 33% temporary, and 12% do not advise any diet. The drug of choice for primary therapy varied significantly. Zinc monotherapy was preferred in a 4-year old affected sibling of a WD patient with elevated aminotransferases (43%). In older patients, PEN and trientine, were generally equally preferred but PEN was rejected by 51% of North American vs. 7% of respondents from other countries. Concepts on managing a WD patient with acute liver failure (ALF) varied. Chelators were chosen by 52% and transplantation by 15% as primary treatment. Monitoring by disease severity score while applying medical therapy is the accepted approach by the majority. However, 23% reported to monitor only, without chosing chelation therapy or an alternative. Conclusions: The approach to diagnosing and treating WD in children by PH is distinctly variable. The reasons for these differences in clinical practice are not entirely clear but likely include regional variations.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1002/hep.26040",
+   "year": "2012"
+  },
+  {
+   "title": "Zinc monotherapy is not as effective as chelating agents in treatment of Wilson disease",
+   "abstract": "Background & Aims: Wilson disease is a genetic disorder that affects copper storage, leading to liver failure and neurologic deterioration. Patients are treated with copper chelators and zinc salts, but it is not clear what approach is optimal because there have been few studies of large cohorts. We assessed long-term outcomes of different treatments. Methods: Patients in tertiary care centers were retrospectively analyzed (n = 288; median follow-up time, 17.1 years) for adherence to therapy, survival, treatment failure, and adverse events from different treatment regimens (chelators, zinc, or a combination). Hepatic treatment failure was defined as an increase in activity of liver enzymes (aspartate aminotransferase, alanine aminotransferase, and gamma-glutamyltransferase) >2-fold the upper limit of normal or >100% of baseline with an increase in urinary copper excretion. Results: The median age at onset of Wilson disease was 17.5 years. Hepatic and neuropsychiatric symptoms occurred in 196 (68.1%) and 99 (34.4%) patients, respectively. Hepatic treatment failure occurred more often from zinc therapy (14/88 treatments) than from chelator therapy (4/313 treatments; P < .001). Actuarial survival, without transplantation, showed an advantage for chelating agents (P < .001 vs zinc). Changes in treatment resulted mostly from adverse events, but the frequency did not differ between groups. Patients who did not respond to zinc therapy showed hepatic improvement after reintroduction of a chelating agent. Conclusions: Treatments with chelating agents or zinc salt are effective in most patients with Wilson disease; chelating agents are better at preventing hepatic deterioration. It is important to identify patients who do not respond to zinc therapy and have increased activities of liver enzymes, indicating that a chelating agent should be added to the therapeutic regimen. © 2011 AGA Institute.",
+   "label": true,
+   "doi": "http://dx.doi.org/10.1053/j.gastro.2010.12.034",
+   "year": "2011"
+  },
+  {
+   "title": "Wilson's disease",
+   "abstract": "Wilson s disease (WD) is a genetically determined, autosomal recessive disorder of copper metabolism. The gene ATP<inf>7</inf>B encodes a copper carrier that both transports copper from hepatocyte to bile and ceruloplasmin copper incorporation. WD may present with almost any variety of liver disease at an age ranging from 4-12 years, or with neurological and psychiatric symptoms in adolescence. Less commonly, haemolysis and/or fulminant hepatic failure may be an initial presentation. Low plasma ceruloplasmin, a positive penicillamine challenge test, and a high hepatic copper content suggest the diagnosis. Molecular methods help in diagnosing WD. If diagnosed early, it is treatable with chelators and/or zinc, and has a good prognosis. Fulminant hepatic disease has a poor outcome without transplantation.",
+   "label": false,
+   "doi": "",
+   "year": "2013"
+  },
+  {
+   "title": "Copper induces hepatocyte injury due to the endoplasmic reticulum stress in cultured cells and patients with Wilson disease",
+   "abstract": "Copper is an essential trace element, however, excess copper is harmful to human health. Excess copper-derived oxidants contribute to the progression of Wilson disease, and oxidative stress induces accumulation of abnormal proteins. It is known that the endoplasmic reticulum (ER) plays an important role in proper protein folding, and that accumulation of misfolded proteins disturbs ER homeostasis resulting in ER stress. However, copper-induced ER homeostasis disturbance has not been fully clarified. We treated human hepatoma cell line (Huh7) and immortalized-human hepatocyte cell line (OUMS29) with copper and chemical chaperones, including 4-phenylbutyrate and ursodeoxycholic acid. We examined copper-induced oxidative stress, ER stress and apoptosis by immunofluorescence microscopy and immunoblot analyses. Furthermore, we examined the effects of copper on carcinogenesis. Excess copper induced not only oxidative stress but also ER stress. Furthermore, excess copper induced DNA damage and reduced cell proliferation. Chemical chaperones reduced this copper-induced hepatotoxicity. Excess copper induced hepatotoxicity via ER stress. We also confirmed the abnormality of ultra-structure of the ER of hepatocytes in patients with Wilson disease. These findings show that ER stress plays a pivotal role in Wilson disease, and suggests that chemical chaperones may have beneficial effects in the treatment of Wilson disease. Copyright © 2016 Elsevier Inc. All rights reserved.",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1016/j.yexcr.2016.08.003",
+   "year": "2016"
+  },
+  {
+   "title": "Wilson's disease in children: Monocentric experience with analysis of 114 children over a 18 years period",
+   "abstract": "Objectives and Study: Wilson's disease (WD) is a rare autosomal recessive disorder of copper metabolism with a highly variable spectrum of clinical manifestations in childhood. We evaluated the clinical and laboratory characteristics of 114 children with WD to determine clinical presentation, diagnostic course and outcome. Methods: The medical reports of 114 children (63 boys) whom were diagnosed as WD between 1991 and 2009 were reviewed retrospectively. Physical examination, laboratory tests and liver biopsies of patients were evaluated. Results: The mean age at diagnosis was 9.5+/- 3.2 years (1.5-16 years. There was consanguity in majority of the parents (81, 71.1%. Eighty seven (76.3%) patients were diagnosed as symptomatic cases including 12 patients whom presented with acute liver failure. Twenty seven patients were diagnosed by family screening. Overall 80 patients presented with hepatic, 5 with neurologic, and 17 both hepatic and neurologic features. Hepatomegaly was the most common clinical finding, in 41 patients, while splenomegaly, icterus and ascites were found in 26, 25 and 24 patients respectively. Kayser-Fleischer rings were present in 63 of 109 patients (57.8%) while serum ceruloplasmin level was below 20 mg/dl in 97 of evaluated 114 patients (85.1%). Urinary copper excretion was above 80mg/24 hours in 85 of 102 patients (83.3%). Liver copper above (250mg/g dry weight) was found in 53 (67.0%) of 79 patients. Cirrhosis and chronic hepatitis were the most common findings of liver biopsy (23/79, 29.1% for each). All the patients with acute liver failure died except one who had liver transplantation. Ninety seven non-fulminant WD patients were treated with D-penicillamine and zinc sulphate, 5 with trientine and zinc sulphate at diagnosis. A total of 6 children were converted to trientine due to adverse reactions of penicillamine (nephrotic syndrome in 2, detoriation of liver functions in 2, Stevens-Johnson reaction in 1, allergic rash in 1 patient). Five patients had liver transplantation during follow-up. Seventy six non-fulminant WD patients had been followed up for 5.0+/- 3.7 years (3 months-14 years). Five patients died during the follow-up because of end stage liver disease. Eighteen patients who were nonadherent to chelation therapy had poor outcome. Conclusion: Wilson's disease in children may present in different forms and needs extensive investigation for diagnosis. Drug treatment is helpful for a stable or improved course of non-fulminant disease. Fulminant WD is almost mortal without liver transplantation.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1097/01.mpg.0000383075.98243.67",
+   "year": "2010"
+  },
+  {
+   "title": "A case of Wilson's disease associated with hemolytic anemia",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1986"
+  },
+  {
+   "title": "What Wilson's disease and its treatment have taught us about the metabolism of copper. Observations in 27 cases",
+   "abstract": "",
+   "label": true,
+   "doi": "",
+   "year": "1968"
+  },
+  {
+   "title": "Hepatic features of Wilson disease",
+   "abstract": "In Wilson disease (WD) defective AT7B function leads to biliary copper excretion and pathologic copper accumulation, particularly in liver and brain, where it induces cellular damage. Liver disease most often precedes neurologic or psychiatric manifestations. In most patients with neurologic or psychiatric symptoms there is some degree of liver disease at the time of disease presentation. Hepatic manifestations of WD can be extremely variable. Patients with clinically asymptomatic WD are often found by family screening or identified on routine laboratory testing. Others may have a clinical picture of chronic active hepatitis or of end-stage liver disease with cirrhosis. A minority present with acute liver failure, often on the background of advanced fibrosis. Complications from liver disease may be related to portal hypertension and concomitant liver disease may accelerate the course of liver disease. Liver cancer may occur in patients with WD, most commonly when cirrhosis and inflammation are present. The prognosis of patients with WD is excellent, especially for those without cirrhosis at the time of diagnosis, but requires timely initiation of appropriate therapy specific for WD and for the patient's liver disease independent of WD.",
+   "label": false,
+   "doi": "10.1016/b978-0-444-63625-6.00009-4",
+   "year": "2017"
+  },
+  {
+   "title": "Neurologic deterioration in a child with Wilson's disease on penicillamine therapy",
+   "abstract": "Penicillamine is the standard therapy for Wilson's disease in children. We report an 8-year-old-girl with liver disease due to Wilson's disease who developed extrapyramidal symptoms following administration of penicillamine. Symptoms resolved within 20 hours of stopping the drug but recurred within 24 hours when gradually increasing small doses were recommenced.",
+   "label": false,
+   "doi": "",
+   "year": "2003"
+  },
+  {
+   "title": "Concomitant immune-related events in Wilson disease: implications for monitoring chelator therapy",
+   "abstract": "BACKGROUND AND AIMS: Current guidelines favor the use of chelating agents (d-penicillamine, trientine) in first line therapy of symptomatic Wilson disease patients. Development of chelator induced immunological adverse events are a concern especially under d-penicillamine therapy. This study assessed the prevalence of co-existing or therapy-related immune-mediated diseases in Wilson disease patients, and evaluated the role of antinuclear antibodies in therapy monitoring. METHODS: We retrospectively analyzed 235 Wilson disease patients. Medical regimens were classified and analyzed in relation to adverse events and antinuclear antibody courses. RESULTS: Coexisting immune-mediated diseases were evident in 19/235 (8.1%) patients, of which 13/235 (5.5%) had pre-existing autoimmune diseases. Six patients (2.6%) developed an autoimmune disease under therapy, all of them under long-term d-penicillamine treatment. Data relating to antinuclear antibody courses during treatment and adverse events were available for patients treated with d-penicillamine (n=91), trientine (n=58), and zinc salts (n=58). No significant increase in antinuclear antibody titers in patients treated with d-penicillamine (16/91; 17.6%), trientine (12/58; 20.7%), and zinc (7/58; 12.1%) were found. CONCLUSION: Under long-term d-penicillamine therapy a minority of patients developed immune-mediated disease. Elevations in antinuclear antibodies were found frequently, but no correlations were evident between increases in antinuclear antibodies and the development of immune-mediated diseases or medical regimes. Thus, the value of antinuclear antibodies for monitoring adverse events under chelator therapy seems to be limited.",
+   "label": true,
+   "doi": "https://dx.doi.org/10.1007/s10545-015-9866-0",
+   "year": "2016"
+  },
+  {
+   "title": "Wilson's disease: the 60th anniversary of Walshe's article on treatment with penicillamine",
+   "abstract": "This historical review describes Professor Walshe's seminal contribution to the treatment of Wilson's disease on the 60th anniversary of his pioneering article on penicillamine, the first effective treatment for the condition.",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1590/0004-282X20160166",
+   "year": "2017"
+  },
+  {
+   "title": "Wilson's disease in the United Kingdom and Taiwan. I. General characteristics of 142 cases and prognosis. II. A genetic analysis of 88 cases",
+   "abstract": "",
+   "label": true,
+   "doi": "",
+   "year": "1973"
+  },
+  {
+   "title": "Zinc, the brain and behavior",
+   "abstract": "The total content of zinc in the adult human body averages almost 2 g. This is approximately half the total iron content and 10 to 15 times the total body copper. In the brain, zinc is with iron, the most concentrated metal. The highest levels of zinc are found in the hippocampus in synaptic vesicles, boutons, and mossy fibers. Zinc is also found in large concentrations in the choroid layer of the retina which is an extension of the brain. Zinc plays an important role in axonal and synaptic transmission and is necessary for nucleic acid metabolism and brain tubulin growth and phosphorylation. Lack of zinc has been implicated in impaired DNA, RNA, and protein synthesis during brain development. For these reasons, deficiency of zinc during pregnancy and lactation has been shown to be related to many congenital abnormalities of the nervous system in offspring. Furthermore, in children insufficient levels of zinc have been associated with lowered learning ability, apathy, lethargy, and mental retardation. Hyperactive children may be deficient in zinc and vitamin B-6 and have an excess of lead and copper. Alcoholism, schizophrenia, Wilson's disease, and Pick's disease are brain disorders dynamically related to zinc levels. Zinc has been employed with success to treat Wilson's disease, achrodermatitis enteropathica, and specific types of schizophrenia.",
+   "label": false,
+   "doi": "",
+   "year": "1982"
+  },
+  {
+   "title": "Comparison of long lasting therapeutic effects between succimer and penicillamine on hepatolenticular degeneration",
+   "abstract": "AIM:To compare the long-term effect of succimer (Suc) with that of penicillamine (Pen) in treating hepatolenticular degeneration (HLD).METHODS:One hundred and twenty patients with HLD were divided into 2 groups. Group A (n =60) received Suc 750mg,po.bid.Group B (n =60) received Pen 250mg, po. qid. The period of maintenance treatment varied from 6 months to 3 years, averaging 1.5 years. Symptoms and therapeutic effects were evaluated by modified Goldstein scale.RESULTS:The total effectiveness of group A in two different periods of treatment were 80% and 85% respectively, higher than those of group B (58% and 59% respectively)(P < 0.05). Suc also had obvious curative effects for the patients who failed in the use of Pen. There were fewer side effect in group A than in group B (P < 0.05). Suc and Pen could increase urinary copper excretion effectively and continually.CONCLUSION:Suc is more effective and safer than Pen. Clinically, it can replace Pen as first-choice drug for long-term maintenance therapy of HLD.",
+   "label": true,
+   "doi": "",
+   "year": "1998"
+  },
+  {
+   "title": "Mania as the first manifestation of Wilson's disease",
+   "abstract": "Background: Although mental changes are frequent in Wilson's disease, severe psychiatric disorders occur uncommonly and usually accompany the neurological picture. There are few reports in the literature of Wilson's disease patients with typical bipolar affective disorder (BPAD). Case report: The authors report the case of a patient with Wilson's disease whose initial manifestation was a manic episode followed by depression. Tremor in the upper limbs appeared one year after the onset of symptoms. The diagnosis of Wilson's disease was established three years after the first symptoms appeared, based on the neuropsychiatric picture, the detection of Kayser-Fleischer rings and the results of diagnostic tests indicating chronic liver disease and copper excess. ATP7B genotyping and magnetic resonance imaging of the brain with proton spectroscopy study were also performed. The patient became asymptomatic two years after starting treatment with penicillamine and remained non-symptomatic controlled during the eight-year follow-up period, without any specific treatment for the BPAD. Conclusions: To our knowledge, this is a singular report of a case of Wilson's disease in which a manic episode preceded the onset of neurological symptoms. The association between Wilson's disease and bipolar disorder is discussed. © 2008 Blackwell Munksgaard.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1111/j.1399-5618.2007.00531.x",
+   "year": "2008"
+  },
+  {
+   "title": "Histologic evolution and long-term outcome of Wilson's disease: results of a single-center experience",
+   "abstract": "BACKGROUND/AIMS: Wilson's disease (WD) is a rare inborn disease related to copper storage, leading to liver cirrhosis and neuropsychological deterioration. The aim of this study was to determine the clinical presentation and long-term outcome, and to examine the progression of hepatic histopathology in serial liver biopsies from WD patients. MATERIALS AND METHODS: We carried out a retrospective analysis of 60 patients with WD treated with zinc and/or penicillamine. Demographic, clinical, and laboratory data were gathered and 40 patients underwent an initial biopsy and at least one repeat biopsy. Patients were divided into two groups: progressors (patients who presented worsening of at least one unit of fibrosis) and nonprogressors (patients who presented stable or improved fibrosis scores). RESULTS: A total of 33/40 (83%) patients (nonprogressors) showed stable hepatic histology or improvement. Seven of 40 (17%) patients (progressors) showed worsening of fibrosis. There was no significant correlation between the histological findings and clinical parameters or initial presentation. CONCLUSION: In our study cohort, liver disease was stable or improving in most of the patients, and development of progressive hepatic symptoms while under treatment was a rare event. The development of new symptoms while under treatment or progression of pre-existing symptoms was more often recorded for neurological than for hepatic symptoms.",
+   "label": true,
+   "doi": "https://dx.doi.org/10.1097/MEG.0b013e328358f7da",
+   "year": "2013"
+  },
+  {
+   "title": "Pregnancy, labor and early puerperium in a patient with Wilson's disease. [Slovak]",
+   "abstract": "Pregnancy should have a successful outcome in a patient with treated Wilson's disease if complications are excluded before conception. Chelating treatment must be maintained, although there is some concern about its teratogenicity. We describe the course of pregnancy in a patient with Wilson's disease treated with D-penicillamine and zinc sulfate.",
+   "label": false,
+   "doi": "",
+   "year": "1999"
+  },
+  {
+   "title": "Encopresis and epilepsy: An unusual presentation of Wilson's disease",
+   "abstract": "",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1016/j.yebeh.2010.06.013",
+   "year": "2010"
+  },
+  {
+   "title": "Movement Disorders and Neurometabolic Diseases",
+   "abstract": "Many inherited metabolic diseases or inborn errors of metabolism (IEM) cause movement disorders in children. This review focuses on chorea, dystonia, myoclonus, tremor, and parkinsonism. Broad neurometabolic categories commonly responsible for pediatric movement disorders include mitochondrial cytopathies, organic acidemias, mineral metabolism and transport disorders, neurotransmitter diseases, purine metabolism abnormalities, lipid storage conditions, and creatine metabolism dysfunction. Each movement disorder can be caused by many IEM and several of them can cause multiple movement abnormalities. Dietary modifications, medications, and increasingly specific therapy can improve outcomes in children with movement disorders caused by IEM. Recognition and characterization of secondary movement disorders in children facilitate their management and diagnosis, and possible treatment of an underlying IEM. Copyright © 2018 Elsevier Inc.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1016/j.spen.2018.02.003",
+   "year": "2018"
+  },
+  {
+   "title": "A case of living related liver transplantation for Wilsonian fulminant hepatitis. [Japanese]",
+   "abstract": "We reported a 13-year-old girl with Wilsonian fulminant hepatitis. The diagnosis was suspected clinically and was later confirmed by chemical and pathologic studies. She was admitted to our hospital with acute hepatic failure and severe hemolysis. Plasmapheresis as will as oral D-penicillamine intake did not show any improvement. On the 94th day, the patient received successful living related liver transplantation (LRLT). Donor was her mother. The patients who present severe intravascular hemolysis as a initial manifestation of Wilson's disease have very poor prognosis, because almost all these patients are in the state of decompensated liver cirrhosis and chelating agents such as D-penicillamine are not effective. In foreign countries, liver transplantation is indicated for such cases and has been able to rescue many patients. In conclusion, LRLT is a effective therapy for Wilsonian fuluminant hepatitis in Japan.",
+   "label": false,
+   "doi": "",
+   "year": "1996"
+  },
+  {
+   "title": "Reply",
+   "abstract": "",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1002/hep.23705",
+   "year": "2010"
+  },
+  {
+   "title": "A case of acquired hepatocerebral degeneration presenting as hemichorea post-liver transplant",
+   "abstract": "Acquired hepatocerebral degeneration (AHCD) is a rare but morbid neurological manifestation of decompensated cirrhosis. Portosystemic shunting leads to manganese deposition in the basal ganglion which is identified as bilateral hyperintense signals on T1-weighted MRI. The resulting neuronal loss leads to involuntary movements, cognitive dysfunction, Parkinsonism, or cerebellar ataxia in the absence of hepatic encephalopathy. We present a case of AHCD with several unique features: 1) initial presentation post-liver transplant (OLT), 2) no clinical or radiographical evidence of portosystemic shunting, and 3) unilateral basal ganglia hyperintensity. A 57-year-old man with hypertension and chronic kidney disease (stage III) underwent OLT for hepatitis C and alcoholic cirrhosis 3 years prior to presentation. His post-transplant course was complicated by continued alcohol abuse, steroid-induced hyperglycemia, and acute cellular rejection without fibrosis 4 months prior. Prescriptions included tacrolimus, mycophenolate mofetil, prednisone, nifedipine, and insulin with questionable adherence. He had no personal or family history of movement disorders. His chief complaint was one month of progressive, uncontrollable right-sided arm and leg movements in a writhing, non-rhythmic pattern. He was afebrile. Physical exam was notable for rightsided hemichorea with normal strength, finger-to-nose test, reflexes, and sensation. He displayed no altered-mental status, asterixis, nystagmus, hepatosplenomegaly or ascites. Labs were notable for total bilirubin 1.3 mg/dL, Alk Phos 43 U/L, AST/ALT 117/65 U/L, blood alchohol level 103 mg/dL. INR 1.0 and platelets 141 x103/mu L. Electrolytes, glucose and creatinine were normal. HgbA1c 6.0%. Tacrolimus level undetectable. Serum iron, zinc, lead, and manganese levels were normal. MRI brain notable for T1 hyperintensities in the left globus pallidus without evidence of hemorrhage or acute ischemia (Figure 1). He was treated with haloperidol 1mg twice daily which mildly suppressed the hemichorea and allowed discharge with close neurology follow-up. Symptoms of ACHD often improve with resolution of portosystemic shunting post-OLT. However, we present a case of new onset ACHD in a posttransplant patient without evidence of portosystemic shunting. This illustrates that ACHD remains a poorly understood disorder that should be considered in patients with typical findings and a history of cirrhosis, even after liver transplantation. (Figure Presented).",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1038/ajg.2017.321",
+   "year": "2017"
+  },
+  {
+   "title": "Long-term outcome in Serbian patients with Wilson disease",
+   "abstract": "BACKGROUND AND PURPOSE: To investigate survival rates, prognostic factors, and causes of death in Wilson disease (WD). METHODS: In the years 1980-2007, a cohort of 142 patients with WD was prospectively registered (54 presented with neurologic symptoms, 49 with hepatic symptoms, 33 had mixed form, and data were missing for six patients). The duration of follow-up for patients alive was 11.1 +/- 8.8 years. RESULTS: After initiation of treatment (d-penicillamine and zinc salts), 79% of patients had a stable or improved course of disease. Despite early diagnosis and appropriate therapy, 15 patients still had a relentlessly progressive course. Thirty patients died. The cumulative probability of survival in a 15-year period for the whole group was 76.7 +/- 4.9%. Better prognosis of WD was associated with male sex, younger age at onset, neurologic form of the disease, and treatment continuity. Causes of death were predominantly related to hepatic failure (16 patients), but also suicide (four patients) and cancer (three patients). CONCLUSION: Despite the relatively early diagnosis and treatment of our patients with WD, mortality was still considerably high.",
+   "label": true,
+   "doi": "https://dx.doi.org/10.1111/j.1468-1331.2009.02607.x",
+   "year": "2009"
+  },
+  {
+   "title": "Copper(I)-binding properties of de-coppering drugs for treatment of Wilson disease",
+   "abstract": "Wilson disease (WD) is an autosomal recessive genetic disorder caused by loss-of-function mutations in the P-type copper ATPase, ATP7B, which transports copper out of cells and is therefore crucial for biliary excretion of excess copper. WD is characterized by toxic accumulation of copper primarily in the liver and brain, leading to liver disorders and/or neuropsychiatric symptoms. Unlike many other genetic disorders, WD is treatable, primarily by copper chelation therapy, which mobilizes copper from the organism, enhancing its urinary excretion. Although a number of de-coppering drugs are currently available, their Cu (I)-binding affinities and interaction with essential cellular copper proteins have not been quantitatively characterized to date. By using an ESI MS-based approach we have determined the Cu(I)- binding affinities of five major de-coppering drugs - penicillamine, trientine, 2,3-dimercapto-1-propanol, 2,3-dimercaptosuccinate and tetrathiomolybdate - by exploring their ability to extract Cu(I) ions from two cellular Cu(I)-binding proteins, which have different Cu(I)-binding affinities. We report that Cu (I)-binding affinity of de-coppering drugs vary by four orders of magnitude and depends from the number of sulfur atoms in the drug molecule. Obtained structure-activity relationships are important for understanding the action of copper-chelating drugs and elaboration of new generation drugs that may provide better therapeutic outcomes.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1111/febs.14174",
+   "year": "2017"
+  },
+  {
+   "title": "Wilson disease and related copper disorders",
+   "abstract": "Copper is a required cofactor for enzymes in critical metabolic pathways. Mutations in copper metabolism genes or abnormalities in copper metabolism result in disease from copper excess or deficiency. Wilson disease (WD) is an autosomal-recessive disease caused by mutations in the ATP7B gene which encodes a copper-transporting ATPase. Over 500 different WD mutations throughout the ATP7B gene have been described, most of which are missense mutations. Mutations in both ATP7B alleles result in abnormal copper metabolism and subsequent toxic accumulation of copper. The clinical manifestations of neurologic WD include variable combinations of dysarthria, dystonia, tremor, and choreoathetosis. Misdiagnosis and delay in treatment are clinically relevant because untreated WD progresses to hepatic failure or severe neurologic disability and death. Treatment can prevent and cure WD. Mutations in a second, closely related copper-transporting ATPase, ATP7A, cause a spectrum of copper deficiency disorders that include Menkes disease, occipital horn syndrome, and ATP7A-related distal motor neuropathy. Two important, nongenetic causes of copper deficiency myeloneuropathy are copper deficiency following gastric bypass or due to excess zinc ingestion, both of which can cause a myeloneuropathy similar to vitamin B12 deficiency. Copper deficiency following gastric bypass is preventable, and identification and elimination of the excess zinc source, most commonly dental cream, can result in recovery. Copyright © 2018 Elsevier B.V. All rights reserved.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1016/B978-0-444-63233-3.00018-X",
+   "year": "2018"
+  },
+  {
+   "title": "Use of whole-body counter to study body retention of radiocopper in Wilson's disease",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1968"
+  },
+  {
+   "title": "Influence of penicillamine on the turnover of I-131-labeled ceruloplasmin in Wilson's disease",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1966"
+  },
+  {
+   "title": "WILSON'S DISEASE (A report of two cases)",
+   "abstract": "Two cases of Wilson's disease are reported. First case presented with fulminant hepatic failure and had a fatal outcome. The second had an insiduous onset, neurological manifestations, and is progressing satisfactorily on zinc therapy. Problems in diagnosis and treatment are highlighted.",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1016/S0377-1237(17)31042-0",
+   "year": "1994"
+  },
+  {
+   "title": "Early neurological worsening in patients with Wilson's disease",
+   "abstract": "BACKGROUND: Early neurological worsening during treatment initiation for Wilson's disease (WD) is an unresolved problem. Our aim was to establish the frequency and outcome of early neurological worsening in patients with WD. METHODS: We analyzed 143 symptomatic patients diagnosed with WD between 2005 and 2009. Early neurological deterioration was based on worsening on the Unified Wilson's Disease Score Scale, scored at baseline through 6 months or occurrence of new neurological symptoms. Reversibility of worsening was followed up to 24 months. RESULTS: Early neurological worsening was observed in 11.1% (16/143) and involved only patients with neurological signs at diagnosis. Mean time to worsening from treatment initiation was 2.3 +/- 1.9 months. Neurological deterioration was completely reversible in 53% (8/15) and partially in 13% (2/15) of patients over 9.2 +/- 5.2 months. Patients who experienced early deterioration had significantly more severe baseline neurological deficit, higher prevalence of thalamic (66% vs 29%) and brain stem (73% vs 33%) lesions seen on baseline magnetic resonance imaging, and more often used concomitant dopamine receptor antagonists (46% vs 5%). Disease duration, treatment type (d-penicillamine or zinc sulfate), type of neurological manifestations, initial copper metabolism results, and liver function parameters did not differ between evaluated groups. CONCLUSIONS: Neurological worsening at the beginning of anti-copper therapy may occur in over 10% of WD patients. Special attention should be paid to those with severe initial neurological manifestations, advanced brain injury and using dopamine receptor antagonists. Type of anti-copper therapy did not show clear association with early neurological worsening. Copyright © 2015 Elsevier B.V. All rights reserved.",
+   "label": true,
+   "doi": "https://dx.doi.org/10.1016/j.jns.2015.06.010",
+   "year": "2015"
+  },
+  {
+   "title": "Plasma exchange for hemolytic crisis in Wilson disease [4]",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1999"
+  },
+  {
+   "title": "Prognostic factors in patients presenting with severe neurological forms of Wilson's disease",
+   "abstract": "BACKGROUND: Wilson's disease (WD), a metabolic disorder, is believed to be potentially reversible, even in its severe form. However, some patients do not respond to treatment. AIM: To analyse prognostic factors in severe WD. DESIGN: Retrospective audit. METHODS: A total of 140 patients were regularly followed from February 2002 to May 2004. Twenty-nine (18 males, 11 females) had severe disease, as defined by Modified Schwab and England Activities of Daily Living score (MSEADL) of < or=50% or Chu stage of 3. We analysed their clinical, laboratory and MRI features with respect to prognosis. RESULTS: For the severe form, mean age at symptom onset was 11.5 +/- 6.4 years, and at diagnosis, 13.3 +/- 7.0 years. Mean Neurological Symptom Score (NSS), Chu stage, and MSEADL were 26.5 +/- 8.2, 2.7 +/- 0.5 and 24.8 +/- 17.4, respectively. Twenty-one patients underwent MRI; 14 had repeat MRI. Following treatment, 14 (group A) had progressive worsening, including death in two, while 15 (group B) had sustained clinical improvement. Baseline demographic, clinical and laboratory features and MRI scores did not significantly differ between the two groups. However, diffuse white-matter abnormalities were more extensive in group A. Full-dose initial penicillamine therapy could have contributed to worsening in four patients. Drug compliance was poor in both groups but resumption of treatment did not benefit patients in group A. Serial MRI showed regression of lesions only among patients with clinical improvement. DISCUSSION: Severe WD remains a therapeutic challenge, with early diagnosis and treatment are essential. Specific MRI observations, a 'start low-go slow' regimen for penicillamine, and compliance may have prognostic significance. In absence of clinical predictors, genetic attributes need to be explored.",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1093/qjmed/hci095",
+   "year": "2005"
+  },
+  {
+   "title": "Wilson's disease: reflections about an alternative therapy with oral zinc. [Italian]",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1988"
+  },
+  {
+   "title": "Zinc therapy in Wilson's disease: observations in five patients",
+   "abstract": "We report our experience with zinc (Zn) therapy in five patients with Wilson's disease (WD). In addition to neurologic examination, evaluation of Kayser-Fleischer rings and liver function tests, copper (Cu) and Zn concentrations in liver tissue, plasma, and urine were periodically evaluated by spectrophotometry. Many of the patients had had side effects due to penicillamine (PCA). Oral Zn sulphate (220 mg tid) reduced the WD symptoms and resulted in normal urinary Cu excretion in all five patients. One patient who had a transient gastric complaint during Zn administration, and in whom a decrease in liver Cu content was not observed, did not show any improvement in liver histology. He resumed PCA therapy after 29 months of Zn therapy. We conclude that long-term Zn treatment in Wilson's disease can be a safe and effective alternative to Cu chelating agents. However, patients should be periodically monitored for their Cu/Zn status to assess patient compliance with therapy.",
+   "label": false,
+   "doi": "",
+   "year": "1990"
+  },
+  {
+   "title": "Short interval change of <sup>99m</sup>Tc-ethyl cysteinate dimer single photon emission computed tomography in Wilson's disease. [Japanese]",
+   "abstract": "We studied short interval change of cranial computed tomography (CT), magnetic resonance imaging (MRI) and <sup>99m</sup>Tc-ethyl cysteinate dimer single photon emission computed tomography (<sup>99m</sup>Tc-ECD SPECT) in a case of Wilson's disease. Before treatment, CT scan showed low density changes in the bilateral thalamus and basal ganglia, and MRI demonstrated high intensity in same lesions. <sup>99m</sup>Tc-ECD SPECT study revealed a hypoperfusion in bilateral thalamus. After 2 months under D-penicillamine therapy, neurological findings had improvement. Hypoperfusion in the thalamus with <sup>99m</sup>Tc-ECD SPECT significantly improved, whereas abnormal findings of CT scan and MRI persisted. <sup>99m</sup>Tc-ECD SPECT study may be useful for the planning of the treatment of Wilson's disease.",
+   "label": false,
+   "doi": "",
+   "year": "1999"
+  },
+  {
+   "title": "Maintenance Zinc therapy after initial Penicillamine chelation to treat symptomatic hepatic Wilson's disease in resource constrained setting",
+   "abstract": "Background: Experience with Zinc in treating symptomatic hepatic Wilson's disease (WD) is limited. Aim: To study the efficacy of Penicillamine followed by Zinc in treating symptomatic hepatic Wilson's disease. Methods: We retrospectively analysed case records of 31 symptomatic hepatic WD patients in whom disease severity scores (Child's, MELD, Nazer's and nNew Wilson iIndex score) and 24-hour Urinary copper were compared at 3 three time points-baseline at presentation, at transition from Penicillamine to Zinc, and at end of follow-up. Results: Of the 31 patients with symptomatic hepatic WD studied, 10 had associated neuropsychiatric manifestations of WD. Penicillamine was changed to Zinc sulfate either due to financial constraints (in 28 patients) or due to adverse effects of Penicillamine (in 3three). Child's grade was A in 6 six patients, B in 5 five, and C in 17 at presentation (baseline). Duration of initial Penicillamine chelation therapy was 134 (2-320) weeks, median (range) and of subsequent Zinc therapy was 363 (35-728) weeks. There was significant improvement in liver function tests and disease severity scores (Nazer's, nNew Wilson index, Child's and MELD score) at transition from Penicillamine to Zinc compared to with baseline. This improvement was maintained till end of study period. 17 Seventeen patients with Child C cirrhosis at presentation were treated with Penicillamine for 111 (2-320) weeks followed by Zinc for 344 (41-652) weeks, of whom 15 had significant improvement in liver function and disease severity scores until end of follow-up. 3 Three of 31 study patients died at 284, 112, and 437 weeks. No patient underwent liver transplantation. Conclusions: Penicillamine followed by Zinc maybe safe and effective treatment in resource constrained setting for symptomatic hepatic WD patients in all grades of baseline disease severity. Our data also suggests that some patients with decompensated cirrhosis due to Wilson's disease may be managed with medical treatment, avoiding liver transplantation.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1111/jgh.13878",
+   "year": "2017"
+  },
+  {
+   "title": "Analysis of treatments for wilson disease using patient-specific induced pluripotent stem (IPS) cells derived from urine",
+   "abstract": "Background and Aims: Wilson disease is a monogenetic disorder of copper (Cu) metabolism, which results from mutations in the ATP7B gene. This provokes a functional impairment of Cu excretion by the liver, followed by excess Cu deposition in organs, mostly in the liver and brain. Patients display clinical heterogeneity ranging from acute or chronic liver failure and/or neurological symptoms. The progression of WD can be partly ameliorated by zinc or chelating agents such as D-penicillamine and trientine. Though these treatments are usually effective, severe side effects have been reported in a significant portion of WD patients. The molecular mechanisms of WD and the response to various treatments have not been fully characterized, since specimens of the WD patients for analyses are rare. Consequently, samples of WD patients are indispensable for examinations of the impact of ATP7B mutations on disease pathogenesis. The aim of the study is to generate a novel in vitro methodology to generate WD patient-specific cells that may not only help to understand pathogenesis, but also drug efficacy. This approach can also be used as a tool to investigate novel compounds as well as new gene correction methods. Methods: Urine of WD patients was processed for isolation of renal epithelial cells, followed by reprogramming into WD-iPS cells using non-integrating episomal vectors. After characterization, WD-iPSCs were differentiated into hepatocyte-like cells, using crucial growth factors for 14 days. iPSC-Heps were characterized by qRT-PCR, flow cytometry and immunocytochemistry before they were treated with novel chelating agents under various Cu conditions. Results: Stable cell colonies emerged upon cultivation of urinederived cells and nucleofection generated iPSCs with pluripotent character. iPSC-Heps were identified with similar morphology and gene expression (e.g. ATP7B) in comparison to primary human hepatocytes. The results revealed a significant decrease of Cu content in WD iPSC-Heps after treatment with the novel chelator as compared to untreated WD iPSC-Heps. Conclusions: Our results indicate that iPSCs derived from urine cells of WD patients can be reprogrammed and differentiated into iPSC-Heps. WD iPSC-Heps will allow the establishment of a patient-specific in vitro platform for evaluating drug efficiency. Thus, this technology seems excellently suited for disease modelling and will allow assessment of novel drugs for improved therapy of WD.",
+   "label": false,
+   "doi": "",
+   "year": "2016"
+  },
+  {
+   "title": "Clinical analysis and short-term effect of hepatolenticular degeneration. [Chinese]",
+   "abstract": "24 patients with hepatolenticular degeneration were separately administered D-penicillamine or zinc sulfate for a short period. Symptoms were markedly improved in two groups, copper oxidase before leaving hospital was significantly increased than that after admission (P < 0.05). The author considers that zinc sulfate has more advantages such as safety, low price, less toxic side effects than D-penicillamine.",
+   "label": false,
+   "doi": "",
+   "year": "1996"
+  },
+  {
+   "title": "Presymptomatic diagnosis of Wilson disease associated with a novel mutation of the ATP7B gene",
+   "abstract": "We report a family study of a presymptomatic form of Wilson disease. Our report demonstrates that mutation analysis is very useful for diagnosing presymptomatic Wilson disease in patients without consanguineous parents and for assessing the carrier status of the patients' family members. Previously undetected mild cases of Wilson disease could be diagnosed using this methodology.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1007/s00431-001-0865-9",
+   "year": "2002"
+  },
+  {
+   "title": "The early history of manganese and the recognition of its neurotoxicity, 1837-1936",
+   "abstract": "The history of the biomedical recognition manganese-caused neurotoxicity mirrors changing technologies as much as it does the ontology of parkinsonism. The initial 1837 report of manganese-induced neurologic injury was made by John Couper, a university-based physician in Scotland. He made clear that the outbreak occurred among workers at the Charles Tennant bleach manufactory in the environs of Glasgow. The relatively new technology of chlorine generation using manganese accounted for the novel exposure involved. At the time, this factory was the largest hypochlorite bleaching powder producer in the world. As the 19th century progressed, technological change in steel fabrication requiring higher manganese content greatly increased demand for the metal. Nonetheless, more than six decades elapsed before the next reports of manganese neurotoxicity emerged. Two unrelated outbreaks (both on Continental Europe) were reported within weeks of each other in 1901, one by von Jaksch and the other by Embden. All the cases were heavily exposed to manganese-containing dust. By the eve of the First World War, a total of 9 patients with manganese-caused neurologic illness had been reported in five separate Continental European publications. Meanwhile, new technology led to another exposure source. Magnetic separation techniques allowed the extraction of zinc from mixed ore also containing iron and manganese, leading to exploitation of a unique source of high manganese-content ore found in New Jersey. Not long after that technology's introduction, in 1912 Casamajor reported the first U.S. cases of manganism, detailing classic findings. Additional cases from the same cohort were reported a few years later, with continued exposure driven by First World War-driven demand for manganese to be used in armaments. The nosology of chronic manganese neurotoxicity remained in flux, with considerable emphasis on shared attributes with Wilson's disease, a syndrome only then recently described. A landmark 1924 primate study by Mella showed manganese-induced basal ganglion damage; human autopsy study data in the years following further supported the view that manganese toxicity represented a parkinsonian syndrome. As the 1937 centenary of Couper's first report approached, newer technologies (electric arc welding and battery making) were being linked to manganese-caused disease, even as mineral extraction was expanding as a global source of exposure. Copyright Published by Elsevier B.V.",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1016/j.neuro.2017.04.006",
+   "year": "2017"
+  },
+  {
+   "title": "A case of fulminant wilson's disease: Effect of plasmapheresis",
+   "abstract": "Background/Case Studies: Wilson's disease is an autosomal recessive disorder of dysfunctional copper transport that results in copper deposition into tissues including liver, kidney, brain, and cornea. Rarely, patients present with fulminant Wilson's disease (fWD) in which fulminant liver failure, DAT-negative hemolysis, and acute renal failure (ARF) lead to rapid clinical deterioration and is nearly always fatal without a liver transplant. Although therapeutic plasma exchange (TPE) has been recommended for fWD, the level of evidence is very low with only a few case reports available to address the efficacy of TPE. Here we report a case of fWD with successful liver transplantation following daily TPE. Study Design/Methods: A 21-year-old female presented with a 1 day history of dark colored urine, jaundice and fatigue. Physical examination and laboratory values demonstrated liver failure, DAT-negative hemolysis, Keyser-Fleischer rings, ceruloplasmin < 4 mg/dL, AST greater than ALT (123 and 40 IU/L, respectively), and 24 hour urine copper level of 4703 mug. fWD was diagnosed and Trientine and zinc acetate were started on day 1 of hospital admission. The patient also received 6 units of plasma for coagulopathy. Starting day 2, the patient received one plasma volume exchange daily with plasma as the replacement fluid. Additional plasma was not required after starting daily TPE except on day 4. Kidney function started to deteriorate from day 2 and continuous renal replacement therapy (CRRT) was started on day 4 following TPE #3. The patient received daily RBC transfusions on days 1-4 (total 7 units) for anemia due to intravascular hemolysis. Orthotopic liver transplantation was performed on day 6. Serum copper levels were measured on blood samples drawn at admission and after the final TPE. Medical records were reviewed to assess clinical response to therapy. Results/ Findings: Serum copper level at admission and following 4 consecutive daily TPE and 29 hours CRRT in addition to medications were 200 and 140 mug/dL, respectively. Hemoglobin was 7.3 g/dL at admission, 7.7-9.1 g/ dL on days 2-4 with daily RBC transfusions, then 8.5-9.0 g/dL on day 5. INR remained between 2.0 and 3.5 with TPE. Histology of the explanted liver showed cirrhosis with a very small amount of stainable copper in periseptal hepatocytes, and genetic analysis showed a heterozygous mutation of ATP7B (p.Q111X). Conclusion: Hemolysis continued during treatment with TPE alone but improved with the addition of CRRT. TPE, however, was an effective method to stabilize coagulopathy without increasing blood volume. Though serum copper decreased, it remains unclear how much of the copper was removed by TPE versus CRRT. Our case suggests that TPE alone is effective in stabilizing coagulopathy, but a combination of TPE with CRRT may be more efficient at stabilizing intravascular hemolysis in fWD.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1111/j.1537-2995.2012.03833-1.x",
+   "year": "2012"
+  },
+  {
+   "title": "Effective shift from traditional chelation therapy to evidence based zinc monotherapy in four patients with Wilson's disease and parkinsonism",
+   "abstract": "Objective: To compare clinical improvement in Wilson's disease patients (1) following normalization of high serum and urine free copper rather than excretion of copper accumulation and (2) on zinc therapy, with and without penicillamine. Background: For years the treatment of Wilson's disease has been aiming at stimulating the excretion of accumulated copper by chelating agents. However, the dilemma arises when patients paradoxically deteriorate on them. Zinc, on the other hand, is usually downplayed by being restricted to maintenance, or concomitant therapy. Chelators increase the free copper levels in serum and urine, while zinc normalizes the values by interrupting intestinal copper absorption. Methods: In a retrospective observational study on four Wilson's disease patients with parkinsonism being initially treated on penicillamine with or without zinc, we compared the subjective and objective clinical improvement before and after shifting to zinc monotherapy. Results: Three of the four patients being deteriorated on penicillamine (0.5-1 gram per day), improved significantly to a normal biochemical and clinical state on zinc (150 milligram per day). The fourth patient on penicillamine (250 milligram per day) plus zinc (200 milligram per day) improved in lower extremities during the first month, while she considerably improved on zinc monotherapy in the following months. Conclusions: The results of the four patients suggest zinc as a promising, safe and affordable treatment for patients with copper intoxication, and neurological Wilson's disease. Moreover, they support the rational idea of normalization of increased serum and urine copper values rather than stimulating the excretion of accumulated copper that induces free copper intoxication.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1002/mds.25605",
+   "year": "2013"
+  },
+  {
+   "title": "Clinical trials of orphan medicines",
+   "abstract": "",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1016/S0140-6736%2808%2960876-4",
+   "year": "2008"
+  },
+  {
+   "title": "D-penicillamine induced membranous nephropathy. [Spanish]",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1982"
+  },
+  {
+   "title": "Prevention of Wilson's disease in asymptomatic patients",
+   "abstract": "",
+   "label": true,
+   "doi": "https://dx.doi.org/10.1056/NEJM196802152780702",
+   "year": "1968"
+  },
+  {
+   "title": "Manifestations and evolution of Wilson disease in pediatric patients carrying ATP7B mutation L708P",
+   "abstract": "OBJECTIVES: The aim of the study was to characterize a group of 11 pediatric patients, ages 3 to 13 years, affected by Wilson disease (WD) in the island of Gran Canaria, Spain. PATIENTS AND METHODS: Genetic, biochemical, and pathological features, together with their response to treatment and clinical evolution, have been analyzed for this group of patients. RESULTS: Genetically, the group was rather homogeneous, with an extremely high prevalence of the L708P mutation (4 homozygotes and 5 heterozygotes). Despite being initially screened because of asymptomatic hypertransaminemia, all of the patients presented with some degree of liver damage that was never accompanied by any neurological manifestation. Hepatic damage was most severe in a compound heterozygote with a novel mutation, G1266W, affecting a motif in the ATP7B polypeptide that is greatly conserved in similar proteins among metazoans. Ceruloplasmin and copper serum levels, together with the determination of hepatic copper content, were found to be of great diagnostic value, whereas urine copper measurements were found to be much less conclusive. All of the patients responded well to treatment with D-penicillamine with no documented adverse reactions. CONCLUSIONS: The patients in Gran Canaria constitute, overall, one of the largest groups of patients with WD with a high incidence of a single mutation, allowing us to define the early clinical symptoms and the evolution of the disease in patients carrying the ATP7B L708P mutant allele, and the study of WD in a genetically homogeneous background.",
+   "label": false,
+   "doi": "https://dx.doi.org/10.1097/MPG.0b013e318230130c",
+   "year": "2012"
+  },
+  {
+   "title": "Hepatic Wilson's disease in two brothers",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1993"
+  },
+  {
+   "title": "Golden ring in eyes: All that glitters is not gold!",
+   "abstract": "",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1016/j.amjmed.2011.10.020",
+   "year": "2012"
+  },
+  {
+   "title": "Wilson's disease with severe neurological manifestations: Response to trientine plus zinc therapy. [Spanish]",
+   "abstract": "In patients with Wilson's disease and neurological manifestations, treatment with D-penicillamine can cause worsening of neurological symptoms, usually in the first few weeks of treatment. Because the neurological damage can be severe and irreversible, the use of D-penicillamine is controversial, and several authors believe that it should be avoided. Studies of the use of ammonium tetrathiomolybdate as an alternative chelating agent for the initial treatment of neurologic Wilson's disease are still in the experimental phase. Published experience on the simultaneous use of trientine, another chelating agent, and zinc, which blocks intestinal absorption of copper, is promising but limited. We present the case of a 17 year-old boy with severe neurologic Wilson's disease that had first presented six years previously. The patient showed a complete recovery after six months of treatment with a combination of trientine and zinc acetate.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1157/13060690",
+   "year": "2004"
+  },
+  {
+   "title": "Iron, zinc, and copper in retinal physiology and disease",
+   "abstract": "The essential trace metals iron, zinc, and copper play important roles both in retinal physiology and disease. They are involved in various retinal functions such as phototransduction, the visual cycle, and the process of neurotransmission, being tightly bound to proteins and other molecules to regulate their structure and/or function or as unbound free metal ions. Elevated levels of \"free\" or loosely bound metal ions can exert toxic effects, and in order to maintain homeostatic levels to protect retinal cells from their toxicity, appropriate mechanisms exist such as metal transporters, chaperones, and the presence of certain storage molecules that tightly bind metals to form nontoxic products. The pathways to maintain homeostatic levels of metals are closely interlinked, with various metabolic pathways directly and/or indirectly affecting their concentrations, compartmentalization, and oxidation/reduction states. Retinal deficiency or excess of these metals can result from systemic depletion and/or overload or from mutations in genes involved in maintaining retinal metal homeostasis, and this is associated with retinal dysfunction and pathology. Iron accumulation in the retina, a characteristic of aging, may be involved in the pathogenesis of retinal diseases such as age-related macular degeneration (AMD). Zinc deficiency is associated with poor dark adaptation. Zinc levels in the human retina and RPE decrease with age in AMD. Copper deficiency is associated with optic neuropathy, but retinal function is maintained. The changes in iron and zinc homeostasis in AMD have led to the speculation that iron chelation and/or zinc supplements may help in its treatment. © 2013 Elsevier Inc.",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1016/j.survophthal.2012.12.002",
+   "year": "2013"
+  },
+  {
+   "title": "Zinc monotherapy for young children with asymptomatic wilson disease: Multicenter study in japan",
+   "abstract": "Background and Aims: AASLD and EASL guidelines recommend zinc monotherapy as a treatment for asymptmoatic patients with Wilson disease (WD). However, there are a few reports of zinc monotherapy for young children with asymptomatic WD. Here, we aimed at evaluating long-term efficacy and safety of zinc monotherapy for young children, under 10 years old, with asymptomatic WD in Japanese pediatric centers and establishing appropriate benchmarks of maintenance therapy. Methods: We performed a retro- and prospective study to examine 21 children (median age 6 years, range 1-9) who satisfied diagnostic criteria for WD and were treated solely with zinc acetate prior to symptom onset at 10 participating pediatric centers in Japan. No additional WD sequelas, such as jaundice, hepatomegaly, or neurologic abnormalities were noted. We monitored serum AST and ALT, nonceruloplasmin serum copper, and 24-hour urinary copper for 1-7 years after initiation of zinc monotherapy. We performed abdominal ultrasonograpy and evaluated clinical WD manifestations, drug compliance, and adverse effects of zinc. The prescribed dosage of zinc acetate for patient <= 5 years was 25 mg twice daily; for those children 6 years or older, the dose was 25 mg 3 times daily. We increased the dosage of zinc if the patients had AST/ALT > 50-70 U/L, and decreased it if they had adverse effects of zinc such as iron-deficiency anemia or pancytopenia. Results: At time of diagnosis, AST/ALT and 24-hour urinary copper were 148+/-118/234+/-151 U/L and 124+/-54 mug/day (5.8+/-2.9 mug/kg/day), respectively. All patients continued to take zinc without any evidence of zinc toxicity. None of our 21 patients became clinically symptomatic. AST/ALT significantly decreased to 54+/-30/77+/-49 U/L (P<0.001) at 1 month after initiation of treatment and was mostly maintained under 50 U/L for 1-7 years (AST/ALT: 33+/-7/38+/-17 and 29+/-5/34+/-6 U/L at 1 and 7 years after initiation of treatment, respectively). Twenty four-hour urinary copper significantly decreased to 49+/-21 mug/day (2.2+/-1.1 mug/kg/day; P<0.001) at 6 months after initiation of treatment and was mostly maintained under 75 mug/day and between 1 and 3 mug/kg/day for the remainder of the study (2.2+/-0.6 and 1.5+/-0.2 mug/kg/day at 1 and 7 years after initiation of treatment, respectively). Conclusions: Long-term zinc monotherapy for young children with asymptomatic WD proved highly effective and safe. A reasonable goal in treating young children with asymptomatic WD using zinc appears to be maintaining both AST/ALT under 50 U/L and 24-hour urinary copper excretion between 1 and 3 mug/kg/day (and under 75 mug/day).",
+   "label": false,
+   "doi": "",
+   "year": "2016"
+  },
+  {
+   "title": "Metallothionein is elevated in liver and duodenum of Atp7b<sup>(-/-)</sup> mice",
+   "abstract": "Different mutations in the copper transporter gene Atp7b are identified as the primary cause of Wilson's disease. These changes result in high copper concentrations especially in the liver and brain, and consequently lead to a dysfunction of these organs. The Atp7<sup>(-/-)</sup> mouse is an established animal model for Wilson's disease and characterized by an abnormal copper accumulation, a low serum oxidase activity and an increased copper excretion in urine. Metallothionein (MT) proteins are low molecular weight metal-binding proteins and essential for the zinc homeostasis but also play a role for the regulation of other metals, e.g. copper. However the molecular mechanisms of MT in regard to Atp7b remain still elusive. In this study we investigate the expression of MT in the liver and duodenum of Atp7b<sup>(-/-)</sup> mice and wildtype mice. Hepatic and duodenal expression of MT was measured by real-time reverse transcription-polymerase chain reaction and post-translational expression was analyzed by immunoblot and immunofluorescence. Expression of MT in liver und duodenum was significantly higher in Atp7b<sup>(-/-)</sup> mice than in controls. Hepatic and duodenal copper, iron and zinc content were also studied. Compared to control hepatic copper and iron content was significantly higher while hepatic zinc content was significantly lower in Atp7b<sup>(-/-)</sup> mice. In the duodenum copper and zinc content of Atp7b<sup>(-/-)</sup> mice was significantly lower than in controls. Duodenal iron content was also lower in Atp7b<sup>(-/-)</sup> mice, but did not reach statistical significance. The results of our study suggest that metallothionein is elevated in the liver and duodenum of Atp7b<sup>(-/-)</sup> mice. Copyright © 2018, The Author(s).",
+   "label": false,
+   "doi": "http://dx.doi.org/10.1007/s10534-018-0110-x",
+   "year": "2018"
+  },
+  {
+   "title": "Cuprenil 'Polfa' (d penicillamine) in treatment of hepatolenticular degeneration (Polish). [Polish]",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1975"
+  },
+  {
+   "title": "Orphan Drug Act passes quarter-century milestone in fight against rare diseases",
+   "abstract": "",
+   "label": false,
+   "doi": "http://dx.doi.org/10.2146/news080054",
+   "year": "2008"
+  }
+ ]
+}

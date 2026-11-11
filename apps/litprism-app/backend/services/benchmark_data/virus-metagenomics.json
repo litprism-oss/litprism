@@ -1,0 +1,1068 @@
+{
+ "slug": "virus-metagenomics",
+ "name": "Virus metagenomics in farm animals",
+ "description": "Virus metagenomics in farm animals",
+ "source": "Real records sampled from the review's open dataset. Kwok KTT, Nieuwenhuijse DF, Phan MVT, Koopmans MPG. Virus metagenomics in farm animals: a systematic review. Viruses 2020;12(1):107. https://doi.org/10.3390/v12010107 Dataset licence: CC-BY 4.0 (via ASReview systematic-review-datasets). Labels are the review authors' final inclusion decisions. The criteria below are LitPrism's own summary of the review's scope, not the authors' protocol. Sample: all relevant records (up to 40) plus random irrelevant ones.",
+ "criteria": {
+  "inclusion": [
+   "Uses viral metagenomics (untargeted sequencing to detect or characterise viruses)",
+   "Samples come from farm animals (for example pigs, cattle, poultry, sheep or goats)"
+  ],
+  "exclusion": [
+   "Human-only study",
+   "Review article without original sequencing data"
+  ]
+ },
+ "records": [
+  {
+   "title": "High-throughput sequencing reveals differing immune responses in the intestinal mucosa of two inbred lines afflicted with necrotic enteritis",
+   "abstract": "We investigated the necrotic enteritis (NE)-induced transcripts of immune-related genes in the intestinal mucosa of two highly inbred White Leghorn chicken lines, line 6.3 and line 7.2, which share the same MHC haplotype and show different levels of NE susceptibility using high-throughput RNA sequencing (RNA-Seq) technology. NE was induced by the previously described co-infection model using Eimeria maxima and Clostridium perfringens. The RNA-Seq generated over 38 million sequence reads for Marek's disease (MD)-resistant line 6.3 and over 40 million reads for the MD-susceptible line 7.2. Alignment of these sequences with the Gallus gallus genome database revealed the expression of over 29,900 gene transcripts induced by NE in these two lines, among which 7,841 genes were significantly upregulated and 2,919 genes were downregulated in line 6.3 chickens and 6,043 genes were significantly upregulated and 2,764 genes were downregulated in NE-induced line 7.2 compared with their uninfected controls. Analysis of 560 differentially expressed genes (DEGs) using the gene ontology database revealed annotations for 246 biological processes, 215 molecular functions, and 81 cellular components. Among the 53 cytokines and 96 cytokine receptors, 15 cytokines and 29 cytokine receptors were highly expressed in line 6.3, whereas the expression of 15 cytokines and 15 cytokine receptors was higher in line 7.2 than in line 6.3 (fold change >= 2, p<0.01). In a hierarchical cluster analysis of novel mRNAs, the novel mRNA transcriptome showed higher expression in line 6.3 than in line 7.2, which is consistent with the expression profile of immune-related target genes. In qRT-PCR and RNA-Seq analysis, all the genes examined showed similar responses to NE (correlation coefficient R=0.85-0.89, p<0.01) in both lines 6.3 and 7.2. This study is the first report describing NE-induced DEGs and novel transcriptomes using RNA-seq data from two inbred chicken lines showing different levels of NE susceptibility. These findings provide important insights into our current knowledge of host-pathogen interaction and the nature of host genes that can serve as NE resistance markers for molecular breeding.",
+   "label": false,
+   "doi": "",
+   "year": "2015"
+  },
+  {
+   "title": "Role of the mosquitoes Culex pipienis f. pipiens and Cx. pipiens f. molestus (Diptera, Culicidae) in the spread of West Nile virus in the south of Russia",
+   "abstract": "Cx. pipiens is one of the major vectors of West Nile virus in the south of Russia and it is represented by the autogenic form, molestus, and the non-autogenic form, pipiens. The spatial distribution of its larvae and food preferences of females was investigated to assess the potential role of each form in the spread of the virus. The taxonomic status of the mosquitoes was determined from their capacity for autogenicity (543 specimens) and the type of mitochondrial DNA (348 specimens). The mosquitoes of the pipiens form were shown to develop in the open urban and rural reservoirs and the females were non-autogenic. Cx. pipiens form molestus was found only in the urban biotopes, mainly in the flooded basements and, in some years, also in the open reservoirs where it formed a mixed population with Cx. pipiens form pipiens. Both autogenic (85-95.2%) and non-autogenic specimens were identified among the females with the mitotype in form molestus. Genetic analysis of Cx. pipiens females collected under the Berezantsev bell and in the trap with a bird showed that both forms were attracted to man and the bird. The findings suggest that Cx. pipiens form pipiens can transmit West Nile virus to humans both in the town and in its suburb and Cx. pipiens form molestus can only in urban areas.",
+   "label": false,
+   "doi": "",
+   "year": "2013"
+  },
+  {
+   "title": "Genome characterization of a novel porcine bocavirus",
+   "abstract": "Using a high-throughput DNA sequencing method, one DNA sequence (contig01006), suspected to belong to a novel porcine bocavirus (PBoV), was found with a high rate of detection (19. 6 %) in fecal samples from healthy piglets. Moreover, a novel PBoV (tentatively named PBoV3C) with a nearly complete genome sequence (5235 bp) was identified. PBoV3C exhibits typical genome characteristics of bocaviruses and shows the highest genomic sequence identity (78 % to 81 %) to PBoV3A/B (PBoV3/4-UK) and PBoV3D/E (PBoV3/4-HK), respectively. Phylogenetic and recombination analysis indicated high diversity, prevalence and complexity among the PBoVs. The phospholipase A2 (PLA2) site of VP1 and the secondary structure of VP2 of PBoV3C were also analyzed. Additionally, we propose a uniform method of PBoV nomenclature based on the VP1 gene. © 2012 Springer-Verlag.",
+   "label": true,
+   "doi": "10.1007/s00705-012-1407-7",
+   "year": "2012"
+  },
+  {
+   "title": "Characterization of a novel VIIl sub-genotype of Newcastle disease virus circulating in Iran",
+   "abstract": "Newcastle disease is an economically important and highly contagious disease affecting wild and domestic avian species. Despite extensive vaccination efforts within the poultry industry, Newcastle disease virus (NDV) outbreaks causing significant economic losses still occur. Rural chickens may act as a potential reservoir of NDVs for commercial poultry due to poor biosecurity and inadequate vaccination. The aim of this study was to investigate the phylogenetic relationship and molecular characterization of eight NDVs isolated from backyard poultry in Iran during 2011–2013. The complete coding sequence of fusion (F) and haemagglutinin-neuraminidase (HN) genes of eight NDVs were determined and compared with other published NDVs. Based on inter-population distances and phylogenetic topology between available NDV categories, Iranian isolates formed a novel VIIl sub-genotype distinct from previous groups designated in genotype VII. Furthermore, both F and HN genes of the Iranian isolates shared high nucleotide sequence similarity with viruses isolated in China. All viruses analysed contained a polybasic cleavage site motif (111G/RRRQKR↓F117), indicating that all isolates could be categorized as a virulent pathotype. No mutation was observed in the neutralizing epitopes of the F protein. Analysis of amino acids associated with neutralizing antigenic sites within the HN protein revealed that all isolates exhibited a unique amino acid (Q) at position 347. These results emphasize the need for strengthening the biosecurity measures implemented on village flocks and practicing a mandatory vaccination programme for local poultry. Moreover, continuous monitoring of NDVs in different species of birds can help to gain more knowledge about the evolution of this virus and prevent future panzootics.",
+   "label": false,
+   "doi": "10.1080/03079457.2017.1376735",
+   "year": "2018"
+  },
+  {
+   "title": "Characterization of a new potyvirus naturally infecting chickpea",
+   "abstract": "During the 1999 to 2001 growing seasons, symptoms consisting of mosaic, stunting, yellowing, wilting, shortening of internodes, and phloem discoloration were observed in chickpea (Cicer arietinum) grown in the Department of Chuquisaca in southern Bolivia. In some fields, approximately 10% of the plants exhibited viruslike symptoms and suffered greatly reduced seed yields. Lentil (Lens culinaris) was also observed to be infected but not pea (Pisum sativum) or faba bean (Vicia faba) growing in nearby fields. Infected chickpea tissue reacted positively to the potyvirus group-specific monoclonal antibody (MAb), but there was no serological reaction with antisera to the potyviruses Bean yellow mosaic virus, Clover yellow vein virus, Cowpea aphid-borne mosaic virus, Pea seedborne mosaic virus, Bean common mosaic virus, or Bean common mosaic necrosis virus. Western blots of total protein extracts probed with the potyvirus MAb revealed a single band ca. 32 kDa. Comparative sequence analysis of cDNA clones generated from the putative coat protein gene consisted of 282 amino acids (31.9 kDa) and showed moderate identities of 67, 66,163, 63, and 61% with the coat proteins of potyviruses Pepper severe mosaic virus, Pepper yellow mosaic virus, Potato virus Y, Plum pox virus, and Pepper mottle virus, respectively. Phylogenetic analysis of the coat protein amino acid sequence revealed that this virus is a unique member of the family Potyviridae and is phylogenetically most closely related to a group of Solanaceae-infecting potyviruses rather than to other legume-infecting potyviruses. The proposed name for the new causal agent is Chickpea yellow mosaic virus.",
+   "label": false,
+   "doi": "",
+   "year": "2003"
+  },
+  {
+   "title": "Molecular characterization of bovine ephemeral fever virus in Thailand between 2013 and 2017",
+   "abstract": "Bovine ephemeral fever (BEF) is an arthropod-borne disease caused by bovine ephemeral fever virus (BEFV), a negative sense, single-stranded RNA virus. BEFV is endemic in tropical and sub-tropical regions including Thailand, a country in mainland Southeast Asia. However, there are few studies on BEFV and no available information regarding molecular characteristics of BEFV in Thailand. Therefore, the aims of this study were to genetically characterize Thai BEFVs and reveal their evolutions by phylogenetic analysis of G gene ectodomain sequences. From 2013 to 2017, blood samples were collected from bovine that matched with BEF case definition from three regions of Thailand. Thai BEFV G genes and a whole genome of an isolate, East Asia/TH/LRI0045/2016, were sequenced and characterized. Additionally, their phylogenies were constructed. This is the first report on genetics of BEFV in Southeast Asia. G ectodomain encoding region of Thai BEFV found during 2013–2017 are closely related to the second and third sub-clades of East Asia lineage. In addition, we observed mutation in the putative P’ ORF of all Thai BEFVs which generated a premature stop codon. Thai G gene sequences are closely related to those of mainland Chinese and Taiwanese isolates. The whole genomic sequences of Thai BEFV and East Asia/China/JT02 L/2002 possess common characteristics, suggesting shared evolutionary relationship between East and Southeast Asian strains. Further studies on relationship between animal translocation, circulation of BEFV in Greater Mekong subregion and acquisition of more G gene sequences may improve understanding of BEFV epidemiology in mainland Southeast Asia.",
+   "label": false,
+   "doi": "10.1016/j.vetmic.2018.10.013",
+   "year": "2018"
+  },
+  {
+   "title": "Isolation and characterization of a novel cervid adenovirus from white-tailed deer (Odocoileus virginianus) fawns in a captive herd",
+   "abstract": "A novel adenovirus, CeAdV1, was isolated from buffy coat and nasal swab samples collected from two captive white-tailed deer (Odocoileus virginianus) fawns. The isolation was an incidental finding in the course of screening animals for use in a research study on an unrelated pathogen. In the screening process, virus isolation was performed on both nasal swabs and buffy coat samples and cytopathic effect was observed. Electron microscopy revealed viral particles with the shape and morphology of an adenovirus. Next generation sequencing followed by phylogenetic analysis classified this virus to the Mastadenovirus genus. Its sequence was genetically distinct from all other recognized species in this genus, with only 76% sequence identity to its closest genetic match, bovine adenovirus 3 (BAdV3). The virus could be propagated in bovine derived cells but grew to a higher titer in cervid derived cells. Inoculation of white-tailed deer fawns with the isolated virus resulted in pyrexia, depletion of thymus tissue and mild respiratory disease. Comparative serology performed using convalescent sera revealed distinct antigenic differences between the novel cervid adenovirus and BAdV3. A retrospective serological survey of the captive deer herd indicated that this virus had been circulating in the herd for at least 14 years with no report of clinical disease. A survey of serum collected from free ranging mule deer residing in Nevada revealed high serum titers against this novel adenovirus.",
+   "label": false,
+   "doi": "10.1016/j.virusres.2017.06.020",
+   "year": "2017"
+  },
+  {
+   "title": "First outbreaks and phylogenetic analyses of avian influenza H9N2 viruses isolated from poultry flocks in Morocco",
+   "abstract": "Background: H9N2 avian influenza viruses continue to spread in poultry and wild birds worldwide. Morocco just faced its first H9N2 influenza virus outbreaks early 2016 affecting different types of poultry production. After its introduction, the virus spread very rapidly throughout the country. Methods: Samples were collected from 11 chicken flocks with high morbidity and mortality rates. Four viruses were successfully isolated from broiler chickens and one from broiler breeders and fully sequenced. Results: Phylogenetic and molecular markers analyses showed the Moroccan viruses belonged to the G1 lineage and likely originated from the Middle East. As known for H9N2 viruses, the Moroccanisolates possess several genetic markers that enhance virulence in poultry and transmission to humans. Conclusion: The present study demonstrated that under field conditions H9N2 could have a devastating effect on egg production and mortalities and highlighted a lack of surveillance data on the pathogen in the region.",
+   "label": false,
+   "doi": "10.1186/s12985-016-0596-1",
+   "year": "2016"
+  },
+  {
+   "title": "A mutation 'Hot Spot' in the Schmallenberg virus M segment",
+   "abstract": "In the autumn of 2011, Schmallenberg virus (SBV), a novel orthobunyavirus of the Simbu serogroup, was identified by metagenomic analysis in Germany. SBV has since been detected in ruminants all over Europe, and investigations on phylogenetic relationships, clinical signs and epidemiology have been conducted. However, until now, only comparative sequence analysis of SBV genome segments with other species of the Simbu serogroup have been performed, and detailed data on the S and M segments, relevant for virus-host-cell interaction, have been missing. In this study, we investigated the S- and M-segment sequences obtained from 24 SBVpositive field samples from sheep, cattle and a goat collected from all over Germany. The results obtained indicated that the overall genome variability of SBV is neither regionally nor host species dependent. Nevertheless, we characterized for the first time a region of high sequence variability (a mutation 'hot spot') within the glycoprotein Gc encoded by the M segment. © 2013 SGM.",
+   "label": false,
+   "doi": "10.1099/vir.0.049908-0",
+   "year": "2013"
+  },
+  {
+   "title": "Aberrant host immune response induced by highly virulent PRRSV identified by digital gene expression tag profiling",
+   "abstract": "Background: There was a large scale outbreak of the highly pathogenic porcine reproductive and respiratory syndrome (PRRS) in China and Vietnam during 2006 and 2007 that resulted in unusually high morbidity and mortality among pigs of all ages. The mechanisms underlying the molecular pathogenesis of the highly virulent PRRS virus (H-PRRSV) remains unknown. Therefore, the relationship between pulmonary gene expression profiles after H-PRRSV infection and infection pathology were analyzed in this study using high-throughput deep sequencing and histopathology.Results: H-PRRSV infection resulted in severe lung pathology. The results indicate that aberrant host innate immune responses to H-PRRSV and induction of an anti-apoptotic state could be responsible for the aggressive replication and dissemination of H-PRRSV. Prolific rapid replication of H-PRRSV could have triggered aberrant sustained expression of pro-inflammatory cytokines and chemokines leading to a markedly robust inflammatory response compounded by significant cell death and increased oxidative damage. The end result was severe tissue damage and high pathogenicity.Conclusions: The systems analysis utilized in this study provides a comprehensive basis for better understanding the pathogenesis of H-PRRSV. Furthermore, it allows the genetic components involved in H-PRRSV resistance/susceptibility in swine populations to be identified. © 2010 Xiao et al; licensee BioMed Central Ltd.",
+   "label": false,
+   "doi": "10.1186/1471-2164-11-544",
+   "year": "2010"
+  },
+  {
+   "title": "Capripoxvirus-vectored vaccines against livestock diseases in Africa",
+   "abstract": "Five different viral diseases of livestock, lumpy skin disease (LSD), sheep pox (SPP), goat pox (GTP), Rift Valley fever (RVF) and peste des petits ruminants (PPR), circulate in the same regions of Africa, imposing a major burden on economic activity and public health. While commercial vaccines against these viruses are available, the cost of implementing regular vaccination regimens against multiple diseases is prohibitive for most African farmers. A single, affordable multivalent vaccine that simultaneously protects against all 5 diseases would therefore be of significant benefit to the livestock sector in Africa. It could also serve as a platform for the development of new vaccines of significance to other developing countries around the world. In this paper, we present an overview of the economic importance of livestock in Africa, the pathogens responsible for RVF, PPR, SPP, GTP and LSD and the vaccination strategies currently used to combat them. We then review experience with the development of attenuated capripoxviruses as vaccines against LSD, SPP and GTP and of recombinant capripoxvirus-vectored vaccines against RVF and PPR. We conclude the article by presenting the rationale for a single, multivalent capripoxvirus-vectored vaccine that would protect against all 5 diseases of livestock, and describe the approach being taken by a consortium of Canadian and South African researchers to develop such a vaccine. Crown Copyright © 2013 Published by Elsevier B.V. All rights reserved.",
+   "label": false,
+   "doi": "10.1016/j.antiviral.2013.02.016",
+   "year": "2013"
+  },
+  {
+   "title": "Swine Influenza Virus (H1N2) Characterization and Transmission in Ferrets, Chile",
+   "abstract": "Phylogenetic analysis of the influenza hemagglutinin gene (HA) has suggested that commercial pigs in Chile harbor unique human seasonal H1-like influenza viruses, but further information, including characterization of these viruses, was unavailable. We isolated influenza virus (H1N2) from a swine in a backyard production farm in Central Chile and demonstrated that the HA gene was identical to that in a previous report. Its HA and neuraminidase genes were most similar to human H1 and N2 viruses from the early 1990s and internal segments were similar to influenza A(H1N1)pdm09 virus. The virus replicated efficiently in vitro and in vivo and transmitted in ferrets by respiratory droplet. Antigenically, it was distinct from other swine viruses. Hemagglutination inhibition analysis suggested that antibody titers to the swine Chilean H1N2 virus were decreased in persons born after 1990. Further studies are needed to characterize the potential risk to humans, as well as the ecology of influenza in swine in South America.",
+   "label": false,
+   "doi": "",
+   "year": "2017"
+  },
+  {
+   "title": "Comparative complete genome analysis of chicken and Turkey megriviruses (family picornaviridae): long 3' untranslated regions with a potential second open reading frame and evidence for possible recombination",
+   "abstract": "UNLABELLED: Members of the family Picornaviridae consist of small positive-sense single-stranded RNA (+ssRNA) viruses capable of infecting various vertebrate species, including birds. One of the recently identified avian picornaviruses, with a remarkably long (>9,040-nucleotide) but still incompletely sequenced genome, is turkey hepatitis virus 1 (THV-1; species Melegrivirus A, genus Megrivirus), a virus associated with liver necrosis and enteritis in commercial turkeys (Meleagris gallopavo). This report presents the results of the genetic analysis of three complete genomes of megriviruses from fecal samples of chickens (chicken/B21-CHV/2012/HUN, GenBank accession no. KF961186, and chicken/CHK-IV-CHV/2013/HUN, GenBank accession no. KF961187) (Gallus gallus domesticus) and turkey (turkey/B407-THV/2011/HUN, GenBank accession no. KF961188) (Meleagris gallopavo) with the largest picornavirus genome (up to 9,739 nucleotides) so far described. The close phylogenetic relationship to THV-1 in the nonstructural protein-coding genome region and possession of the same internal ribosomal entry site type (IVB-like) suggest that the study strains belong to the genus Megrivirus. However, the genome comparisons revealed numerous unique variations (e.g., different numbers of potential 2A peptides, unusually long 3' genome parts with various lengths of a potential second open reading frame, and multiple repeating sequence motifs in the 3' untranslated region) and heterogeneous sequence relationships between the structural and nonstructural genome regions. These differences suggest the classification of chicken megrivirus-like viruses into a candidate novel species in the genus Megrivirus. Based on the different phylogenetic positions of chicken megrivirus-like viruses at the structural and nonstructural genome regions, the recombinant nature of these viruses is plausible. IMPORTANCE: The comparative genome analysis of turkey and novel chicken megriviruses revealed numerous unique genome features, e.g., up to four potential 2A peptides, unusually long 3' genome parts with various lengths containing a potential second open reading frame, multiple repeating sequence motifs, and heterogeneous sequence relationships (possibly due to a recombination event) between the structural and nonstructural genome regions. Our results could help us to better understand the evolution and diversity (in terms of sequence and genome layout) of picornaviruses.",
+   "label": true,
+   "doi": "",
+   "year": "2014"
+  },
+  {
+   "title": "Neurotropic astrovirus in cattle with nonsuppurative encephalitis in Europe",
+   "abstract": "Encephalitis is a frequently diagnosed condition in cattle with neurological diseases. Many affected animals present with a non-suppurative inflammatory reaction pattern in the brain. While this pattern supports a viral etiology, the causative pathogen remains unknown in a large proportion of cases. Using viral metagenomics, we identified an astrovirus (bovine astrovirus [BoAstV]-CH13) in the brain of a cow with nonsuppurative encephalitis. Additionally, BoAstV RNA was detected with reverse transcription-PCR and in situ hybridization in about one fourth (5/22 animals) of cattle with nonsuppurative encephalitis of unknown etiology. Viral RNA was found primarily in neurons and at the site of pathology. These findings support the notion that BoAstV infection is a common cause of encephalitis in cattle. Phylogenetically, BoAstV-CH13 was closely related to rare astrovirus isolates from encephalitis cases in animals and a human patient. Future research needs to be directed toward the pathogenic mechanisms, epidemiology, and potential cross-species transmission of these neurotropic astroviruses. Copyright © 2014, American Society for Microbiology. All Rights Reserved.",
+   "label": true,
+   "doi": "10.1128/jcm.01195-14",
+   "year": "2014"
+  },
+  {
+   "title": "The high genetic variation of viruses of the genus Nairovirus reflects the diversity of their predominant tick hosts",
+   "abstract": "The genus Nairovirus (family Bunyaviridae) contains seven serogroups consisting of 34 predominantly tick-borne viruses, including several associated with severe human and livestock diseases [e.g., Crimean Congo hemorrhagic fever (CCHF) and Nairobi sheep disease (NSD), respectively]. Before this report, no comparative genetic studies or molecular detection assays had been developed for this virus genus. To characterize at least one representative from each of the seven serogroups, reverse transcriptase-polymerase chain reaction (RT-PCR) primers targeting the L polymerase-encoding region of the RNA genome of these viruses were successfully designed based on conserved amino acid motifs present in the predicted catalytic core region. Sequence analysis showed the nairoviruses to be a highly diverse group, exhibiting up to 39.4% and 46.0% nucleotide and amino acid identity differences, respectively. Virus genetic relationships correlated well with serologic groupings and with tick host associations. Hosts of these viruses include both the hard (family Ixodidae) and soft (family Argasidae) ticks. Virus phylogenetic analysis reveals two major monophyletic groups: hard tick and soft tick-vectored viruses. In addition, viruses vectored by Ornithodoros, Carios, and Argas genera ticks also form three separate monophyletic lineages. The striking similarities between tick and nairovirus phylogenies are consistent with possible coevolution of the viruses and their tick hosts. Fossil and phylogenetic data placing the hard tick-soft tick divergence between 120 and 92 million years ago suggest an ancient origin for viruses of the genus Nairovirus. © 2003 Elsevier Inc. All rights reserved.",
+   "label": false,
+   "doi": "10.1016/j.virol.2003.09.021",
+   "year": "2004"
+  },
+  {
+   "title": "Host-parasite relations of bacteria and phages can be unveiled by Oligostickiness, a measure of relaxed sequence similarity",
+   "abstract": "Motivation: The recent metagenome analysis has been producing a large number of host-unassigned viruses. Although assigning viruses to their hosts is basically important not only for virology but also for prevention of epidemic, it has been a laborious and difficult task to date. The only effective method for this purpose has been to find them in a same microscopic view. Now, we tried a computational approach based on genome sequences of bacteria and phages, introducing a physicochemical parameter, SOSS (set of oligostickiness similarity score) derived from oligostickiness, a measure of binding affinity of oligonucleotides to template DNA. Results: We could confirm host-parasite relationships of bacteria and their phages by SOSS analysis: all phages tested (25 species) had a remarkably higher SOSS value with its host than with unrelated bacteria. Interestingly, according to SOSS values, lysogenic phages such as lambda phage (host: Escherichia coli) or SPP1 (host: Bacillus subtilis) have distinctively higher similarity with its host than its non-lysogenic (excretive or virulent) ones such as fd and T4 (host: E. coli) or phages gamma and PZA (host: B.subtilis). This finding is very promising for assigning host-unknown viruses to its host. We also investigated the relationship in codon usage frequency or G + C content of genomes to interpret the phenomenon revealed by SOSS analysis, obtaining evidences which support the hypothesis that higher SOSS values resulted from the cohabitation in the same environment which may cause the common biased mutation. Thus, lysogenic phages which stay inside longer resemble the host. © The Author 2009. Published by Oxford University Press. All rights reserved.",
+   "label": false,
+   "doi": "10.1093/bioinformatics/btp003",
+   "year": "2009"
+  },
+  {
+   "title": "Phylogenetic characterization of classical swine fever viruses isolated in Korea between 1988 and 2003",
+   "abstract": "Twenty-four isolates of classical swine fever (CSF) virus which were obtained from CSF outbreaks during 1988 and 2003 in the Republic of Korea were genetically characterized for partial E2 gene (190 nucleotides) and compared with CSF viruses reported by other countries. Phylogenetic analyses classified Korean field isolates between1988 and 1999 into subgroup 3.2, forming an independent clade distinct from CSF viruses identified in other countries. In contrast, the viruses isolated during 2002-2003 CSF epidemics were classified into a different subgroup (2.1). The 2.1 viruses showed a close genetic relationship (92.1-100% nucleotide similarity) with CSF viruses reported from China and Taiwan in 1998-2001. As no evidence of CSF virus infection was detected in the wild boar (Sus scrofa coreanus) population that inhabits Korea, the results of molecular characterization strongly suggest that CSF epidemic outbreaks in Korean swine populations during 2002-2003 were attributed to the introduction of a new strain or strains, likely from neighboring countries. © 2007 Elsevier B.V. All rights reserved.",
+   "label": false,
+   "doi": "10.1016/j.virusres.2007.01.017",
+   "year": "2007"
+  },
+  {
+   "title": "Molecular epidemiology and a loop-mediated isothermal amplification method for diagnosis of infection with rabies virus in Zambia",
+   "abstract": "The National Livestock Epidemiology and Information Center (NALEIC) in Zambia reported over 132 cases of canine rabies diagnosed by the direct fluorescent antibody test (DFAT) from 2004 to 2009. In this study, the lineage of rabies virus (RABV) in Zambia was determined by phylogenetic analysis of the nucleoprotein (N) and glycoprotein (G) gene sequences. Total RNA was extracted from 87-DFAT brain specimens out of which only 35 (40%) were positive on nested reverse transcription polymerase chain reaction (RT-PCR) for each gene, and 26 being positive for both genes. Positive specimens for the N (n= 33) and G (n= 35) genes were used for phylogenetic analysis. Phylogenetic analysis of the N gene showed two phylogenetic clusters in Zambia belonging to the Africa 1b lineage present in eastern and southern Africa. While one cluster exclusively comprised Zambian strains, the other was more heterogeneous regarding the RABV origins and included strains from Tanzania, Mozambique and Zambia. Phylogenetic analysis of the G gene revealed similar RABV strains in different hosts and regions of Zambia. We designed primers for reverse transcription loop-mediated isothermal amplification (RT-LAMP) assay from the consensus sequence of the N gene in an attempt to improve the molecular diagnosis of RABV in Zambia. The specificity and reproducibility of the RT-LAMP assay was confirmed with actual clinical specimens. Therefore, the RT-LAMP assay presented in this study may prove to be useful for routine diagnosis of rabies in Zambia. © 2011 Elsevier B.V.",
+   "label": false,
+   "doi": "10.1016/j.virusres.2011.09.010",
+   "year": "2012"
+  },
+  {
+   "title": "Analysis of Egg-adapted Mutations in Influenza A H1N1pdm09 Viruses in Hubei Province of China, 2013-2014",
+   "abstract": "Influenza A H1N1pdm09 Virus; Chicken embryo; Phylogenetic tree; Egg-adaptation; Antigenic site; Drug-resistance site; Abstract: To investigate egg-adapted mutation in influenza A H1N1pdm09 viruses isolated from the Hubei influenza surveillance network, a comparative analysis was performed of three influenza A H1N1pdm09 viruses isolated in chicken embryo and the corresponding MDCK cell-derived viruses. Analyses included examination of the phylogenetic tree, evolutionary rates, amino acid substitutions, egg-adapted mutation and homology modeling. We found differences between the egg-adapted viruses and MDCK cell-derived viruses based on phylogenetic trees and evolutionary rates; the viruses showed a trend of \" NA>HA>MP\". Four amino acid substitutions(Q223R,V527 I,M19Iand H275Y)were found in three egg-adapted viruses.Q223 Rand V527Iwere present in the haemagglutinin protein, while M19I and H275Y were detected in neuraminidase.The Q223R mutation changed the structure of antigenic sites between Sb and Ca2. H275Y is a classic neuraminidase resistance mutation. The results suggest that the egg-adapted mutations were introduced when influenza viruses were isolated in chicken embryos from the Hubei influenza surveillance network. These mutations may affect the selection of vaccine candidates and vaccine efficacy; therefore, monitoring of egg-adapted mutations should be strengthened in the influenza surveillance network.",
+   "label": false,
+   "doi": "",
+   "year": "2016"
+  },
+  {
+   "title": "Discovery of a novel Parvovirinae virus, porcine parvovirus 7, by metagenomic sequencing of porcine rectal swabs",
+   "abstract": "Parvoviruses are a diverse group of viruses containing some of the smallest known species that are capable of infecting a wide range of animals. Metagenomic sequencing of pooled rectal swabs from adult pigs identified a 4103-bp contig consisting of two major open reading frames encoding proteins of 672 and 469 amino acids (aa) in length. BLASTP analysis of the 672-aa protein found 42.4 % identity to fruit bat (Eidolon helvum) parvovirus 2 (EhPV2) and 37.9 % to turkey parvovirus (TuPV) TP1-2012/HUN NS1 proteins. The 469-aa protein had no significant similarity to known proteins. Genetic and phylogenetic analyses suggest that PPV7, EhPV2, and TuPV represent a novel genus in the family Parvoviridae. Quantitative PCR screening of 182 porcine diagnostic samples found a total of 16 positives (8.6 %). Together, these data suggest that PPV7 is a highly divergent novel parvovirus prevalent within the US swine.",
+   "label": true,
+   "doi": "10.1007/s11262-016-1322-1",
+   "year": "2016"
+  },
+  {
+   "title": "Poxviruses in bats ... so what?",
+   "abstract": "Poxviruses are important pathogens of man and numerous domestic and wild animal species. Cross species (including zoonotic) poxvirus infections can have drastic consequences for the recipient host. Bats are a diverse order of mammals known to carry lethal viral zoonoses such as Rabies, Hendra, Nipah, and SARS. Consequent targeted research is revealing bats to be infected with a rich diversity of novel viruses. Poxviruses were recently identified in bats and the settings in which they were found were dramatically different. Here, we review the natural history of poxviruses in bats and highlight the relationship of the viruses to each other and their context in the Poxviridae family. In addition to considering the zoonotic potential of these viruses, we reflect on the broader implications of these findings. Specifically, the potential to explore and exploit this newfound relationship to study coevolution and cross species transmission together with fundamental aspects of poxvirus host tropism as well as bat virology and immunology. © 2014 by the authors; licensee MDPI, Basel, Switzerland.",
+   "label": false,
+   "doi": "10.3390/v6041564",
+   "year": "2014"
+  },
+  {
+   "title": "One health-one medicine: Unifying human and animal medicine within an evolutionary paradigm",
+   "abstract": "One health is a concept since early civilization, which promoted the view that there was no major distinction between animal and human medicine. Although persisting through the 19th century, this common vision was then all but forgotten in the early 20th century. It is now experiencing a renaissance, coincident with an awakening of the role that evolutionary biology plays in human and animal health, including sexually transmitted infections (STIs). A number of STIs in humans have comparable infections in animals; likewise, both humans and animals have STIs unique to each mammalian camp. These similarities and differences offer opportunities for basic medical and public health studies, including evolutionary insights that can be gleaned from ongoing interdisciplinary investigation-especially with the molecular analytical tools available-in what can become a golden age of mutually helpful discovery. © 2011 New York Academy of Sciences.",
+   "label": false,
+   "doi": "10.1111/j.1749-6632.2011.06138.x",
+   "year": "2011"
+  },
+  {
+   "title": "A novel method for the multiplexed target enrichment of MinION next generation sequencing libraries using PCR-generated baits",
+   "abstract": "The enrichment of targeted regions within complex next generation sequencing libraries commonly uses biotinylated baits to capture the desired sequences. This method results in high read coverage over the targets and their flanking regions. Oxford Nanopore Technologies recently released an USB3.0-interfaced sequencer, the MinION. To date no particular method for enriching MinION libraries has been standardized. Here, using biotinylated PCR-generated baits in a novel approach, we describe a simple and efficient way for multiplexed enrichment of MinION libraries, overcoming technical limitations related with the chemistry of the sequencing-adapters and the length of the DNA fragments. Using Phage Lambda and Escherichia coli as models we selectively enrich for specific targets, significantly increasing the corresponding read-coverage, eliminating unwanted regions. We show that by capturing genomic fragments, which contain the target sequences, we recover reads extending targeted regions and thus can be used for the determination of potentially unknown flanking sequences. By pooling enriched libraries derived from two distinct E. coli strains and analyzing them in parallel, we demonstrate the efficiency of this method in multiplexed format. Crucially we evaluated the optimal bait size for large fragment libraries and we describe for the first time a standardized method for target enrichment in MinION platform.",
+   "label": false,
+   "doi": "",
+   "year": "2015"
+  },
+  {
+   "title": "Documentation and classification of oncogenic viruses",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1968"
+  },
+  {
+   "title": "Genomes and seroprevalence of severe fever with thrombocytopenia syndrome virus and Nairobi sheep disease virus in Haemaphysalis longicornis ticks and goats in Hubei, China",
+   "abstract": "Ticks are medically-important arthropods that maintain and transmit numerous emerging viruses. China suffers severely from tick-borne viral diseases such as tick-borne encephalitis and severe fever with thrombocytopenia syndrome (SFTS), but the background of tick-borne viruses is very limited. Here we report the virome profiling of ticks and goat sera from SFTS-epidemic areas, and serological investigation of SFTS virus (SFTSV) and Nairobi sheep disease virus (NSDV). Results revealed divergent viruses in ticks and goat sera, including SFTSV and NSDV. Sequence and phylogenetic analyses showed that the SFTSV identified here was most closely related to human SFTSV in sampling and surrounding areas, and the NSDV to the previously identified NSDV from northeast China. Serological investigation of SFTSV infection in goats revealed intensive activity in those areas. Surprisingly, two different methods of NSDV serological investigation showed no sera positive for this virus.",
+   "label": true,
+   "doi": "10.1016/j.virol.2019.01.026",
+   "year": "2019"
+  },
+  {
+   "title": "Senecavirus A in pigs, United States, 2015",
+   "abstract": "",
+   "label": true,
+   "doi": "10.3201/eid2207.151951",
+   "year": "2016"
+  },
+  {
+   "title": "Phylogenetic analysis of classical swine fever virus isolated from Taiwan",
+   "abstract": "By analyzing the E2 sequences of classical swine fever virus from field outbreaks in Taiwan during 1993-2001, three virus populations with distinct genotypes were determined including one historical (subgroup 3.4) and two exotic (subgroup 2.1) strains. The first subgroup 2.1 virus was isolated in 1994 and further sporadic outbreaks occurred after 1996. Phylogenetic analysis using the E2 region has segregated the Taiwanese strains of 2.1virus into two different genotypes (termed 2.1a and 2.1b). The 2.1b viruses were only isolated in 2001 and shared approximately 94.8% nucleotide identities to the 2.1a viruses in the total genomic sequences. The results suggest that the 2.1a and 2.1b viruses may be introduced from different origins. © 2005 Elsevier B.V. All rights reserved.",
+   "label": false,
+   "doi": "10.1016/j.vetmic.2004.12.014",
+   "year": "2005"
+  },
+  {
+   "title": "Exploratory metagenomic analyses of periweaning failure-to-thrive syndrome-affected pigs",
+   "abstract": "Modern pig farming is characterised by the emergence of several syndromes whose aetiology is unclear or has a multifactorial origin, including periweaning failure-to-thrive syndrome (PFTS). In fact, its specific aetiology remains elusive, although several causes have been investigated over time. The present study aimed to investigate the potential role of viral agents in PFTS-affected and healthy animals by evaluating the virome composition of different organs using a metagenomic approach. This analysis allowed demonstrating a higher abundance of Porcine parvovirus 6 (PPV6) in healthy subjects while Ungulate bocaparvovirus 2 (BoPV2), Ungulate protoparvovirus 1 (PPV) and Porcine circovirus 3 (PCV-3) were increased in pigs with PFTS. No differential abundance of RNA viruses was found between PFTS-affected and control pigs. Remarkably, this is the first molecular characterisation of PPV6 and BoPV2 in Spain and one of the few all around the world, supporting their apparent widespread circulation. Interestingly, PCV-3 has been recently identified in several clinical-pathological conditions as well as in healthy pigs, while BoPV2 pathogenic potential is unknown. Although obtained results must be taken as preliminary, they open the door for further studies on the potential role of these viruses or their combination as predisposing factor/s for PFTS occurrence.",
+   "label": false,
+   "doi": "10.1136/vr.105125",
+   "year": "2019"
+  },
+  {
+   "title": "Discovery of a novel nidovirus in cattle with respiratory disease",
+   "abstract": "The family Coronaviridae represents a diverse group of vertebrate RNA viruses, all with genomes greater than 26 000 nt. Here, we report the discovery and genetic characterization of a novel virus present in cattle with respiratory disease. Phylogenetic characterization of this virus revealed that it clusters within the subfamily Torovirinae, in the family Coronaviridae. The complete genome consists of only 20 261 nt and represents the smallest reported coronavirus genome. We identified seven ORFs, including the canonical nidovirus ORF1a and ORF1b. Analysis of polyprotein 1ab revealed that this virus, tentatively named bovine nidovirus (BoNV), shares the highest homology with the recently described python-borne nidoviruses and contains several conserved nidovirus motifs, but does not encode the NendoU or O-MT domains that are present in other viruses within the family Coronaviridae. In concert with its reduced genome, the atypical domain architecture indicates that this virus represents a unique lineage within the order Nidovirales.",
+   "label": true,
+   "doi": "10.1099/vir.0.000166",
+   "year": "2015"
+  },
+  {
+   "title": "Isolation of bovine viral diarrhoea viruses from bison",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "2005"
+  },
+  {
+   "title": "Marseillevirus, blood safety, and the human virome",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "2013"
+  },
+  {
+   "title": "Detection of a Novel Bovine Astrovirus in a Cow with Encephalitis",
+   "abstract": "Encephalitis can be caused by several infectious agents, including bacteria, fungi, parasites and viruses. In many cases, the causative agent cannot be identified, because the pathogens are unknown or detection methods are not routinely available. In our case, a 15-month-old cow developed central nervous disorders and died within 6 days after the onset of clinical signs. The histopathology revealed an acute encephalitis, predominantly in the brain stem, and a ganglionitis of the trigeminal ganglion with massive neuronal necroses in both the brain and the ganglion. However, a relevant panel of bacterial and viral infections of cattle could be routinely excluded. Therefore, a brain sample from the cow was analysed using a metagenomics approach with next-generation sequencing. A novel bovine astrovirus (BoAstV-BH89/14) could be identified using the analysis pipeline RIEMS, and the finding could be confirmed with a specific BoAstV RT-qPCR. The genome of the bovine astrovirus (BoAstV), belonging to the family Astroviridae in the genus Mamastrovirus, has a length of 6478 bp. Sequence identities between 71% to a sheep astrovirus and 69% to two recently described bovine astroviruses from the USA and Switzerland were ascertained. The latter were also connected to encephalitis cases in cattle. Like these, the new virus described here was detected in different brain sections using the specific BoAstV RT-qPCR and fluorescent in situ hybridization. In conclusion, while astroviruses so far were mainly found in relation to gastroenteritis in animals and humans, recently detected astrovirus infections were also related to encephalitis.",
+   "label": true,
+   "doi": "10.1111/tbed.12493",
+   "year": "2016"
+  },
+  {
+   "title": "Complete Genome Sequence of Porcine Parvovirus 2 Recovered from Swine Sera",
+   "abstract": "A complete genomic sequence of porcine parvovirus 2 (PPV-2) was detected by viral metagenome analysis on swine sera. A phylogenetic analysis of this genome reveals that it is highly similar to previously reported North American PPV-2 genomes. The complete PPV-2 sequence is 5,426 nucleotides long.",
+   "label": true,
+   "doi": "",
+   "year": "2016"
+  },
+  {
+   "title": "Full-length genome sequences of porcine epidemic diarrhoea virus strain CV777; Use of NGS to analyse genomic and sub-genomic RNAs",
+   "abstract": "Porcine epidemic diarrhoea virus, strain CV777, was initially characterized in 1978 as the causative agent of a disease first identified in the UK in 1971. This coronavirus has been widely distributed among laboratories and has been passaged both within pigs and in cell culture. To determine the variability between different stocks of the PEDV strain CV777, sequencing of the full-length genome (ca. 28kb) has been performed in 6 different laboratories, using different protocols. Not surprisingly, each of the different full genome sequences were distinct from each other and from the reference sequence (Accession number AF353511) but they are >99% identical. Unique and shared differences between sequences were identified. The coding region for the surface-exposed spike protein showed the highest proportion of variability including both point mutations and small deletions. The predicted expression of the ORF3 gene product was more dramatically affected in three different variants of this virus through either loss of the initiation codon or gain of a premature termination codon. The genome of one isolate had a substantially rearranged 5'-terminal sequence. This rearrangement was validated through the analysis of sub-genomic mRNAs from infected cells. It is clearly important to know the features of the specific sample of CV777 being used for experimental studies.",
+   "label": false,
+   "doi": "",
+   "year": "2018"
+  },
+  {
+   "title": "Molecular characterization of novel P[14],G8 bovine group A rotavirus, Sun9, isolated in Japan",
+   "abstract": "In this study, a novel bovine group A rotavirus (RV-A), Sun9, isolated from calf diarrhea in the Tochigi Prefecture, Japan, was characterized genetically by the sequence analysis of the genome segments encoding VP4 and VP7. The nucleotide and deduced amino acid sequences of the genome segments encoding VP4 and VP7 of Sun9 revealed high homology with P[14] human and lapine RV-As (80.2-88.7% and 90.9-94.8%) and G8 bovine and human RV-As (83.1-95.5% and 92.3-98.2%). Sun9 was also classified into P[14] and G8 in the phylogenetic analysis of the nucleotide sequences of the genome segments encoding VP4 and VP7. Although previous reports have suggested that P[14],G8 human RV-As isolated until now were obtained from the reassortment between human and bovine RV-As, or the interspecies transmission of bovine RV-A to human, no P[14],G8 bovine RV-A has yet been reported. Sun9 may be initial direct evidence of the above hypothesis. © 2004 Elsevier B.V. All rights reserved.",
+   "label": false,
+   "doi": "10.1016/j.virusres.2004.04.016",
+   "year": "2004"
+  },
+  {
+   "title": "Classification of avian paramyxoviruses by immunodiffusion on the basis of antigenic specificity of their M protein antigens",
+   "abstract": "Seventeen avian paramyxoviruses consisting of ten reference strains and seven recent isolates were classified by immunodiffusion into six species on the basis of the antigenic specificity of their M protein (MP) antigens. The species were represented by the following viruses. (1) Newcastle disease virus, (2) Chicken/California/Yucaipa/56, (3) Turkey/Wisconsin/68, (4) Duck/Mississippi/75, (5) Pigeon/Otaru/76 and (6) Budgerigar/Kunitachi/1/74. The differences in the HN antigens between viruses which were classified into the same species on the basis of the antigenic specificity of their MP antigens, may provide a basis for classifying them into types.",
+   "label": false,
+   "doi": "",
+   "year": "1981"
+  },
+  {
+   "title": "Update on information regarding hepatitis E virus",
+   "abstract": "Hepatitis E infection has been considered from its first description as a disease with an epidemiologic pattern related to the consumption of waste water and contaminated food, similarly to hepatitis A infection. Hepatitis E prevalence is higher in poor sanitary conditioned areas. The use of molecular techniques has contributed to obtain valuable information about the epidemiology of hepatitis E in developed countries. In these areas, hepatitis E virus infection shows a different pattern, and it has been linked to the contact with domestic animals, especially pigs. The role of hepatitis E in industrialized countries as a possible zoonosis implies a new and interesting approach of this disease. This review summarizes the current knowledge of the biology, structure and transmission of the virus as well as the diagnosis of the infection. Additionally, this review describes the current status of HE infection in areas with a low incidence of acute hepatitis E and the role of animals as potential reservoirs for HEV.",
+   "label": false,
+   "doi": "",
+   "year": "2007"
+  },
+  {
+   "title": "Detection of enterovirus genome sequence from diarrheal feces of goat",
+   "abstract": "Goat diarrheal feces were subjected to metagenome analysis by the next-generation sequencing. Nucleotide sequences with homology to enteroviruses were obtained. Primers for RT-PCR were designed based on the nucleotide sequence of these sequences at the 5′-untranslated region, and we determined 563 bp nucleotide sequences that showed homology to bovine-like and ovine enteroviruses (77-87%). We named the virus detected in this study goat enterovirus G1 (GEV-G1). In the phylogenetic analysis, GEV-G1 belonged to a cluster containing ovine enteroviruses. To our knowledge, this is the first report on nucleotide sequences of an enterovirus infecting Japanese goats. © Springer Science+Business Media 2014.",
+   "label": true,
+   "doi": "10.1007/s11262-014-1057-9",
+   "year": "2014"
+  },
+  {
+   "title": "Rapid metagenomic diagnostics for suspected outbreak of severe pneumonia",
+   "abstract": "",
+   "label": false,
+   "doi": "10.3201/eid2006.131526",
+   "year": "2014"
+  },
+  {
+   "title": "Characteristics of codon usage bias in two regions downstream of the initiation codons of foot-and-mouth disease virus",
+   "abstract": "The mechanism of utilization of alternative two AUGs in foot-and-mouth disease virus (FMDV) is still unknown to date. In this study, the characteristics of codon usage bias (CUB) of the region between the two AUGs (the region-La) and of the same-sized region behind the second AUG (the region-Lb) in 94 different FMDV RNA sequences were analyzed using relative synonymous codon usage (RSCU) values. The results indicated that many codons with negative CUB were preferentially used in the region-La. There were two conserved residues (Thr and Cys) on the 4th and 6th residue positions of the region-La. The conserved residues had a general tendency to choose synonymous codons with negative CUB. Although most positions in the region-La did not contain conserved residues, many positions tended to use codons with negative CUB in this region. Among these codons, the majority belonged to the amino acids containing synonymous codons with clearly positive and negative CUB, including Asp, Val, Ile, Leu, Thr, Ala, Ser, Asn and Arg. The presence of many codons with negative CUB in the region-La might impair the efficiency of the first AUG selection. The phylogenetic incongruence of the region-La and the region-Lb implied that intertypic recombination played an important role in the evolution of FMDV. Furthermore, due to the existence of more positions with positive CUB and more widespread phylogenetic incongruence in the region-Lb than the region-La, a probable relationship between the degree of CUB and the evolution of the two target regions was revealed. © 2010 Elsevier Ireland Ltd.",
+   "label": false,
+   "doi": "10.1016/j.biosystems.2010.04.001",
+   "year": "2010"
+  },
+  {
+   "title": "Identification and Survey of a Novel Avian Coronavirus in Ducks",
+   "abstract": "The rapid discovery of novel viruses using next generation sequencing (NGS) technologies including DNA-Seq and RNA-Seq, has greatly expanded our understanding of viral diversity in recent years. The timely identification of novel viruses using NGS technologies is also important for us to control emerging infectious diseases caused by novel viruses. In this study, we identified a novel duck coronavirus (CoV), distinct with chicken infectious bronchitis virus (IBV), using RNA-Seq. The novel duck-specific CoV was a potential novel species within the genus Gammacoronavirus, as indicated by sequences of three regions in the viral 1b gene. We also performed a survey of CoVs in domestic fowls in China using reverse-transcription polymerase chain reaction (RT-PCR), targeting the viral nucleocapsid (N) gene. A total of 102 CoV positives were identified through the survey. Phylogenetic analysis of the viral N sequences suggested that CoVs in domestic fowls have diverged into several region-specific or host-specific clades or subclades in the world, and IBVs can infect ducks, geese and pigeons, although they mainly circulate in chickens. Moreover, this study provided novel data supporting the notion that some host-specific CoVs other than IBVs circulate in ducks, geese and pigeons, and indicated that the novel duck-specific CoV identified through RNA-Seq in this study is genetically closer to some CoVs circulating in wild water fowls. Taken together, this study shed new insight into the diversity, distribution, evolution and control of avian CoVs. © 2013 Chen et al.",
+   "label": true,
+   "doi": "10.1371/journal.pone.0072918",
+   "year": "2013"
+  },
+  {
+   "title": "Smacoviridae: a new family of animal-associated single-stranded DNA viruses",
+   "abstract": "Smacoviruses have small (similar to 2.3-2.9 kb), circular single-stranded DNA genomes encoding rolling circle replication-associated proteins (Rep) and unique capsid proteins. Although smacoviruses are prevalent in faecal matter of various vertebrates, including humans, none of these viruses have been cultured thus far. Smacoviruses display similar to 45% genome-wide sequence diversity, which is very similar to that found within other families of circular Rep-encoding single-stranded (CRESS) DNA viruses, including members of the families Geminiviridae (46% diversity) and Genomoviridae (47% diversity). Here, we announce the creation of a new family Smacoviridae and describe a sequence-based taxonomic framework which was used to classify 83 smacovirus genomes into 43 species within six new genera, Bovismacovirus (n=3), Cosmacovirus (n=1), Dragsmacovirus (n=1), Drosmacovirus (n=3), Huchismacovirus (n=7), and Porprismacovirus (n=28). As in the case of genomoviruses, the species demarcation is based on the genome-wide pairwise identity, whereas genera are established based on the Rep amino acid sequence identity coupled with strong phylogenetic support. A similar sequence-based taxonomic framework should guide the classification of an astonishing diversity of other uncultured and currently unclassified CRESS DNA viruses discovered by metagenomic approaches.",
+   "label": false,
+   "doi": "",
+   "year": "2018"
+  },
+  {
+   "title": "Characterization of an Enterovirus species E isolated from naturally infected bovine in China",
+   "abstract": "Bovine enteroviruses, which belong to the Picornaviridae family, can cause clinical symptoms in cattle and are excreted in feces. In this study, a cytolytic virus was isolated from Madin-Darby bovine kidney (MDBK) cells from fecal samples of bovine with severe diarrhea and hemorrhagic intestinal mucosa that had been originally diagnosed with bovine viral diarrhea (BVD) by a bovine viral diarrhea virus Ag point-of-care test (IDEXX, American). Random priming PCR was used to amplify underlying viral sequences and identify the isolated virus. Phylogenetic analysis indicated that the isolated virus closely matches the EV-E2 species, which is different from other Chinese strains previously isolated. The newly identified virus was named HLJ-3531/2013. We infected the sulking mice with the isolated virus. Reverse-transcription PCR, hematoxylin and eosin (HE) staining, serum neutralization (SN) test, and virus isolation from various tissues revealed that HLJ-3531/2013 can infect the intestine, liver, and lung of suckling mice. The present work is the first to report the reproduction of clinical symptoms by an isolated virus in an experimental infection model of animals and lays a solid foundation for the development of the pathogenesis of bovine enteroviruses.",
+   "label": false,
+   "doi": "10.1016/j.virusres.2014.07.032",
+   "year": "2014"
+  },
+  {
+   "title": "A novel bovine papillomavirus type in the genus Dyokappapapillomavirus",
+   "abstract": "Papillomaviruses are a diverse group of viruses that are known to infect a wide range of animal species. Bovine papillomaviruses (BPVs) are divided into at least 21 genotypes (BPV1 to BPV21), with most BPV isolates/strains described to date belonging to one of four genera, including Deltapapillomavirus, Xipapillomavirus, Epsilonpapillomavirus and Dyoxipapillomavirus. Here, we describe the identification and genetic characterization of a new BPV type in the genus Dyokappapapillomavirus. A farm in the state of New York, USA, reported chronic cases of vulvovaginitis in Holstein cows in 2016. Biopsies and/or swab samples collected from the vaginal mucosa were subjected to diagnostic investigation. Conventional diagnostic assays yielded negative results, and vaginal swab samples were subjected to viral metagenomic sequencing. Notably, BLAST searches revealed a papillomavirus genome with 7480 bp in length (67% nt sequence identity to BPV16). Additionally, phylogenetic analysis of the L1 gene of the papillomavirus identified here (tentatively named BPV22) revealed that it clusters with members of the genus Dyokappapapillomavirus. Interestingly, the recently identified BPV16, which was detected in fibropapilloma lesions in cattle also clusters within the Dyokappapapillomavirus group. Each virus, however, forms a separate branch in the phylogenetic tree. These results indicate that the putative BPV22 represents the second BPV within the genus Dyokappapapillomavirus.",
+   "label": true,
+   "doi": "10.1007/s00705-017-3443-9",
+   "year": "2017"
+  },
+  {
+   "title": "Bioaerosol sampling for airborne respiratory viruses in an experimental medicine pig handling facility, Singapore",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "2017"
+  },
+  {
+   "title": "Taxonomy of viruses in etiologic relationship to gastroenteritis of man, cattle and swine",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1983"
+  },
+  {
+   "title": "Fluorogenic RT-PCR assay (TaqMan) for detection and classification of bovine viral diarrhea virus",
+   "abstract": "A single tube fluorogenic RT-PCR-based 'TaqMan' assay was developed for detection and classification of bovine viral diarrhea virus (BVDV). TaqMan-PCR was optimized to quantify BVD virus using the ABI PRISM 7700 sequence detection system and dual-labeled fluorogenic probes. Two different gene specific labeled fluorogenic probes for the 5′ untranslated region (5′ UTR) were used to differentiate between BVD types I and II. Sensitivity of the single tube TaqMan assay was compared with two-tube TaqMan assay and standard RT-PCR using 10-fold dilutions of RNA. Single tube TaqMan assay was 10-100-fold more sensitive than the two-tube TaqMan assay and the standardized single tube RT-PCR. Specificity of the assay was evaluated by testing different BVD virus strains and other bovine viruses. A total of 106 BVD positive and negative pooled or single serum samples, field isolates and reference strains were tested. Quantitation of cRNA from types I and II BVD virus was accomplished by a standard curve plotting cycle threshold values (CT) versus copy number. Single tube TaqMan-PCR assay was sensitive, specific and rapid for detection, quantitation and classification of BVD virus. © 2001 Elsevier Science B.V. All rights reserved.",
+   "label": false,
+   "doi": "10.1016/s0378-1135(01)00390-x",
+   "year": "2001"
+  },
+  {
+   "title": "Detection and genetic characterization of porcine pegivirus in pigs in the United States",
+   "abstract": "Using next-generation sequencing on vesicular swab and serum from swine from the USA exhibiting lameness and vesicles, porcine pegivirus (PPgV) was first identified and genetically characterized in the United States. Further screening using RT-PCR revealed that 24 of 159 (15.1%) serum samples were positive for PPgV. Future studies are needed to understand clinical impacts of the virus.",
+   "label": true,
+   "doi": "",
+   "year": "2018"
+  },
+  {
+   "title": "Sequence analysis of Meq oncogene among Indian isolates of Marek's disease herpesvirus",
+   "abstract": "Marek's disease (MD), caused by Marek's disease virus (MDV), is a highly contagious neoplastic disease of chicken that can be prevented by vaccination. However, in recent years many cases of vaccine failure have been reported worldwide as chickens develop symptoms of MD in spite of proper vaccination. Distinct polymorphism and point mutations in Meq gene of MDV have been reported to be associated with virulence and oncogenicity. The present study was carried out with the objective to isolate and characterize field isolates of MDV on the basis of Meq gene. Twenty five samples of suspected cases of MD were collected and processed for virus isolation in duck embryo fibroblast (DEF) primary culture where 28% (7 of 25) samples showed characteristic cytopathic effects of MDV in the form of plaques and syncytia. Additional evidence of presence of MDV in these samples was confirmed by PCR. To analyze diversity in all seven isolates of MDV, a polymorphism study was carried out by cloning and sequencing of full length of Meq gene (1020 bp). Sequence homology of 7 isolates with 23 reference strains showed 98.10–99.40% similarity in nucleotide and 95.90–98.50% similarity in amino acid sequences. Six isolates revealed 5 repeat sequences of 4 prolines (PPPP) whereas, one isolate revealed only 4 repeats. In phylogenetic analysis, these isolates formed a separate cluster showing close relatedness to the Chinese isolates. The study indicates a high mutation rate in field isolates of MDV that may be probable cause of vaccination failure.",
+   "label": false,
+   "doi": "10.1016/j.mgene.2016.07.009",
+   "year": "2016"
+  },
+  {
+   "title": "Molecular and in vitro characterisation of hepatitis E virus from UK pigs",
+   "abstract": "Hepatitis E virus (HEV) infection is widespread in the global pig population. Although clinically inapparent in pigs, HEV infection is the cause of Hepatitis E in humans and transmission via the food chain has been established. Following a 2013 study that investigated prevalence of HEV infection in UK slaughter-age pigs samples indicating highest viral load were selected for further characterisation. High throughput sequencing was used to obtain the complete coding sequence from five samples. An in-frame insertion was observed within the HEV hypervariable region in two samples. To interrogate whether this mutation may be the cause of high-level viraemia and faecal shedding as observed in the sampled pigs virus isolation and culture was conducted. Based on viral growth kinetics there was no evidence that these insertions affected replication efficiency in vitro, suggesting as yet undetermined host factors may affect the course of infection and consequently the risk of foodborne transmission.",
+   "label": true,
+   "doi": "10.1016/j.virol.2018.10.018",
+   "year": "2019"
+  },
+  {
+   "title": "Metagenomic data of DNA viruses of poultry affected with respiratory tract infection",
+   "abstract": "The incidence and severity of respiratory diseases in commercial broiler chicken flocks have increased recently in India because of intensification of the broiler industry. Viral population are predominant in respiratory tract infections and they pose continuous economic burden to poultry industry by causing severe economic losses through decreased productivity [1], [2]. To understand viral metagenome of poultry associated with respiratory infections, we performed DNA virome sequencing and data analysis of broilers from 8 districts of Gujarat State in India. We report high quality sequencing reads and highly abundant DNA viral population present in the infected broiler birds. The raw sequencing data used to perform metagenomic analysis is available in the Sequence Read Archive (SRA) under the BioProject No. PRJNA322592 and Accession No. MAUZ00000000, MAVA00000000, MAVB00000000, MAVC00000000, MAVD00000000, MAVE00000000, MAVF00000000, MAVG00000000 (https://www.ncbi.nlm.nih.gov/bioproject/?term=PRJNA322592).",
+   "label": true,
+   "doi": "",
+   "year": "2018"
+  },
+  {
+   "title": "Recent epidemiology of peste des petits ruminants virus (PPRV)",
+   "abstract": "Peste des petits ruminants (PPR) is an economically important viral disease of goats and sheep first described in west Africa in the 1940s. The virus has been circulating in parts of sub-Saharan Africa for several decades and in the Middle East and southern Asia since 1993, although the first description of the virus in India dates to 1987. To study the genetic relationship between isolates of distinct geographical origin, a selected region of the fusion (F) protein gene of the viruses was amplified using RT/PCR and the resulting DNA product sequenced for phylogenetic analysis. Viruses from 27 outbreaks in Asian and Middle Eastern countries, reported between 1993 and 2000, and two recent outbreaks from the African continent were compared with the prototype African strain. Of the four known lineages of PPR virus, lineage 1 and 2 viruses have been found exclusively in west Africa. Virus from an outbreak in Burkina Faso in 1999 fell into the lineage 1 group. Viruses of lineage 3 have been found in east Africa, where an outbreak in Ethiopia in 1996 was of this type, and also in Arabia and in southern India. However, there have been no further isolations of lineage 3 virus from India since the one reported in 1992 from Tamil Nadu. A virus of this lineage was found circulating in Yemen in 2001. In the past 8 years virus exclusively of the fourth lineage has spread across the Middle East and the Asian sub-continent, reaching east as far as Nepal and Bangladesh. This virus lineage was also reported from Kuwait in 1999. The geographical source of the new lineage 4 virus is unknown although it is most closely related to African lineage 1. The possibility that its earlier presence in northern India was masked by the circulation of Rinderpest virus, a related virus of cattle, is considered unlikely. © 2002 Published by Elsevier Science B.V.",
+   "label": false,
+   "doi": "10.1016/s0378-1135(02)00102-5",
+   "year": "2002"
+  },
+  {
+   "title": "Porcine Astrovirus Type 3 in Central Nervous System of Swine with Polioencephalomyelitis",
+   "abstract": "Using next-generation sequencing, we identified and genetically characterized a porcine astrovirus type 3 strain found in tissues from the central nervous system of 1 piglet and 3 sows with neurologic signs and nonsuppurative polioencephalomyelitis. Further studies are needed to understand the potential for cross-species transmission and clinical impact.",
+   "label": true,
+   "doi": "",
+   "year": "2017"
+  },
+  {
+   "title": "Serological characterization of bovine rotaviruses isolated from dairy and beef herds in Argentina",
+   "abstract": "Bovine rotaviruses isolated from beef and dairy herds in Argentina were serotyped by the immunoperoxidase focus reduction assay as previously described (G. Gerna, M. Battaglia, G. Milenesi, N. Passarani, E. Percivalle, and E. Cattaneo, Infect. Immun. 43:722-729, 1984). Three strains from beef herds were related to the UK and NCDV bovine rotavirus strains defined as serotype 6 (Y. Hoshino, T.G. Wyatt, H.B. Greenberg, J. Flores, and A.Z. Kapikian, J. Infect. Dis. 149:694-702, 1984). Two other strains from dairy herds were classified as bovine viruses related to the bovine B223 strain reported by Woode and co-workers (G.N. Woode, N.E. Kelso, T.F. Simpson, S.K. Gaul, L.E. Evans, and L. Babiuk, J. Clin. Microbiol. 18:258-264, 1983) in the United States. A serotyping antibody-capture enzyme-linked immunoassay to detect serotype 6 rotavirus using a serotype 6-specific monoclonal antibody was developed and evaluated for strain characterization. Characterization of 72 group A rotavirus-positive fecal samples from beef herds and 43 fecal samples from dairy herds showed a predominance of serotype 6 rotavirus in beef herds but both serotype 6 and non-serotype 6 rotaviruses in dairy herds. Analysis of genomic double-stranded RNA by polyacrylamide gel electrophoresis showed that when outbreaks were caused by one serotype only a single electropherotype was present in all samples.",
+   "label": false,
+   "doi": "",
+   "year": "1989"
+  },
+  {
+   "title": "Genetic, pathogenic and antigenic diversity of Newcastle disease viruses in Shandong Province, China",
+   "abstract": "Thirty-one Newcastle disease viruses (NDVs) isolated from domestic and wild birds in Shandong Province, China (2006-2014) were characterized genetically, pathogenically and antigenically. Phylogenetic analysis classified the viruses into a single genotype under Class I, and four genotypes under Class II. The nineteen viruses classified in genotype VII of Class II were velogenic, while the other viruses were either mesogenic or lentogenic to chickens. Some NDV isolates (17/23) showed no neutralizing reactivity with a monoclonal antibody developed against the HN protein of the LaSota strain, reflecting the mutation at the related antigenic epitope. When challenged with two genotype VII NDV isolates, LaSota-vaccinated SPF chickens were prevented from disease development, but virus shedding was detected for at least 5 days post challenge. Circulation of the same NDV isolate for up to 13 years suggested the role of an environmental reservoir in NDV perpetuation, and reinforced the importance of strict biosecurity measures in addition to vaccination for disease control.",
+   "label": false,
+   "doi": "10.1016/j.vetmic.2015.09.002",
+   "year": "2015"
+  },
+  {
+   "title": "Perspective on emergence and re-emergence of amantadine resistant influenza A viruses in domestic animals in China",
+   "abstract": "In China, approximately 20% of the animal original influenza A viruses have molecular markers of amantadine resistance. Through phylogenetic data analyses and geospatial statistical analyses, this study suggests emergence of amantadine resistance in animal influenza could be due to selection pressures in China, for example, amantadine usage in some areas. © 2013 Elsevier B.V.",
+   "label": false,
+   "doi": "10.1016/j.meegid.2013.09.004",
+   "year": "2013"
+  },
+  {
+   "title": "Origins of the new influenza A(H1N1) virus: time to take action",
+   "abstract": "To gain insight into the possible origins of the 2009 outbreak of new influenza A(H1N1), we performed two independent analyses of genetic evolution of the new influenza A(H1N1) virus. Firstly, protein homology analyses of more than 400 sequences revealed that this virus most likely evolved from recent swine viruses. Secondly, phylogenetic analyses of 5,214 protein sequences of influenza A(H1N1) viruses (avian, swine and human) circulating in North America for the last two decades (from 1989 to 2009) indicated that the new influenza A(H1N1) virus possesses a distinctive evolutionary trait (genetic distinctness). This appears to be a particular characteristic in pig-human interspecies transmission of influenza A. Thus these analyses contribute to the evidence of the role of pig populations as \"mixing vessels\" for influenza A(H1N1) viruses.",
+   "label": false,
+   "doi": "",
+   "year": "2009"
+  },
+  {
+   "title": "Genetic characterization of H1N1 swine influenza A viruses isolated in eastern China",
+   "abstract": "Three influenza H1N1 viruses were isolated in 2005 from pigs with respiratory disease on a farm in eastern China. The three isolates were characterized to determine their probable origin. Each of the eight genes of the isolates was most closely related to the corresponding gene from the classical swine H1N1 virus. Also, phylogenetic analysis further confirmed that each of the eight genes of the isolates was closely related to the classical swine H1N1 viruses, especially those isolated in China. The HA1 proteins of the three isolates were identical to that of A/Swine/Guangdong/1/01, a virus isolated in 2001 in China, even though three nucleotide differences were observed. These results further support the concept that swine can serve as a reservoir of genetically stable influenza viruses. © 2009 Springer Science+Business Media, LLC.",
+   "label": false,
+   "doi": "10.1007/s11262-009-0375-9",
+   "year": "2009"
+  },
+  {
+   "title": "Antibiotics in feed induce prophages in swine fecal microbiomes",
+   "abstract": "Antibiotics are a cost-effective tool for improving feed efficiency and preventing disease in agricultural animals, but the full scope of their collateral effects is not understood. Antibiotics have been shown to mediate gene transfer by inducing prophages in certain bacterial strains; therefore, one collateral effect could be prophage induction in the gut microbiome at large. Here we used metagenomics to evaluate the effect of two antibiotics in feed (carbadox and ASP250 [chlortetracycline, sul-famethazine, and penicillin]) on swine intestinal phage metagenomes (viromes). We also monitored the bacterial communities using 16S rRNA gene sequencing. ASP250, but not carbadox, caused significant population shifts in both the phage and bacterial communities. Antibiotic resistance genes, such as multidrug resistance efflux pumps, were identified in the viromes, but in-feed antibiotics caused no significant changes in their abundance. The abundance of phage integrase-encoding genes was significantly increased in the viromes of medicated swine over that in the viromes of nonmedicated swine, demonstrating the induction of prophages with antibiotic treatment. Phage-bacterium population dynamics were also examined. We observed a decrease in the relative abundance of Streptococcus bacteria (prey) when Streptococcus phages (predators) were abundant, supporting the \"kill-the-winner\" ecological model of population dynamics in the swine fecal microbiome. The data show that gut ecosystem dynamics are influenced by phages and that prophage induction is a collateral effect of in-feed antibiotics. © 2011 Allen et al.",
+   "label": true,
+   "doi": "10.1128/mBio.00260-11",
+   "year": "2011"
+  },
+  {
+   "title": "Hazards of disease transfer from marine mammals to land mammals: review and recent findings",
+   "abstract": "In a 5-year study (1972-1977) of microbial agents isolated from both clinically normal and diseased marine mammals, it was shown that certain disease agents are widespread in a diversity of ocean populations and that some are also transmissible to a number of terrestrial mammal species. Leptospira interrogans serovar pomona has been isolated repeatedly from 2 species of pinnipeds (Zalophus californianus califonianus and Callorhinus ursinus). Some of the more important bacterial pathogens for land mammals that were isolated from wild marine mammals are Pseudomonas mallei, Clostridium chauvoei, C novyi, Neisseria mucosa var heidelbergensis, Klebsiella pneumoniae, Salmonella spp, and Pasteurella multocida. Numerous serotypes of viruses classified as caliciviruses were isolated from a variety of marine mammals. Some of these are known to infect several land mammal species including swine horses, and primates. For this reason., precautions should be taken to ensure that disease agents shed by captive marine mammals are not transmitted to susceptible terrestrial mammals, including animal handlers and other human beings.",
+   "label": false,
+   "doi": "",
+   "year": "1978"
+  },
+  {
+   "title": "Bacteria, phages and pigs: the effects of in-feed antibiotics on the microbiome at different gut locations",
+   "abstract": "Disturbance of the beneficial gut microbial community is a potential collateral effect of antibiotics, which have many uses in animal agriculture (disease treatment or prevention and feed efficiency improvement). Understanding antibiotic effects on bacterial communities at different intestinal locations is essential to realize the full benefits and consequences of in-feed antibiotics. In this study, we defined the lumenal and mucosal bacterial communities from the small intestine (ileum) and large intestine (cecum and colon) plus feces, and characterized the effects of in-feed antibiotics (chlortetracycline, sulfamethazine and penicillin (ASP250)) on these communities. 16S rRNA gene sequence and metagenomic analyses of bacterial membership and functions revealed dramatic differences between small and large intestinal locations, including enrichment of Firmicutes and phage-encoding genes in the ileum. The large intestinal microbiota encoded numerous genes to degrade plant cell wall components, and these genes were lacking in the ileum. The mucosa-associated ileal microbiota harbored greater bacterial diversity than the lumen but similar membership to the mucosa of the large intestine, suggesting that most gut microbes can associate with the mucosa and might serve as an inoculum for the lumen. The collateral effects on the microbiota of antibiotic-fed animals caused divergence from that of control animals, with notable changes being increases in Escherichia coli populations in the ileum, Lachnobacterium spp. in all gut locations, and resistance genes to antibiotics not administered. Characterizing the differential metabolic capacities and response to perturbation at distinct intestinal locations will inform strategies to improve gut health and food safety.",
+   "label": false,
+   "doi": "10.1038/ismej.2014.12",
+   "year": "2014"
+  },
+  {
+   "title": "Double-stranded RNA high-throughput sequencing reveals a new cytorhabdovirus in a bean golden mosaic virus-resistant common bean transgenic line",
+   "abstract": "Using double-strand RNA (dsRNA) high-throughput sequencing, we identified five RNA viruses in a bean golden mosaic virus (BGMV)-resistant common bean transgenic line with symptoms of viral infection. Four of the identified viruses had already been described as infecting common bean (cowpea mild mottle virus, bean rugose mosaic virus, Phaseolus vulgaris alphaendornavirus 1, and Phaseolus vulgaris alphaendornavirus 2) and one is a putative new plant rhabdovirus (genus Cytorhabdovirus), tentatively named bean-associated cytorhabdovirus (BaCV). The BaCV genome presented all five open reading frames (ORFs) found in most rhabdoviruses: nucleoprotein (N) (ORF1) (451 amino acids, aa), phosphoprotein (P) (ORF2) (445 aa), matrix (M) (ORF4) (287 aa), glycoprotein (G) (ORF5) (520 aa), and an RNA-dependent RNA polymerase (L) (ORF6) (114 aa), as well as a putative movement protein (P3) (ORF3) (189 aa) and the hypothetical small protein P4. The predicted BaCV proteins were compared to homologous proteins from the closest cytorhabdoviruses, and a low level of sequence identity (15–39%) was observed. The phylogenetic analysis shows that BaCV clustered with yerba mate chlorosis-associated virus (YmCaV) and rice stripe mosaic virus (RSMV). Overall, our results provide strong evidence that BaCV is indeed a new virus species in the genus Cytorhabdovirus (family Rhabdoviridae), the first rhabdovirus to be identified infecting common bean.",
+   "label": false,
+   "doi": "10.3390/v11010090",
+   "year": "2019"
+  },
+  {
+   "title": "Serotype Diversity of Foot-and-Mouth-Disease Virus in Livestock without History of Vaccination in the Far North Region of Cameroon",
+   "abstract": "Little information is available about the natural cycle of foot-and-mouth disease (FMD) in the absence of control measures such as vaccination. Cameroon presents a unique opportunity for epidemiological studies because FMD vaccination is not practiced. We carried out a prospective study including serological, antigenic and genetic aspects of FMD virus (FMDV) infections among different livestock production systems in the Far North of Cameroon to gain insight into the natural ecology of the virus. We found serological evidence of FMDV infection in over 75% of the animals sampled with no significant differences of prevalence observed among the sampled groups (i.e. market, sedentary, transboundary trade and mobile). We also found antibodies reactive to five of the seven FMDV serotypes (A, O, SAT1, SAT2 and SAT3) among the animals sampled. Finally, we were able to genetically characterize viruses obtained from clinical and subclinical FMD infections in Cameroon. Serotype O viruses grouped into two topotypes (West and East Africa). SAT2 viruses grouped with viruses from Central and Northern Africa, notably within the sublineage causing the large epidemic in Northern Africa in 2012, suggesting a common origin for these viruses. This research will guide future interventions for the control of FMD such as improved diagnostics, guidance for vaccine formulation and epidemiological understanding in support of the progressive control of FMD in Cameroon.",
+   "label": false,
+   "doi": "10.1111/tbed.12227",
+   "year": "2016"
+  },
+  {
+   "title": "Remarkable sequence similarity between the dinoflagellate-infecting marine girus and the terrestrial pathogen African swine fever virus",
+   "abstract": "Heterocapsa circularisquama DNA virus (HcDNAV; previously designated as HcV) is a giant virus (girus) with a ∼356-kbp double-stranded DNA (dsDNA) genome. HcDNAV lytically infects the bivalve-killing marine dinoflagellate H. circularisquama, and currently represents the sole DNA virus isolated from dinoflagellates, one of the most abundant protists in marine ecosystems. Its morphological features, genome type, and host range previously suggested that HcDNAV might be a member of the family Phycodnaviridae of Nucleo-Cytoplasmic Large DNA Viruses (NCLDVs), though no supporting sequence data was available. NCLDVs currently include two families found in aquatic environments (Phycodnaviridae, Mimiviridae), one mostly infecting terrestrial animals (Poxviridae), another isolated from fish, amphibians and insects (Iridoviridae), and the last one (Asfarviridae) exclusively represented by the animal pathogen African swine fever virus (ASFV), the agent of a fatal hemorrhagic disease in domestic swine. In this study, we determined the complete sequence of the type B DNA polymerase (PolB) gene of HcDNAV. The viral PolB was transcribed at least from 6 h post inoculation (hpi), suggesting its crucial function for viral replication. Most unexpectedly, the HcDNAV PolB sequence was found to be closely related to the PolB sequence of ASFV. In addition, the amino acid sequence of HcDNAV PolB showed a rare amino acid substitution within a motif containing highly conserved motif: YSDTDS was found in HcDNAV PolB instead of YGDTDS in most dsDNA viruses. Together with the previous observation of ASFV-like sequences in the Sorcerer II Global Ocean Sampling metagenomic datasets, our results further reinforce the ideas that the terrestrial ASFV has its evolutionary origin in marine environments. © 2009 Ogata et al; licensee BioMed Central Ltd.",
+   "label": false,
+   "doi": "10.1186/1743-422x-6-178",
+   "year": "2009"
+  },
+  {
+   "title": "Identification and genomic characterization of a novel CRESS DNA virus from a calf with severe hemorrhagic enteritis in China",
+   "abstract": "In this study, a novel circular replication-associated protein (Rep)-encoding single stranded (CRESS) DNA virus was discovered in diarrheic sample of a calf with severe hemorrhagic enteritis. The virus, named Bo-Circo-like virus CH, has a circular genome with 3909 nucleotides (nt). Six putative open reading frames (ORFs) were identified, including Rep, capsid (Cap) and four proteins of unknown function. Both the genome size and the number as well as the organization of encoded ORFs, Bo-Circo-like virus CH is most closely related to Po-Circo-like virus 21 detected in pig faeces. A preliminary survey using specific primers for the Rep region showed that 5.3% (4/75) of diarrheic samples were positive for Bo-Circo-like virus, and all 42 healthy samples were negative. In conclusion, our results indicate that Bo-Circo-like virus CH may represent a new virus in bovine. Further investigation is needed to determine the relationship between the virus infection and diarrhea.",
+   "label": true,
+   "doi": "10.1016/j.virusres.2018.07.015",
+   "year": "2018"
+  },
+  {
+   "title": "A novel astrovirus associated with encephalitis and ganglionitis in domestic sheep",
+   "abstract": "In June 2013, a 4-year-old Welsh Mountain ewe and in March 2014 a 10-day-old lamb of the same breed and the same flock presented progressive neurological signs including depressed sensorium, tremor, and unusual behaviour. Neuropathological examination of the brain and spinal cord detected non-suppurative polioencephalomyelitis and dorsal root ganglionitis, characteristic of a neurotropic viral agent in both sheep. Metagenomic analysis of different tissue samples from both animals identified a novel Ovine Astrovirus (OvAstV). The presence of viral genome in the central nervous system was confirmed by RT-qPCR. Although the cases presented nine months apart, the identified OvAstV shared nearly identical sequences, differing in only three nucleotide positions across the complete genome. Phylogenetic analysis revealed a close relation of OvAstV to neurotropic bovine astroviruses and an enteric OvAstV. In conclusion, these are the first reported cases of astrovirus infection in domestic sheep that were associated with encephalitis and ganglionitis.",
+   "label": true,
+   "doi": "10.1111/tbed.12623",
+   "year": "2017"
+  },
+  {
+   "title": "Phylogenetic analysis of the hemagglutinin genes of 12 H9N2 influenza viruses isolated from chickens in Iran from 2003 to 2005",
+   "abstract": "In the present study, the hemagglutinin genes from 12 influenza viruses of the H9N2 subtype were isolated from chicken flocks in different provinces of Iran from 2003 to 2005, amplified and sequenced. All of the 12 isolates showed similar sequences at the cleavage site, RSSF/GLF, bearing eight potential glycosylation sites and sharing the characteristic deduced amino acid residues alanine-190, glutamine-226, and glutamine-227 at the receptor-binding site. Ten out of these 12 isolates possessed leucine at position 226, which prevails in the sequences found in human H2 and H3 strains. Overall, the presence in these Iranian poultry H9N2 viruses of the sequence known to bind to human-type receptors and the presence of antibodies in the human population of Iran to H9N2 showed that it is possible for circulating H9N2 avian influenza viruses in Iran to infect humans. Hence, extensive surveillance of H9N2 in this country is highly recommended. © 2010 American Association of Avian Pathologists.",
+   "label": false,
+   "doi": "10.1637/9103-101309-Reg.1",
+   "year": "2010"
+  },
+  {
+   "title": "Identification of a novel astrovirus in domestic sheep in Hungary",
+   "abstract": "The family Astroviridae consists of two genera, Avastrovirus and Mamastrovirus, whose members are associated with gastroenteritis in avian and mammalian hosts, respectively. We serendipitously identified a novel ovine astrovirus in a fecal specimen from a domestic sheep (Ovis aries) in Hungary by viral metagenomic analysis. Sequencing of the fragment indicated that it was an ORF1b/ORF2/3′UTR sequence, and it has been submitted to the GenBank database as ovine astrovirus type 2 (OAstV-2/Hungary/2009) with accession number JN592482. The unique sequence characteristics and the phylogenetic position of OAstV-2 suggest that genetically divergent lineages of astroviruses exist in sheep. © 2011 Springer-Verlag.",
+   "label": true,
+   "doi": "10.1007/s00705-011-1151-4",
+   "year": "2012"
+  },
+  {
+   "title": "Whole genome sequences of Japanese porcine species C rotaviruses reveal a high diversity of genotypes of individual genes and will contribute to a comprehensive, generally accepted classification system",
+   "abstract": "Porcine rotavirus C (RVC) is distributed throughout the world and is thought to be a pathogenic agent of diarrhea in piglets. Although, the VP7, VP4, and VP6 gene sequences of Japanese porcine RVCs are currently available, there is no whole-genome sequence data of Japanese RVC. Furthermore, only one to three sequences are available for porcine RVC VP1-VP3 and NSP1-NSP3 genes. Therefore, we determined nearly full-length whole-genome sequences of nine Japanese porcine RVCs from seven piglets with diarrhea and two healthy pigs and compared them with published RVC sequences from a database. The VP7 genes of two Japanese RVCs from healthy pigs were highly divergent from other known RVC strains and were provisionally classified as G12 and G13 based on the 86% nucleotide identity cut-off value. Pairwise sequence identity calculations and phylogenetic analyses revealed that candidate novel genotypes of porcine Japanese RVC were identified in the NSP1, NSP2 and NSP3 encoding genes, respectively. Furthermore, VP3 of Japanese porcine RVCs was shown to be closely related to human RVCs, suggesting a gene reassortment event between porcine and human RVCs and past interspecies transmission. The present study demonstrated that porcine RVCs show greater genetic diversity among strains than human and bovine RVCs.",
+   "label": true,
+   "doi": "",
+   "year": "2016"
+  },
+  {
+   "title": "Evolutionary origin of 2A-like sequences in Totiviridae genomes",
+   "abstract": "In recent years there has been a significant increase in the number of new species potentially belonging to the Totiviridae family. Most of these new viruses have not yet been covered by the Committee on Taxonomy of Viruses (ICTV) official classification. In this study, a phylogenetic analysis including new sequences of Totiviridae candidates revealed a clade including Giardiavirus and a great diversity of new totiviruses, which infect arthropods, protozoa and mollusc. This expanded Giardiavirus clade comprises two monophyletic groups, one of them including Giardia lamblia virus (GLV) grouped with viruses that infect arthropods and vertebrates (GLV-like group), and the other includes the previously proposed Artivirus group (IMNV-like group). A screening of the members of the GLV-like group in search of genomic elements already described in IMNV-like group revealed the existence of sites with a high propensity to become 2 A-like oligopeptides, mainly in a specific subgroup of arthropod viruses, suggesting that these viruses preserved ancestral characteristics. The existence of these “pseudo 2 A-sites” associated to phylogenetic reconstruction indicates that these sequences appear at a decisive stage for viral evolution. If they are changed to functional 2 A-like sequences, an irreversible route to increase the genome complexity will be initiated.",
+   "label": false,
+   "doi": "10.1016/j.virusres.2018.10.011",
+   "year": "2019"
+  },
+  {
+   "title": "Two loci controlling genetic cellular resistance to avian leukosis-sarcoma viruses",
+   "abstract": "Female chickens known to be heterozygous for resistance to subgroups A and B of the avian leukosis-sarcoma viruses were mated to males known to be homozygously resistant to both. The progeny were assayed both on the chorioallantoic membrane (CAM) and in tissue culture for resistance to representative viruses of the A, B, and tentatively defined C subgroups. Segregation ratios of resistance to A and B subgroup viruses agreed with the previously suggested hypothesis of single-autosomal-recessive genes controlling resistance to each subgroup. Mixed infection on the CAM and replicate plate infection in tissue culture with subgroup A and B viruses showed that resistance to the A and B subgroups was inherited independently. Assays with viruses tentatively classified as subgroup C indicated that they were largely composed of a mixture of subgroup A and B viruses or of particles possessing the host range specificity of both. However, virus stocks of the subgroup C category, as well as some stocks classified as subgroup B, produced small numbers of pocks or foci on individuals known to be resistant to subgroup A and B viruses. It is suggested that these Rous sarcoma virus stocks carry between 1 and 10% of a true subgroup C virus.",
+   "label": false,
+   "doi": "",
+   "year": "1967"
+  },
+  {
+   "title": "Genetic analysis of H3N2 avian influenza viruses isolated from live poultry markets and poultry slaughterhouses in Shanghai, China in 2013",
+   "abstract": "Five H3N2 avian influenza viruses (AIVs) were isolated from live poultry markets (LPMs) and poultry slaughterhouses in Shanghai, China in 2013. All viruses were characterized by whole-genome sequencing with subsequent genetic comparison and phylogenetic analysis. The hemagglutinin cleavage site of all viruses indicated that the five strains were low-pathogenic AIVs. Phylogenetic analysis of all eight viral genes showed that the five H3N2 viruses clustered in the Eurasian lineage of influenza viruses. The eight genes showed evidence of reassortment events between these H3 subtype viruses and other subtype viruses, especially H5 and H7 subtypes, probably in pigeons, domestic ducks, and wild birds. These findings emphasized the importance of AIV surveillance in LPMs and poultry slaughterhouses for understanding the genesis and emergence of novel reassortants with pandemic potential.",
+   "label": false,
+   "doi": "10.1007/s11262-015-1198-5",
+   "year": "2015"
+  },
+  {
+   "title": "Novel parvoviruses from wild and domestic animals in Brazil provide new insights into parvovirus distribution and diversity",
+   "abstract": "Parvoviruses (family Parvoviridae) are small, single-stranded DNA viruses. Many parvoviral pathogens of medical, veterinary and ecological importance have been identified. In this study, we used high-throughput sequencing (HTS) to investigate the diversity of parvoviruses infecting wild and domestic animals in Brazil. We identified 21 parvovirus sequences (including twelve nearly complete genomes and nine partial genomes) in samples derived from rodents, bats, opossums, birds and cattle in Pernambuco, São Paulo, Paraná and Rio Grande do Sul states. These sequences were investigated using phylogenetic and distance-based approaches and were thereby classified into eight parvovirus species (six of which have not been described previously), representing six distinct genera in the subfamily Parvovirinae. Our findings extend the known biogeographic range of previously characterized parvovirus species and the known host range of three parvovirus genera (Dependovirus, Aveparvovirus and Tetraparvovirus). Moreover, our investigation provides a window into the ecological dynamics of parvovirus infections in vertebrates, revealing that many parvovirus genera contain well-defined sub-lineages that circulate widely throughout the world within particular taxonomic groups of hosts.",
+   "label": true,
+   "doi": "10.3390/v10040143",
+   "year": "2018"
+  },
+  {
+   "title": "Molecular detection and analysis of Sheeppox and Orf viruses isolated from sheep from Qalubia, Egypt",
+   "abstract": "In this study an outbreak with Sheeppox virus (SPPV) and Orf virus (ORFV) in one sheep herd in the Qalubia province, Egypt, was investigated. Both, SPPV and ORFV caused clinically manifest infections among sheep. The affected sheep showed skin lesions around the mouth or all over the body. Therefore, reliable diagnosis should confirm the aetiology of the infection and then reduce spread of the diseases in the affected areas. Clinical samples were investigated by virus isolation, PCR and real-time PCR assays. Furthermore, PCR-products of SPPV and ORFV isolates were sequenced and alignment to reference isolates was performed for phylogenetic analyses. The laboratory diagnosis showed that real-time PCR assay was more accurate and sensitive than conventional PCR and virus isolation. In phylogenetic analysis of the A29L gene genetic differences between SPPV field strains were not observed and the strains showed 100% homology with two SPPV isolates from Kazakhstan and one isolate from Turkey. The ORFV field strains are in the P55 gene genetically distinct from another and from other published isolates from Egypt 2006 and 2009.",
+   "label": false,
+   "doi": "",
+   "year": "2016"
+  },
+  {
+   "title": "Detection and phylogenetic analysis of Hepatitis E Viruses from mongooses in Okinawa, Japan",
+   "abstract": "Hepatitis E virus (HEV) infection has previously been reported in wild mongooses on Okinawa Island; to date however, only one HEV RNA sequence has been identified in a mongoose. Hence, this study was performed to detect HEV RNA in 209 wild mongooses on Okinawa Island. Six (2.9%) samples tested positive for HEV RNA. Phylogenetic analysis revealed that 6 HEV RNAs belonged to genotype 3 and were classified into groups A and B. In group B, mongoose-derived HEV sequences were very similar to mongoose HEV previously detected on Okinawa Island, as well as to those of a pig. This investigation emphasized the possibility that the mongoose is a reservoir animal for HEV on Okinawa Island. © 2012 The Japanese Society of Veterinary Science.",
+   "label": false,
+   "doi": "10.1292/jvms.11-0520",
+   "year": "2012"
+  },
+  {
+   "title": "Studies on Swine Enteroviruses. Ii. Morphology of the Cytopathic Changes Produced in Swine-Kidney Monolayers",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "1963"
+  },
+  {
+   "title": "Detection and characterization of a novel genotype of porcine astrovirus 4 from nasal swabs from pigs with acute respiratory disease",
+   "abstract": "Metagenomic sequencing of three nasal swabs collected from 10- to 21-day-old pigs exhibiting unexplained acute respiratory disease from two different commercial production facilities in Oklahoma identified a novel genotype of porcine astrovirus 4 (PAstV-4). The genomes had only ~75 % nucleotide sequence identity to previously characterized PAstV-4 isolates, while the capsid-encoding ORF2 had only ~53 % amino acid sequence identity to reference strains. A TaqMan assay targeting the novel ORF2 gene found 21 % and 19 % incidence in nasal and fecal swabs, respectively, submitted for unrelated diagnostic testing. PAstV-4 RNA levels were significantly higher (P = 0.04) in nasal swabs, suggesting a possible atypical respiratory tropism.",
+   "label": true,
+   "doi": "10.1007/s00705-016-2937-1",
+   "year": "2016"
+  },
+  {
+   "title": "Enteric viruses detected by molecular methods in commercial chicken and turkey flocks in the United States between 2005 and 2006",
+   "abstract": "Intestinal samples collected from 43 commercial broiler and 33 commercial turkey flocks from all regions of the United States during 2005 and 2006 were examined for the presence of astrovirus, rotavirus, reovirus, and coronavirus by reverse transcription-polymerase chain reaction (PCR), and for the presence of groups 1 and 2 adenovirus by PCR. Phylogenetic analysis was performed to further characterize the viruses and to evaluate species association and geographic patterns. Astroviruses were identified in samples from 86% of the chicken flocks and from 100% of the turkey flocks. Both chicken astrovirus and avian nephritis virus (ANV) were identified in chicken samples, and often both viruses were detected in the same flock. Turkey astrovirus type-2 and turkey astrovirus type-1 were found in 100% and 15.4% of the turkey flocks, respectively. In addition, 12.5% of turkey flocks were positive for ANV. Rotaviruses were present in 46.5% of the chicken flocks tested and in 69.7% of the turkey flocks tested. Based upon the rotavirus NSP4 gene sequence, the chicken and turkey origin rotaviruses assorted in a species-specific manner. The turkey origin rotaviruses also assorted based upon geographical location. Reoviruses were identified in 62.8% and 45.5% of chicken and turkey flocks, respectively. Based on the reovirus S4 gene segment, the chicken and turkey origin viruses assorted separately, and they were distinct from all previously reported avian reoviruses. Coronaviruses were detected in the intestinal contents of chickens, but not turkeys. Adenoviruses were not detected in any chicken or turkeys flocks. Of the 76 total chicken and turkey flocks tested, only three chicken flocks were negative for all viruses targeted by this study. Most flocks were positive for two or more of the viruses, and overall no clear pattern of virus geographic distribution was evident. This study provides updated enteric virus prevalence data for the United States using molecular methods, and it reinforces that enteric viruses are widespread in poultry throughout the United States, although the clinical importance of most of these viruses remains unclear.",
+   "label": false,
+   "doi": "10.1637/8174-111507-Reg.1",
+   "year": "2008"
+  },
+  {
+   "title": "Experimental infection of conventional nursing pigs and their dams with Porcine deltacoronavirus",
+   "abstract": "Porcine deltacoronavirus (PDCoV) is a newly identified virus that has been detected in swine herds of North America associated with enteric disease. The aim of this study was to demonstrate the pathogenicity, course of infection, virus kinetics, and aerosol transmission of PDCoV using 87 conventional piglets and their 9 dams, including aerosol and contact controls to emulate field conditions. Piglets 2-4 days of age and their dams were administered an oronasal PDCoV inoculum with a quantitative real-time reverse transcription (qRT)-PCR quantification cycle (Cq) value of 22 that was generated from a field sample having 100% nucleotide identity to USA/Illinois121/2014 determined by metagenomic sequencing and testing negative for other enteric disease agents using standard assays. Serial samples of blood, serum, oral fluids, nasal and fecal swabs, and tissues from sequential autopsy, conducted daily on days 1-8 and regular intervals thereafter, were collected throughout the 42-day study for qRT-PCR, histopathology, and immunohistochemistry. Diarrhea developed in all inoculated and contact control pigs, including dams, by 2 days post-inoculation (dpi) and in aerosol control pigs and dams by 3-4 dpi, with resolution occurring by 12 dpi. Mild to severe atrophic enteritis with PDCoV antigen staining was observed in the small intestine of affected piglets from 2 to 8 dpi. Mesenteric lymph node and small intestine were the primary sites of antigen detection by immunohistochemistry, and virus RNA was detected in these tissues to the end of the study. Virus RNA was detectable in piglet fecal swabs to 21 dpi, and dams to 14-35 dpi.",
+   "label": false,
+   "doi": "10.1177/1040638716654200",
+   "year": "2016"
+  },
+  {
+   "title": "Sequence analysis of the S1 glycoprotein gene of infectious bronchitis viruses: Identification of a novel phylogenetic group in Korea",
+   "abstract": "Twelve Korean infectious bronchitis viruses (IBVs) were isolated in the field from chickens suspected of being carriers of infectious bronchitis between 2001 and 2003. The S1 glycoprotein genes of these IBV isolates were amplified by reverse transcriptase-polymerase chain reaction (RT-PCR) and analyzed by restriction fragment length polymorphism (RFLP) analysis. These Korean IBV isolates were classified into three groups according to their RFLP patterns obtained using the restriction enzyme HaeIII. Half of the twelve isolates were similar to the KM91 RFLP pattern, which is a common pattern in Korea. Three more isolates were related to the Arkansas strain pattern, but with some unique variations. The other three viruses showed variant RFLP patterns. For a comparison with the published sequences for non-Korean IBV strains, amplified PCR products from the twelve isolates were cloned and sequenced. The Korean IBV field isolates had 71.2-99.7% nucleotide sequence homology with each other and 45.9-80.7% nucleotide sequence homology with non-Korean IBV strains. With respect to the deduced amino acid sequence, the Korean IBV isolates had 71.5-99.3% similarity with each other and 44.9-80.3% similarity with non-Korean IBV strains. Phylogenetic tree analysis revealed that some of the IBV isolates appear to belong to a new group, different from the non-Korean IBV strains or from previously isolated Korean IBV strains. Specifically, the new Korean IBV isolates K10217-03, K3-3 and K1255-03 represented a separate group. These findings suggest that the Korean IBVs appear to be continuously evolving.",
+   "label": false,
+   "doi": "",
+   "year": "2007"
+  },
+  {
+   "title": "Transcriptomic Analysis Identifies Candidate Genes and Gene Sets Controlling the Response of Porcine Peripheral Blood Mononuclear Cells to Poly I:C Stimulation",
+   "abstract": "Polyinosinic-polycytidylic acid (poly I:C), a synthetic dsRNA analog, has been demonstrated to have stimulatory effects similar to viral dsRNA. To gain deep knowledge of the host transcriptional response of pigs to poly I:C stimulation, in the present study, we cultured and stimulated peripheral blood mononuclear cells (PBMC) of piglets of one Chinese indigenous breed (Dapulian) and one modern commercial breed (Landrace) with poly I:C, and compared their transcriptional profiling using RNA-sequencing (RNA-seq). Our results indicated that poly I:C stimulation can elicit significantly differentially expressed (DE) genes in Dapulian (g = 290) as well as Landrace (g = 85). We also performed gene set analysis using the Gene Set Enrichment Analysis (GSEA) package, and identified some significantly enriched gene sets in Dapulian (g = 18) and Landrace (g = 21). Most of the shared DE genes and gene sets were immune-related, and may play crucial rules in the immune response of poly I:C stimulation. In addition, we detected large sets of significantly DE genes and enriched gene sets when comparing the gene expression profile between the two breeds, including control and poly I:C stimulation groups. Besides immune-related functions, some of the DE genes and gene sets between the two breeds were involved in development and growth of various tissues, which may be correlated with the different characteristics of the two breeds. The DE genes and gene sets detected herein provide crucial information towards understanding the immune regulation of antiviral responses, and the molecular mechanisms of different genetic resistance to viral infection, in modern and indigenous pigs.",
+   "label": false,
+   "doi": "",
+   "year": "2016"
+  },
+  {
+   "title": "Genetic diversity of Newcastle disease virus in Pakistan: A countrywide perspective",
+   "abstract": "Background: Newcastle disease (ND) is one of the most deadly diseases of poultry around the globe. The disease is endemic in Pakistan and recurrent outbreaks are being reported regularly in wild captive, rural and commercial poultry flocks. Though, efforts have been made to characterize the causative agent in some of parts of the country, the genetic nature of strains circulating throughout Pakistan is currently lacking. Material and methods. To ascertain the genetics of NDV, 452 blood samples were collected from 113 flocks, originating from all the provinces of Pakistan, showing high mortality (30-80%). The samples represented domesticated poultry (broiler, layer and rural) as well as wild captive birds (pigeons, turkeys, pheasants and peacock). Samples were screened with real-time PCR for both matrix and fusion genes (1792 bp), positive samples were subjected to amplification of full fusion gene and subsequent sequencing and phylogenetic analysis. Results: The deduced amino acid sequence of the fusion protein cleavage site indicated the presence of motif ( 112RK/RQRR↓F117) typical for velogenic strains of NDV. Phylogenetic analysis of hypervariable region of the fusion gene indicated that all the isolates belong to lineage 5 of NDV except isolates collected from Khyber Pakhtunkhwa (KPK) province. A higher resolution of the phylogenetic analysis of lineage 5 showed the distribution of Pakistani NDV strains to 5b. However, the isolates from KPK belonged to lineage 4c; the first report of such lineage from this province. Conclusions: Taken together, data indicated the prevalence of multiple lineages of NDV in different poultry population including wild captive birds. Such understanding is crucial to underpin the nature of circulating strains of NDV, their potential for interspecies transmission and disease diagnosis and control strategies. © 2013 Shabbir et al.; licensee BioMed Central Ltd.",
+   "label": false,
+   "doi": "10.1186/1743-422x-10-170",
+   "year": "2013"
+  },
+  {
+   "title": "Indication of Cross-Species Transmission of Astrovirus Associated with Encephalitis in Sheep and Cattle",
+   "abstract": "We report the identification of a neurotropic astrovirus associated with encephalitis in a sheep. This virus is genetically almost identical to an astrovirus recently described in neurologically diseased cattle. The similarity indicates that astroviruses of the same genotype may cause encephalitis in different species.",
+   "label": true,
+   "doi": "",
+   "year": "2017"
+  },
+  {
+   "title": "Altered virome and bacterial microbiome in human immunodeficiency virus-associated acquired immunodeficiency syndrome",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "2016"
+  },
+  {
+   "title": "Complete genome characterization of a rotavirus B (RVB) strain identified in alpine goat kids with enteritis reveals inter-species transmission with RVB bovine strains",
+   "abstract": "Rotavirus B (RVB) has been associated with enteric disease in many animal species. An RVB strain was identified in pooled intestinal samples from Alpine caprine kids (between 2 and 3 days of age) experiencing high (>90%) morbidity, and the complete caprine RVB genome was characterized. Histology revealed villus atrophy, the samples tested positive for RVB by real-time RT-PCR and metagenomic next-generation sequencing identified only RVB and orf virus. In the VP4 gene segment, the caprine RVB strain had a higher percentage nucleotide identity to the Indian bovine RVB strains than to the Japanese bovine RVB strains, but the VP7, VP6, VP2, NSP1, NSP2 and NSP5 gene segments of the American caprine RVB strain were genetically related to the Japanese bovine RVB strains. The results indicate a lack of RVB sequences to understand reassortment or the evolutionary relationship of RVB strains from cattle and goats.",
+   "label": true,
+   "doi": "10.1099/jgv.0.001022",
+   "year": "2018"
+  },
+  {
+   "title": "Identification of several clades of novel single-stranded circular DNA viruses with conserved stem-loop structures in pig feces",
+   "abstract": "Metagenomic analysis of fecal samples collected from diarrheal swine detected sequences encoding a replication initiator protein (Rep). The genomes of ten novel single-stranded DNA viruses were determined, and they exhibited a similar genome organization. The two putative open reading frames (ORFs) encoding Rep and the capsid protein are bidirectionally transcribed and separated by two intergenic regions. Stem-loop structure(s) typical of genomes that undergo the rolling-circle DNA replication mechanism were observed. Phylogenetically, these ten genomes are in a monophyletic clade with the previously described porcine stool-associated virus (PoSCV) but are divergent enough to be further classified into to six distinct virus clades.",
+   "label": false,
+   "doi": "10.1007/s00705-014-2234-9",
+   "year": "2015"
+  },
+  {
+   "title": "The study of the nonpathogenic influenza virus A/gull/Moscow/3100/2006 (H6N2) isolated in Moscow",
+   "abstract": "The influenza virus A/gull/Moscow/3100/2006 (H6N2) was isolated from gull feces within the precincts of Moscow in autumn 2006. The nucleotide sequence of the complete genome (GenBank, EU152234-EU152241) and genotype (K, G, D, 6B, F, 2D, F, 1E) for this virus were determined. Phylogenetic analysis suggests that the H6N2 virus derived by numerous reassortment between viruses that have been circulating among different birds in Europe since 1999 and in South-East Asia (NA gene) for last years. Migratory birds probably introduced some of these viruses from South-East Asia earlier. The strain A/gull/Moscow/3100/2006 is nonpathogenic for chicken embryos and mice and induces specific antibody production in mice. Similar to all avian influenza viruses A/gull/Moscow/3100/ 2006 it binds to Neu5Ac(2-3Gal receptors, but reveals higher affinity for fucosylated sialosugars (SLex) in contrast to the duck viruses, as was shown in receptor specificity assay and clarified due to modeling the accommodation of SLex into receptor binding site of duck and gull influenza virus hemagglutinin.",
+   "label": false,
+   "doi": "",
+   "year": "2009"
+  },
+  {
+   "title": "Baculovirus infection of the armyworm (Lepidoptera: Noctuidae) feeding on spiny- or smooth-edged grass (Festuca spp.) leaf blades",
+   "abstract": "Susceptibility of the armyworm, Mythimna unipuncta (Haworth), to infection by a baculovirus (NPV) isolated from a Kentucky armyworm population was compared on two suspected progenitors of tall fescue, Festuca mairei and Festuca arundinacea subsp. fenas, with spiny leaf margins intact or removed to test whether leaf spines abrade or puncture the peritrophic matrix (PM) and facilitate passage of virions to infection sites in midgut tissue. PCR amplification and sequencing of selected genes from the virus and phylogenetic inference from aligned sequences were carried out to identify and classify the virus. Edge spines had no effect on percentage infection or days to death of newly molted 5th instars fed spiny- or smooth-edged F. mairei leaf blades for 24 h before and after droplet feeding doses of 10(8) or 10(9) OBs ml (1). Fifth instars fed spiny- or smooth-edged grass blades had similarly undamaged PMs when viewed by scanning electron microscope. Fourth instars fed virus-treated F. arundinacea subsp. fenas leaf blades with spiny edges intact or removed did not differ in proportion infected or days to death. The food bolus moves in a liquid medium within the PM, and frass dissections showed that edge spines were often located inside a food bolus separated from the PM by non-spiny plant material rather than contiguous with the PM; therefore, friction of edge spines with the PM may have been low. These results suggest that armyworms will not be less susceptible to baculovirus infection when feeding on tall fescue cultivars with smooth leaf edges planted for improved livestock performance compared with those feeding on standard spiny-edged cultivars. We believe this to be the first study to investigate the effects of a natural physical structure on disruption of the PM and infection by a baculovirus. (C) 2012 Elsevier Inc. All rights reserved.",
+   "label": false,
+   "doi": "",
+   "year": "2012"
+  },
+  {
+   "title": "An Evolutionarily Young Polar Bear (Ursus maritimus) Endogenous Retrovirus Identified from Next Generation Sequence Data",
+   "abstract": "Transcriptome analysis of polar bear (Ursus maritimus) tissues identified sequences with similarity to Porcine Endogenous Retroviruses (PERV). Based on these sequences, four proviral copies and 15 solo long terminal repeats (LTRs) of a newly described endogenous retrovirus were characterized from the polar bear draft genome sequence. Closely related sequences were identified by PCR analysis of brown bear (Ursus arctos) and black bear (Ursus americanus) but were absent in non-Ursinae bear species. The virus was therefore designated UrsusERV. Two distinct groups of LTRs were observed including a recombinant ERV that contained one LTR belonging to each group indicating that genomic invasions by at least two UrsusERV variants have recently occurred. Age estimates based on proviral LTR divergence and conservation of integration sites among ursids suggest the viral group is only a few million years old. The youngest provirus was polar bear specific, had intact open reading frames (ORFs) and could potentially encode functional proteins. Phylogenetic analyses of UrsusERV consensus protein sequences suggest that it is part of a pig, gibbon and koala retrovirus clade. The young age estimates and lineage specificity of the virus suggests UrsusERV is a recent cross species transmission from an unknown reservoir and places the viral group among the youngest of ERVs identified in mammals.",
+   "label": false,
+   "doi": "",
+   "year": "2015"
+  },
+  {
+   "title": "Phylogenetic analysis of bovine viral diarrhea viruses using five different genetic regions",
+   "abstract": "Phylogenetic analysis of the five different regions (5′ non-coding region (5′NCR), Npro, E2, NS3 and NS5B-3′NCR) of 48 Japanese and reported bovine viral diarrhea virus (BVDV) genomes was performed. Japanese BVDVs were segregated into BVDV1 subdivided into six subgroups and BVDV2. One isolate, So CP/75, isolated in 1975 and previously proposed as subgroup 1e according to its 5′NCR sequence, was quite unique and formed an independent lineage in the tree of any region. Another isolate, 190CP, obtained from an experimental mucosal disease case was classified as subgroup 1e, defined by Becher et al. in the 5′NCR, Npro and E2 regions, whereas it was classified as subgroup 1a in the NS5B-3′NCR region. The genomic sequences of the American isolates ILLC and ILLNC obtained from the GenBank database were assigned into subgroup 1b in the 5′NCR, N pro, E2 and NS5B-3′NCR regions, whereas they were assigned into subgroup 1a in the NS3 region, suggesting that recombination between the virus strains classified into different subgroups had occurred in an animal. These findings suggest that phylogenetic analysis of several genetic regions is useful for the further characterization of field BVDV isolates. © 2003 Elsevier B.V. All rights reserved.",
+   "label": false,
+   "doi": "10.1016/j.virusres.2003.10.006",
+   "year": "2004"
+  },
+  {
+   "title": "Reassortant Avian Influenza A(H9N2) viruses in chickens in retail poultry shops, Pakistan, 2009-2010",
+   "abstract": "Phylogenetic analysis of influenza viruses collected during December 2009-February 2010 from chickens in live poultry retail shops in Lahore, Pakistan, showed influenza A(H9N2) lineage polymerase and nonstructural genes generate through inter- and intrasubtypic reassortments. Many amino acid signatures observed were characteristic of human isolates; hence, their circulation could enhance inter- or intrasubtypic reassortment.",
+   "label": false,
+   "doi": "",
+   "year": "2015"
+  },
+  {
+   "title": "Full-Genome Sequence of Porcine Circovirus type 3 recovered from serum of sows with stillbirths in Brazil",
+   "abstract": "Two full-genome sequences of porcine circovirus type 3 (PCV3) are reported. The genomes were recovered from pooled serum samples from sows who had just delivered litters with variable numbers of stillbirths. The two circular genomes (PCV3-BR/RS/6 and PCV3-BR/RS/8) are 2,000 nucleotides long and contain two open reading frames (ORFs) oriented in opposite directions that encode the putative capsid (Cap) and replicase (Rep) proteins. The intergenic region contains a stem-loop motif, as reported for other circoviruses. Rolling circle replication motifs and putative helicase domains were identified in the Rep coding region. The degree of overall nucleotide similarity between the genomes reported here and those available at GenBank was higher than 97%. No PCV3 sequence was detected in pooled serum samples from sows which had no stillbirths on the same farms. However, further studies are necessary to confirm the association between PCV3 and the occurrence of stillbirths.",
+   "label": true,
+   "doi": "10.1111/tbed.12735",
+   "year": "2018"
+  },
+  {
+   "title": "A study of antigenic variants of foot-and-mouth disease virus by polyacrylamide gel electrophoresis of their structural polypeptides",
+   "abstract": "Twenty-nine foot-and-mouth disease (FMD) type A virus strains, previously classified serologically as distinct subtypes were analysed by polyacrylamide gel electrophoresis (PAGE) to determine the extent of variation in the pattern of the structural polypeptides and to evaluate the technique as an aid to existing subtyping techniques. The majority of the subtypes examined had distinct polypeptide patterns, however, some variation also occurred between strains within a subtype. The position of VP2(1B) and VP3(1C) was often unchanged in different strains within a subtype and between geographically related subtypes over long periods of time. Changes in the position of VP1(1D) were also observed within a subtype. The technique was considered to be a value for the screening of isolates prior to conventional serological procedures and in the tracing of the possible origin of FMD outbreaks.",
+   "label": false,
+   "doi": "10.1016/0378-1135(85)90005-7",
+   "year": "1985"
+  },
+  {
+   "title": "Application of molecular biological techniques for detection of epizootic hemorrhagic disease virus (EHDV-318) recovered from a sentinel calf in central Sudan",
+   "abstract": "Epizootic hemorrhagic disease virus (EHDV), isolate 318 (EHDV-318), an untyped virus recovered from a sentinel calf herd at the Khartoum University farm in central Sudan, was characterized using molecular biological techniques. With dot blot hybridization technique, a cDNA probe derived from genome segment 6 of EHDV-2 (Alberta strain) hybridized with RNA from EHDV-318. Application of serogroup-specific EHDV polymerase chain reaction (PCR) to EHDV-318 RNA resulted in specific amplification of a 387 bp PCR product. Amplification product was visualized on ethidium bromide-stained agarose gel. Specificity of the PCR products was confirmed by chemiluminescent hybridization with a non-radiolabelled internal probe. No amplification product or hybridization signal was detected when the serotype-specific EHDV-1 or EHDV-2 PCR-based assays were applied to RNA from EHDV-318. The scientific data presented in this study indicated that cDNA probes and serogroup-specific PCR-based assay can de used to classify the virus as a member of EHDV serogroup, and as serotypically distinct from EHDV-1 and EHDV-2.",
+   "label": false,
+   "doi": "10.1016/s0378-1135(96)00073-9",
+   "year": "1996"
+  },
+  {
+   "title": "Full-genome basedmolecular characterization of encephalitis-associated bovine astroviruses",
+   "abstract": "Novel types of astrovirus have been identified recently in association with neurological disease in cattle. Among those viruses is bovine astrovirus CH13 (BoAstV CH13) that has been identified in Switzerland in a cow with encephalitis. Molecular testing by a combination of reverse transcription (RT-) PCR and in situ hybridization (ISH) indicated that astrovirus infection accounts for around one quarter of viral encephalitis cases of unknown etiology in cattle. Yet, it remained to be explored whether these animals were infected by BoAstV CH13 or other astrovirus species. In the present study we sequenced the entire astrovirus genome in brain tissues of eight RT-PCR and/or ISH positive cattle. Phylogenetic comparison of the genomic RNA and the encoded non-structural and structural proteins revealed that all these astrovirus strains were very similar to BoAstV CH13 as well as to a bovine encephalitis strain reported from the USA (BoAstV NeuroS1), and clearly distinct from other previously reported astroviruses. Conserved 5' and 3' untranslated regions (UTRs) were predicted to display distinct secondary RNA structures, which likely play a role in viral RNA replication and/or protein translation. Based on these data we propose that BoAstV CH13/NeuroS1 represents a new genotype species within the genus Mammastrovirus. The high degree of similarity between the strains and their relative distance to other genotype species suggest that during evolution some astroviruses acquired factors that specifically contribute to neuroinvasion. (C) 2016 The Authors. Published by Elsevier B.V.",
+   "label": true,
+   "doi": "",
+   "year": "2016"
+  },
+  {
+   "title": "Orthopoxvirus DNA: Strain differentiation by electrophoresis of restriction endonuclease fragmented virion DNA",
+   "abstract": "Procedures were developed for purifying intact intracytoplasmic poxvirus particles from infected cells and for isolatig DNA from virions by equilibrium centrifugation in sodium diatrizoate density gradients. The buoyant density of twelve closely related orthopoxviruses purified in these gradients was determined to be 1.25 g/ml, and that of the isolated virion DNAs was 1.1 g/ml. Virion DNA from each of the 12 selected prototype and wild-type viruses was cleaved with three separate site-specific restriction endonucleases, Hin d III, Sal I, and Bam HI, and the fragments (molecular weights 0.5 x 106 to 20 x 106) were separated by agarose gel electrophoresis. Characteristic DNA frgment migration patterns observed in the gels permitted classification of the viruses. By comparting profiles of Hin d III cleaved DNAs we were able to group the viruses into 4 species: cowpox, vaccinia, monkeypox (2 isolates), and variola (8 isolates). Viruses from variola major infection could be differentiated from viruses from variola minor infection. Isolates within species (strains) were also differentiated, mainly by comparing the gel electrophoresis profiles of Sal I digested DNA from the viruses.",
+   "label": false,
+   "doi": "",
+   "year": "1978"
+  },
+  {
+   "title": "Evolution of highly pathogenic avian influenza (H5N1) virus populations in Vietnam between 2007 and 2010",
+   "abstract": "We report on the genetic analysis of 213 highly pathogenic avian influenza (HPAI) H5N1 viruses isolated from poultry in Vietnam between 2007 and 2010. Phylogenetic analyses of the viral genomes revealed 38 distinct viral genotypes, 29 were novel and 9 were reported in Vietnam or neighboring countries in recent years. Viruses from only six genotypes persisted beyond one season or year. Thus, most reassortant viruses were transient, suggesting that such genotypes lacked significant fitness advantages. Viruses with clade 2.3.2.1 HA were re-introduced into Vietnam in 2009 and their prevalence rose steeply towards the end of 2010. Clade 2.3.4-like viruses (genotype V) were predominant in northern Vietnam and caused the majority of zoonotic infections, whereas clade 1.1 (genotype Z) viruses were only detected in the Mekong delta region, in southern Vietnam. Antigenic analysis of representative viruses from the four clades indicated substantial drift. © 2012.",
+   "label": false,
+   "doi": "10.1016/j.virol.2012.06.021",
+   "year": "2012"
+  },
+  {
+   "title": "The global virome project",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "2018"
+  },
+  {
+   "title": "Genetic characterization of bovine viral diarrhoea (BVD) viruses: Confirmation of the presence of BVD genotype 2 in Africa",
+   "abstract": "Bovine viral diarrhoea virus (BVDV) has emerged as one of the economically important pathogens in cattle populations, with a worldwide distribution and causing a complex of disease syndromes. Two genotypes, BVDV 1 and 2, exist and are discriminated on the basis of the sequence of the 5′ non-coding region (5' NCR) using real-time PCR. Real-time PCR is more sensitive, specific, and less time-consuming than conventional PCR, and it has less risk of cross-contamination of samples. Limited information exists on BVDV genetic subtypes in South Africa. The aim of this study was to determine the genotypes of BVDV currently circulating in South African feedlots. A total of 279 specimens (219 tissue samples, 59 trans-tracheal aspirates and 1 blood sample) were collected from dead and living cattle with lesions or clinical signs compatible with BVDV infection. Pooled homogenates from the same animals were prepared, and total RNA was extracted. A screening test was performed on the pooled samples, and positive pools were investigated individually. A Cador BVDV Type 1/2 RT-PCR Kit (QIAGEN, Hilden, Germany) was used for the real-time PCR assay on a LightCycler® V2. 0 real-time PCR machine (Roche Diagnostics, Mannheim, Germany). The results were read at 530 and 640 nm for BVDV 1 and 2, respectively. Bovine viral diarrhoea virus was detected in a total of 103 samples that included 91 tissue samples, 1 blood sample and 11 trans-tracheal aspirates. Eighty-five (82. 5 %) of the strains were genotype 1 and 18 (17. 5 %) were genotype 2. Comparing the sequencing data, genotypes 1 and 2 from the field strains did not cluster with vaccine strains currently used in feedlots in South Africa. The present study revealed the presence of BVDV genotype 2 in cattle in South Africa based on the high sequence similarity between genotype 2 field strains and strain 890 from North America. The presence of genotype 2 viruses that phylogenetically belong to different clusters and coexist in feedlots is consistent with the possibility of multiple virus introductions. These results represent the first documented evidence for the presence of BVDV genotype 2 in African cattle. © 2012 Springer-Verlag.",
+   "label": false,
+   "doi": "10.1007/s00705-012-1478-5",
+   "year": "2013"
+  },
+  {
+   "title": "Approved and experimental countermeasures against pestiviral diseases: Bovine viral diarrhea, classical swine fever and border disease",
+   "abstract": "The pestiviruses, bovine viral diarrhea virus (BVDV), classical swine fever (CSFV) and border disease virus, are important livestock pathogens in many countries, but current vaccines do not completely prevent the spread of infection. Control of pestiviral diseases is especially difficult due to the constant viremia and viral shedding of persistently infected (PI) animals, which must be identified and eliminated to prevent disease transmission. Existing vaccines are limited by the delay between vaccination and the onset of protection, the difficulty of differentiating serologically between vaccinated and naturally infected animals and the need for broad vaccine cross-protection against diverse virus strains. Antiviral therapy could potentially supplement vaccination by providing immediate protection in the case of an outbreak. Numerous compounds with in vitro antiviral activity against BVDV have been identified through its role as a surrogate for hepatitis C virus. Fewer drugs active against CSFV have been identified, but many compounds that are effective against BVDV will likely inhibit CSFV, given their similar genomic sequences. While in vitro research has been promising, the paucity of efficacy studies in animals has hindered the commercial development of effective antiviral drugs against the pestiviruses. In this article, we summarize the clinical syndromes and routes of transmission of BVD, CSF and border disease, discuss currently approved vaccines, review efforts to develop antiviral therapies for use in outbreak control and suggest promising directions for future research. © 2013 Elsevier B.V. All rights reserved.",
+   "label": false,
+   "doi": "10.1016/j.antiviral.2013.07.015",
+   "year": "2013"
+  },
+  {
+   "title": "The intestinal virome of malabsorption syndrome-affected and unaffected broilers through shotgun metagenomics",
+   "abstract": "Malabsorption syndrome (MAS) is an economically important disease of young, commercially reared broilers, characterized by growth retardation, defective feather development and diarrheic faeces. Several viruses have been tentatively associated to such syndrome. Here, in order to examine potential associations between enteric viruses and MAS, the faecal viromes of 70 stool samples collected from diseased (n = 35) and healthy (n = 35) chickens from seven flocks were characterized and compared. Following high-throughput sequencing, a total of 8,347,319 paired end reads, with an average of 231 nt, were generated. Through analysis of de novo assembled contigs, 144 contigs > 1000 nt were identified with hits to eukaryotic viral sequences, as determined by GenBank database. A number of known and unknown representatives of Adenoviridae, Anelloviridae, Astroviridae, Caliciviridae, Circoviridae, Parvoviridae, Picobirnaviridae, Picornaviridae and Reoviridae, as well as novel uncharacterized CRESS-DNA viruses, were identified. However, the distribution of sequence reads of viral genomes identified in diseased or healthy birds revealed no statistically significant differences. These findings indicate no association between the occurrence of MAS and enteric viruses. The viral genomes reported in the present study, including a variety of novel viruses, seem part of the normal intestinal microbiota of chickens.",
+   "label": true,
+   "doi": "10.1016/j.virusres.2018.12.005",
+   "year": "2019"
+  },
+  {
+   "title": "Influence of the hepatitis C virus 3′-untranslated region on IRES-dependent and cap-dependent translation initiation",
+   "abstract": "Translation of hepatitis C virus (HCV) genomic RNA is directed by an internal ribosome entry site (IRES) in the 5′-untranslated region (5′-UTR), and the HCV 3′-UTR enhances IRES activity. Since the HCV 3′-UTR has a unique structure among 3′-UTRs, we checked possible communication between the 5′- and the 3′-UTR of HCV during translation using chimeric reporter RNAs. We show that translation directed by the HCV IRES and by the HCV-like IRES of porcine teschovirus (PTV) which belongs to a quite distinct family of viruses (picornaviruses) or by the EMCV IRES is also enhanced by the HCV 3′-UTR or by a poly(A)-tail in different cell types. © 2010 Federation of European Biochemical Societies.",
+   "label": false,
+   "doi": "10.1016/j.febslet.2010.01.015",
+   "year": "2010"
+  },
+  {
+   "title": "Genetic diversity in the VP1 gene of foot-and-mouth disease virus serotype Asia 1",
+   "abstract": "Complete nucleotide sequence of the 1D (VP1-encoding) gene of 61 foot-and-mouth disease (FMD) serotype Asia I virus isolates recovered from different outbreaks in India between 1985 and 1999 including two vaccine strains currently used were determined. The sequences were compared with each other and those from other Asian countries. On the basis of phylogenetic analysis the viruses could be grouped into four genotypes (genotypes I-IV). All the 61 isolates from India belong to a single genotype (genotype-II) which is further subdivided into three lineages (B1, B2 and B3) under the same genotype. The viruses of the lineage B1 and B3 were found to be more prevalent before 1996 while the viruses of lineage B2 appeared to be new variants responsible for most of the recent outbreaks. Most of the isolates of lineage B1 lack one amino acid in the VP1 protein (position 44) whereas most of the isolates of lineage B2 and B3 contain it which indicates the possibility of these lineages having evolved independently. The rate of evolution of FMDV Asia 1 virus was also estimated and found to be 2.7 x 10(-2) synonymous substitutions per nucleotide per year.",
+   "label": false,
+   "doi": "",
+   "year": "2002"
+  },
+  {
+   "title": "Donor-derived infections and infectious risk in xenotransplantation and allotransplantation",
+   "abstract": "Post-transplantation infections are common in allograft recipients and should be expected in all immunocompromised hosts. Based on the need for immunosuppression in xenotransplantation, procedures developed to enhance safety in allotransplantation can be applied in future xenotransplantation clinical trials. Standardized approaches can be developed to guide the evaluation of common infectious syndromes in xenograft recipients. The opportunity created by screening of swine intended as xenograft donors has equal applicability to allotransplantation—notably broader screening strategies for allograft donors such as use of advanced sequencing modalities including broad-range molecular probes, microarrays, and high-throughput pyrosequencing. Considerations in management of allotransplant- and xenotransplant-associated infections are largely the same. Experience in xenotransplantation will continue to inform thinking regarding donor-derived infections in allotransplantation. We expect that experience in managing complex allotransplant recipients will similarly inform clinical trials in xenotransplantation.",
+   "label": false,
+   "doi": "10.1111/xen.12423",
+   "year": "2018"
+  },
+  {
+   "title": "Development and evaluation of a non-ribosomal random PCR and next-generation sequencing based assay for detection and sequencing of hand, foot and mouth disease pathogens",
+   "abstract": "BACKGROUND: Hand, foot and mouth disease (HFMD) has become a major public health problem across the Asia-Pacific region, and is commonly caused by enterovirus A71 (EV-A71) and coxsackievirus A6 (CV-A6), CV-A10 and CV-A16. Generating pathogen whole-genome sequences is essential for understanding their evolutionary biology. The frequent replacements among EV serotypes and a limited numbers of available whole-genome sequences hinder the development of overlapping PCRs for whole-genome sequencing. We developed and evaluated a non-ribosomal random PCR (rPCR) and next-generation sequencing based assay for sequence-independent whole-genome amplification and sequencing of HFMD pathogens. A total of 16 EV-A71/CV-A6/CV-A10/CV-A16 PCR positive rectal/throat swabs (Cp values: 20.9-33.3) were used for assay evaluation. RESULTS: Our assay evidently outperformed the conventional rPCR in terms of the total number of EV-A71 reads and the percentage of EV-A71 reads: 2.6 % (1275/50,000 reads) vs. 0.1 % (31/50,000) and 6 % (3008/50,000) vs. 0.9 % (433/50,000) for two samples with Cp values of 30 and 26, respectively. Additionally the assay could generate genome sequences with the percentages of coverage of 94-100 % of 4 different enterovirus serotypes in 73 % of the tested samples, representing the first whole-genome sequences of CV-A6/10/16 from Vietnam, and could assign correctly serotyping results in 100 % of 24 tested specimens. In all but three the obtained consensuses of two replicates from the same sample were 100 % identical, suggesting that our assay is highly reproducible. CONCLUSIONS: In conclusion, we have successfully developed a non-ribosomal rPCR and next-generation sequencing based assay for sensitive detection and direct whole-genome sequencing of HFMD pathogens from clinical samples.",
+   "label": false,
+   "doi": "",
+   "year": "2016"
+  },
+  {
+   "title": "One world, one health. Humans, animals and the environment are inextricably linked--a fact that needs to be remembered and exploited in our modern approach to health",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "2013"
+  },
+  {
+   "title": "Genetic diversity of bovine diarrhea and mucosal disease virus",
+   "abstract": "Bovine viral diarrhea virus (BVDV) is classified as a member of the Pestivirus genus of the Flaviviridae family. BVDV is one of the most important viral pathogens of ruminants worldwide, causing severe economic losses. Infection results in a wide range of clinical manifestations, ranging from mild respiratory disease to fetal death and mucosal disease. The virus particles are small and contain a single-stranded, positive-sense RNA molecule of approximately 12.3 kb with one large open reading frame flanked by two untranslated regions (5’UTR and 3’UTR). The polyprotein is proteolytically cleaved by viral and host proteases resulting in the formation of mature viral proteins. It is well established that BVDV strains show considerable genetic diversity. BVD viruses are classified as two species: BVDV-1 and BVDV-2. Quite recently, a new putative species, BVDV-3, was detected. The viruses exist as one of two biotypes: cytopathic or non-cytopathic, based on their activity in cell cultures. The phylogenetic analysis of the 5’UTR and Npro region has revealed at least 21 distinct subtypes of BVDV-1 and 4 subtypes of BVDV-2. Genetic diversity of BVD viruses has serious clinical implications such as immune evasion, increase of virulence, host range alteration and also affects the efficacy of vaccination programmes and diagnostic methods.",
+   "label": false,
+   "doi": "",
+   "year": "2017"
+  },
+  {
+   "title": "The occurrence of porcine circovirus 3 without clinical infection signs in Shandong Province",
+   "abstract": "Porcine circovirus type 3 (PCV3) was detected in Shandong, China. One hundred and thirty-two of 222 (59.46%) samples were PCV3 positive, while 52 of 132 (39.39%) samples were co-infected with PCV2. There were no clinical signs of infection in either multiparous sows or live-born infants. Two strains of PCV3 were indentified from natural stillborn foetuses. Phylogenetic analysis showed the two strains of PCV3 are 96% identical to the known PCV3/Pig/USA (KX778720.1, KX966193.1 and KX898030.1) and closely related to Barbel Circovirus. Further studies of the epidemiology of PCV3 and the co-infection with PCV2 are needed.",
+   "label": true,
+   "doi": "10.1111/tbed.12667",
+   "year": "2017"
+  },
+  {
+   "title": "Influenza-A viruses in ducks in northwestern Minnesota: Fine scale spatial and temporal variation in prevalence and subtype diversity",
+   "abstract": "Waterfowl from northwestern Minnesota were sampled by cloacal swabbing for Avian Influenza Virus (AIV) from July - October in 2007 and 2008. AIV was detected in 222 (9.1%) of 2,441 ducks in 2007 and in 438 (17.9%) of 2,452 ducks in 2008. Prevalence of AIV peaked in late summer. We detected 27 AIV subtypes during 2007 and 31 during 2008. Ten hemagglutinin (HA) subtypes were detected each year (i.e., H1, 3-8, and 10-12 during 2007; H1-8, 10 and 11 during 2008). All neuraminidase (NA) subtypes were detected during each year of the study. Subtype diversity varied between years and increased with prevalence into September. Predominant subtypes during 2007 (comprising ≥5% of subtype diversity) included H1N1, H3N6, H3N8, H4N6, H7N3, H10N7, and H11N9. Predominant subtypes during 2008 included H3N6, H3N8, H4N6, H4N8, H6N1, and H10N7. Additionally, within each HA subtype, the same predominant HA/NA subtype combinations were detected each year and included H1N1, H3N8, H4N6, H5N2, H6N1, H7N3, H8N4, H10N7, and H11N9. The H2N3 and H12N5 viruses also predominated within the H2 and H12 subtypes, respectively, but only were detected during a single year (H2 and H12 viruses were not detected during 2007 and 2008, respectively). Mallards were the predominant species sampled (63.7% of the total), and 531 AIV were isolated from this species (80.5% of the total isolates). Mallard data collected during both years adequately described the observed temporal and spatial prevalence from the total sample and also adequately represented subtype diversity. Juvenile mallards also were adequate in describing the temporal and spatial prevalence of AIV as well as subtype diversity.",
+   "label": false,
+   "doi": "10.1371/journal.pone.0024010",
+   "year": "2011"
+  },
+  {
+   "title": "Genetic diversity and recombination of enterovirus G strains in Japanese pigs: High prevalence of strains carrying a papain-like cysteine protease sequence in the enterovirus G population",
+   "abstract": "To study the genetic diversity of enterovirus G (EV-G) among Japanese pigs, metagenomics sequencing was performed on fecal samples from pigs with or without diarrhea, collected between 2014 and 2016. Fifty-nine EV-G sequences, which were >5,000 nucleotides long, were obtained. By complete VP1 sequence analysis, Japanese EV-G isolates were classified into G1 (17 strains), G2 (four strains), G3 (22 strains), G4 (two strains), G6 (two strains), G9 (six strains), G10 (five strains), and a new genotype (one strain). Remarkably, 16 G1 and one G2 strain identified in diarrheic (23.5%; four strains) or normal (76.5%; 13 strains) fecal samples possessed a papain-like cysteine protease (PL-CP) sequence, which was recently found in the USA and Belgium in the EV-G genome, at the 2C–3A junction site. This paper presents the first report of the high prevalence of viruses carrying PL-CP in the EV-G population. Furthermore, possible inter- and intragenotype recombination events were found among EV-G strains, including G1-PL-CP strains. Our findings may advance the understanding of the molecular epidemiology and genetic evolution of EV-Gs.",
+   "label": true,
+   "doi": "10.1371/journal.pone.0190819",
+   "year": "2018"
+  },
+  {
+   "title": "Rumen virome: an assessment of viral communities and their functions in the rumen of an Indian buffalo",
+   "abstract": "Viruses play a key role in compensating bacterial population in any ecosystem of the planet. Rumen, a highly diverse ecosystem, is still under-explored for viral communities and their metabolic capabilities. We carried out shotgun sequencing of enriched viral particles from rumen fluid collected from an Indian buffalo. The study revealed that well-assembled contigs of Newbler and Velvet got majority of assignments to virus domain that further revealed Caudovirales as a major order. A majority of the Firmicutes bacteriophages were found in the study, which also confirm the presence of conserved domains such as peptidases against Firmicutes phages.",
+   "label": false,
+   "doi": "",
+   "year": "2016"
+  },
+  {
+   "title": "Molecular characterization of Japanese encephalitis virus strains prevalent in Chinese swine herds",
+   "abstract": "Japanese encephalitis virus (JEV) is the leading cause of viral encephalitis in Asia and domestic pigs serve as the amplifying hosts. In the present study, the full genomic sequences of two JEV strains (HEN0701 and SH0601) isolated from pigs in China were determined and compared with other 12 JEV strains deposited in GenBank. These two strains had an 88.8% nucleotide sequence similarity and 97.9% deduced amino acid sequence homology. HEN0701 had high nucleotide sequence and high amino acid sequence identity with genotype I (GI) strains, while SH0601 had high nucleotide sequence and high amino acid sequence identity with GIII strains at both the gene and full genome levels. Further phylogenetic analysis showed that HEN0701 belonged to the JEV GI group and SH0601 was classified as a GIII strain. Analysis of codon usage showed there were a few differences between the GI and GIII strains in nucleotide composition and codon usage for the open reading frames. © 2013 The Korean Society of Veterinary Science.",
+   "label": false,
+   "doi": "10.4142/jvs.2013.14.1.27",
+   "year": "2013"
+  },
+  {
+   "title": "Genotyping of African swine fever virus (ASFV) isolates associated with disease outbreaks in Uganda in 2007",
+   "abstract": "Samples from infected domestic pigs associated with an outbreak of African swine fever (ASF) in three districts of central Uganda in 2007 were confirmed as being infected with African swine fever virus (ASFV) using a P72 gene-based polymerase chain reaction amplification (PCR) assay combined with restriction analysis. None of the sera collected from pigs with clinical symptoms were positive using the OIE serological prescribed tests. However, seven haemadsorbing viruses were isolated in macrophage culture and genotyped by partial p72 and full length p54-gene sequencing. Four of these viruses were isolated directly from serum samples. All the viruses were classified within the domesticpig cycle-associated p72 and p54 genotype IX which also includes viruses responsible for ASF outbreaks in Kenya in 2006 and 2007 and Uganda in 2003. To define virus relationships at higher resolution, typing was performed by analysis of tetrameric amino acid repeat regions within the central variable region (CVR) of the B602L gene. Ugandan isolates sequences exhibited 100% identity to viruses isolated from outbreaks in Kenya in 2007. The identity was greater than the viruses obtained from an earlier outbreak in Kenya in 2006. This provides further evidence that genetically similar ASFV virus within p72 Genotype IX may be circulating between Kenya and Uganda. © 2011 Academic Journals.",
+   "label": false,
+   "doi": "",
+   "year": "2011"
+  },
+  {
+   "title": "Sequence analysis of a porcine enterovirus serotype 1 isolate: Relationships with other picornaviruses",
+   "abstract": "The majority of the genomic sequence of a porcine enterovirus serotype 1 (PEV-1) isolate was determined. The genome was found to contain a large open reading frame which encoded a leader protein prior to the capsid protein region. This showed no sequence identity to other picornavirus leader regions and the sequence data suggested that it does not possess proteolytic activity. The 2A protease was small and showed considerable sequence identity to the aphthoviruses and to equine rhinovirus serotype 2. The 2A/2B junction possessed the typical cleavage site (NPG/P) exhibited by these viruses. The other proteins shared less than 40% sequence identity with equivalent proteins from other picornavirus genera. Phylogenetic analyses of the P1 and 3D sequences indicated that this virus forms a distinct branch of the family Picornaviridae. On the basis of results presented in this paper PEV-1 has been assigned to a new picornavirus genus. The phylogeny of the virus in relation to other picornaviruses is discussed.",
+   "label": false,
+   "doi": "",
+   "year": "1999"
+  },
+  {
+   "title": "Viral metagenomics demonstrates that domestic pigs are a potential reservoir for Ndumu virus",
+   "abstract": "Background: The rising demand for pork has resulted in a massive expansion of pig production in Uganda. This has resulted in increased contact between humans and pigs. Pigs can act as reservoirs for emerging infectious diseases. Therefore identification of potential zoonotic pathogens is important for public health surveillance. In this study, during a routine general surveillance for African swine fever, domestic pigs from Uganda were screened for the presence of RNA and DNA viruses using a high-throughput pyrosequencing method. Findings. Serum samples from 16 domestic pigs were collected from five regions in Uganda and pooled accordingly. Genomic DNA and RNA were extracted and sequenced on the 454 GS-FLX platform. Among the sequences assigned to a taxon, 53% mapped to the domestic pig (Sus scrofa). African swine fever virus, Torque teno viruses (TTVs), and porcine endogenous retroviruses were identified. Interestingly, two pools (B and C) of RNA origin had sequences that showed 98% sequence identity to Ndumu virus (NDUV). None of the reads had identity to the class Insecta indicating that these sequences were unlikely to result from contamination with mosquito nucleic acids. Conclusions: This is the first report of the domestic pig as a vertebrate host for Ndumu virus. NDUV had been previously isolated only from culicine mosquitoes. NDUV therefore represents a potential zoonotic pathogen, particularly given the increasing risk of human-livestock-mosquito contact. © 2012 Masembe et al.; licensee BioMed Central Ltd.",
+   "label": true,
+   "doi": "10.1186/1743-422x-9-218",
+   "year": "2012"
+  },
+  {
+   "title": "Whole genome analysis of a novel picornavirus related to the Enterovirus/Sapelovirus supergroup from porcine feces in Japan",
+   "abstract": "A novel virus related to the Enterovirus/Sapelovirus supergroup in the family Picornaviridae was identified in healthy porcine feces in Japan by using a metagenomics approach. The genome of the virus, named Sapelo-like porcine picornavirus Japan (SPPVJ) Pig/Isi-Im1/JPN/2016, had a type-IV internal ribosomal entry site and carried a 6978-nucleotide-long single open reading frame encoding a 2326 amino acids (aa) polyprotein precursor. The coding sequence region consisted of leader protein (68 aa), a structural protein region P1 (824 aa), and the non-structural protein regions P2 (672 aa) and P3 (762 aa). Among representative picornaviruses, the P1, 2C, and 3CD regions of SPPVJ had the highest aa identities of 64.4%, 61.9%, and 73.3%, respectively, with the corresponding regions of sapelo-like bat picornavirus BtVs-PicoV/SC2013. Sequencing analysis of the RT-PCR products derived from the 5’ untranslated and 3D regions revealed the presence of SPPVJ in 17.8% (19/107) of the feces from healthy and diarrheal pigs in 12 farms in 2015–2016. Further studies are needed to determine the origin and pathogenic potential of SPPJV in pigs and other mammals.",
+   "label": true,
+   "doi": "10.1016/j.virusres.2018.09.003",
+   "year": "2018"
+  },
+  {
+   "title": "Unmapped reads from cattle RNAseq data: A source for missing and misassembled sequences in the reference assemblies and for detection of pathogens in the host",
+   "abstract": "Usually, reads from transcriptome sequencing data unmapped to the target species' reference genome are disregarded. A recent RNAseq project on the new fatal disease Bovine Neonatal Pancytopenia had indicated an unexplained immune response signature to a double-stranded RNA virus. To unravel its background, contigs were de novo assembled from unmapped RNAseq reads and aligned against the bovine genome assemblies and multispecies NCBI databases. Lack of genuine virus sequence contigs rejected the hypothesis of a live virus being causal for the unexplained immune response. Alignment data also demonstrated incomplete bovine reference genome assemblies. In addition, we found that several parasite and virus genome reference assemblies in NCBI were contaminated with bovine DNA and confirmed recombination of bovine DNA into BVD virus strains. Exploring unmapped reads can extract useful biological information regarding the presence of microorganisms and can highlight issues with reference genome assemblies of host and pathogen species.",
+   "label": false,
+   "doi": "",
+   "year": "2017"
+  },
+  {
+   "title": "Biological and molecular diagnosis of seedborne viruses in cowpea germplasm of geographically diverse sub-Saharan origins",
+   "abstract": "A total of 983 cowpea accessions obtained from the University of California, Riverside (UCR) Cowpea Repository were analysed for seedborne viruses. A majority of the accessions originated from 11 countries representing different agroclimatic zones in sub-Saharan Africa, and included landraces, local cultivars and breeding lines. Following the initial grow-out tests, 69 cowpea accessions, mostly with symptoms of virus infection, were selected for further evaluation using a combination of host range, reverse transcription-polymerase chain reaction (RT-PCR) and sequence analyses. The analyses revealed that samples from 46 (67%) accessions harboured one or more known seedborne viruses of cowpea. These included seed samples of accessions originating from Botswana (13 accessions), Ghana (6), Nigeria (6), Mali (1), Kenya (5), Cameroon (7), Niger (4), Cote d'lvoire (1), Benin (1), India (1) and China (1). Viruses were identified by RT-PCR analysis of total RNAs extracted from suspected virus-infected samples using virus species-specific primers, as well as the cloning and sequencing of RT-PCR products amplified using virus genus-and family-specific degenerate oligonucleotide primers. The viruses identified included Cowpea aphid-borne mosaic virus (CABMV), Cucumber mosaic virus (CMV) and Southern bean mosaic virus (SBMV). Phylogenetic analysis of the deduced coat protein (CP) amino acid sequences of selected CMV isolates recovered from five agroclimatically distinct locations confirmed their affiliations as new members of CMV subgroup IB. This is the first time that seedborne viruses of cowpea accessions in a major collection (UCR) have been identified using RT-PCR and sequencing approaches.",
+   "label": false,
+   "doi": "",
+   "year": "2010"
+  },
+  {
+   "title": "Potential for the cross-species transmission of swine torque teno viruses",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "2018"
+  },
+  {
+   "title": "Identification of a novel hepacivirus in domestic cattle from Germany",
+   "abstract": "Hepatitis C virus (HCV) continues to represent one of the most significant threats to human health. In recent years, HCV-related sequences have been found in bats, rodents, horses, and dogs, indicating a widespread distribution of hepaciviruses among animals. By applying unbiased high-throughput sequencing, a novel virus of the genus Hepacivirus was discovered in a bovine serum sample. De novo assembly yielded a nearly full-length genome coding for a polyprotein of 2,779 amino acids. Phylogenetic analysis confirmed that the virus represents a novel species within the genus Hepacivirus. Viral RNA screening determined that 1.6% (n = 5) of 320 individual animals and 3.2% (n = 5) of 158 investigated cattle herds in Germany were positive for bovine hepacivirus. Repeated reverse transcription-PCR (RT-PCR) analyses of animals from one dairy herd proved that a substantial percentage of cows were infected, with some of them being viremic for over 6 months. Clinical and postmortem examination revealed no signs of disease, including liver damage. Interestingly, quantitative RT-PCR from different organs and tissues, together with the presence of an miR-122 binding site in the viral genome, strongly suggests a liver tropism for bovine hepacivirus, making this novel virus a promising animal model for HCV infections in humans.",
+   "label": true,
+   "doi": "10.1128/jvi.00534-15",
+   "year": "2015"
+  },
+  {
+   "title": "Hepatitis E: An emerging disease",
+   "abstract": "Currently, the infection with the hepatitis E virus represents the most frequent cause for acute hepatitis and jaundice in the world. According to WHO estimations, around two billion people, representing one third of the world's population, live in endemic areas for HEV and, therefore, are at risk of infection. In developed countries, the circulation of the virus in both human and animal (swine, boar, deer) sewage has been confirmed; however, the incidence rate is low compared to that of developing countries where outbreaks of acute hepatitis transmitted via the fecal-oral route are originated, more frequently in the flooding season or after natural disasters, combined with deficient sanitary conditions.There are currently 4 known genotypes of HEV. Genotypes 1 and 2 are isolated in all human epidemic outbreaks in developing countries, while genotypes 3 and 4 are isolated not only in humans but also in animals, in both developing and industrialized countries. These data support genotypes 3 and 4 having zoonotic nature. The diagnosis of this disease is based in the detection of anti-HEV IgG and IgM in blood serum using enzyme-linked immunosorbent methods. However, the method that best confirms the diagnosis is the RT-PCR, which detects HEV RNA in blood serum and also provides the genotype. The clinical course is generally that of an acute hepatitis which in some cases may require hospitalization and that, in transplant patients or HIV infected individuals can become a chronic hepatitis. Furthermore, the virus constitutes an important risk for pregnant women. The hepatitis E can present a wide range of symptoms, from a subclinical case to chronic liver disease with extrahepatic manifestations. For this reason, the diagnostic is challenging if no differential diagnosis is included. There is no specific antiviral drug for hepatitis E, but satisfactory results have been observed in some patients treated with pegylated interferon alfa2a and/or ribavirin.This revision is an update of all the molecular, epidemiological, clinic and preventive knowledge on this emergent disease up to date.",
+   "label": false,
+   "doi": "10.1016/j.meegid.2014.01.002",
+   "year": "2014"
+  },
+  {
+   "title": "Genomic evolution, recombination, and inter-strain diversity of chelonid alphaherpesvirus 5 from Florida and Hawaii green sea turtles with fibropapillomatosis",
+   "abstract": "Chelonid alphaherpesvirus 5 (ChHV5) is a herpesvirus associated with fibropapillomatosis (FP) in sea turtles worldwide. Single-locus typing has previously shown differentiation between Atlantic and Pacific strains of this virus, with low variation within each geographic clade. However, a lack of multi-locus genomic sequence data hinders understanding of the rate and mechanisms of ChHV5 evolutionary divergence, as well as how these genomic changes may contribute to differences in disease manifestation. To assess genomic variation in ChHV5 among five Hawaii and three Florida green sea turtles, we used high-throughput short-read sequencing of long-range PCR products amplified from tumor tissue using primers designed from the single available ChHV5 reference genome from a Hawaii green sea turtle. This strategy recovered sequence data from both geographic regions for approximately 75% of the predicted ChHV5 coding sequences. The average nucleotide divergence between geographic populations was 1.5%; most of the substitutions were fixed differences between regions. Protein divergence was generally low (average 0.08%), and ranged between 0 and 5.3%. Several atypical genes originally identified and annotated in the reference genome were confirmed in ChHV5 genomes from both geographic locations. Unambiguous recombination events between geographic regions were identified, and clustering of private alleles suggests the prevalence of recombination in the evolutionary history of ChHV5. This study significantly increased the amount of sequence data available from ChHV5 strains, enabling informed selection of loci for future population genetic and natural history studies, and suggesting the (possibly latent) co-infection of individuals by well-differentiated geographic variants.",
+   "label": false,
+   "doi": "",
+   "year": "2018"
+  },
+  {
+   "title": "Nanopore sequencing as a revolutionary diagnostic tool for porcine viral enteric disease complexes identifies porcine kobuvirus as an important enteric virus",
+   "abstract": "Enteric diseases in swine are often caused by different pathogens and thus metagenomics are a useful tool for diagnostics. The capacities of nanopore sequencing for viral diagnostics were investigated here. First, cell culture-grown porcine epidemic diarrhea virus and rotavirus A were pooled and sequenced on a MinION. Reads were already detected at 7 seconds after start of sequencing, resulting in high sequencing depths (19.2 to 103.5X) after 3 h. Next, diarrheic feces of a one-week-old piglet was analyzed. Almost all reads (99%) belonged to bacteriophages, which may have reshaped the piglet's microbiome. Contigs matched Bacteroides, Escherichia and Enterococcus phages. Moreover, porcine kobuvirus was discovered in the feces for the first time in Belgium. Suckling piglets shed kobuvirus from one week of age, but an association between peak of viral shedding (10<sup>6.42</sup>-10<sup>7.01</sup> copies/swab) and diarrheic signs was not observed during a follow-up study. Retrospective analysis showed the widespread (n = 25, 56.8% positive) of genetically moderately related kobuviruses among Belgian diarrheic piglets. MinION enables rapid detection of enteric viruses. Such new methodologies will change diagnostics, but more extensive validations should be conducted. The true enteric pathogenicity of porcine kobuvirus should be questioned, while its subclinical importance cannot be excluded.",
+   "label": true,
+   "doi": "",
+   "year": "2018"
+  },
+  {
+   "title": "Porcine bocavirus infection associated with encephalomyelitis in a pig, Germany",
+   "abstract": "",
+   "label": true,
+   "doi": "10.3201/eid2207.152049",
+   "year": "2016"
+  },
+  {
+   "title": "Analysis of microRNAs expression profiles in madin-darby bovine kidney cells infected with caprine parainfluenza virus type 3",
+   "abstract": "Caprine parainfluenza virus type 3 (CPIV3) is a newly emerging pathogenic respiratory agent infecting both young and adult goats, and it was identified in eastern China in 2013. Cellular microRNAs (miRNAs) have been reported to be important modulators of the intricate virus-host interactions. In order to elucidate the role of miRNAs in madin-darby bovine kidney (MDBK) cells during CPIV3 infection. In this study, we performed high-throughput sequencing technology to analyze small RNA libraries in CPIV3-infected and mock-infected MDBK cells. The results showed that a total of 249 known and 152 novel candidate miRNAs were differentially expressed in MDBK cells after CPIV3 infection, and 22,981 and 22,572 target genes were predicted, respectively. In addition, RT-qPCR assay was used to further confirm the expression patterns of 13 of these differentially expressed miRNAs and their mRNA targets. Functional annotation analysis showed these up- and downregulated target genes were mainly involved in MAPK signaling pathway, Jak-STAT signaling pathway, Toll-like receptor signaling pathway, p53 signaling pathway, focal adhesion, NF-kappa B signaling pathway, and apoptosis, et al. To our knowledge, this is the first report of the comparative expression of miRNAs in MDBK cells after CPIV3 infection. Our finding provides information concerning miRNAs expression profile in response to CPIV3 infection, and offers clues for identifying potential candidates for antiviral therapies against CPIV3.",
+   "label": false,
+   "doi": "10.3389/fcimb.2018.00093",
+   "year": "2018"
+  },
+  {
+   "title": "Course of BVDV-2 infection in a dairy herd. A case study",
+   "abstract": "Objective: A case of severe, acute clinical disease following infection with BVDV-2 and causing high economic losses in a dairy herd is described and the course of infection followed. Material and methods: The affected herd consisted of 25 Deutsch Fleckvieh cows and their offspring. The farm was BHV-1 free and yearly milk production averaged 6500 kg. Cases of disease and clinical findings from September 2002 through to April 2003 were collected and analyzed. Proof of BVDV-antibodies was carried out with indirect antibody-ELISA. BVDV-antigenes were detected by means of antigen-ELISA and immunofluorecense flow cytometry. The isolated viruses were classified as BVDV-2 using monoclonal antibodies and PCR. Results: Six cows and one heifer came down with haemorrhagic enteritis. Two of these cows were euthanized and one cow died in the course of the disease. Six cows aborted or calved prematurely. Furthermore, four calves died and three calves, which were born weaklings or suffered from profuse diarrhoea, were euthanized. Two calves remained persistenly infected. As reason for the disease, an infection of the herd with BVDV-2 was diagnosed. Conclusion and clinical relevance: The results indicate that the herd was BVDV-2 naiv before infection. The virus must have circulated in the herd for some time, even without the presence of persistently infected animals.",
+   "label": false,
+   "doi": "",
+   "year": "2005"
+  },
+  {
+   "title": "Identification and phylogenetic analysis of orf virus from goats in Taiwan",
+   "abstract": "An outbreak of contagious ecthyma in goats in central Taiwan was investigated. The disease was diagnosed by physical and histopathologic examinations, and the etiology of the disease was identified as orf virus by electron microscopy and polymerase chain reaction (PCR) and sequence of major envelope protein (B2L) gene. The entire protein-coding region of B2L gene were cloned and sequenced. Phylogenetic analysis of B2L amino acid sequences showed that the orf virus identified in this outbreak was closer to the Indian ORFV-Mukteswar 59/05 isolate. This is the first report on the molecular characterization of orf virus in Taiwan. © 2007 Springer Science+Business Media, LLC.",
+   "label": false,
+   "doi": "10.1007/s11262-007-0144-6",
+   "year": "2007"
+  },
+  {
+   "title": "Relationship of Theiler's murine encephalomyelitis viruses to the cardiovirus genus of picornaviruses",
+   "abstract": "Sequence analysis of VP1 in the DA strain of Theiler's murine encephalomyelitis viruses (TMEV) showed that 13 of the first 23 N-terminal amino acids were identical to those in the corresponding protein of encephalomyocarditis virus. There was little similarity to the corresponding VP1 sequences of poliovirus types 1, 2 and 3, coxsackievirus B3, human rhinoviruses 2 and 14, human hepatitis A virus or foot-and-mouth disease virus. These results, as well as serological relationships detected by immunoblotting, suggest that the TMEV are more closely related to the cardioviruses than to the enteroviruses with which they are presently classified. This newly recognized relationship suggests potential for recombinant infectious cDNA studies between TMEV and cardioviruses.",
+   "label": false,
+   "doi": "",
+   "year": "1986"
+  },
+  {
+   "title": "Evolutionary dynamics of recent peste des petits ruminants virus epidemic in China during 2013–2014",
+   "abstract": "Peste des petits ruminants virus (PPRV) causes a highly contagious disease, peste des petits ruminants (PPR), in sheep and goats which has been considered as a serious threat to the local economy in Africa and Asia. However, the in-depth evolutionary dynamics of PPRV during an epidemic is not well understood. We conducted phylogenetic analysis on genomic sequences of 25 PPRV strains from China 2013–2014 outbreaks. All these strains clustered into a novel clade in lineage 4. An evolutionary rate of 2.61 × 10−6 nucleotide substitutions per site per day was estimated, dating the most recent common ancestor of PPRV China 2013–2014 strains to early August 2013. Transmission network analysis revealed that all the virus sequences could be grouped into five clusters of infection, suggesting long-distance animal transmission play an important role in the spread of PPRV in China. These results expanded our knowledge for PPRV evolution to achieve effective control measures.",
+   "label": false,
+   "doi": "10.1016/j.virol.2017.07.018",
+   "year": "2017"
+  },
+  {
+   "title": "Classification and genomic diversity of enterically transmitted hepatitis viruses",
+   "abstract": "Hepatitis A virus (HAV) and hepatitis E virus (HEV) are significant human pathogens and are responsible for a substantial proportion of cases of severe acute hepatitis worldwide. Genetically, both viruses are heterogeneous and are classified into several genotypes that differ in their geographical distribution and risk group association. There is, however, little evidence that variants of HAV or HEV differ antigenically or in their propensity to cause severe disease. Genetically more divergent but primarily hepatotropic variants of both HAV and HEV have been found in several mammalian species, those of HAV being classified into eight species within the genus Hepatovirus in the virus family Picornaviridae. HEV is classified as a member of the species Orthohepevirus A in the virus family Hepeviridae, a species that additionally contains viruses infecting pigs, rabbits, and a variety of other mammalian species. Other species (Orthohepevirus B–D) infect a wide range of other mammalian species including rodents and bats.",
+   "label": false,
+   "doi": "10.1101/cshperspect.a031880",
+   "year": "2018"
+  },
+  {
+   "title": "The human gut virome: a multifaceted majority",
+   "abstract": "",
+   "label": false,
+   "doi": "",
+   "year": "2015"
+  },
+  {
+   "title": "Faecal virome of red foxes from peri-urban areas",
+   "abstract": "Red foxes (Vulpes vulpes) are the most abundant carnivore species in the Northern Hemisphere. Since their populations are well established in peri-urban and urban areas, they represent a potential reservoir of viruses that transmit from wildlife to humans or domestic animals. In this study, we evaluated the faecal virome of juvenile and adult foxes from peri-urban areas in central Croatia. The dominating mammalian viruses were fox picobirnavirus and parvovirus. The highest number of viral reads (N = 1412) was attributed to a new fox circovirus and complete viral genome was de novo assembled from the high-throughput sequencing data. Fox circovirus is highly similar to dog circoviruses identified in diseased dogs in USA and Italy, and to a recently discovered circovirus of foxes with neurologic disease from the United Kingdom. Our fox picobirnavirus was more closely related to the porcine and human picobirnaviruses than to known fox picobirnaviruses.",
+   "label": false,
+   "doi": "10.1016/j.cimid.2016.01.005",
+   "year": "2016"
+  },
+  {
+   "title": "Analysis of the S1 gene of the avian infectious bronchitis virus (IBV) reveals changes in the IBV genetic groups circulating in southern Thailand",
+   "abstract": "The new variants of the avian infectious bronchitis virus (IBV) produce a range of symptoms and cause global economic losses to the poultry industry. We investigated the S1 glycoprotein of 24 recent IBV isolates from chickens and demonstrated that two predominant genetic groups were circulating in southern Thailand between 2008 and 2013. Seven IBV variants, isolated from 2008 to 2009, were clustered in the Thailand THA001 group I while 15 IBV variants, isolated from 2009 to 2013, were classified into the QX-like group II. Moreover, a single isolate from a broiler was categorized into the Massachusetts-type, and an isolate from a layer belonged to the 4/91 type virus. Interestingly, both the IBV groups I and II were isolated from native chickens (62.5%) and caused a range of symptoms. Our results indicate that the QX-like viruses were predominant after 2009, replacing the THA001 type viruses. Furthermore, native chickens may contribute to the epidemiology of IB.",
+   "label": false,
+   "doi": "10.1016/j.rvsc.2015.05.002",
+   "year": "2015"
+  },
+  {
+   "title": "Herpesvirus strigis: a new avian herpesvirus. I. Biological properties",
+   "abstract": "A virus isolated from dead owls displaying a syndrom called hepato splenitis infectiosa strigum (HSIS) killed chicken embryos following inoculation by various routes. Miliary necrotic foci and type A nuclear inclusion bodies were observed on CAM and in embryonic livers and spleens. In chicken embryo fibroblast tissue cultures syncytia, giant cells and type A nuclear bodies appeared. These features, as well as biochemical and biophysical properties described in another paper, allowed classification of HSIS virus as a herpesvirus. No serologic cross reaction was observed between HSIS virus on one hand, and infectious laryngotracheitis virus, Marek virus, and 5 non avian herpesviruses on the other hand. HSIS virus is therefore considered as a new avian herpesvirus. Herpesvirus strigis is proposed as an appropriate name, since owls of the order strigiformes are its natural host.",
+   "label": false,
+   "doi": "",
+   "year": "1973"
+  },
+  {
+   "title": "Crimean-Congo hemorrhagic fever in Tajikistan Review",
+   "abstract": "Crimean-Congo hemorrhagic fever (CCHF) is a pathogenic tick-borne disease caused by a single-stranded negative-sense RNA virus classified within the Nairovirus genus of the family Bunyaviridae. Cases of CCHF have been registered in Tajikistan since the disease was first brought to medical attention in 1944. However, historical Tajik manuscripts describe the features of hemorrhagic fever associated with ticks, indicating that the disease might have been known in this region for many years before it was officially characterized. Here we review the historical context of CCHF in Tajikistan, much of which has been described over several decades in the Russian literature, and include reports of recent outbreaks in Tajikistan.",
+   "label": false,
+   "doi": "",
+   "year": "2012"
+  },
+  {
+   "title": "Classification of Dutch and German avian reoviruses by sequencing the σC protein",
+   "abstract": "We have amplified, cloned and sequenced (part of) the open reading frame of the S1 segment encoding the σ C protein of avian reoviruses isolated from chickens with different disease conditions in Germany and The Netherlands during 1980 up to 2000. These avian reoviruses were analysed phylogenetically and compared with sequences of avian reoviruses in the Genbank database. The avian reoviruses could be grouped in 5 different genotyping clusters and this classification was identical when the sequences were compared of the 5′ end, the 3′ end or the whole open reading frame of the σ C protein. Therefore sequencing of either part of the gene encoding the σ C protein seems to be reliable for classification. We were unable to identify a correlation between σ C sequences of the avian reoviruses and the disease condition they were isolated from. The sequences found in The Netherlands and in Germany are, like those in Taiwan, more dispersed than the known avian reovirus σ C sequences in the USA and Australia. We did not establish temporal or geographic differences in the avian reoviruses studied.",
+   "label": false,
+   "doi": "",
+   "year": "2003"
+  },
+  {
+   "title": "High-throughput whole genome sequencing of Porcine reproductive and respiratory syndrome virus from cell culture materials and clinical specimens using next-generation sequencing technology",
+   "abstract": "Next-generation sequencing (NGS) technologies have increasingly played crucial roles in biological and medical research, but are not yet in routine use in veterinary diagnostic laboratories. We developed and applied a procedure for high-throughput RNA sequencing of Porcine reproductive and respiratory syndrome virus (PRRSV) from cell culture-derived isolates and clinical specimens. Ten PRRSV isolates with known sequence information, 2 mixtures each with 2 different PRRSV isolates, and 51 clinical specimens (19 sera, 16 lungs, and 16 oral fluids) with various PCR threshold cycle (Ct) values were subjected to nucleic acid extraction, cDNA library preparation (24-plexed), and sequencing. Whole genome sequences were obtained from 10 reference isolates with expected sequences and from sera with a PRRSV real-time reverse transcription PCR Ct ≤ 23.6, lung tissues with Ct ≤ 21, and oral fluids with Ct ≤ 20.6. For mixtures with PRRSV-1 and -2 isolates (57.8% nucleotide identity), NGS was able to distinguish them as well as obtain their respective genome sequences. For mixtures with 2 PRRSV-2 isolates (92.4% nucleotide identity), sequence reads with nucleotide ambiguity at numerous sites were observed, indicating mixed infection; however, individual virus sequences could only be separated when 1 isolate identity and sequence in the mixture is known. The NGS approach described herein offers the prospect of high-throughput sequencing and could be adapted to routine workflows in veterinary diagnostic laboratories, although further improvement of sequencing outcomes from clinical specimens with higher Ct values remains to be investigated.",
+   "label": true,
+   "doi": "10.1177/1040638716673404",
+   "year": "2017"
+  },
+  {
+   "title": "Diversity in VP3, NSP3, and NSP4 of rotavirus B detected from Japanese cattle",
+   "abstract": "Bovine rotavirus B (RVB) is an etiological agent of diarrhea mostly in adult cattle. Currently, a few sequences of viral protein (VP)1, 2, 4, 6, and 7 and nonstructural protein (NSP)1, 2, and 5 of bovine RVB are available in the DDBJ/EMBL/GenBank databases, and none have been reported for VP3, NSP3, and NSP4. In order to fill this gap in the genetic characterization of bovine RVB strains, we used a metagenomics approach and sequenced and analyzed the complete coding sequences (CDS) of VP3, NSP3, and NSP4 genes, as well as the partial or complete CDS of other genes of RVBs detected from Japanese cattle. VP3, NSP3, and NSP4 of bovine RVBs shared low nucleotide sequence identities (63.3–64.9% for VP3, 65.9–68.2% for NSP3, and 52.6–56.2% for NSP4) with those of murine, human, and porcine RVBs, suggesting that bovine RVBs belong to a novel genotype. Furthermore, significantly low amino acid sequence identities were observed for NSP4 (36.1–39.3%) between bovine RVBs and the RVBs of other species. In contrast, hydrophobic plot analysis of NSP4 revealed profiles similar to those of RVBs of other species and rotavirus A (RVA) strains. Phylogenetic analyses of all gene segments revealed that bovine RVB strains formed a cluster that branched distantly from other RVBs. These results suggest that bovine RVBs have evolved independently from other RVBs but in a similar manner to other rotaviruses. These findings provide insights into the evolution and diversity of RVB strains.",
+   "label": true,
+   "doi": "10.1016/j.meegid.2017.01.003",
+   "year": "2017"
+  },
+  {
+   "title": "A divergent clade of circular single-stranded DNA viruses from pig feces",
+   "abstract": "Using metagenomics and molecular cloning methods, we characterized five novel small, circular viral genomes from pig feces that are distantly related to chimpanzee and porcine stool-associated circular viruses, (ChiSCV and PoSCV1). Phylogenetic analysis placed these viruses into a highly divergent clade of this rapidly growing new viral family. This new clade of viruses, provisionally named porcine stool-associated circular virus 2 and 3 (PoSCV2 and PoSCV3), encodes a stem-loop structure (presumably the origin of DNA replication) in the small intergenic region and a replication initiator protein commonly found in other biological systems that replicate their genomes via the rolling-circle mechanism. Furthermore, these viruses also exhibit three additional overlapping open reading frames in the large intergenic region between the capsid and replication initiator protein genes. © 2013 Springer-Verlag Wien (outside the USA).",
+   "label": true,
+   "doi": "10.1007/s00705-013-1701-z",
+   "year": "2013"
+  },
+  {
+   "title": "Caliciviridae",
+   "abstract": "The caliciviruses, as a proposed family Caliciviridae, have a distinct virion morphology with cup-shaped depressions on a spherical capsid surface. The viruses have single-stranded RNA, which has a molecular weight about 2.6 x 106 and is infectious. The RNA is covalently linked to a small protein. A single major polypeptide is found in the capsid. A sub-genomic RNA, molecular weight about 1 x 106, coding for the capsid polypeptide is found in infected cells. Caliciviruses infecting swine, pinnipeds and cats have been characterized. Viruses which are morphologically identical to the known caliciviruses have been identified in human feces; these viruses have been shown to be associated with gastroenteritis, but they have not yet been propagated in the laboratory.",
+   "label": false,
+   "doi": "",
+   "year": "1980"
+  },
+  {
+   "title": "Prevalence of bovine viral diarrhea virus genotypes and antibody against those viral genotypes in fetal bovine serum",
+   "abstract": "One thousand lots of pooled fetal bovine serum (FBS) were tested for contamination with bovine viral diarrhea virus (BVDV) and/or for contamination with neutralizing antibody against BVDV. Noncytopathic or cytopathic BVDV was isolated from 203 lots of FBS. Analysis of the viral isolates identified 115 type 1 and 65 type 2 BVDV isolates. An additional 23 virus isolates were mixtures of > or = 2 BVDV isolates and were not classified to viral genotype. Further characterization of the type 1 viruses identified 51 subgenotype 1a and 64 subgenotype 1b BVDV isolates. Viral neutralizing antibody was detected in 113 lots of FBS. Differential viral neutralization indicated that type 1 BVDV induced the antibody detected in 48 lots of FBS and type 2 BVDV induced the antibody detected in 16 lots of FBS.",
+   "label": false,
+   "doi": "",
+   "year": "1998"
+  },
+  {
+   "title": "Bat related virus infection: A summary on reports from Thailand",
+   "abstract": "Bat is an interesting mammal that can fly. The disease of human beings relating to bat is very interesting but limited mentioned. There are many virus infections that can be transmitted to human beings by bat. Those virus infections are usually serious and difficult to manage. In this mini-review, the authors hereby summarize and discuss on the bat related virus infection mentioned in the previous publications in Thailand, a tropical country in Southeast Asia.",
+   "label": false,
+   "doi": "10.12980/apjtd.7.2017D7-27",
+   "year": "2017"
+  },
+  {
+   "title": "Identification of further diversity among posaviruses",
+   "abstract": "Recently, there have been reports of new members of posavirus-like viruses in the order Picornavirales. In this study, using a metagenomics approach, 11 posavirus-like sequences (>7,000 nucleotides) were detected in 155 porcine fecal samples. Phylogenetic analysis revealed that the newly identified virus sequences, together with other posavirus-like viruses, form distinct clusters within the order Picornavirales, composed of eight genogroups and unassigned sequences based on amino acid sequences of the helicase and RNA-dependent RNA polymerase regions, with <40 % and <50 % sequence identity, respectively. We propose further classifications of highly diverse posavirus populations based on newly identified sequences from Japanese pig feces.",
+   "label": true,
+   "doi": "",
+   "year": "2016"
+  },
+  {
+   "title": "Sequence data to settle the taxonomic position of bean common mosaic virus and blackeye cowpea mosaic virus isolates",
+   "abstract": "The nucleotide sequences of the coat protein genes and 3' non-translated regions (3'-NTRs) of three isolates of bean common mosaic virus (NL1, NL3 and NY15) and one isolate of blackeye cowpea mosaic virus (W) were determined. Comparison of these sequences revealed that the coat proteins of NL1, NY15 and W were identical in size (287 amino acids) and exhibited an overall sequence similarity (94 to 97%), and 84 to 98% in their N-terminal regions. Furthermore, their 3'-NTRs were very similar in length [253 to 256 nucleotides (nt)] and sequence (93 to 96% similarity). In contrast, the coat protein of NL3 had only 261 amino acids and showed 87 to 89% similarity with NL1, NY15 and W whereas its N-terminal region revealed only 46 to 61% similarity. The 3'-NTR of NL3 also displayed appreciable differences, both in length (240 nt) and sequence (56 to 63% similarity). These results, in combination with earlier serological findings, justify the conclusion that NL1, NY15 and W should be considered strains of the same virus, i.e. bean common mosaic virus, and that NL3 is a strain of a different potyvirus for which the name 'bean black root virus' is proposed.",
+   "label": false,
+   "doi": "",
+   "year": "1993"
+  },
+  {
+   "title": "The general composition of the faecal virome of pigs depends on age, but not on feeding with a probiotic bacterium",
+   "abstract": "Background: The pig faecal virome, which comprises the community of viruses present in pig faeces, is complex and consists of pig viruses, bacteriophages, transiently passaged plant viruses and other minor virus species. Only little is known about factors influencing its general composition. Here, the effect of the probiotic bacterium Enterococcus faecium (E. faecium) NCIMB 10415 on the pig faecal virome composition was analysed in a pig feeding trial with sows and their piglets, which received either the probiotic bacterium or not. Results: From 8 pooled faecal samples derived from the feeding trial, DNA and RNA virus particles were prepared and subjected to process-controlled Next Generation Sequencing resulting in 390,650 sequence reads. In average, 14% of the reads showed significant sequence identities to known viruses. The percentage of detected mammalian virus sequences was highest (55-77%) in the samples of the youngest piglets and lowest (8-10%) in the samples of the sows. In contrast, the percentage of bacteriophage sequences increased from 22-44% in the youngest piglets to approximately 90% in the sows. The dominating mammalian viruses differed remarkably among 12 day-old piglets (kobuvirus), 54 day-old piglets (boca-, dependo- and pig stool-associated small circular DNA virus [PigSCV]) and the sows (PigSCV, circovirus and \"circovirus-like\" viruses CB-A and RW-A). In addition, the Shannon index, which reflects the diversity of sequences present in a sample, was generally higher for the sows as compared to the piglets. No consistent differences in the virome composition could be identified between the viromes of the probiotic bacterium-treated group and the control group. Conclusion: The analysis indicates that the pig faecal virome shows a high variability and that its general composition is mainly dependent on the age of the pigs. Changes caused by feeding with the probiotic bacterium E. faecium could not be demonstrated using the applied metagenomics method. © 2014 Sachsenröder et al.",
+   "label": true,
+   "doi": "10.1371/journal.pone.0088888",
+   "year": "2014"
+  },
+  {
+   "title": "Biological and molecular aspects of bovine herpesvirus 4 (BHV-4)",
+   "abstract": "This review summarizes most recent information on the bovine cytomegalovirus BHV-4. The virus is not associated with clearly defined clinical entities in cattle. It can easily be isolated in tissue culture and has a broad host range. BHV-4 strains are rather similar in restriction enzyme analysis of their DNAs, the size of the pr DNAs, however, differs. The genome represents a γ-herpesvirus. Because of its uniqueness BHV-4 is discussed as an appropriate vector.",
+   "label": false,
+   "doi": "10.1016/0147-9571(91)90131-v",
+   "year": "1991"
+  },
+  {
+   "title": "Separate evolution of virulent Newcastle disease viruses from Mexico and Central America",
+   "abstract": "An outbreak of Newcastle disease (ND) in poultry was reported in Belize in 2008. The characteristics of three virulent Newcastle disease virus (NDV) isolates from this outbreak (NDV-Belize-3/08, NDV-Belize-4/08, and NDV-Belize-12/08) were assessed by genomic analysis and by clinicopathological characterization in specific-pathogen-free (SPF) chickens. The results showed that all three strains belong to NDV genotype V and are virulent, as assessed by the intracerebral pathogenicity index and the polybasic amino acid sequence at the fusion protein cleavage site. In 4-week-old SPF chickens, NDV-Belize-3/08 behaved as a typical velogenic viscerotropic NDV strain, causing severe necrohemorrhagic lesions in the lymphoid organs, with systemic virus distribution. Phylogenetic analysis of multiple NDV genotype V representatives revealed that genotype V can be divided into three subgenotypes, namely, Va, Vb, and Vc, and that all tested Belizean isolates belong to subgenotype Vb. Furthermore, these isolates are nearly identical to a 2007 isolate from Honduras and appear to have evolved separately from other contemporary viruses circulating in Mexico, clustering into a new clade within NDV subgenotype Vb. Copyright © 2014, American Society for Microbiology. All Rights Reserved.",
+   "label": false,
+   "doi": "10.1128/jcm.00066-14",
+   "year": "2014"
+  },
+  {
+   "title": "Antigenic drift, antigenic shift and interferon antagonists: How bunyaviruses counteract the immune system",
+   "abstract": "Members of the Bunyaviridae family are amongst the most widespread viruses in the world. They can be found on every inhabited continent at virtually every latitude, and are able to infect a wide range of arthropods, plants and mammals including humans. More than 300 named viruses are contained within the family Bunyaviridae (Virus Taxonomy: Seventh Report of the International Committee on Taxonomy of Viruses (2000) 599), and several members cause significant disease in humans or domestic animals. Despite being recognised as an emerging threat, relatively little is known about their virulence mechanisms. Here, we try to summarise the current state of knowledge about how the viruses of the Bunyaviridae succeed in establishing infection in the face of a powerful immune system. © 2002 Elsevier Science B.V. All rights reserved.",
+   "label": false,
+   "doi": "10.1016/s0168-1702(02)00125-9",
+   "year": "2002"
+  },
+  {
+   "title": "Classification of Marek's disease viruses according to pathotype: Philosophy and methodology",
+   "abstract": "The concept of pathotype in Marek's disease (MD) probably dates from the recognition of a more virulent form of the disease in the late 1950s (Benton & Cover, 1957). Distinctions between MD virus strains were further expanded with the description of the vv pathotype in the early 1980s and of the vv + pathotype in the 1990s. Pathotype designations reflect important biological properties that correlate with the break-through of vaccinal immunity in the field. However, pathotyping methods applied by various laboratories have not been uniform, preventing critical comparison of results. Better uniformity of pathotyping procedures is desirable. The Avian Disease and Oncology Laboratory (ADOL) method is based on induction of lymphoproliferative lesions in vaccinated chickens. This method has been used to pathotype more than 45 isolates and is the basis for the current pathotype classification of MD virus strains. Its limitations include requirements for a specific type of chickens (15 x 7 ab+), large numbers of animals, and a statistical method to compare lesion responses to those of JM/102W and Md5 control strains. Because of these limitations, it has not been and is not likely to be used in other laboratories. Comparability in pathotyping can be improved by the comparison of field isolates with standard prototype strains such as JM/102W, Md5 and 648A (American Type Culture Collection) or their equivalents. Data may be generated by different in vivo procedures that measure tumour induction, neurological disease (both neoplastic and non-neoplastic lesions), or solely non-neoplastic criteria (such as lymphoid organ weights or virus replication). Methods based on neoplastic criteria, especially when generated in MD-immunized chickens, will probably correlate most closely with that of the ADOL method and be most relevant to evolution of MD virus in the field. Based on data from several trials, a modification of the ADOL method that utilizes fewer chickens and can be conducted with commercial specific pathogen free strains is proposed. The modified method is based on \"best fit\" comparisons with prototype strains, and is expected to provide results generally comparable with the original method. A variety of other alternative criteria (see earlier) are also evaluated both for primary pathotyping and as adjuncts to other pathotyping methods. Advantages and disadvantages of alternative methods are presented. © 2005 Houghton Trust Ltd.",
+   "label": false,
+   "doi": "10.1080/03079450500059255",
+   "year": "2005"
+  },
+  {
+   "title": "New astrovirus in human feces from Burkina Faso",
+   "abstract": "Background: A significant fraction of cases of diarrhea, a leading cause of childhood mortality worldwide, remain unexplained. Objectives: To identify viruses in unexplained cases of diarrhea using an unbiased metagenomics approach. Study design: Viral nucleic acids were enriched from the feces from 48 cases of unexplained diarrhea from Burkina Faso, sequenced, and compared against all known viral genomes. Results: The full genome of a highly divergent astrovirus was sequenced in a sample co-infected with parechovirus 1. RT-PCR identified a single astrovirus infection in these 48 patients indicating a low prevalence. Human astrovirus-BF34 was most closely related to mamastrovirus species 8 and 9 also found in human with which it shared 62%, 74%, and 57% amino acid identities over its protease, RNA dependent RNA polymerase and capsid proteins, respectively. Conclusions: Burkina Faso astrovirus is proposed as prototype for a novel species in the genus Mamastrovirus, here tentatively called Mamastrovirus 20, representing the fifth human astrovirus species. © 2014 Elsevier B.V.",
+   "label": false,
+   "doi": "10.1016/j.jcv.2014.03.024",
+   "year": "2014"
+  }
+ ]
+}
