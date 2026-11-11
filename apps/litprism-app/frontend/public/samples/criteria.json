@@ -1,11 +1,12 @@
 {
   "inclusion": [
-    "Controlled study (a comparison group is reported)",
-    "Participants have Wilson disease",
-    "A treatment is evaluated or compared (for example chelators, zinc or liver transplantation)"
+    "Participants are patients with Wilson disease (any age or disease stage)",
+    "The study drug is D-penicillamine, trientine, tetrathiomolybdate or zinc salts",
+    "The study has a control group (placebo, no treatment, or another treatment that does not include the study drug)",
+    "Prospective or retrospective controlled study (randomised or non-randomised trial, or comparative observational study)"
   ],
   "exclusion": [
-    "Animal or in vitro study",
-    "Case report, editorial or narrative review without original patient data"
+    "Animal study",
+    "Case report, case series, cross-sectional study, before-after study, review or letter"
   ]
 }

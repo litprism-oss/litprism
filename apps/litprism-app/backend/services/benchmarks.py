@@ -21,7 +21,14 @@ async def seed_datasets(db: AsyncSession) -> int:
         p: json.loads(p.read_text(encoding="utf-8")) for p in sorted(DATA_DIR.glob("*.json"))
     }
     wanted = {d["slug"] for d in bundled.values()}
-    existing = set((await db.execute(select(BenchmarkDataset.slug))).scalars())
+    current = {d.slug: d for d in (await db.execute(select(BenchmarkDataset))).scalars()}
+    existing = set(current)
+    # Keep wording and criteria of existing datasets in step with the bundled files.
+    for data in bundled.values():
+        ds = current.get(data["slug"])
+        if ds is not None:
+            ds.name, ds.description = data["name"], data["description"]
+            ds.source, ds.criteria = data.get("source"), data["criteria"]
     # Drop datasets that are no longer bundled (records and runs go with them, by cascade).
     for ds in (
         await db.execute(select(BenchmarkDataset).where(BenchmarkDataset.slug.not_in(wanted)))

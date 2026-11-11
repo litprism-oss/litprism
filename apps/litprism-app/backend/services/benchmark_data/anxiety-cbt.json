@@ -2,17 +2,21 @@
  "slug": "anxiety-cbt",
  "name": "CBT for anxiety-related disorders",
  "description": "Long-term outcomes of cognitive behavioural therapy for anxiety-related disorders",
- "source": "Real records sampled from the review's open dataset. van Dis EAM, van Veen SC, Hagenaars MA, Batelaan NM, Bockting CLH, van den Heuvel RM, Cuijpers P, Engelhard IM. Long-term outcomes of cognitive behavioral therapy for anxiety-related disorders: a systematic review and meta-analysis. JAMA Psychiatry 2020;77(3):265-273. https://doi.org/10.1001/jamapsychiatry.2019.3986 Dataset licence: CC-BY 4.0 (via ASReview systematic-review-datasets). Labels are the review authors' final inclusion decisions. The criteria below are LitPrism's own summary of the review's scope, not the authors' protocol. Sample: all relevant records (up to 40) plus random irrelevant ones.",
+ "source": "Real records sampled from the review's open dataset. van Dis EAM, van Veen SC, Hagenaars MA, Batelaan NM, Bockting CLH, van den Heuvel RM, Cuijpers P, Engelhard IM. Long-term outcomes of cognitive behavioral therapy for anxiety-related disorders: a systematic review and meta-analysis. JAMA Psychiatry 2020;77(3):265-273. https://doi.org/10.1001/jamapsychiatry.2019.3986 Dataset licence: CC-BY 4.0 (via ASReview systematic-review-datasets). Labels are the review authors' final inclusion decisions. The criteria are the review's own eligibility criteria from its Methods section, split into separate items (language and publication-year rules are left out). Some are full-text rules, so an abstract may not settle them and the AI will then answer uncertain. Sample: all relevant records (up to 40) plus random irrelevant ones.",
  "criteria": {
   "inclusion": [
-   "Randomised controlled trial",
-   "Participants have an anxiety-related disorder (anxiety disorder, obsessive-compulsive disorder or post-traumatic stress disorder)",
-   "Intervention is cognitive behavioural therapy",
-   "Outcomes are assessed at follow-up at least 6 months after treatment ended"
+   "Randomised clinical trial of cognitive behavioural therapy (cognitive restructuring and/or behavioural therapy such as exposure, including third-wave CBT)",
+   "Participants are adults (or mostly adults, with some adolescents aged 16 or older)",
+   "Participants have a diagnosed anxiety-related disorder (generalised anxiety disorder, panic disorder, social anxiety disorder, specific phobia, PTSD or OCD), based on a structured diagnostic interview",
+   "Outcomes are reported at follow-up at least 1 month after treatment completion",
+   "The comparison group is care as usual, relaxation, psychoeducation, pill placebo, supportive therapy or a waiting list"
   ],
   "exclusion": [
-   "Animal study",
-   "Protocol, commentary or review without original trial data"
+   "Treatment is not CBT (for example EMDR or interpersonal therapy)",
+   "Self-guided therapy without any guidance",
+   "CBT combined with medication or pill placebo",
+   "Participants are inpatients",
+   "Symptoms are not reported separately for each disorder"
   ]
  },
  "records": [

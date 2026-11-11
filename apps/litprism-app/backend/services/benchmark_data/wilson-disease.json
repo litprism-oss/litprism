@@ -2,16 +2,17 @@
  "slug": "wilson-disease",
  "name": "Wilson disease therapies",
  "description": "Comparative effectiveness of common therapies for Wilson disease (controlled studies)",
- "source": "Real records sampled from the review's open dataset. Appenzeller-Herzog C, Mathes T, Heeres MLS, Weiss KH, Houwen RHJ, Ewald H. Comparative effectiveness of common therapies for Wilson disease: a systematic review and meta-analysis of controlled studies. Liver Int 2019;39(11):2136-2152. https://doi.org/10.1111/liv.14179 Dataset licence: CC-BY 4.0 (via ASReview systematic-review-datasets). Labels are the review authors' final inclusion decisions. The criteria below are LitPrism's own summary of the review's scope, not the authors' protocol. Sample: all relevant records (up to 40) plus random irrelevant ones.",
+ "source": "Real records sampled from the review's open dataset. Appenzeller-Herzog C, Mathes T, Heeres MLS, Weiss KH, Houwen RHJ, Ewald H. Comparative effectiveness of common therapies for Wilson disease: a systematic review and meta-analysis of controlled studies. Liver Int 2019;39(11):2136-2152. https://doi.org/10.1111/liv.14179 Dataset licence: CC-BY 4.0 (via ASReview systematic-review-datasets). Labels are the review authors' final inclusion decisions. The criteria are the review's own eligibility criteria from its Methods section, split into separate items (language and publication-year rules are left out). Some are full-text rules, so an abstract may not settle them and the AI will then answer uncertain. Sample: all relevant records (up to 40) plus random irrelevant ones.",
  "criteria": {
   "inclusion": [
-   "Controlled study (a comparison group is reported)",
-   "Participants have Wilson disease",
-   "A treatment is evaluated or compared (for example chelators, zinc or liver transplantation)"
+   "Participants are patients with Wilson disease (any age or disease stage)",
+   "The study drug is D-penicillamine, trientine, tetrathiomolybdate or zinc salts",
+   "The study has a control group (placebo, no treatment, or another treatment that does not include the study drug)",
+   "Prospective or retrospective controlled study (randomised or non-randomised trial, or comparative observational study)"
   ],
   "exclusion": [
-   "Animal or in vitro study",
-   "Case report, editorial or narrative review without original patient data"
+   "Animal study",
+   "Case report, case series, cross-sectional study, before-after study, review or letter"
   ]
  },
  "records": [

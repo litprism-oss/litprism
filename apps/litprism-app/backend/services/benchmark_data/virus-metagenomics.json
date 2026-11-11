@@ -2,15 +2,15 @@
  "slug": "virus-metagenomics",
  "name": "Virus metagenomics in farm animals",
  "description": "Virus metagenomics in farm animals",
- "source": "Real records sampled from the review's open dataset. Kwok KTT, Nieuwenhuijse DF, Phan MVT, Koopmans MPG. Virus metagenomics in farm animals: a systematic review. Viruses 2020;12(1):107. https://doi.org/10.3390/v12010107 Dataset licence: CC-BY 4.0 (via ASReview systematic-review-datasets). Labels are the review authors' final inclusion decisions. The criteria below are LitPrism's own summary of the review's scope, not the authors' protocol. Sample: all relevant records (up to 40) plus random irrelevant ones.",
+ "source": "Real records sampled from the review's open dataset. Kwok KTT, Nieuwenhuijse DF, Phan MVT, Koopmans MPG. Virus metagenomics in farm animals: a systematic review. Viruses 2020;12(1):107. https://doi.org/10.3390/v12010107 Dataset licence: CC-BY 4.0 (via ASReview systematic-review-datasets). Labels are the review authors' final inclusion decisions. The criteria are the review's own eligibility criteria from its Methods section, split into separate items (language and publication-year rules are left out). Some are full-text rules, so an abstract may not settle them and the AI will then answer uncertain. Sample: all relevant records (up to 40) plus random irrelevant ones.",
  "criteria": {
   "inclusion": [
-   "Uses viral metagenomics (untargeted sequencing to detect or characterise viruses)",
-   "Samples come from farm animals (for example pigs, cattle, poultry, sheep or goats)"
+   "The study performed viral metagenomic sequencing on specimens from farm animals",
+   "The animals are cattle, small ruminants (goats or sheep), poultry or pigs"
   ],
   "exclusion": [
-   "Human-only study",
-   "Review article without original sequencing data"
+   "Conference abstract",
+   "Article without original data (review paper, editorial or commentary)"
   ]
  },
  "records": [

@@ -2,16 +2,17 @@
  "slug": "nudging-healthcare",
  "name": "Nudging healthcare professionals",
  "description": "Nudging healthcare professionals towards evidence-based medicine (scoping review)",
- "source": "Real records sampled from the review's open dataset. Nagtegaal R, Tummers L, Noordegraaf M, Bekkers V. Nudging healthcare professionals towards evidence-based medicine: a systematic scoping review. Journal of Behavioral Public Administration 2019;2(2). https://doi.org/10.30636/jbpa.22.71 Dataset licence: CC0 (via ASReview systematic-review-datasets). Labels are the review authors' final inclusion decisions. The criteria below are LitPrism's own summary of the review's scope, not the authors' protocol. Sample: all relevant records (up to 40) plus random irrelevant ones.",
+ "source": "Real records sampled from the review's open dataset. Nagtegaal R, Tummers L, Noordegraaf M, Bekkers V. Nudging healthcare professionals towards evidence-based medicine: a systematic scoping review. Journal of Behavioral Public Administration 2019;2(2). https://doi.org/10.30636/jbpa.22.71 Dataset licence: CC0 (via ASReview systematic-review-datasets). Labels are the review authors' final inclusion decisions. The criteria are the review's own eligibility criteria from its Methods section, split into separate items (language and publication-year rules are left out). Some are full-text rules, so an abstract may not settle them and the AI will then answer uncertain. Sample: all relevant records (up to 40) plus random irrelevant ones.",
  "criteria": {
   "inclusion": [
-   "Empirical study of a nudge or choice-architecture intervention",
-   "The target group is healthcare professionals (for example physicians, nurses or pharmacists)",
-   "The aim is to promote evidence-based clinical practice"
+   "A nudge (a behavioural intervention that changes choice architecture) is applied to healthcare professionals at the individual level",
+   "The aim is to promote evidence-based medicine, including adherence to guidelines",
+   "The report is an experiment (randomised controlled trial, before-and-after study or interrupted time series)"
   ],
   "exclusion": [
-   "The intervention targets patients only",
-   "Opinion piece or theoretical paper without empirical data"
+   "The report is not an experiment",
+   "The intervention is not a nudge",
+   "The target group is not healthcare professionals"
   ]
  },
  "records": [
