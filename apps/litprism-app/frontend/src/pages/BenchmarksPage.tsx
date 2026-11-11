@@ -75,14 +75,45 @@ function DatasetCard({ ds, busy }: { ds: BenchmarkDatasetOut; busy: boolean }) {
       {m && (
         <>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 8 }}>
-            <Metric label="Recall" value={pct(m.recall)} hint="Relevant records the AI kept for review." />
-            <Metric label="Precision" value={pct(m.precision)} hint="Kept records that are truly relevant." />
-            <Metric label="Work saved" value={pct(m.work_saved)} hint="Records excluded, so not read by a person." />
+            <Metric label="Recall" value={pct(m.recall)} hint="Of the relevant records, how many the AI kept. Higher is safer." />
+            <Metric label="Precision" value={pct(m.precision)} hint="Of the records the AI kept, how many were really relevant." />
+            <Metric label="Work saved" value={pct(m.work_saved)} hint="Share of records the AI set aside, so nobody has to read them." />
           </div>
+
+          <div style={{ fontSize: 13, lineHeight: 1.7, background: 'var(--color-background-secondary)', borderRadius: 'var(--border-radius-md)', padding: 12 }}>
+            <p style={{ fontWeight: 500, margin: '0 0 4px' }}>In plain words</p>
+            <p style={{ margin: 0 }}>
+              The AI kept {m.kept ?? '?'} of {m.n} records for a person to read and set the rest aside.
+              {m.relevant > 0 && (
+                <> Of the {m.relevant} records the review authors included, it kept {m.relevant - m.missed} and {m.missed === 0 ? 'missed none' : `missed ${m.missed}`}.</>
+              )}
+              {(m.uncertain ?? 0) > 0 && <> {m.uncertain} were &quot;uncertain&quot; (the abstract did not settle it), which are kept for a person to check.</>}
+            </p>
+          </div>
+
+          {(m.missed_records?.length ?? 0) > 0 && (
+            <div>
+              <p style={{ fontSize: 13, fontWeight: 500, margin: '0 0 6px' }}>
+                {m.missed === 1 ? 'The relevant record the AI excluded' : `Relevant records the AI excluded (${m.missed})`}
+              </p>
+              <ul style={{ margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 1.6, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {m.missed_records!.map((r) => (
+                  <li key={r.title}>
+                    <span style={{ fontWeight: 500 }}>{r.title}</span>
+                    {r.reasoning && <span style={{ color: 'var(--color-text-secondary)' }}> — AI reason: {r.reasoning}</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {m.missed > 0 && !m.missed_records && (
+            <p style={{ fontSize: 12, color: 'var(--color-text-secondary)', margin: 0 }}>
+              {m.missed} relevant record{m.missed === 1 ? ' was' : 's were'} excluded. Run again to see which.
+            </p>
+          )}
           <p style={{ fontSize: 12, color: 'var(--color-text-secondary)', margin: 0 }}>
-            {m.missed === 0 ? 'No relevant record was excluded.' : `${m.missed} relevant record${m.missed === 1 ? ' was' : 's were'} excluded by the AI.`}
-            {m.errors > 0 && ` ${m.errors} could not be screened.`}
-            {run?.model_used && ` Model: ${run.model_used}.`}
+            {m.errors > 0 && `${m.errors} could not be screened. `}
+            {run?.model_used && `Model: ${run.model_used}.`}
           </p>
         </>
       )}
@@ -124,6 +155,26 @@ export function BenchmarksPage() {
           runs at a time; each uses LLM calls.
         </p>
       </div>
+      <details style={{ ...card, gap: 0 }}>
+        <summary style={{ fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>How to read the results</summary>
+        <div style={{ fontSize: 13, lineHeight: 1.7, marginTop: 8 }}>
+          <p style={{ margin: '0 0 8px' }}>
+            <b>Recall</b>: of the papers that belong in the review, how many did the AI keep? 100% means it
+            missed none. This matters most, because a paper dropped here is lost. Aim for 95% or more.
+          </p>
+          <p style={{ margin: '0 0 8px' }}>
+            <b>Precision</b>: of the papers the AI kept, how many really belong? Low precision just means
+            extra papers for you to read and discard. It is the cheaper mistake.
+          </p>
+          <p style={{ margin: '0 0 8px' }}>
+            <b>Work saved</b>: the share of papers the AI set aside, so a person never has to read them.
+          </p>
+          <p style={{ margin: 0 }}>
+            <b>Uncertain</b>: the abstract did not give enough to decide. These count as kept, never as
+            excluded. A good result has high recall and a fair amount of work saved.
+          </p>
+        </div>
+      </details>
       {isLoading && <p style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>Loading…</p>}
       {isError && <p style={{ fontSize: 13, color: '#791F1F' }}>Could not load the benchmarks.</p>}
       {data?.map((ds) => (
