@@ -1,3 +1,4 @@
+import { SampleData } from '@/components/SampleData'
 import { useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -179,6 +180,9 @@ export function UploadPage() {
           <UploadHistory uploads={uploads} />
         </>
       )}
+      <div style={{ marginTop: 24 }}>
+        <SampleData />
+      </div>
     </div>
   )
 }

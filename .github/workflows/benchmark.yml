@@ -7,14 +7,14 @@ on:
   workflow_dispatch:
     inputs:
       dataset_url:
-        description: Raw CSV URL with title, abstract and a label column (label, label_included, included)
-        default: https://raw.githubusercontent.com/asreview/systematic-review-datasets/master/datasets/Appenzeller-Herzog_2019/output/Appenzeller-Herzog_2019.csv
+        description: Leave empty to use the built-in sample review (datasets/probiotics-crohns). Or a raw CSV URL with title, abstract and a label column (label, label_included, included)
+        default: ""
       criteria_json:
-        description: 'Criteria as JSON: {"inclusion": [...], "exclusion": [...]}'
-        default: '{"inclusion": ["Study of patients with Wilson disease", "Study evaluates or compares a treatment for Wilson disease"], "exclusion": ["Animal or in vitro study"]}'
+        description: 'Leave empty for the sample criteria. Or JSON: {"inclusion": [...], "exclusion": [...]}'
+        default: ""
       limit:
-        description: Screen a sample of N records (all relevant ones are kept). 0 = everything
-        default: "100"
+        description: Screen a random sample of N records (all relevant ones are kept). 0 = everything
+        default: "0"
 
 permissions:
   contents: read
@@ -27,8 +27,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --package litprism-screen
-      - name: Download dataset
-        run: curl -fsSL "${{ inputs.dataset_url }}" -o data.csv
+      - name: Get dataset
+        env:
+          DATASET_URL: ${{ inputs.dataset_url }}
+        run: |
+          if [[ -n "$DATASET_URL" ]]; then
+            curl -fsSL "$DATASET_URL" -o data.csv
+          else
+            cp datasets/probiotics-crohns/records.csv data.csv
+          fi
       - name: Run benchmark
         shell: bash
         env:
@@ -39,8 +46,9 @@ jobs:
           CRITERIA: ${{ inputs.criteria_json }}
           LIMIT: ${{ inputs.limit }}
         run: |
-          printf '%s' "$CRITERIA" > criteria.json
+          if [[ -n "$CRITERIA" ]]; then printf '%s' "$CRITERIA" > criteria.json
+          else cp datasets/probiotics-crohns/criteria.json criteria.json; fi
           args=(data.csv criteria.json)
           if [[ "$LIMIT" != "0" ]]; then args+=(--limit "$LIMIT"); fi
           uv run --package litprism-screen python -m litprism.screen.benchmark "${args[@]}" | tee bench.log
-          { echo '### Screening benchmark'; echo "Dataset: ${{ inputs.dataset_url }}"; echo '```'; cat bench.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          { echo '### Screening benchmark'; echo "Dataset: ${{ inputs.dataset_url || 'built-in sample review (65 synthetic records)' }}"; echo '```'; cat bench.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import { api } from '@/lib/api'
 import type { LabelCheckOut } from '@/lib/types'
+import { SampleData } from '@/components/SampleData'
 
 const pct = (v: number | null) => (v == null ? 'n/a' : `${(v * 100).toFixed(1)}%`)
 
@@ -85,6 +86,8 @@ export function LabelCheckPage() {
           </p>
         )}
       </div>
+
+      <SampleData />
 
       {result && (
         <>
