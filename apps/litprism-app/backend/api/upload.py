@@ -2,7 +2,7 @@ import uuid
 from typing import Annotated
 
 from db.engine import get_db
-from db.models import Article, Project, UploadArticle, UploadRecord
+from db.models import Article, DeduplicationLog, Project, UploadArticle, UploadRecord
 from dependencies import get_owned_project
 from fastapi import (  # noqa: F401 (Depends used via Annotated)
     APIRouter,
@@ -197,6 +197,21 @@ async def upload_references(
                 }
             )
         await db.execute(insert(Article), article_rows)
+
+        # Log duplicates found inside this same file, now that the kept record has an id.
+        # PRISMA's "duplicates removed" counts these rows.
+        for match_type, score, title, kept_idx in dedup_result.batch_duplicates:
+            db.add(
+                DeduplicationLog(
+                    id=str(uuid.uuid4()),
+                    project_id=project_id,
+                    kept_article_id=new_article_ids[kept_idx],
+                    duplicate_article_id=None,
+                    duplicate_title=title,
+                    match_type=match_type,
+                    similarity_score=score,
+                )
+            )
 
     # 12. Write upload_article join rows for all articles in this upload
     all_article_ids = new_article_ids + dedup_result.duplicate_article_ids
