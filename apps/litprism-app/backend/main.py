@@ -1,3 +1,4 @@
+import logging
 from contextlib import asynccontextmanager
 
 from api.benchmarks import router as benchmarks_router
@@ -25,8 +26,11 @@ async def lifespan(app: FastAPI):  # type: ignore[type-arg]
     check_auth_config()
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-    async with AsyncSessionLocal() as db:
-        await seed_datasets(db)
+    try:
+        async with AsyncSessionLocal() as db:
+            await seed_datasets(db)
+    except Exception:  # noqa: BLE001 - the benchmarks are optional; never keep the API down
+        logging.getLogger(__name__).exception("Could not seed the benchmark datasets")
     yield
     await engine.dispose()
 
