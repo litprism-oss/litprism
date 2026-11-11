@@ -17,7 +17,7 @@ interface UIStore {
 export const useUIStore = create<UIStore>()(
   persist(
     (set) => ({
-      guideEnabled: true,
+      guideEnabled: false,
       toggleGuide: () => set((s) => ({ guideEnabled: !s.guideEnabled })),
       setGuideEnabled: (v) => set({ guideEnabled: v }),
       sidebarOpen: true,

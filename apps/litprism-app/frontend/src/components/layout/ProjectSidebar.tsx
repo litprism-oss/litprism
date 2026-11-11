@@ -244,6 +244,9 @@ export function ProjectSidebar() {
       style={{
         width: '100%',
         minWidth: 220,
+        minHeight: '100%',
+        boxSizing: 'border-box',
+        background: 'var(--color-background-primary)',
         borderRight: '0.5px solid var(--color-border-tertiary)',
         padding: '12px 0',
         overflowY: 'auto',
