@@ -133,9 +133,7 @@ async def test_dedup_normalises_doi_before_matching(db, project_id):
 
 
 async def test_dedup_writes_log_row(db, project_id):
-    existing = await _insert_article(
-        db, project_id, title="Logged Article", doi="10.1234/logged"
-    )
+    existing = await _insert_article(db, project_id, title="Logged Article", doi="10.1234/logged")
     incoming = [ParsedArticle(title="Duplicate", doi="10.1234/logged")]
     await deduplicate(incoming, project_id, db)
     await db.commit()
@@ -150,3 +148,27 @@ async def test_dedup_writes_log_row(db, project_id):
     assert logs[0].kept_article_id == existing.id
     assert logs[0].duplicate_title == "Duplicate"
     assert logs[0].match_type == "doi"
+
+
+async def test_within_file_duplicates_are_logged_on_upload(client, project_id, db):
+    """Duplicates inside one uploaded file must reach the dedup log (PRISMA counts them)."""
+    from db.models import DeduplicationLog
+    from sqlalchemy import func, select
+
+    ris = (
+        "TY  - JOUR\nTI  - Same paper\nDO  - 10.1/a\nPY  - 2020\nER  -\n\n"
+        "TY  - JOUR\nTI  - Same paper again\nDO  - 10.1/a\nPY  - 2020\nER  -\n\n"
+        "TY  - JOUR\nTI  - Different paper\nDO  - 10.1/b\nPY  - 2021\nER  -\n"
+    )
+    r = await client.post(
+        f"/projects/{project_id}/upload", files={"file": ("x.ris", ris.encode(), "text/plain")}
+    )
+    assert r.status_code == 201, r.text
+    assert r.json()["new_articles"] == 2
+    assert r.json()["duplicates_found"] == 1
+    n = (
+        await db.execute(
+            select(func.count(DeduplicationLog.id)).where(DeduplicationLog.project_id == project_id)
+        )
+    ).scalar()
+    assert n == 1

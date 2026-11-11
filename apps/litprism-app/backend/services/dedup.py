@@ -1,5 +1,5 @@
 import uuid
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from db.models import Article, DeduplicationLog
 from rapidfuzz import fuzz
@@ -18,6 +18,10 @@ class DedupResult:
     # (duplicate_article, match_type, similarity_score)
     # match_type: "doi" | "pmid" | "title_fuzzy"
     duplicate_article_ids: list[str]  # existing DB article IDs that matched incoming records
+    # Duplicates of another record in the SAME file: (match_type, score, title, index into
+    # new_articles of the record that was kept). The caller logs these once the kept record
+    # has a database id.
+    batch_duplicates: list[tuple[str, float, str | None, int]] = field(default_factory=list)
 
 
 async def deduplicate(
@@ -62,15 +66,18 @@ async def deduplicate(
     dedup_log_rows: list[DeduplicationLog] = []
 
     # Within-batch seen sets (prevent inter-batch duplicates being added twice)
-    seen_dois: set[str] = set()
-    seen_pmids: set[str] = set()
-    seen_titles: list[str] = []  # list for fuzzy matching within batch
+    seen_dois: dict[str, int] = {}  # value = index into new_articles
+    seen_pmids: dict[str, int] = {}
+    seen_titles: list[tuple[str, int]] = []  # for fuzzy matching within batch
+    batch_duplicates: list[tuple[str, float, str | None, int]] = []
+    kept_index: int | None = None
 
     for article in incoming:
         norm_doi = _normalise_doi(article.doi)
         match_type: str | None = None
         score: float = 100.0
         kept_id: str | None = None
+        kept_index = None
 
         # --- DOI match ---
         if norm_doi:
@@ -79,7 +86,7 @@ async def deduplicate(
                 kept_id = existing_dois[norm_doi]
             elif norm_doi in seen_dois:
                 match_type = "doi"
-                kept_id = None  # within-batch duplicate; no existing article
+                kept_index = seen_dois[norm_doi]  # within-batch duplicate
 
         # --- PMID match ---
         if match_type is None and article.pmid:
@@ -88,7 +95,7 @@ async def deduplicate(
                 kept_id = existing_pmids[article.pmid]
             elif article.pmid in seen_pmids:
                 match_type = "pmid"
-                kept_id = None
+                kept_index = seen_pmids[article.pmid]
 
         # --- Title fuzzy match ---
         if match_type is None and article.title:
@@ -103,12 +110,12 @@ async def deduplicate(
                     break
             # Check within-batch if still no match
             if match_type is None:
-                for seen_title in seen_titles:
+                for seen_title, seen_idx in seen_titles:
                     s = _title_match(title_lower, seen_title)
                     if s >= _FUZZY_THRESHOLD:
                         match_type = "title_fuzzy"
                         score = s
-                        kept_id = None  # within-batch; no existing article
+                        kept_index = seen_idx  # within-batch
                         break
 
         if match_type is not None:
@@ -126,15 +133,25 @@ async def deduplicate(
                         similarity_score=score if match_type == "title_fuzzy" else None,
                     )
                 )
+            elif kept_index is not None:
+                batch_duplicates.append(
+                    (
+                        match_type,
+                        score if match_type == "title_fuzzy" else None,
+                        article.title,
+                        kept_index,
+                    )
+                )
         else:
+            idx = len(new_articles)
             new_articles.append(article)
             # Add to "seen" sets for within-batch dedup
             if norm_doi:
-                seen_dois.add(norm_doi)
+                seen_dois[norm_doi] = idx
             if article.pmid:
-                seen_pmids.add(article.pmid)
+                seen_pmids[article.pmid] = idx
             if article.title:
-                seen_titles.append(article.title.lower())
+                seen_titles.append((article.title.lower(), idx))
 
     for row in dedup_log_rows:
         db.add(row)
@@ -143,6 +160,7 @@ async def deduplicate(
         new_articles=new_articles,
         duplicates=duplicates,
         duplicate_article_ids=duplicate_article_ids,
+        batch_duplicates=batch_duplicates,
     )
 
 
