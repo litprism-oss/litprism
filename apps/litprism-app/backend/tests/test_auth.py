@@ -512,6 +512,7 @@ PROJECT_ROUTES = [
     ("POST", "/criteria"),
     ("GET", "/screening/stale-count"),
     ("POST", "/screening/preview"),
+    ("POST", "/screening/label-check"),
     ("POST", "/screening/run"),
     ("GET", "/screening/runs"),
     ("GET", "/screening/runs/r1"),

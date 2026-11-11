@@ -1,0 +1,46 @@
+name: Benchmark screening
+
+# Manual only. Screens a labelled dataset with the configured LLM and prints recall,
+# precision and work saved in the run summary. Uses the same GEMINI_API_KEY secret as the
+# deploy. Costs API calls: keep `limit` small for a first run.
+on:
+  workflow_dispatch:
+    inputs:
+      dataset_url:
+        description: Raw CSV URL with title, abstract and a label column (label, label_included, included)
+        default: https://raw.githubusercontent.com/asreview/systematic-review-datasets/master/datasets/Appenzeller-Herzog_2019/output/Appenzeller-Herzog_2019.csv
+      criteria_json:
+        description: 'Criteria as JSON: {"inclusion": [...], "exclusion": [...]}'
+        default: '{"inclusion": ["Study of patients with Wilson disease", "Study evaluates or compares a treatment for Wilson disease"], "exclusion": ["Animal or in vitro study"]}'
+      limit:
+        description: Screen a sample of N records (all relevant ones are kept). 0 = everything
+        default: "100"
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync --package litprism-screen
+      - name: Download dataset
+        run: curl -fsSL "${{ inputs.dataset_url }}" -o data.csv
+      - name: Run benchmark
+        shell: bash
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
+          LLM_MODEL: ${{ vars.LLM_MODEL }}
+          CRITERIA: ${{ inputs.criteria_json }}
+          LIMIT: ${{ inputs.limit }}
+        run: |
+          printf '%s' "$CRITERIA" > criteria.json
+          args=(data.csv criteria.json)
+          if [[ "$LIMIT" != "0" ]]; then args+=(--limit "$LIMIT"); fi
+          uv run --package litprism-screen python -m litprism.screen.benchmark "${args[@]}" | tee bench.log
+          { echo '### Screening benchmark'; echo "Dataset: ${{ inputs.dataset_url }}"; echo '```'; cat bench.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
