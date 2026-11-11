@@ -77,6 +77,7 @@ jobs:
           LLM_PROVIDER: ${{ vars.LLM_PROVIDER }}
           LLM_MODEL: ${{ vars.LLM_MODEL }}
           SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          AUTH_DISABLED: ${{ vars.AUTH_DISABLED }}
           SUPABASE_JWT_SECRET: ${{ secrets.SUPABASE_JWT_SECRET }}
           ADMIN_EMAILS: ${{ vars.ADMIN_EMAILS }}
           BOOTSTRAP_OWNER_EMAIL: ${{ vars.BOOTSTRAP_OWNER_EMAIL }}
