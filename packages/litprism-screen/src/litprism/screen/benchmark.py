@@ -87,17 +87,31 @@ def compute_metrics(
     )
 
 
+_LABEL_COLUMNS = ("label", "label_included", "included", "include", "relevant")
+
+
 def load_records(path: Path) -> list[_Record]:
+    """Read a labelled CSV. Accepts the ASReview dataset layout (``label_included``) too."""
     with path.open(newline="", encoding="utf-8-sig") as fh:
         rows = list(csv.DictReader(fh))
-    if rows and not {"title", "label"} <= set(rows[0]):
-        raise ValueError("CSV needs 'title' and 'label' columns (and usually 'abstract')")
+    if not rows:
+        raise ValueError("CSV is empty")
+    cols = {c.strip().lower(): c for c in rows[0]}
+    label_col = next((cols[c] for c in _LABEL_COLUMNS if c in cols), None)
+    if "title" not in cols or label_col is None:
+        raise ValueError(
+            "CSV needs a 'title' column and a label column "
+            f"(one of: {', '.join(_LABEL_COLUMNS)}); found: {', '.join(rows[0])}"
+        )
+    title_col, abstract_col = cols["title"], cols.get("abstract")
+    id_col = cols.get("id")
     return [
         _Record(
-            id=row.get("id") or str(i),
-            title=row["title"],
-            abstract=(row.get("abstract") or "").strip() or None,
-            label=row["label"].strip().lower() in {"1", "true", "yes", "include", "included"},
+            id=(row.get(id_col) if id_col else "") or str(i),
+            title=row[title_col],
+            abstract=((row.get(abstract_col) or "").strip() or None) if abstract_col else None,
+            label=(row[label_col] or "").strip().lower()
+            in {"1", "1.0", "true", "yes", "include", "included"},
         )
         for i, row in enumerate(rows)
     ]

@@ -49,3 +49,13 @@ def test_load_records_parses_labels(tmp_path):
     recs = load_records(p)
     assert [r.label for r in recs] == [True, False]
     assert recs[1].abstract is None
+
+
+def test_load_records_accepts_asreview_label_column(tmp_path):
+    from litprism.screen.benchmark import load_records
+
+    f = tmp_path / "d.csv"
+    f.write_text("Title,Abstract,label_included\nA,abc,1\nB,,0\n", encoding="utf-8")
+    recs = load_records(f)
+    assert [r.label for r in recs] == [True, False]
+    assert recs[1].abstract is None
