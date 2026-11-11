@@ -1,5 +1,6 @@
 from contextlib import asynccontextmanager
 
+from api.benchmarks import router as benchmarks_router
 from api.chat import router as chat_router
 from api.criteria import router as criteria_router
 from api.export import router as export_router
@@ -11,11 +12,12 @@ from api.search import router as search_router
 from api.search import ws_router as search_ws_router
 from api.upload import router as upload_router
 from config import settings
-from db.engine import engine
+from db.engine import AsyncSessionLocal, engine
 from db.models import Base
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from services.auth import check_auth_config
+from services.benchmarks import seed_datasets
 
 
 @asynccontextmanager
@@ -23,6 +25,8 @@ async def lifespan(app: FastAPI):  # type: ignore[type-arg]
     check_auth_config()
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+    async with AsyncSessionLocal() as db:
+        await seed_datasets(db)
     yield
     await engine.dispose()
 
@@ -47,3 +51,4 @@ app.include_router(upload_router)
 app.include_router(export_router)
 app.include_router(fulltext_router)
 app.include_router(chat_router)
+app.include_router(benchmarks_router)

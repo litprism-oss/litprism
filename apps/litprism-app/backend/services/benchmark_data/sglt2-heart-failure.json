@@ -1,0 +1,344 @@
+{
+ "slug": "sglt2-heart-failure",
+ "name": "SGLT2 inhibitors in heart failure",
+ "description": "Randomised trials of SGLT2 inhibitors in adults with heart failure. Decoys include diabetes-only and animal studies.",
+ "criteria": {
+  "inclusion": [
+   "Randomised controlled trial",
+   "Adult participants (18 years or older)",
+   "Participants have heart failure",
+   "Intervention is an SGLT2 inhibitor"
+  ],
+  "exclusion": [
+   "Animal or in vitro study",
+   "Participants are children"
+  ]
+ },
+ "records": [
+  {
+   "title": "Empagliflozin in a rodent model of heart failure: mechanistic findings (Zurich 2)",
+   "abstract": "We studied Empagliflozin in a rat model of myocardial infarction. Forty animals received Empagliflozin or vehicle for 14 days and tissue markers were measured.",
+   "label": false
+  },
+  {
+   "title": "Dapagliflozin in a rodent model of heart failure: mechanistic findings (Leuven 1)",
+   "abstract": "We studied Dapagliflozin in a rat model of myocardial infarction. Forty animals received Dapagliflozin or vehicle for 14 days and tissue markers were measured.",
+   "label": false
+  },
+  {
+   "title": "Canagliflozin in adults with heart failure: a randomised controlled trial (Pune cohort 18)",
+   "abstract": "Background: Evidence for Canagliflozin in heart failure is limited. Methods: In this double-blind trial, 91 adults (aged 18-80) with heart failure were randomised to Canagliflozin or placebo for 8 weeks. The primary outcome was NT-proBNP. Results: A modest improvement in NT-proBNP was observed (p = 0.47). Conclusion: Results support further study.",
+   "label": true
+  },
+  {
+   "title": "Machine learning for retinal image grading: external validation (3)",
+   "abstract": "We trained a convolutional network on fundus photographs and report sensitivity and specificity on an external test set.",
+   "label": false
+  },
+  {
+   "title": "Heart failure and health outcomes: a retrospective cohort study (5)",
+   "abstract": "This retrospective cohort study used registry data on 52616 adults with heart failure. No intervention was assigned by investigators.",
+   "label": false
+  },
+  {
+   "title": "Sotagliflozin in a rodent model of heart failure: mechanistic findings (Boston 9)",
+   "abstract": "We studied Sotagliflozin in a rat model of myocardial infarction. Forty animals received Sotagliflozin or vehicle for 14 days and tissue markers were measured.",
+   "label": false
+  },
+  {
+   "title": "Canagliflozin in a rodent model of heart failure: mechanistic findings (Pune 8)",
+   "abstract": "We studied Canagliflozin in a rat model of myocardial infarction. Forty animals received Canagliflozin or vehicle for 14 days and tissue markers were measured.",
+   "label": false
+  },
+  {
+   "title": "Dapagliflozin in obesity: a randomised controlled trial (4)",
+   "abstract": "We randomised 205 participants with obesity to Dapagliflozin or placebo. The primary outcome was symptom score at 4 weeks.",
+   "label": false
+  },
+  {
+   "title": "Empagliflozin in children with heart failure: a pilot randomised trial (2)",
+   "abstract": "We randomised 57 children aged 6-17 with heart failure to Empagliflozin or placebo for 12 weeks.",
+   "label": false
+  },
+  {
+   "title": "Empagliflozin in adults with heart failure: a randomised controlled trial (Zurich cohort 2)",
+   "abstract": "Background: Evidence for Empagliflozin in heart failure is limited. Methods: In this double-blind trial, 302 adults (aged 18-80) with heart failure were randomised to Empagliflozin or placebo for 52 weeks. The primary outcome was NT-proBNP. Results: A significant improvement in NT-proBNP was observed (p = 0.21). Conclusion: Larger trials are needed.",
+   "label": true
+  },
+  {
+   "title": "Dapagliflozin in adults with heart failure: a randomised controlled trial (Leuven cohort 1)",
+   "abstract": "Background: Evidence for Dapagliflozin in heart failure is limited. Methods: In this double-blind trial, 271 adults (aged 18-80) with heart failure were randomised to Dapagliflozin or placebo for 52 weeks. The primary outcome was cardiovascular death or hospitalisation. Results: No significant difference in cardiovascular death or hospitalisation was observed (p = 0.21). Conclusion: Larger trials are needed.",
+   "label": true
+  },
+  {
+   "title": "Machine learning for retinal image grading: external validation (4)",
+   "abstract": "We trained a convolutional network on fundus photographs and report sensitivity and specificity on an external test set.",
+   "label": false
+  },
+  {
+   "title": "Dapagliflozin in a rodent model of heart failure: mechanistic findings (Sao Paulo 6)",
+   "abstract": "We studied Dapagliflozin in a rat model of myocardial infarction. Forty animals received Dapagliflozin or vehicle for 14 days and tissue markers were measured.",
+   "label": false
+  },
+  {
+   "title": "Heart failure and health outcomes: a retrospective cohort study (3)",
+   "abstract": "This retrospective cohort study used registry data on 45116 adults with heart failure. No intervention was assigned by investigators.",
+   "label": false
+  },
+  {
+   "title": "Sotagliflozin in adults with heart failure: a randomised controlled trial (Boston cohort 19)",
+   "abstract": "Background: Evidence for Sotagliflozin in heart failure is limited. Methods: In this double-blind trial, 130 adults (aged 18-80) with heart failure were randomised to Sotagliflozin or placebo for 12 weeks. The primary outcome was KCCQ score. Results: No significant difference in KCCQ score was observed (p = 0.21). Conclusion: Benefit was limited to a subgroup.",
+   "label": true
+  },
+  {
+   "title": "Heart failure and health outcomes: a retrospective cohort study (4)",
+   "abstract": "This retrospective cohort study used registry data on 40839 adults with heart failure. No intervention was assigned by investigators.",
+   "label": false
+  },
+  {
+   "title": "Empagliflozin in heart failure: a randomised trial (record without abstract 2)",
+   "abstract": "",
+   "label": true
+  },
+  {
+   "title": "Dapagliflozin in children with heart failure: a pilot randomised trial (1)",
+   "abstract": "We randomised 33 children aged 6-17 with heart failure to Dapagliflozin or placebo for 12 weeks.",
+   "label": false
+  },
+  {
+   "title": "Ertugliflozin in adults with heart failure: a randomised controlled trial (Osaka cohort 5)",
+   "abstract": "Background: Evidence for Ertugliflozin in heart failure is limited. Methods: In this double-blind trial, 374 adults (aged 18-80) with heart failure were randomised to Ertugliflozin or placebo for 12 weeks. The primary outcome was cardiovascular death or hospitalisation. Results: A significant improvement in cardiovascular death or hospitalisation was observed (p = 0.03). Conclusion: Benefit was limited to a subgroup.",
+   "label": true
+  },
+  {
+   "title": "Ertugliflozin in hypertension: a randomised controlled trial (3)",
+   "abstract": "We randomised 188 participants with hypertension to Ertugliflozin or placebo. The primary outcome was symptom score at 12 weeks.",
+   "label": false
+  },
+  {
+   "title": "Machine learning for retinal image grading: external validation (6)",
+   "abstract": "We trained a convolutional network on fundus photographs and report sensitivity and specificity on an external test set.",
+   "label": false
+  },
+  {
+   "title": "Sotagliflozin in chronic kidney disease: a randomised controlled trial (2)",
+   "abstract": "We randomised 158 participants with chronic kidney disease to Sotagliflozin or placebo. The primary outcome was symptom score at 4 weeks.",
+   "label": false
+  },
+  {
+   "title": "Sotagliflozin in children with heart failure: a pilot randomised trial (4)",
+   "abstract": "We randomised 35 children aged 6-17 with heart failure to Sotagliflozin or placebo for 12 weeks.",
+   "label": false
+  },
+  {
+   "title": "Sotagliflozin in heart failure: a randomised trial (record without abstract 4)",
+   "abstract": "",
+   "label": true
+  },
+  {
+   "title": "Canagliflozin in children with heart failure: a pilot randomised trial (3)",
+   "abstract": "We randomised 60 children aged 6-17 with heart failure to Canagliflozin or placebo for 12 weeks.",
+   "label": false
+  },
+  {
+   "title": "Sotagliflozin in adults with heart failure: a randomised controlled trial (Melbourne cohort 14)",
+   "abstract": "Background: Evidence for Sotagliflozin in heart failure is limited. Methods: In this double-blind trial, 147 adults (aged 18-80) with heart failure were randomised to Sotagliflozin or placebo for 8 weeks. The primary outcome was NT-proBNP. Results: No significant difference in NT-proBNP was observed (p = 0.47). Conclusion: Benefit was limited to a subgroup.",
+   "label": true
+  },
+  {
+   "title": "Machine learning for retinal image grading: external validation (2)",
+   "abstract": "We trained a convolutional network on fundus photographs and report sensitivity and specificity on an external test set.",
+   "label": false
+  },
+  {
+   "title": "Heart failure and health outcomes: a retrospective cohort study (2)",
+   "abstract": "This retrospective cohort study used registry data on 81997 adults with heart failure. No intervention was assigned by investigators.",
+   "label": false
+  },
+  {
+   "title": "Canagliflozin in a rodent model of heart failure: mechanistic findings (Toronto 3)",
+   "abstract": "We studied Canagliflozin in a rat model of myocardial infarction. Forty animals received Canagliflozin or vehicle for 14 days and tissue markers were measured.",
+   "label": false
+  },
+  {
+   "title": "Sotagliflozin in a rodent model of heart failure: mechanistic findings (Melbourne 4)",
+   "abstract": "We studied Sotagliflozin in a rat model of myocardial infarction. Forty animals received Sotagliflozin or vehicle for 14 days and tissue markers were measured.",
+   "label": false
+  },
+  {
+   "title": "Canagliflozin in adults with heart failure: a randomised controlled trial (Pune cohort 8)",
+   "abstract": "Background: Evidence for Canagliflozin in heart failure is limited. Methods: In this double-blind trial, 342 adults (aged 18-80) with heart failure were randomised to Canagliflozin or placebo for 12 weeks. The primary outcome was 6-minute walk distance. Results: A significant improvement in 6-minute walk distance was observed (p = 0.21). Conclusion: Benefit was limited to a subgroup.",
+   "label": true
+  },
+  {
+   "title": "Empagliflozin in adults with heart failure: a randomised controlled trial (Aarhus cohort 17)",
+   "abstract": "Background: Evidence for Empagliflozin in heart failure is limited. Methods: In this double-blind trial, 47 adults (aged 18-80) with heart failure were randomised to Empagliflozin or placebo for 52 weeks. The primary outcome was cardiovascular death or hospitalisation. Results: A modest improvement in cardiovascular death or hospitalisation was observed (p = 0.21). Conclusion: Larger trials are needed.",
+   "label": true
+  },
+  {
+   "title": "Canagliflozin in adults with heart failure: a randomised controlled trial (Toronto cohort 3)",
+   "abstract": "Background: Evidence for Canagliflozin in heart failure is limited. Methods: In this double-blind trial, 268 adults (aged 18-80) with heart failure were randomised to Canagliflozin or placebo for 24 weeks. The primary outcome was KCCQ score. Results: A modest improvement in KCCQ score was observed (p = 0.03). Conclusion: Benefit was limited to a subgroup.",
+   "label": true
+  },
+  {
+   "title": "Empagliflozin in atrial fibrillation: a randomised controlled trial (5)",
+   "abstract": "We randomised 157 participants with atrial fibrillation to Empagliflozin or placebo. The primary outcome was symptom score at 4 weeks.",
+   "label": false
+  },
+  {
+   "title": "Empagliflozin in adults with heart failure: a randomised controlled trial (Aarhus cohort 7)",
+   "abstract": "Background: Evidence for Empagliflozin in heart failure is limited. Methods: In this double-blind trial, 347 adults (aged 18-80) with heart failure were randomised to Empagliflozin or placebo for 8 weeks. The primary outcome was KCCQ score. Results: No significant difference in KCCQ score was observed (p = 0.008). Conclusion: Results support further study.",
+   "label": true
+  },
+  {
+   "title": "Sotagliflozin in adults with heart failure: a randomised controlled trial (Melbourne cohort 4)",
+   "abstract": "Background: Evidence for Sotagliflozin in heart failure is limited. Methods: In this double-blind trial, 395 adults (aged 18-80) with heart failure were randomised to Sotagliflozin or placebo for 8 weeks. The primary outcome was 6-minute walk distance. Results: A significant improvement in 6-minute walk distance was observed (p = 0.47). Conclusion: Results support further study.",
+   "label": true
+  },
+  {
+   "title": "Empagliflozin in a rodent model of heart failure: mechanistic findings (Aarhus 7)",
+   "abstract": "We studied Empagliflozin in a rat model of myocardial infarction. Forty animals received Empagliflozin or vehicle for 14 days and tissue markers were measured.",
+   "label": false
+  },
+  {
+   "title": "Dapagliflozin in adults with heart failure: a randomised controlled trial (Sao Paulo cohort 6)",
+   "abstract": "Background: Evidence for Dapagliflozin in heart failure is limited. Methods: In this double-blind trial, 72 adults (aged 18-80) with heart failure were randomised to Dapagliflozin or placebo for 8 weeks. The primary outcome was NT-proBNP. Results: A modest improvement in NT-proBNP was observed (p = 0.21). Conclusion: Larger trials are needed.",
+   "label": true
+  },
+  {
+   "title": "Dapagliflozin in obesity: a randomised controlled trial (9)",
+   "abstract": "We randomised 124 participants with obesity to Dapagliflozin or placebo. The primary outcome was symptom score at 4 weeks.",
+   "label": false
+  },
+  {
+   "title": "Machine learning for retinal image grading: external validation (5)",
+   "abstract": "We trained a convolutional network on fundus photographs and report sensitivity and specificity on an external test set.",
+   "label": false
+  },
+  {
+   "title": "Machine learning for retinal image grading: external validation (1)",
+   "abstract": "We trained a convolutional network on fundus photographs and report sensitivity and specificity on an external test set.",
+   "label": false
+  },
+  {
+   "title": "Heart failure and health outcomes: a retrospective cohort study (6)",
+   "abstract": "This retrospective cohort study used registry data on 11620 adults with heart failure. No intervention was assigned by investigators.",
+   "label": false
+  },
+  {
+   "title": "Canagliflozin in type 2 diabetes: a randomised controlled trial (6)",
+   "abstract": "We randomised 251 participants with type 2 diabetes to Canagliflozin or placebo. The primary outcome was symptom score at 12 weeks.",
+   "label": false
+  },
+  {
+   "title": "Ertugliflozin in children with heart failure: a pilot randomised trial (5)",
+   "abstract": "We randomised 20 children aged 6-17 with heart failure to Ertugliflozin or placebo for 12 weeks.",
+   "label": false
+  },
+  {
+   "title": "Dapagliflozin in adults with heart failure: a randomised controlled trial (Leuven cohort 11)",
+   "abstract": "Background: Evidence for Dapagliflozin in heart failure is limited. Methods: In this double-blind trial, 170 adults (aged 18-80) with heart failure were randomised to Dapagliflozin or placebo for 24 weeks. The primary outcome was KCCQ score. Results: A modest improvement in KCCQ score was observed (p = 0.008). Conclusion: Larger trials are needed.",
+   "label": true
+  },
+  {
+   "title": "Canagliflozin in adults with heart failure: a randomised controlled trial (Toronto cohort 13)",
+   "abstract": "Background: Evidence for Canagliflozin in heart failure is limited. Methods: In this double-blind trial, 237 adults (aged 18-80) with heart failure were randomised to Canagliflozin or placebo for 8 weeks. The primary outcome was cardiovascular death or hospitalisation. Results: A modest improvement in cardiovascular death or hospitalisation was observed (p = 0.03). Conclusion: Larger trials are needed.",
+   "label": true
+  },
+  {
+   "title": "Heart failure and health outcomes: a retrospective cohort study (7)",
+   "abstract": "This retrospective cohort study used registry data on 11736 adults with heart failure. No intervention was assigned by investigators.",
+   "label": false
+  },
+  {
+   "title": "Dapagliflozin in adults with heart failure: a randomised controlled trial (Sao Paulo cohort 16)",
+   "abstract": "Background: Evidence for Dapagliflozin in heart failure is limited. Methods: In this double-blind trial, 178 adults (aged 18-80) with heart failure were randomised to Dapagliflozin or placebo for 24 weeks. The primary outcome was 6-minute walk distance. Results: A modest improvement in 6-minute walk distance was observed (p = 0.008). Conclusion: Results support further study.",
+   "label": true
+  },
+  {
+   "title": "Canagliflozin in heart failure: a randomised trial (record without abstract 3)",
+   "abstract": "",
+   "label": true
+  },
+  {
+   "title": "Ertugliflozin in adults with heart failure: a randomised controlled trial (Osaka cohort 15)",
+   "abstract": "Background: Evidence for Ertugliflozin in heart failure is limited. Methods: In this double-blind trial, 243 adults (aged 18-80) with heart failure were randomised to Ertugliflozin or placebo for 52 weeks. The primary outcome was KCCQ score. Results: A modest improvement in KCCQ score was observed (p = 0.21). Conclusion: Benefit was limited to a subgroup.",
+   "label": true
+  },
+  {
+   "title": "Ertugliflozin in adults with heart failure: a randomised controlled trial (Lyon cohort 20)",
+   "abstract": "Background: Evidence for Ertugliflozin in heart failure is limited. Methods: In this double-blind trial, 107 adults (aged 18-80) with heart failure were randomised to Ertugliflozin or placebo for 52 weeks. The primary outcome was 6-minute walk distance. Results: A significant improvement in 6-minute walk distance was observed (p = 0.47). Conclusion: Larger trials are needed.",
+   "label": true
+  },
+  {
+   "title": "Ertugliflozin in adults with heart failure: a randomised controlled trial (Lyon cohort 10)",
+   "abstract": "Background: Evidence for Ertugliflozin in heart failure is limited. Methods: In this double-blind trial, 375 adults (aged 18-80) with heart failure were randomised to Ertugliflozin or placebo for 24 weeks. The primary outcome was NT-proBNP. Results: No significant difference in NT-proBNP was observed (p = 0.03). Conclusion: Benefit was limited to a subgroup.",
+   "label": true
+  },
+  {
+   "title": "Heart failure and health outcomes: a retrospective cohort study (1)",
+   "abstract": "This retrospective cohort study used registry data on 3255 adults with heart failure. No intervention was assigned by investigators.",
+   "label": false
+  },
+  {
+   "title": "Empagliflozin in adults with heart failure: a randomised controlled trial (Zurich cohort 12)",
+   "abstract": "Background: Evidence for Empagliflozin in heart failure is limited. Methods: In this double-blind trial, 75 adults (aged 18-80) with heart failure were randomised to Empagliflozin or placebo for 8 weeks. The primary outcome was 6-minute walk distance. Results: No significant difference in 6-minute walk distance was observed (p = 0.03). Conclusion: Results support further study.",
+   "label": true
+  },
+  {
+   "title": "Ertugliflozin in a rodent model of heart failure: mechanistic findings (Osaka 5)",
+   "abstract": "We studied Ertugliflozin in a rat model of myocardial infarction. Forty animals received Ertugliflozin or vehicle for 14 days and tissue markers were measured.",
+   "label": false
+  },
+  {
+   "title": "Dapagliflozin in heart failure: a randomised trial (record without abstract 1)",
+   "abstract": "",
+   "label": true
+  },
+  {
+   "title": "Sotagliflozin in chronic kidney disease: a randomised controlled trial (7)",
+   "abstract": "We randomised 378 participants with chronic kidney disease to Sotagliflozin or placebo. The primary outcome was symptom score at 12 weeks.",
+   "label": false
+  },
+  {
+   "title": "Dapagliflozin in children with heart failure: a pilot randomised trial (6)",
+   "abstract": "We randomised 58 children aged 6-17 with heart failure to Dapagliflozin or placebo for 12 weeks.",
+   "label": false
+  },
+  {
+   "title": "Canagliflozin in type 2 diabetes: a randomised controlled trial (1)",
+   "abstract": "We randomised 252 participants with type 2 diabetes to Canagliflozin or placebo. The primary outcome was symptom score at 8 weeks.",
+   "label": false
+  },
+  {
+   "title": "Ertugliflozin in hypertension: a randomised controlled trial (8)",
+   "abstract": "We randomised 101 participants with hypertension to Ertugliflozin or placebo. The primary outcome was symptom score at 4 weeks.",
+   "label": false
+  },
+  {
+   "title": "Sotagliflozin in adults with heart failure: a randomised controlled trial (Boston cohort 9)",
+   "abstract": "Background: Evidence for Sotagliflozin in heart failure is limited. Methods: In this double-blind trial, 190 adults (aged 18-80) with heart failure were randomised to Sotagliflozin or placebo for 52 weeks. The primary outcome was cardiovascular death or hospitalisation. Results: A modest improvement in cardiovascular death or hospitalisation was observed (p = 0.03). Conclusion: Results support further study.",
+   "label": true
+  },
+  {
+   "title": "Ertugliflozin in a rodent model of heart failure: mechanistic findings (Lyon 10)",
+   "abstract": "We studied Ertugliflozin in a rat model of myocardial infarction. Forty animals received Ertugliflozin or vehicle for 14 days and tissue markers were measured.",
+   "label": false
+  },
+  {
+   "title": "Empagliflozin in atrial fibrillation: a randomised controlled trial (10)",
+   "abstract": "We randomised 276 participants with atrial fibrillation to Empagliflozin or placebo. The primary outcome was symptom score at 8 weeks.",
+   "label": false
+  },
+  {
+   "title": "Ertugliflozin in heart failure: a randomised trial (record without abstract 5)",
+   "abstract": "",
+   "label": true
+  },
+  {
+   "title": "Heart failure and health outcomes: a retrospective cohort study (8)",
+   "abstract": "This retrospective cohort study used registry data on 13811 adults with heart failure. No intervention was assigned by investigators.",
+   "label": false
+  }
+ ]
+}

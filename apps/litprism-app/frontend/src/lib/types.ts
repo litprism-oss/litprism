@@ -296,3 +296,37 @@ export interface LabelCheckOut {
   missed: number
   missed_titles: string[]
 }
+
+export interface BenchmarkMetrics {
+  n: number
+  relevant: number
+  errors: number
+  recall: number | null
+  precision: number | null
+  specificity: number | null
+  work_saved: number
+  missed: number
+}
+
+export interface BenchmarkRunOut {
+  id: string
+  dataset_id: string
+  status: 'pending' | 'running' | 'completed' | 'failed'
+  total: number
+  processed: number
+  model_used: string | null
+  metrics: BenchmarkMetrics | null
+  error: string | null
+  created_at: string
+  completed_at: string | null
+}
+
+export interface BenchmarkDatasetOut {
+  slug: string
+  name: string
+  description: string
+  criteria: { inclusion: string[]; exclusion: string[] }
+  record_count: number
+  relevant_count: number
+  latest_run: BenchmarkRunOut | null
+}
