@@ -8,6 +8,7 @@ import { ResultsTable } from '@/components/screening/ResultsTable'
 import { ExportPanel } from '@/components/export/ExportPanel'
 import { useProjects } from '@/hooks/useProjects'
 import { api } from '@/lib/api'
+import { useIsMobile } from '@/hooks/useIsMobile'
 import type { ScreeningDecision } from '@/lib/types'
 
 type FilterTab = 'all' | ScreeningDecision
@@ -28,6 +29,8 @@ export function ScreeningResultsPage() {
   const navigate = useNavigate()
   const qc = useQueryClient()
   const [activeTab, setActiveTab] = useState<FilterTab>('all')
+  const [exportOpen, setExportOpen] = useState(false)
+  const isMobile = useIsMobile()
 
   const runId = searchParams.get('run_id')
 
@@ -231,7 +234,8 @@ export function ScreeningResultsPage() {
           alignItems: 'flex-start',
         }}
       >
-        {/* Left sidebar — summary + export */}
+        {/* Left sidebar — summary + export (phone only; desktop uses tiles above the list) */}
+        {isMobile && (
         <div className="lp-side" style={{ width: 160, flexShrink: 0, marginRight: 24 }}>
           <div className="lp-stats-row">
           {STATS.map(({ label, count, colour }) => (
@@ -256,9 +260,64 @@ export function ScreeningResultsPage() {
 
           <ExportPanel projectId={projectId} projectName={project?.name} />
         </div>
+        )}
 
         {/* Right — results table */}
         <div style={{ flex: 1, minWidth: 0 }}>
+          {!isMobile && (
+            <>
+              <div style={{ display: 'flex', alignItems: 'stretch', gap: 12, marginBottom: 16 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 12, flex: 1 }}>
+                  {STATS.map(({ label, count, colour }) => (
+                    <div
+                      key={label}
+                      style={{
+                        background: 'var(--color-background-primary)',
+                        border: '0.5px solid var(--color-border-tertiary)',
+                        borderRadius: 'var(--border-radius-lg)',
+                        padding: '12px 16px',
+                      }}
+                    >
+                      <p style={{ fontSize: 12, color: 'var(--color-text-secondary)', margin: '0 0 2px' }}>{label}</p>
+                      <p style={{ fontSize: 24, fontWeight: 500, color: colour, margin: 0 }}>
+                        {count != null ? count.toLocaleString() : '—'}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <button
+                  onClick={() => setExportOpen((o) => !o)}
+                  aria-expanded={exportOpen}
+                  style={{
+                    flexShrink: 0,
+                    padding: '0 16px',
+                    fontSize: 13,
+                    fontFamily: 'inherit',
+                    cursor: 'pointer',
+                    borderRadius: 'var(--border-radius-lg)',
+                    background: exportOpen ? 'var(--color-text-primary)' : 'var(--color-background-primary)',
+                    color: exportOpen ? 'var(--color-background-primary)' : 'var(--color-text-primary)',
+                    border: '0.5px solid var(--color-border-secondary)',
+                  }}
+                >
+                  Export {exportOpen ? '▴' : '▾'}
+                </button>
+              </div>
+              {exportOpen && (
+                <div
+                  style={{
+                    background: 'var(--color-background-primary)',
+                    border: '0.5px solid var(--color-border-tertiary)',
+                    borderRadius: 'var(--border-radius-lg)',
+                    padding: 16,
+                    marginBottom: 16,
+                  }}
+                >
+                  <ExportPanel projectId={projectId} projectName={project?.name} />
+                </div>
+              )}
+            </>
+          )}
           {/* Full-text retrieval banner — shown when uncertain tab is active */}
           {activeTab === 'uncertain' && (
             <div

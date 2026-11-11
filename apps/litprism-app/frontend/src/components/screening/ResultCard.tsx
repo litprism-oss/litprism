@@ -17,12 +17,19 @@ interface Props {
 
 /** Phone layout for one screened article: the evidence is visible and the human
  *  decision is one tap, instead of a table row that opens a side panel. */
-export function ResultCard({ projectId, article, onOpen }: Props) {
+/** Include / Unsure / Exclude. Full-width 44px buttons on phone, small inline segment on desktop. */
+export function OverrideButtons({
+  projectId,
+  article,
+  compact = false,
+}: {
+  projectId: string
+  article: ArticleWithResult
+  compact?: boolean
+}) {
   const override = useOverrideDecision(projectId)
   const result = article.screening_result
   if (!result) return null
-
-  const quote = result.criteria_hits.find((h) => h.supporting_quote)?.supporting_quote ?? null
 
   function choose(decision: Exclude<ScreeningDecision, 'error'>) {
     if (decision === result?.decision || override.isPending) return
@@ -31,6 +38,49 @@ export function ResultCard({ projectId, article, onOpen }: Props) {
       { onError: (err) => toast.error(err.message) },
     )
   }
+
+  return (
+    <div
+      style={
+        compact
+          ? { display: 'flex', gap: 4 }
+          : { display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 8 }
+      }
+    >
+      {CHOICES.map(({ decision, label }) => {
+        const on = result.decision === decision
+        return (
+          <button
+            key={decision}
+            onClick={() => choose(decision)}
+            aria-pressed={on}
+            disabled={override.isPending}
+            style={{
+              minHeight: compact ? 28 : 44,
+              padding: compact ? '0 10px' : undefined,
+              borderRadius: 'var(--border-radius-md)',
+              fontSize: compact ? 12 : 13,
+              fontFamily: 'inherit',
+              cursor: 'pointer',
+              background: on ? 'var(--color-text-primary)' : 'var(--color-background-primary)',
+              color: on ? 'var(--color-background-primary)' : 'var(--color-text-primary)',
+              border: `0.5px solid ${on ? 'var(--color-text-primary)' : 'var(--color-border-secondary)'}`,
+              fontWeight: on ? 500 : 400,
+            }}
+          >
+            {label}
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+export function ResultCard({ projectId, article, onOpen }: Props) {
+  const result = article.screening_result
+  if (!result) return null
+
+  const quote = result.criteria_hits.find((h) => h.supporting_quote)?.supporting_quote ?? null
 
   return (
     <div
@@ -80,32 +130,7 @@ export function ResultCard({ projectId, article, onOpen }: Props) {
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 8 }}>
-        {CHOICES.map(({ decision, label }) => {
-          const on = result.decision === decision
-          return (
-            <button
-              key={decision}
-              onClick={() => choose(decision)}
-              aria-pressed={on}
-              disabled={override.isPending}
-              style={{
-                minHeight: 44,
-                borderRadius: 'var(--border-radius-md)',
-                fontSize: 13,
-                fontFamily: 'inherit',
-                cursor: 'pointer',
-                background: on ? 'var(--color-text-primary)' : 'var(--color-background-primary)',
-                color: on ? 'var(--color-background-primary)' : 'var(--color-text-primary)',
-                border: `0.5px solid ${on ? 'var(--color-text-primary)' : 'var(--color-border-secondary)'}`,
-                fontWeight: on ? 500 : 400,
-              }}
-            >
-              {label}
-            </button>
-          )
-        })}
-      </div>
+      <OverrideButtons projectId={projectId} article={article} />
     </div>
   )
 }
