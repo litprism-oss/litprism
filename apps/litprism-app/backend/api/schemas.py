@@ -458,6 +458,7 @@ class BenchmarkDatasetOut(BaseModel):
     slug: str
     name: str
     description: str
+    source: str | None = None
     criteria: dict
     record_count: int
     relevant_count: int

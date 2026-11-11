@@ -1,12 +1,11 @@
 {
   "inclusion": [
-    "Randomised controlled trial",
-    "Adult participants (18 years or older)",
-    "Participants have Crohn's disease",
-    "Intervention is a probiotic"
+    "Controlled study (a comparison group is reported)",
+    "Participants have Wilson disease",
+    "A treatment is evaluated or compared (for example chelators, zinc or liver transplantation)"
   ],
   "exclusion": [
     "Animal or in vitro study",
-    "Participants are children"
+    "Case report, editorial or narrative review without original patient data"
   ]
 }

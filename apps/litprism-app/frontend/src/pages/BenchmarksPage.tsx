@@ -38,12 +38,17 @@ function DatasetCard({ ds, busy }: { ds: BenchmarkDatasetOut; busy: boolean }) {
           {ds.description}
         </p>
         <p style={{ fontSize: 12, color: 'var(--color-text-secondary)', margin: '6px 0 0' }}>
-          {ds.record_count} records · {ds.relevant_count} relevant by design
+          {ds.record_count} real records · {ds.relevant_count} relevant
         </p>
       </div>
 
       <details>
-        <summary style={{ fontSize: 13, cursor: 'pointer' }}>Criteria used</summary>
+        <summary style={{ fontSize: 13, cursor: 'pointer' }}>Source and criteria</summary>
+        {ds.source && (
+          <p style={{ fontSize: 12, lineHeight: 1.6, color: 'var(--color-text-secondary)', margin: '6px 0 0' }}>
+            {ds.source}
+          </p>
+        )}
         <ul style={{ fontSize: 12, lineHeight: 1.6, margin: '6px 0 0', paddingLeft: 18 }}>
           {ds.criteria.inclusion.map((c) => <li key={c}>Include: {c}</li>)}
           {ds.criteria.exclusion.map((c) => <li key={c}>Exclude: {c}</li>)}
@@ -113,9 +118,10 @@ export function BenchmarksPage() {
       <div>
         <p style={{ fontSize: 18, fontWeight: 500, margin: '0 0 4px' }}>Benchmarks</p>
         <p style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--color-text-secondary)', margin: 0 }}>
-          Pick a practice review and LitPrism screens it with the current AI model, then compares the
-          result with the known answers. The records are invented, so the numbers show how the tool
-          behaves, not how it will do on your topic. One benchmark runs at a time; each uses LLM calls.
+          Pick a published systematic review. LitPrism screens a sample of its real records with the current
+          AI model and compares the result with the review authors' own inclusion decisions. The samples
+          have more relevant records than a real search, so read recall as the main number. One benchmark
+          runs at a time; each uses LLM calls.
         </p>
       </div>
       {isLoading && <p style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>Loading…</p>}
