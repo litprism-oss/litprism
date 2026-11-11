@@ -1,11 +1,10 @@
 import { useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import { api } from '@/lib/api'
+import { api, authFetch } from '@/lib/api'
 import type { PRISMAFlowCounts } from '@/lib/types'
 import { formatCount } from '@/lib/utils'
 
-const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
 
 // ── Box components ─────────────────────────────────────────────────────────────
 
@@ -214,7 +213,7 @@ export function PRISMAPage() {
 
   const handlePrismaS = async () => {
     try {
-      const res = await fetch(`${BASE_URL}/projects/${projectId}/export/prisma-s`)
+      const res = await authFetch(`/projects/${projectId}/export/prisma-s`)
       if (!res.ok) return
       const blob = await res.blob()
       const url = URL.createObjectURL(blob)

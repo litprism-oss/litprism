@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { ScreeningProgressEvent } from '@/lib/types'
+import { getAccessToken } from '@/lib/supabase'
 
 export interface SearchProgressEvent {
   event: 'search_progress' | 'search_complete' | 'search_error'
@@ -23,7 +24,13 @@ export function useSearchProgress(projectId: string | null) {
     const WS_URL = import.meta.env.VITE_WS_URL ?? 'ws://localhost:8000'
     const ws = new WebSocket(`${WS_URL}/ws/${projectId}`)
     wsRef.current = ws
-    ws.onopen = () => setIsConnected(true)
+    ws.onopen = () => {
+      setIsConnected(true)
+      // The server expects the access token as the first message when auth is on.
+      void getAccessToken().then((token) => {
+        if (token && ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify({ token }))
+      })
+    }
     ws.onclose = () => setIsConnected(false)
     ws.onmessage = (e) => {
       const data = JSON.parse(e.data) as ProgressEvent

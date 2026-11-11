@@ -23,13 +23,26 @@ import type {
   FulltextStatusOut,
   RetryFailedOut,
 } from '@/lib/types'
+import { getAccessToken } from '@/lib/supabase'
 
 const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
 
-async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`${BASE_URL}${path}`, {
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
+/** fetch against the API with the user's access token attached (when logged in). */
+export async function authFetch(path: string, options?: RequestInit): Promise<Response> {
+  const token = await getAccessToken()
+  return fetch(`${BASE_URL}${path}`, {
     ...options,
+    headers: {
+      ...options?.headers,
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+  })
+}
+
+async function request<T>(path: string, options?: RequestInit): Promise<T> {
+  const res = await authFetch(path, {
+    ...options,
+    headers: { 'Content-Type': 'application/json', ...options?.headers },
   })
   if (!res.ok) {
     const error = await res.json().catch(() => ({ detail: res.statusText }))
@@ -199,7 +212,7 @@ export const api = {
   },
   export_: {
     download: (projectId: string, format: string) =>
-      fetch(`${BASE_URL}/projects/${projectId}/export/${format}`).then(r => r.blob()),
+      authFetch(`/projects/${projectId}/export/${format}`).then(r => r.blob()),
   },
   fulltext: {
     trigger: (projectId: string) =>

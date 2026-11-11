@@ -179,6 +179,11 @@ Supabase's Site URL and redirect URLs (Session 16.2) should use `https://litpris
 2. Environment variables (Production and Preview):
    - `VITE_API_URL` = `https://<api-fqdn>`
    - `VITE_WS_URL` = `wss://<api-fqdn>`
+   - `VITE_SUPABASE_URL` = your Supabase project URL, and `VITE_SUPABASE_ANON_KEY` = the
+     `anon` public key (Supabase → Project Settings → API). With these set the site shows a
+     login screen; the API requires a valid login, so set them **before** deploying the API.
+     In Supabase → Authentication → URL Configuration, set the Site URL to your site and add
+     it (plus `https://litprism.vercel.app`) to the redirect URLs.
 3. Deploy. The `VITE_*` values are baked in at build time: redeploy after changing them.
 4. Set the GitHub variable `CORS_ORIGINS` to your Vercel URL (e.g. `https://litprism.vercel.app`)
    and re-run the workflow.
