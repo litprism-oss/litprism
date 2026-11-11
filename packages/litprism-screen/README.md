@@ -516,3 +516,18 @@ https://doi.org/10.1186/s13643-024-02609-x
 ## Licence
 
 MIT — see [LICENSE](../../LICENSE)
+---
+
+## Benchmarking recall
+
+Measure how well your model and criteria find the relevant records in a labelled dataset
+(CSV columns `title`, `abstract`, `label` = 1/0):
+
+```bash
+python -m litprism.screen.benchmark data.csv criteria.json --limit 200
+```
+
+`criteria.json` is `{"inclusion": [...], "exclusion": [...]}`. The report gives recall,
+precision, specificity and work saved. "Uncertain" counts as kept (it goes to full text),
+so recall reflects what a reviewer would actually see. `--limit` screens all relevant
+records plus a random sample of the rest, which keeps cost down while recall stays exact.
