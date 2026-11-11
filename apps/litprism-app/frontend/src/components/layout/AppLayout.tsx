@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { TopNav } from '@/components/layout/TopNav'
 import { ProjectSidebar } from '@/components/layout/ProjectSidebar'
 import { GuidancePanel } from '@/components/layout/GuidancePanel'
+import { MobileTabBar } from '@/components/layout/MobileTabBar'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { useUIStore } from '@/store/useUIStore'
 
@@ -32,6 +33,7 @@ export function AppLayout() {
         >
           <Outlet />
         </main>
+        <MobileTabBar />
 
         {mobileNavOpen && (
           <>

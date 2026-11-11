@@ -1,6 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useProject } from '@/hooks/useProjects'
 import { useSearchRuns } from '@/hooks/useSearchRuns'
+import { useScreeningResults } from '@/hooks/useScreeningResults'
+import { nextAction } from '@/lib/nextAction'
 import { StepIndicator } from '@/components/common/StepIndicator'
 import { StatCard } from '@/components/common/StatCard'
 import type { ReviewType } from '@/lib/types'
@@ -37,15 +39,34 @@ export function ProjectOverviewPage() {
   // Step is derived from real data, so uploads count the same as API searches.
   const currentStep: 1 | 2 | 3 = screenedCount > 0 ? 3 : articleCount > 0 ? 2 : 1
 
-  function nextAction(): { label: string; path: string } {
-    const base = `/projects/${projectId}`
-    if (lockedRun) return { label: 'View search progress →', path: `${base}/search` }
-    if (articleCount === 0) return { label: 'Start searching →', path: `${base}/search` }
-    if (!project?.has_criteria) return { label: 'Set up criteria →', path: `${base}/criteria` }
-    if (screenedCount === 0) return { label: 'Start screening →', path: `${base}/screening` }
-    return { label: 'View results →', path: `${base}/screening/results` }
-  }
-  const cta = nextAction()
+  const cta = project ? nextAction(project, !!lockedRun) : { label: 'Start searching', path: '' }
+  const { data: uncertainData } = useScreeningResults(projectId ?? '', {
+    decision: 'uncertain',
+    page: 1,
+    page_size: 1,
+  })
+  const uncertain = screenedCount > 0 ? (uncertainData?.total ?? 0) : 0
+
+  const nextTitle =
+    uncertain > 0
+      ? `${uncertain.toLocaleString()} ${uncertain === 1 ? 'article is' : 'articles are'} uncertain`
+      : screenedCount > 0
+        ? 'Screening is complete'
+        : articleCount > 0
+          ? project?.has_criteria
+            ? 'Ready to screen'
+            : 'Add your eligibility criteria'
+          : 'Find your articles'
+  const nextBody =
+    uncertain > 0
+      ? 'The model could not decide from the abstract. They are not excluded. Review them yourself or run full-text screening.'
+      : screenedCount > 0
+        ? 'Check the results, then export your references and the PRISMA search record.'
+        : articleCount > 0
+          ? project?.has_criteria
+            ? 'Each abstract is checked against every criterion, with a quote as evidence.'
+            : 'Screening checks every abstract against inclusion and exclusion criteria you write.'
+          : 'Search PubMed, Europe PMC and Semantic Scholar, or upload a reference file.'
 
   if (projectLoading) {
     return (
@@ -96,21 +117,50 @@ export function ProjectOverviewPage() {
         <StatCard label="Included"  value={includedCount} />
       </div>
 
-      {/* CTA */}
-      <button
-        onClick={() => navigate(cta.path)}
-        style={{
-          background: 'var(--color-text-primary)',
-          color: 'var(--color-background-primary)',
-          border: 'none',
-          padding: '9px 18px',
-          borderRadius: 'var(--border-radius-md)',
-          fontSize: 13,
-          cursor: 'pointer',
-        }}
-      >
-        {cta.label}
-      </button>
+      {/* Next step */}
+      <div style={{
+        background: 'var(--color-background-primary)',
+        border: '0.5px solid var(--color-border-tertiary)',
+        borderRadius: 'var(--border-radius-lg)',
+        padding: 16,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+        maxWidth: 560,
+      }}>
+        <p style={{
+          fontSize: 11,
+          fontWeight: 500,
+          letterSpacing: '0.04em',
+          textTransform: 'uppercase',
+          color: 'var(--color-text-secondary)',
+        }}>
+          Next step
+        </p>
+        <p style={{ fontSize: 15, fontWeight: 500, lineHeight: 1.4 }}>{nextTitle}</p>
+        <p style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--color-text-secondary)' }}>{nextBody}</p>
+        <button
+          onClick={() => navigate(cta.path)}
+          style={{
+            minHeight: 44,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '0 14px',
+            background: 'var(--color-text-primary)',
+            color: 'var(--color-background-primary)',
+            border: 'none',
+            borderRadius: 'var(--border-radius-md)',
+            fontSize: 14,
+            fontWeight: 500,
+            fontFamily: 'inherit',
+            cursor: 'pointer',
+          }}
+        >
+          <span>{uncertain > 0 ? 'Review uncertain' : cta.label}</span>
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
     </div>
   )
 }
