@@ -105,6 +105,10 @@ async def _user_row(db, user_id: str) -> User | None:
 
 
 async def _add_project(db, owner_id: str | None, name: str = "P") -> str:
+    # Foreign keys are enforced in tests (as in Postgres): the owner needs a users row.
+    if owner_id is not None and await db.get(User, owner_id) is None:
+        db.add(User(id=owner_id))
+        await db.flush()
     project = Project(name=name, review_type="systematic", owner_id=owner_id)
     db.add(project)
     await db.commit()
