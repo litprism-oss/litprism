@@ -26,6 +26,7 @@ jobs:
           python-version: "3.12"
       - run: pip install websockets
       - name: Run smoke test
+        shell: bash   # adds pipefail, so a failed check fails the job
         env:
           API_URL: ${{ inputs.api_url || 'https://litprism-api.happybay-e820cb65.westeurope.azurecontainerapps.io' }}
           # Optional. Needed once the API enforces login (Session 16.2+): a Supabase

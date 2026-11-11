@@ -87,7 +87,7 @@ class Api:
 
     def request(
         self, method: str, path: str, body: object | None = None, raw: bytes | None = None,
-        content_type: str | None = None,
+        content_type: str | None = None, timeout: int = 60,
     ) -> tuple[int, object]:
         data = raw
         headers = self._headers()
@@ -98,7 +98,7 @@ class Api:
             headers["Content-Type"] = content_type
         req = urllib.request.Request(self.base + path, data=data, method=method, headers=headers)
         try:
-            with urllib.request.urlopen(req, timeout=60) as resp:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
                 text = resp.read().decode() or "null"
                 return resp.status, json.loads(text)
         except urllib.error.HTTPError as exc:
@@ -258,22 +258,45 @@ def search_and_progress(api: Api, ws_base: str) -> None:
     total = body.get("total", 0) if status == 200 and isinstance(body, dict) else 0
     check(total > 0, "search returned articles", f"{total} articles")
 
+    for e in events:
+        if e.get("event") == "search_error":
+            log(f"        search_error from server: {str(e.get('message'))[:300]}")
+    if run and run.get("status") != "completed":
+        log(f"        run record: {json.dumps({k: v for k, v in run.items() if k != 'source_queries'})[:400]}")
+        for sq in run.get("source_queries", []):
+            log(f"        source {sq.get('source')}: {sq.get('result_count')} results")
     kinds = sorted({e.get("event", "?") for e in events})
     check(ws_state["connected"], "WebSocket connected", ws_state["error"])
     check("search_progress" in kinds or "search_complete" in kinds, "WebSocket delivered progress events",
           f"{len(events)} events: {', '.join(kinds) or 'none'}")
 
 
+def delete_project(api: Api, pid: str, label: str) -> None:
+    try:
+        status, _ = api.request("DELETE", f"/projects/{pid}", timeout=300)
+        check(status == 204, f"delete {label}", f"HTTP {status}")
+    except Exception as exc:  # noqa: BLE001 - one slow delete must not hide the other results
+        check(False, f"delete {label}", f"{type(exc).__name__}: {exc}")
+
+
 def cleanup(api: Api) -> None:
-    log("\n[4] Cleanup (only projects created by this run)")
+    log("\n[4] Cleanup (only projects named with the smoke prefix)")
     for pid in created_projects:
         status, body = api.request("GET", f"/projects/{pid}")
         name = body.get("name", "") if isinstance(body, dict) else ""
+        if status == 404:
+            continue
         if not name.startswith(SMOKE_PREFIX):
             log(f"  SKIP  {pid}: name does not start with the smoke prefix")
             continue
-        status, _ = api.request("DELETE", f"/projects/{pid}")
-        check(status == 204, f"delete {pid[:8]}", f"HTTP {status}")
+        delete_project(api, pid, pid[:8])
+    # Leftovers from an earlier run that crashed before cleaning up.
+    status, body = api.request("GET", "/projects")
+    if status == 200 and isinstance(body, list):
+        for proj in body:
+            if proj.get("name", "").startswith(SMOKE_PREFIX) and proj["id"] not in created_projects:
+                log(f"  found leftover smoke project {proj['id'][:8]} ({proj['name'][-19:]})")
+                delete_project(api, proj["id"], f"leftover {proj['id'][:8]}")
 
 
 def main() -> int:
