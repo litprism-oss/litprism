@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useScreeningResults } from '@/hooks/useScreeningResults'
 import { DecisionBadge } from './DecisionBadge'
 import { ScreeningDetailPanel } from './ScreeningDetailPanel'
+import { ResultCard } from './ResultCard'
+import { useIsMobile } from '@/hooks/useIsMobile'
 import type { ArticleWithResult, ScreeningDecision } from '@/lib/types'
 
 const SOURCE_COLOURS: Record<string, { bg: string; text: string }> = {
@@ -42,6 +44,7 @@ export function ResultsTable({ projectId, runId, activeTab: controlledTab, onTab
   const activeTab = controlledTab ?? internalTab
   const [page, setPage]                 = useState(1)
   const [selected, setSelected]         = useState<ArticleWithResult | null>(null)
+  const isMobile = useIsMobile()
 
   const params = {
     run_id:    runId,
@@ -105,7 +108,19 @@ export function ResultsTable({ projectId, runId, activeTab: controlledTab, onTab
       {data && data.items.length === 0 && (
         <p style={{ fontSize: 13, color: 'var(--color-text-secondary)', padding: '16px 0' }}>No articles found.</p>
       )}
-      {data && data.items.map(article => {
+      {data && isMobile && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {data.items.map((article) => (
+            <ResultCard
+              key={article.id}
+              projectId={projectId}
+              article={article}
+              onOpen={() => setSelected(article)}
+            />
+          ))}
+        </div>
+      )}
+      {data && !isMobile && data.items.map(article => {
         const result = article.screening_result
         const srcColour = SOURCE_COLOURS[article.source] ?? SOURCE_COLOURS.upload
         const srcLabel  = SOURCE_LABELS[article.source]  ?? article.source

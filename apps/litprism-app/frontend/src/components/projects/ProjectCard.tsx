@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import type { ProjectOut, SearchRunOut, ReviewType } from '@/lib/types'
+import { nextAction } from '@/lib/nextAction'
 
 const REVIEW_TYPE_LABELS: Record<ReviewType, string> = {
   systematic:   'Systematic',
@@ -131,6 +132,38 @@ export function ProjectCard(props: ProjectCardProps) {
       <p style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>
         articles{project.screened_count > 0 ? ` · ${project.included_count} included` : ''}
       </p>
+
+      {(() => {
+        const action = nextAction(project, latestRun?.status === 'locked')
+        return (
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              navigate(action.path)
+            }}
+            style={{
+              marginTop: 14,
+              width: '100%',
+              minHeight: 44,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '0 14px',
+              borderRadius: 'var(--border-radius-md)',
+              border: 'none',
+              background: 'var(--color-text-primary)',
+              color: 'var(--color-background-primary)',
+              fontSize: 14,
+              fontWeight: 500,
+              fontFamily: 'inherit',
+              cursor: 'pointer',
+            }}
+          >
+            <span>{action.label}</span>
+            <span aria-hidden="true">→</span>
+          </button>
+        )
+      })()}
 
       <div style={{
         marginTop: 14,
