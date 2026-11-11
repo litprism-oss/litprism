@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 
 from constants import ALL_SOURCES
 from sqlalchemy import (
@@ -25,6 +26,24 @@ class Base(DeclarativeBase):
     pass
 
 
+class User(Base):
+    """App user, keyed by the Supabase `sub` claim. Anonymous (guest) users included."""
+
+    __tablename__ = "users"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True)
+    email: Mapped[str | None] = mapped_column(String, nullable=True, index=True)
+    display_name: Mapped[str | None] = mapped_column(String, nullable=True)
+    avatar_url: Mapped[str | None] = mapped_column(String, nullable=True)
+    is_anonymous: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )
+    last_seen_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )
+
+
 class Project(Base):
     __tablename__ = "projects"
 
@@ -33,6 +52,11 @@ class Project(Base):
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
     research_question: Mapped[str | None] = mapped_column(Text, nullable=True)
     review_type: Mapped[str] = mapped_column(String, nullable=False)
+    # Nullable: projects created before auth existed have no owner until the
+    # bootstrap owner logs in (see dependencies.get_current_user).
+    owner_id: Mapped[str | None] = mapped_column(
+        String, ForeignKey("users.id", ondelete="CASCADE"), nullable=True, index=True
+    )
     created_at: Mapped[str] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )

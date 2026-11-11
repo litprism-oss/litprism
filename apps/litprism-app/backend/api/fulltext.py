@@ -2,6 +2,7 @@ from typing import Annotated
 
 from db.engine import get_db
 from db.models import Article
+from dependencies import get_owned_project, require_member
 from fastapi import APIRouter, Depends
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -9,12 +10,12 @@ from tasks.fulltext import retrieve_fulltext_task
 
 from api.schemas import FulltextStatusOut
 
-router = APIRouter(prefix="/projects", tags=["fulltext"])
+router = APIRouter(prefix="/projects", tags=["fulltext"], dependencies=[Depends(get_owned_project)])
 
 DB = Annotated[AsyncSession, Depends(get_db)]
 
 
-@router.post("/{project_id}/fulltext/retrieve")
+@router.post("/{project_id}/fulltext/retrieve", dependencies=[Depends(require_member)])
 async def trigger_fulltext_retrieval(
     project_id: str,
     db: DB,

@@ -86,7 +86,34 @@ Secrets:
 
 Optional secrets: `PUBMED_API_KEY`, `SEMANTIC_SCHOLAR_API_KEY`, `UNPAYWALL_EMAIL`.
 
-Variables (Variables tab, not Secrets), optional: `CORS_ORIGINS` (default `*`), `LLM_PROVIDER` (`openai`, `gemini`, `azure` or `ollama`; inferred from whichever API key you set), `LLM_CONCURRENCY` (articles screened at once; default 3 for Gemini because free keys rate-limit quickly, 10 for other providers) and `LLM_MODEL` (defaults: `gpt-4o-mini` for OpenAI, `gemini-3.5-flash-lite` for Gemini).
+Variables (Variables tab, not Secrets):
+
+| Name | Required | Value |
+|---|---|---|
+| `SUPABASE_URL` | **yes** | `https://<project-ref>.supabase.co` (Project Settings → API). The API refuses to start without it, and the deploy stops with an error if it is missing |
+| `BOOTSTRAP_OWNER_EMAIL` | first deploy | your Google/GitHub email. The first time you sign in with it, you take ownership of the projects that existed before login was added |
+| `ADMIN_EMAILS` | optional | comma-separated emails with unlimited credits (used from Session 16.3) |
+| `CORS_ORIGINS` | optional | default `*` |
+| `LLM_PROVIDER` | optional | `openai`, `gemini`, `azure` or `ollama`. Inferred from whichever API key you set |
+| `LLM_CONCURRENCY` | optional | articles screened at once; default 3 for Gemini (free keys rate-limit quickly), 10 for other providers |
+| `LLM_MODEL` | optional | defaults: `gpt-4o-mini` for OpenAI, `gemini-3.5-flash-lite` for Gemini |
+
+Optional secret `SUPABASE_JWT_SECRET`: only for an older Supabase project that still signs
+tokens with a shared secret (Project Settings → API → JWT Secret). Leave it unset on a
+current project: the API then verifies tokens with Supabase's public signing keys.
+
+## Login
+
+Every API route needs a Supabase access token (`Authorization: Bearer …`), and every project
+belongs to one user. Other people's projects answer 404. Guests (anonymous Supabase sessions)
+can create projects, upload, search and export but not run screening or full-text retrieval.
+
+**Do not deploy the backend publicly until the login UI (Session 16.2) is merged**: the current
+frontend sends no token, so every request would be rejected.
+
+For local development set `AUTH_DISABLED=true` in `.env` (see `.env.example`). Every request is
+then the fixed dev user, who also adopts projects that predate login. Never set it in
+production. The API logs a warning at startup when it is on.
 
 ## 4. Deploy the backend
 

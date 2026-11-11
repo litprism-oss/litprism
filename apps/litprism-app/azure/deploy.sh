@@ -69,6 +69,7 @@ apps() {
   : "${IMAGE:?IMAGE must be set to the pushed image reference}"
   : "${DATABASE_URL:?DATABASE_URL (Supabase transaction pooler string) is required}"
   : "${SECRET_KEY:?SECRET_KEY is required}"
+  : "${SUPABASE_URL:?SUPABASE_URL is required (the API refuses to start without it). Set it as a GitHub variable.}"
 
   local acr_server acr_user acr_pass
   acr_server="$(az acr show -n "$ACR_NAME" -g "$RG" --query loginServer -o tsv)"
@@ -99,11 +100,17 @@ apps() {
     "DEPLOY_ID=${GITHUB_RUN_ID:-local}.${GITHUB_RUN_ATTEMPT:-$(date +%s)}"
   )
   if [[ -n "${LLM_MODEL:-}" ]]; then envvars+=("LLM_MODEL=${LLM_MODEL}"); fi
+  envvars+=("SUPABASE_URL=${SUPABASE_URL}")
+  if [[ -n "${ADMIN_EMAILS:-}" ]]; then envvars+=("ADMIN_EMAILS=${ADMIN_EMAILS}"); fi
+  if [[ -n "${BOOTSTRAP_OWNER_EMAIL:-}" ]]; then
+    envvars+=("BOOTSTRAP_OWNER_EMAIL=${BOOTSTRAP_OWNER_EMAIL}")
+  fi
   if [[ -n "${LLM_CONCURRENCY:-}" ]]; then envvars+=("LLM_CONCURRENCY=${LLM_CONCURRENCY}"); fi
   local pair name var
   for pair in openai-api-key:OPENAI_API_KEY gemini-api-key:GEMINI_API_KEY \
               pubmed-api-key:PUBMED_API_KEY \
-              semantic-scholar-api-key:SEMANTIC_SCHOLAR_API_KEY unpaywall-email:UNPAYWALL_EMAIL; do
+              semantic-scholar-api-key:SEMANTIC_SCHOLAR_API_KEY unpaywall-email:UNPAYWALL_EMAIL \
+              supabase-jwt-secret:SUPABASE_JWT_SECRET; do
     name="${pair%%:*}"; var="${pair##*:}"
     if [[ -n "${!var:-}" ]]; then
       secrets+=("${name}=${!var}")

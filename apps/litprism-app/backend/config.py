@@ -25,6 +25,16 @@ class Settings(BaseSettings):
     # Comma-separated list of allowed browser origins, e.g.
     # "https://litprism.vercel.app,https://litprism.org". "*" allows any origin.
     cors_origins: str = "*"
+    # Auth (Supabase). SUPABASE_URL is the project URL, used for the JWKS endpoint and issuer.
+    supabase_url: str = ""
+    # Only for legacy HS256 Supabase projects; leave empty to verify via JWKS.
+    supabase_jwt_secret: str = ""
+    # Local dev / tests: every request is the fixed dev user, no token needed.
+    auth_disabled: bool = False
+    # Comma-separated emails with unlimited credits (Session 16.3).
+    admin_emails: str = ""
+    # First non-anonymous login with this email claims all ownerless projects.
+    bootstrap_owner_email: str = ""
 
     @field_validator("database_url")
     @classmethod
@@ -38,6 +48,10 @@ class Settings(BaseSettings):
     @property
     def cors_origin_list(self) -> list[str]:
         return [o.strip() for o in self.cors_origins.split(",") if o.strip()]
+
+    @property
+    def admin_email_list(self) -> list[str]:
+        return [e.strip().lower() for e in self.admin_emails.split(",") if e.strip()]
 
 
 settings = Settings()

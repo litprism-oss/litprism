@@ -62,6 +62,10 @@ overmind restart worker   # after changing tasks/
 overmind connect web      # attach to one process's logs
 ```
 
+The API refuses to start unless `SUPABASE_URL` is set or `AUTH_DISABLED=true`. For local
+work put `AUTH_DISABLED=true` in the repo-root `.env`: every request is then the dev user,
+who also adopts projects created before login existed.
+
 `beat` drives the screening watchdog every 3 minutes; without it, stuck runs are not
 re-dispatched. Redis must be reachable at the broker URL in `apps/litprism-app/.env`
 (`redis-cli ping` → `PONG`).

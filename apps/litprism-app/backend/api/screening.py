@@ -5,6 +5,7 @@ from typing import Annotated
 from db.engine import get_db
 from db.models import Article, Project, ScreeningResult, ScreeningRun
 from db.models import Criteria as DBCriteria
+from dependencies import get_owned_project, require_member
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from litprism.screen.criteria import Criteria
 from litprism.screen.models import ReviewType as ScreenReviewType
@@ -30,7 +31,9 @@ from api.schemas import (
     ScreeningRunUpdate,
 )
 
-router = APIRouter(prefix="/projects", tags=["screening"])
+router = APIRouter(
+    prefix="/projects", tags=["screening"], dependencies=[Depends(get_owned_project)]
+)
 
 DB = Annotated[AsyncSession, Depends(get_db)]
 
@@ -105,7 +108,12 @@ async def screening_preview(
 # ---------------------------------------------------------------------------
 
 
-@router.post("/{project_id}/screening/run", status_code=202, response_model=ScreeningRunOut)
+@router.post(
+    "/{project_id}/screening/run",
+    status_code=202,
+    response_model=ScreeningRunOut,
+    dependencies=[Depends(require_member)],
+)
 async def create_or_resume_screening_run(
     project_id: str,
     body: ScreeningRunCreate,
@@ -234,6 +242,7 @@ async def get_screening_run(
     "/{project_id}/screening/runs/{run_id}/resume",
     status_code=202,
     response_model=ScreeningRunOut,
+    dependencies=[Depends(require_member)],
 )
 async def resume_screening_run(
     project_id: str,
@@ -443,6 +452,7 @@ async def list_screening_results(
     "/{project_id}/screening/runs/{run_id}/retry-failed",
     status_code=202,
     response_model=RetryFailedOut,
+    dependencies=[Depends(require_member)],
 )
 async def retry_failed_screening(
     project_id: str,
@@ -611,6 +621,7 @@ async def get_fulltext_eligibility(
     "/{project_id}/screening/fulltext-run",
     status_code=202,
     response_model=ScreeningRunOut,
+    dependencies=[Depends(require_member)],
 )
 async def start_fulltext_screening(
     project_id: str,

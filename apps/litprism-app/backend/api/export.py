@@ -11,6 +11,7 @@ from db.models import (
     SourceQuery,
     UploadRecord,
 )
+from dependencies import get_owned_project
 from fastapi import APIRouter, Depends, HTTPException, Query
 from services.export import export_articles, generate_prisma_s_docx
 from sqlalchemy import case, func, select
@@ -21,7 +22,7 @@ from api.schemas import PRISMAFlowCountsOut
 
 DB = Annotated[AsyncSession, Depends(get_db)]
 
-router = APIRouter(prefix="/projects", tags=["export"])
+router = APIRouter(prefix="/projects", tags=["export"], dependencies=[Depends(get_owned_project)])
 
 _CONTENT_TYPES = {
     "ris": "application/x-research-info-systems",

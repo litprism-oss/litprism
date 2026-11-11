@@ -149,7 +149,7 @@ class Harness:
 
 
 @pytest_asyncio.fixture
-async def harness():
+async def harness(seed_test_users):
     engine = create_async_engine(
         "sqlite+aiosqlite:///:memory:",
         connect_args={"check_same_thread": False},
@@ -165,6 +165,8 @@ async def harness():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     factory = async_sessionmaker(engine, expire_on_commit=False)
+    async with factory() as session:
+        await seed_test_users(session)
 
     async def _get_db():
         async with factory() as session:

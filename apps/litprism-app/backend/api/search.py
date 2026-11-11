@@ -7,7 +7,7 @@ import httpx
 from config import settings
 from db.engine import AsyncSessionLocal, get_db
 from db.models import Article, Project, SearchRun, SourceQuery, UploadArticle, UploadRecord
-from dependencies import get_ws_manager
+from dependencies import get_owned_project, get_ws_manager
 from fastapi import (
     APIRouter,
     BackgroundTasks,
@@ -19,6 +19,7 @@ from fastapi import (
     status,
 )
 from litprism.pubmed.parser import parse_xml
+from services.auth import AuthError, authenticate_token, owns_project
 from services.pipeline import run_search
 from services.query_translator import QueryTranslator
 from sqlalchemy import func, select
@@ -39,7 +40,14 @@ from api.schemas import (
     SearchRunUpdate,
 )
 
-router = APIRouter(tags=["search"])
+router = APIRouter(tags=["search"], dependencies=[Depends(get_owned_project)])
+# The WebSocket can't carry an Authorization header, so it authenticates with a first
+# message and lives on its own router (router-level HTTP dependencies don't apply).
+ws_router = APIRouter(tags=["search"])
+
+_WS_AUTH_TIMEOUT_SECONDS = 5
+_WS_CLOSE_AUTH_FAILED = 4401  # app-defined 4xxx: bad/missing token or not the project owner
+_WS_CLOSE_TRY_AGAIN_LATER = 1013
 
 DB = Annotated[AsyncSession, Depends(get_db)]
 WS = Annotated[ConnectionManager, Depends(get_ws_manager)]
@@ -601,13 +609,43 @@ async def get_enrichment_status(
 # ---------------------------------------------------------------------------
 
 
-@router.websocket("/ws/{project_id}")
+async def _receive_token(ws: WebSocket) -> str | None:
+    """First client message must be {"token": "<access token>"}; None if absent."""
+    try:
+        message = await asyncio.wait_for(ws.receive_json(), timeout=_WS_AUTH_TIMEOUT_SECONDS)
+    except TimeoutError:
+        return None
+    token = message.get("token") if isinstance(message, dict) else None
+    return token if isinstance(token, str) else None
+
+
+@ws_router.websocket("/ws/{project_id}")
 async def websocket_search_progress(
     project_id: str,
     ws: WebSocket,
     manager: WS,
+    db: DB,
 ) -> None:
-    await manager.connect(project_id, ws)
+    await ws.accept()
+    try:
+        token = None if settings.auth_disabled else await _receive_token(ws)
+        user = await authenticate_token(token, db)
+        if not await owns_project(db, project_id, user.id):
+            raise AuthError("Project not found", status.HTTP_404_NOT_FOUND)
+    except AuthError as exc:
+        code = _WS_CLOSE_TRY_AGAIN_LATER if exc.status_code == 503 else _WS_CLOSE_AUTH_FAILED
+        await ws.close(code=code)
+        return
+    except (ValueError, KeyError):  # not JSON, or a binary frame
+        await ws.close(code=_WS_CLOSE_AUTH_FAILED)
+        return
+    except WebSocketDisconnect:
+        return
+    finally:
+        # Don't hold a pooled DB connection for the lifetime of the socket.
+        await db.close()
+
+    manager.register(project_id, ws)
     try:
         while True:
             await ws.receive_text()  # keep-alive; server pushes events
