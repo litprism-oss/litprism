@@ -69,7 +69,11 @@ apps() {
   : "${IMAGE:?IMAGE must be set to the pushed image reference}"
   : "${DATABASE_URL:?DATABASE_URL (Supabase transaction pooler string) is required}"
   : "${SECRET_KEY:?SECRET_KEY is required}"
-  : "${SUPABASE_URL:?SUPABASE_URL is required (the API refuses to start without it). Set it as a GitHub variable.}"
+  # Login is on by default. AUTH_DISABLED=true (GitHub variable) runs the API open: every
+  # visitor shares one account. Only for a short-lived demo; never with real users' data.
+  if [[ "${AUTH_DISABLED:-}" != "true" ]]; then
+    : "${SUPABASE_URL:?SUPABASE_URL is required (the API refuses to start without it). Set it as a GitHub variable, or set AUTH_DISABLED=true for an open demo.}"
+  fi
 
   local acr_server acr_user acr_pass
   acr_server="$(az acr show -n "$ACR_NAME" -g "$RG" --query loginServer -o tsv)"
@@ -100,7 +104,11 @@ apps() {
     "DEPLOY_ID=${GITHUB_RUN_ID:-local}.${GITHUB_RUN_ATTEMPT:-$(date +%s)}"
   )
   if [[ -n "${LLM_MODEL:-}" ]]; then envvars+=("LLM_MODEL=${LLM_MODEL}"); fi
-  envvars+=("SUPABASE_URL=${SUPABASE_URL}")
+  if [[ -n "${SUPABASE_URL:-}" ]]; then envvars+=("SUPABASE_URL=${SUPABASE_URL}"); fi
+  if [[ "${AUTH_DISABLED:-}" == "true" ]]; then
+    echo "WARNING: deploying with AUTH_DISABLED=true: the API is open to anyone with the link."
+    envvars+=("AUTH_DISABLED=true")
+  fi
   if [[ -n "${ADMIN_EMAILS:-}" ]]; then envvars+=("ADMIN_EMAILS=${ADMIN_EMAILS}"); fi
   if [[ -n "${BOOTSTRAP_OWNER_EMAIL:-}" ]]; then
     envvars+=("BOOTSTRAP_OWNER_EMAIL=${BOOTSTRAP_OWNER_EMAIL}")

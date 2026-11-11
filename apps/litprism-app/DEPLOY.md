@@ -115,6 +115,11 @@ For local development set `AUTH_DISABLED=true` in `.env` (see `.env.example`). E
 then the fixed dev user, who also adopts projects that predate login. Never set it in
 production. The API logs a warning at startup when it is on.
 
+**Open demo without login.** Set the GitHub variable `AUTH_DISABLED` = `true` instead of
+`SUPABASE_URL`, and leave the `VITE_SUPABASE_*` Vercel variables unset. Everyone with the link
+then shares one account and can see and delete every project. Fine for a free-key demo with
+disposable data; remove the variable and set up login before real use.
+
 ## 4. Deploy the backend
 
 **Actions → Deploy to Azure → Run workflow** (branch `dev`). It provisions the registry,
