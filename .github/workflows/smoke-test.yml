@@ -4,8 +4,6 @@ name: Smoke test
 # WebSocket progress) from a GitHub runner, so it needs no Azure login. It creates its
 # own projects and deletes only those. Safe to run after every deploy.
 on:
-  push:
-    branches: [chore/smoke-test]   # TEMPORARY: remove before merging
   workflow_dispatch:
     inputs:
       api_url:
