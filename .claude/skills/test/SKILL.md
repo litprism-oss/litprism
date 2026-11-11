@@ -41,6 +41,29 @@ Two traps:
 - `asyncio_mode = "auto"` — plain `async def test_…`, no decorator.
 - Lint test files like any other Python file (`ruff check` + `ruff format`).
 
+## What SQLite hides (production is Postgres)
+
+Green tests have twice passed code that failed on Azure. Two rules came out of it:
+- The test databases enforce foreign keys (`enforce_foreign_keys` in `tests/conftest.py`, and
+  the same pragma in the e2e harness). Keep it on. Write parents before children; when several
+  mapped objects reference each other in one flush, `await db.flush()` between them, because
+  SQLAlchemy doesn't order inserts by foreign key unless a `relationship()` says so.
+- Async engines are tied to the event loop that opened them. Celery tasks go through
+  `tasks/_async.py::run_async`, never a bare `asyncio.run` (an `ast` test enforces it).
+
+When a change touches the database layer, connections, bulk inserts or migrations, also run it
+against real Postgres. Docker is available:
+```bash
+docker run -d --rm --name lp-pg -p 55432:5432 -e POSTGRES_PASSWORD=pw postgres:16-alpine
+DATABASE_URL=postgresql://postgres:pw@localhost:55432/postgres uv run alembic upgrade head
+```
+Supabase's pooler does not support prepared statements in transaction mode, so to reproduce
+pooler bugs put PgBouncer in front with `POOL_MODE=transaction MAX_PREPARED_STATEMENTS=0`
+(image `edoburu/pgbouncer`, both containers on one `docker network`). PgBouncer's default
+supports prepared statements and **hides** the bug.
+
+Shell gotcha: don't name a zsh loop variable `path`; it is tied to `PATH`.
+
 ## The end-to-end harness
 
 `tests/test_e2e_screening_flow.py` runs the **real** routes and **real** Celery task

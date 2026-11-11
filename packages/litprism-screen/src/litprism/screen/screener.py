@@ -12,7 +12,13 @@ from litprism.screen.grounding import (
     derive_decision,
     validate_and_build,
 )
-from litprism.screen.llm import AzureOpenAIConfig, LLMConfig, _get_timeout, call_llm
+from litprism.screen.llm import (
+    AzureOpenAIConfig,
+    LLMConfig,
+    call_budget,
+    call_llm,
+    default_concurrency,
+)
 from litprism.screen.llm import from_env as _llm_from_env
 from litprism.screen.models import ScreenableArticle, ScreeningResult
 from litprism.screen.prompts import build_prompt
@@ -27,9 +33,14 @@ class Screener:
         self._sem = asyncio.Semaphore(concurrency)
 
     @classmethod
-    def from_env(cls, concurrency: int = 10) -> "Screener":
-        """Construct a Screener from environment variables."""
-        return cls(_llm_from_env(), concurrency)
+    def from_env(cls, concurrency: int | None = None) -> "Screener":
+        """Construct a Screener from environment variables.
+
+        concurrency defaults to LLM_CONCURRENCY, else a per-provider value (3 for Gemini,
+        whose free tier rate-limits quickly; 10 otherwise).
+        """
+        config = _llm_from_env()
+        return cls(config, concurrency or default_concurrency(config))
 
     async def _ask(self, prompt: str) -> _LLMResponse:
         """Call the LLM and parse its JSON reply.
@@ -41,7 +52,7 @@ class Screener:
         for attempt in range(1, _MAX_ATTEMPTS + 1):
             raw = await asyncio.wait_for(
                 call_llm(self._config, prompt),
-                timeout=_get_timeout(self._config) + 5,  # belt-and-suspenders outer guard
+                timeout=call_budget(self._config),  # outer guard over retries and rate-limit waits
             )
             try:
                 return _LLMResponse.model_validate_json(_extract_json(raw))

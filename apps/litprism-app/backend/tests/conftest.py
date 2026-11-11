@@ -12,6 +12,7 @@ from httpx import ASGITransport, AsyncClient
 from litprism.pubmed.models import Article as PubMedArticle
 from litprism.screen import ScreeningResult as ScreenResult
 from services.auth import AuthUser
+from sqlalchemy import event
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.pool import StaticPool
 
@@ -51,6 +52,18 @@ def seed_test_users():
     return _seed
 
 
+def enforce_foreign_keys(engine) -> None:
+    """SQLite ignores foreign keys unless asked. Postgres (production) never does, so
+    without this a write that references a row not yet inserted passes every test here
+    and then fails in production with a ForeignKeyViolationError."""
+
+    @event.listens_for(engine.sync_engine, "connect")
+    def _pragma(dbapi_connection, _record) -> None:
+        cursor = dbapi_connection.cursor()
+        cursor.execute("PRAGMA foreign_keys=ON")
+        cursor.close()
+
+
 @pytest_asyncio.fixture(scope="function")
 async def db():
     """In-memory SQLite for tests — no real DB needed."""
@@ -59,6 +72,7 @@ async def db():
         connect_args={"check_same_thread": False},
         poolclass=StaticPool,
     )
+    enforce_foreign_keys(engine)
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     factory = async_sessionmaker(engine, expire_on_commit=False)

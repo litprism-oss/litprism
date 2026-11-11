@@ -1,0 +1,57 @@
+name: Azure ops
+
+# Manual only. Read the deployed apps' status and (redacted) logs, or restart one.
+# Must run from `dev`: the Azure login trusts only that branch (see DEPLOY.md).
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: What to do
+        type: choice
+        options: [status, logs, restart, domain-info, domain-bind, domain-status]
+        default: logs
+      app:
+        description: Which app
+        type: choice
+        options: [litprism-api, litprism-worker]
+        default: litprism-api
+      lines:
+        description: Log lines to show (logs only)
+        default: "150"
+      hostname:
+        description: Name to bind, under litprism.org (domain-bind only), e.g. api.litprism.org
+        default: ""
+
+concurrency:
+  group: azure-ops
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write   # OIDC login to Azure, no stored password
+
+env:
+  RESOURCE_GROUP: litprism-rg
+
+jobs:
+  ops:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # Inputs go through env, never interpolated into the script.
+      - name: Run
+        env:
+          ACTION: ${{ inputs.action }}
+          APP: ${{ inputs.app }}
+          LINES: ${{ inputs.lines }}
+          HOSTNAME_ARG: ${{ inputs.hostname }}
+        run: bash apps/litprism-app/azure/ops.sh

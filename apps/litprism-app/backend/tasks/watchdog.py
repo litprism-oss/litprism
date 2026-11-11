@@ -1,6 +1,7 @@
 import asyncio
 import logging
 
+from tasks._async import run_async
 from tasks.celery_app import celery_app
 
 logger = logging.getLogger(__name__)
@@ -10,7 +11,7 @@ _STUCK_THRESHOLD_SECONDS = 180  # run must be running for > 3 min with empty que
 
 @celery_app.task
 def watchdog() -> None:
-    asyncio.run(_run_watchdog())
+    run_async(_run_watchdog())
 
 
 def _in_flight_task_args() -> list[str]:

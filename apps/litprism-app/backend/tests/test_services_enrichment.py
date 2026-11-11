@@ -4,7 +4,7 @@ import uuid
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
-from db.models import Article
+from db.models import Article, Project
 from services.enrichment import _enrich_by_doi, _enrich_by_pmid, _enrich_by_title, enrich_articles
 
 
@@ -17,6 +17,10 @@ def mock_settings():
 
 
 async def _add_article(db, **kwargs) -> Article:
+    project_id = kwargs.get("project_id", "proj-1")
+    if await db.get(Project, project_id) is None:  # articles have a foreign key to projects
+        db.add(Project(id=project_id, name="Enrichment tests", review_type="systematic"))
+        await db.commit()
     defaults = {
         "id": str(uuid.uuid4()),
         "project_id": "proj-1",

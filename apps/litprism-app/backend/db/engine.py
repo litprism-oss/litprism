@@ -8,14 +8,19 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 
 def _engine_kwargs(url: str) -> dict[str, Any]:
     """Postgres via a transaction pooler (Supabase :6543, PgBouncer) cannot reuse
-    prepared statements across connections, so disable asyncpg's statement cache
-    and give each prepared statement a unique name."""
+    prepared statements across connections. Two separate caches must be switched off:
+    asyncpg's own (statement_cache_size) and SQLAlchemy's asyncpg dialect's
+    (prepared_statement_cache_size, default 100). With only the first off, a statement
+    prepared on one pooled connection is replayed on another and Postgres answers
+    'prepared statement ... does not exist' (a 500 on roughly 40% of requests under load).
+    Each statement also gets a unique name so concurrent ones can't collide."""
     if not url.startswith("postgresql+asyncpg://"):
         return {}
     return {
         "pool_pre_ping": True,
         "connect_args": {
             "statement_cache_size": 0,
+            "prepared_statement_cache_size": 0,
             "prepared_statement_name_func": lambda: f"__asyncpg_{uuid.uuid4()}__",
         },
     }

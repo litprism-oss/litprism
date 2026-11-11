@@ -24,7 +24,7 @@ from httpx import ASGITransport, AsyncClient
 from litellm import ContentPolicyViolationError
 from litprism.screen import ScreeningResult as ScreenResult
 from litprism.screen.exceptions import ScreeningError
-from sqlalchemy import func, select
+from sqlalchemy import event, func, select
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.pool import StaticPool
 from tasks.screening import _run_chunk, _run_coordinator
@@ -155,6 +155,13 @@ async def harness(seed_test_users):
         connect_args={"check_same_thread": False},
         poolclass=StaticPool,
     )
+
+    @event.listens_for(engine.sync_engine, "connect")
+    def _enforce_foreign_keys(dbapi_connection, _record) -> None:  # Postgres always does
+        cursor = dbapi_connection.cursor()
+        cursor.execute("PRAGMA foreign_keys=ON")
+        cursor.close()
+
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     factory = async_sessionmaker(engine, expire_on_commit=False)

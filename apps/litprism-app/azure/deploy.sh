@@ -105,6 +105,7 @@ apps() {
   if [[ -n "${BOOTSTRAP_OWNER_EMAIL:-}" ]]; then
     envvars+=("BOOTSTRAP_OWNER_EMAIL=${BOOTSTRAP_OWNER_EMAIL}")
   fi
+  if [[ -n "${LLM_CONCURRENCY:-}" ]]; then envvars+=("LLM_CONCURRENCY=${LLM_CONCURRENCY}"); fi
   local pair name var
   for pair in openai-api-key:OPENAI_API_KEY gemini-api-key:GEMINI_API_KEY \
               pubmed-api-key:PUBMED_API_KEY \
