@@ -23,6 +23,8 @@ import type {
   FulltextStatusOut,
   RetryFailedOut,
   LabelCheckOut,
+  BenchmarkDatasetOut,
+  BenchmarkRunOut,
 } from '@/lib/types'
 import { getAccessToken } from '@/lib/supabase'
 
@@ -53,6 +55,11 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
 }
 
 export const api = {
+  benchmarks: {
+    list: () => request<BenchmarkDatasetOut[]>('/benchmarks'),
+    start: (slug: string) =>
+      request<BenchmarkRunOut>(`/benchmarks/${slug}/run`, { method: 'POST' }),
+  },
   projects: {
     list: () => request<ProjectOut[]>('/projects'),
     get: (id: string) => request<ProjectOut>(`/projects/${id}`),

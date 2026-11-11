@@ -327,3 +327,50 @@ class ChatMessage(Base):
     )
 
     project: Mapped["Project"] = relationship(back_populates="chat_messages")
+
+
+class BenchmarkDataset(Base):
+    """A built-in labelled dataset (invented records) that anyone can screen to measure
+    how well the configured LLM and the criteria perform."""
+
+    __tablename__ = "benchmark_datasets"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    slug: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+    name: Mapped[str] = mapped_column(String, nullable=False)
+    description: Mapped[str] = mapped_column(Text, nullable=False)
+    criteria: Mapped[dict] = mapped_column(JSON, nullable=False)
+    record_count: Mapped[int] = mapped_column(Integer, nullable=False)
+    relevant_count: Mapped[int] = mapped_column(Integer, nullable=False)
+
+
+class BenchmarkRecord(Base):
+    __tablename__ = "benchmark_records"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    dataset_id: Mapped[str] = mapped_column(
+        String, ForeignKey("benchmark_datasets.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    title: Mapped[str] = mapped_column(Text, nullable=False)
+    abstract: Mapped[str | None] = mapped_column(Text, nullable=True)
+    label: Mapped[bool] = mapped_column(Boolean, nullable=False)
+
+
+class BenchmarkRun(Base):
+    __tablename__ = "benchmark_runs"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    dataset_id: Mapped[str] = mapped_column(
+        String, ForeignKey("benchmark_datasets.id", ondelete="CASCADE"), nullable=False, index=True
+    )
+    owner_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    status: Mapped[str] = mapped_column(String, nullable=False, default="pending")
+    total: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    processed: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    model_used: Mapped[str | None] = mapped_column(String, nullable=True)
+    metrics: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    error: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )
+    completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)

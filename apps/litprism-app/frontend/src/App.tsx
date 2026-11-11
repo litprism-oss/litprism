@@ -11,6 +11,7 @@ import { ScreeningPage } from '@/pages/ScreeningPage'
 import { ScreeningResultsPage } from '@/pages/ScreeningResultsPage'
 import { ExportPage } from '@/pages/ExportPage'
 import { LabelCheckPage } from '@/pages/LabelCheckPage'
+import { BenchmarksPage } from '@/pages/BenchmarksPage'
 import { PRISMAPage } from '@/pages/PRISMAPage'
 import { ArticleListPage } from '@/pages/ArticleListPage'
 import { Toaster } from '@/components/ui/sonner'
@@ -33,6 +34,7 @@ export default function App() {
         <Routes>
           <Route element={<AppLayout />}>
             <Route index element={<DashboardPage />} />
+            <Route path="benchmarks" element={<BenchmarksPage />} />
             <Route path="projects/new" element={<NewProjectPage />} />
             <Route path="projects/:projectId" element={<ProjectOverviewPage />} />
             <Route path="projects/:projectId/search" element={<SearchPage />} />

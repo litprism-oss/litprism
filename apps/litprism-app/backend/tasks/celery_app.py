@@ -10,6 +10,7 @@ celery_app = Celery(
         "tasks.enrichment",
         "tasks.fulltext",
         "tasks.watchdog",
+        "tasks.benchmark",
     ],
 )
 celery_app.conf.task_serializer = "json"
