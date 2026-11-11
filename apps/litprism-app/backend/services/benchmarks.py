@@ -64,9 +64,14 @@ async def seed_datasets(db: AsyncSession) -> int:
     return added
 
 
-def score(results: list, labels: dict[str, bool], errors: int) -> dict:
-    """Metrics as a JSON-friendly dict (see litprism.screen.benchmark.compute_metrics)."""
+def score(
+    results: list, labels: dict[str, bool], errors: int, titles: dict[str, str] | None = None
+) -> dict:
+    """Metrics as a JSON-friendly dict (see litprism.screen.benchmark.compute_metrics),
+    plus what the AI kept, how many it was unsure about, and the relevant records it missed."""
     m = compute_metrics(results, labels, errors=errors)
+    titles = titles or {}
+    missed = [r for r in results if labels[r.article_id] and r.decision == "exclude"]
     return {
         "n": m.n,
         "relevant": m.relevant,
@@ -76,6 +81,12 @@ def score(results: list, labels: dict[str, bool], errors: int) -> dict:
         "specificity": m.specificity,
         "work_saved": m.work_saved,
         "missed": m.missed,
+        "kept": sum(1 for r in results if r.decision != "exclude"),
+        "uncertain": sum(1 for r in results if r.decision == "uncertain"),
+        "missed_records": [
+            {"title": titles.get(r.article_id, ""), "reasoning": (r.reasoning or "")[:400]}
+            for r in missed[:10]
+        ],
     }
 
 
