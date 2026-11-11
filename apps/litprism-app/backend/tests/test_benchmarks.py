@@ -110,3 +110,13 @@ async def test_seed_removes_datasets_that_are_no_longer_bundled(db):
     await seed_datasets(db)
     slugs = set((await db.execute(select(BenchmarkDataset.slug))).scalars())
     assert "old" not in slugs and len(slugs) == 4
+
+
+async def test_seed_refreshes_criteria_of_existing_datasets(db):
+    await seed_datasets(db)
+    ds = (await db.execute(select(BenchmarkDataset).limit(1))).scalar_one()
+    ds.criteria = {"inclusion": ["stale"], "exclusion": []}
+    await db.commit()
+    await seed_datasets(db)
+    await db.refresh(ds)
+    assert ds.criteria["inclusion"] != ["stale"]
