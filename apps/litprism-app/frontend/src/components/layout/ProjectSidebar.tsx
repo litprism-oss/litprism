@@ -316,6 +316,7 @@ export function ProjectSidebar() {
           <SubItem key={item.id} label={item.label} to={item.to} active={item.active} />
         ))}
         <NavItem label="PRISMA" to={`${base}/prisma`} active={active('prisma')} />
+        <NavItem label="Check labels" to={`${base}/label-check`} active={active('label-check')} />
       </div>
     </nav>
   )

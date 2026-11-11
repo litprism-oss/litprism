@@ -283,3 +283,16 @@ export interface FulltextScreeningEligibilityOut {
   retrieved: number
   unavailable: number
 }
+
+export interface LabelCheckOut {
+  uploaded: number
+  matched: number
+  unmatched: number
+  relevant: number
+  recall: number | null
+  precision: number | null
+  specificity: number | null
+  work_saved: number
+  missed: number
+  missed_titles: string[]
+}

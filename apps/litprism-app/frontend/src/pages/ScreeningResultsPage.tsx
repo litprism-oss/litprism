@@ -164,6 +164,23 @@ export function ScreeningResultsPage() {
         )}
       </div>
 
+      <div className="lp-page-pad" style={{ padding: '8px 24px 0' }}>
+        <button
+          onClick={() => navigate(`/projects/${projectId}/label-check`)}
+          style={{
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            fontSize: 12,
+            color: 'var(--color-text-info, #0C447C)',
+            cursor: 'pointer',
+            fontFamily: 'inherit',
+          }}
+        >
+          Check the AI against my own labels →
+        </button>
+      </div>
+
       {/* Cancelled run banner */}
       {isCancelled && !hasActiveRun && (
         <div

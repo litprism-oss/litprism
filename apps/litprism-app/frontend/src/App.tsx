@@ -10,6 +10,7 @@ import { CriteriaPage } from '@/pages/CriteriaPage'
 import { ScreeningPage } from '@/pages/ScreeningPage'
 import { ScreeningResultsPage } from '@/pages/ScreeningResultsPage'
 import { ExportPage } from '@/pages/ExportPage'
+import { LabelCheckPage } from '@/pages/LabelCheckPage'
 import { PRISMAPage } from '@/pages/PRISMAPage'
 import { ArticleListPage } from '@/pages/ArticleListPage'
 import { Toaster } from '@/components/ui/sonner'
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="projects/:projectId/criteria" element={<CriteriaPage />} />
             <Route path="projects/:projectId/screening" element={<ScreeningPage />} />
             <Route path="projects/:projectId/screening/results" element={<ScreeningResultsPage />} />
+            <Route path="projects/:projectId/label-check" element={<LabelCheckPage />} />
             <Route path="projects/:projectId/export" element={<ExportPage />} />
             <Route path="projects/:projectId/prisma" element={<PRISMAPage />} />
             <Route path="projects/:projectId/articles" element={<ArticleListPage />} />
