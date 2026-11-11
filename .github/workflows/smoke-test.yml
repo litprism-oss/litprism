@@ -1,0 +1,38 @@
+name: Smoke test
+
+# Manual only. Exercises the DEPLOYED API end to end (upload, LLM screening, search,
+# WebSocket progress) from a GitHub runner, so it needs no Azure login. It creates its
+# own projects and deletes only those. Safe to run after every deploy.
+on:
+  push:
+    branches: [chore/smoke-test]   # TEMPORARY: remove before merging
+  workflow_dispatch:
+    inputs:
+      api_url:
+        description: API base URL (no trailing slash)
+        default: https://litprism-api.happybay-e820cb65.westeurope.azurecontainerapps.io
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install websockets
+      - name: Run smoke test
+        env:
+          API_URL: ${{ inputs.api_url || 'https://litprism-api.happybay-e820cb65.westeurope.azurecontainerapps.io' }}
+          # Optional. Needed once the API enforces login (Session 16.2+): a Supabase
+          # access token of a member account. Leave the secret unset while auth is off.
+          SMOKE_TEST_TOKEN: ${{ secrets.SMOKE_TEST_TOKEN }}
+        run: |
+          args=("$API_URL")
+          if [[ -n "$SMOKE_TEST_TOKEN" ]]; then args+=(--token "$SMOKE_TEST_TOKEN"); fi
+          python apps/litprism-app/azure/smoke_test.py "${args[@]}" | tee smoke.log
+          { echo '### Smoke test'; echo '```'; cat smoke.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
