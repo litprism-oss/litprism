@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { useScreeningResults } from '@/hooks/useScreeningResults'
 import type { ScreeningRunOut } from '@/lib/types'
 
 interface Props {
@@ -27,6 +28,13 @@ export function ScreeningCompleteSummary({ projectId, run }: Props) {
   const navigate = useNavigate()
   const total = run.total_articles
   const duration = formatDuration(run.started_at, run.completed_at)
+
+  const count = (decision: 'include' | 'exclude' | 'uncertain') =>
+    // eslint-disable-next-line react-hooks/rules-of-hooks -- fixed call order, one per decision
+    useScreeningResults(projectId, { run_id: run.id, decision, page: 1, page_size: 1 }).data?.total
+  const included = count('include')
+  const excluded = count('exclude')
+  const uncertain = count('uncertain')
 
   function pct(n: number) {
     return total > 0 ? `${Math.round((n / total) * 100)}%` : '—'
@@ -70,6 +78,27 @@ export function ScreeningCompleteSummary({ projectId, run }: Props) {
           </div>
         ))}
       </div>
+
+      {included != null && (
+        <div style={{ display: 'flex', gap: 8, marginBottom: 20, flexWrap: 'wrap' }}>
+          {[
+            { label: 'Include', n: included, bg: '#EAF3DE', fg: '#27500A' },
+            { label: 'Exclude', n: excluded, bg: '#FCEBEB', fg: '#791F1F' },
+            { label: 'Uncertain', n: uncertain, bg: '#FAEEDA', fg: '#633806' },
+          ].map(({ label, n, bg, fg }) => (
+            <span key={label} style={{ fontSize: 11, padding: '3px 10px', borderRadius: 99, background: bg, color: fg }}>
+              {label} {n?.toLocaleString() ?? '—'}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {uncertain != null && uncertain > 0 && (
+        <p style={{ fontSize: 12, color: 'var(--color-text-secondary)', marginBottom: 16, lineHeight: 1.6 }}>
+          {uncertain.toLocaleString()} uncertain {uncertain === 1 ? 'article is' : 'articles are'} not
+          excluded. Review {uncertain === 1 ? 'it' : 'them'} next, or run full-text screening.
+        </p>
+      )}
 
       <button
         onClick={() => navigate(`/projects/${projectId}/screening/results`)}

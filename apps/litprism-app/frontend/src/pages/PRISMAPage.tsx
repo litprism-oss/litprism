@@ -72,13 +72,14 @@ function PhasePill({ label, color, height }: { label: string; color: string; hei
         style={{
           writingMode: 'vertical-rl',
           transform: 'rotate(180deg)',
-          fontSize: '11px',
+          fontSize: '10px',
           fontWeight: 500,
           color: '#fff',
-          padding: '8px 6px',
+          whiteSpace: 'nowrap',
+          padding: '4px',
           borderRadius: '4px',
           background: color,
-          height: height - 16,
+          height: height - 8,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -100,8 +101,8 @@ function PRISMADiagram({ counts }: { counts: PRISMAFlowCounts }) {
     <div style={{ display: 'flex', gap: '6px', alignItems: 'flex-start' }}>
       {/* Phase label column */}
       <div style={{ display: 'flex', flexDirection: 'column', width: '28px' }}>
-        <PhasePill label="Identification" color="#378ADD" height={80} />
-        <div style={{ height: '16px' }} />
+        <PhasePill label="Identification" color="#378ADD" height={88} />
+        <div style={{ height: '8px' }} />
         <PhasePill label="Screening" color="#639922" height={72} />
         <div style={{ height: '16px' }} />
         <PhasePill label="Eligibility" color="#888780" height={72} />
