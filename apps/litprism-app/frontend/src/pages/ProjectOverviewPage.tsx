@@ -28,35 +28,24 @@ export function ProjectOverviewPage() {
   const { data: project, isLoading: projectLoading } = useProject(projectId ?? '')
   const { data: searchRuns } = useSearchRuns(projectId ?? '')
 
-  const completedRun = searchRuns?.find((r) => r.status === 'completed')
   const lockedRun = searchRuns?.find((r) => r.status === 'locked')
-  const hasCompletedSearch = !!completedRun
 
-  const currentStep: 1 | 2 | 3 = hasCompletedSearch ? 2 : 1
+  const articleCount = project?.article_count ?? 0
+  const screenedCount = project?.screened_count ?? 0
+  const includedCount = project?.included_count ?? 0
 
-  const articleCount = completedRun?.source_queries?.reduce(
-    (sum, sq) => sum + sq.result_count, 0,
-  ) ?? (hasCompletedSearch ? 0 : undefined)
+  // Step is derived from real data, so uploads count the same as API searches.
+  const currentStep: 1 | 2 | 3 = screenedCount > 0 ? 3 : articleCount > 0 ? 2 : 1
 
-  function handleCTA() {
+  function nextAction(): { label: string; path: string } {
     const base = `/projects/${projectId}`
-    if (!searchRuns?.length || searchRuns.every((r) => r.status === 'draft')) {
-      navigate(`${base}/search`)
-    } else if (lockedRun) {
-      navigate(`${base}/search`)
-    } else if (hasCompletedSearch) {
-      navigate(`${base}/criteria`)
-    } else {
-      navigate(`${base}/search`)
-    }
+    if (lockedRun) return { label: 'View search progress →', path: `${base}/search` }
+    if (articleCount === 0) return { label: 'Start searching →', path: `${base}/search` }
+    if (!project?.has_criteria) return { label: 'Set up criteria →', path: `${base}/criteria` }
+    if (screenedCount === 0) return { label: 'Start screening →', path: `${base}/screening` }
+    return { label: 'View results →', path: `${base}/screening/results` }
   }
-
-  const ctaLabel = (() => {
-    if (!searchRuns?.length || searchRuns.every((r) => r.status === 'draft')) return 'Start searching →'
-    if (lockedRun) return 'View search progress →'
-    if (hasCompletedSearch) return 'Set up screening →'
-    return 'Start searching →'
-  })()
+  const cta = nextAction()
 
   if (projectLoading) {
     return (
@@ -102,14 +91,14 @@ export function ProjectOverviewPage() {
         gap: 12,
         marginBottom: 24,
       }}>
-        <StatCard label="Articles"  value={articleCount ?? 0} />
-        <StatCard label="Screened"  value={0} />
-        <StatCard label="Included"  value={0} />
+        <StatCard label="Articles"  value={articleCount} />
+        <StatCard label="Screened"  value={screenedCount} />
+        <StatCard label="Included"  value={includedCount} />
       </div>
 
       {/* CTA */}
       <button
-        onClick={handleCTA}
+        onClick={() => navigate(cta.path)}
         style={{
           background: 'var(--color-text-primary)',
           color: 'var(--color-background-primary)',
@@ -120,7 +109,7 @@ export function ProjectOverviewPage() {
           cursor: 'pointer',
         }}
       >
-        {ctaLabel}
+        {cta.label}
       </button>
     </div>
   )

@@ -12,6 +12,10 @@ export interface ProjectOut {
   research_question: string | null
   review_type: ReviewType
   created_at: string
+  article_count: number
+  screened_count: number
+  included_count: number
+  has_criteria: boolean
 }
 
 export interface ProjectCreate {

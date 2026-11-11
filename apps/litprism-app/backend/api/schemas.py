@@ -30,6 +30,12 @@ class ProjectOut(BaseModel):
     research_question: str | None
     review_type: ReviewType
     created_at: datetime
+    # Live counts (filled by the projects routes). `included_count` uses the latest
+    # screening result per article, with a human override taking precedence.
+    article_count: int = 0
+    screened_count: int = 0
+    included_count: int = 0
+    has_criteria: bool = False
     model_config = ConfigDict(from_attributes=True)
 
 
