@@ -424,3 +424,16 @@ class PRISMAFlowCountsOut(BaseModel):
     fulltext_assessed: int | None  # None until any full-text result exists
     fulltext_excluded: int | None
     studies_included: int  # abstract includes + full-text includes
+
+
+class LabelCheckOut(BaseModel):
+    uploaded: int
+    matched: int
+    unmatched: int
+    relevant: int = 0
+    recall: float | None = None
+    precision: float | None = None
+    specificity: float | None = None
+    work_saved: float = 0.0
+    missed: int = 0
+    missed_titles: list[str] = []

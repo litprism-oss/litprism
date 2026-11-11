@@ -6,10 +6,11 @@ from db.engine import get_db
 from db.models import Article, Project, ScreeningResult, ScreeningRun
 from db.models import Criteria as DBCriteria
 from dependencies import get_owned_project, require_member
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile, status
 from litprism.screen.criteria import Criteria
 from litprism.screen.models import ReviewType as ScreenReviewType
 from litprism.screen.screener import Screener
+from services.label_check import compare, parse_labels
 from services.screening import get_fulltext_eligible_articles
 from sqlalchemy import case, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -21,6 +22,7 @@ from api.schemas import (
     CriteriaHitOut,
     FulltextScreeningEligibilityOut,
     HumanOverrideRequest,
+    LabelCheckOut,
     PreviewCriteriaHit,
     RetryFailedOut,
     ScreeningPreviewRequest,
@@ -675,3 +677,60 @@ async def start_fulltext_screening(
 
     screen_coordinator.delay(run.id)
     return run
+
+
+@router.post("/{project_id}/screening/label-check", response_model=LabelCheckOut)
+async def label_check(
+    project_id: str, db: DB, file: Annotated[UploadFile, File()]
+) -> LabelCheckOut:
+    """Compare the AI's decisions with the reviewer's own labels from a CSV.
+
+    Uses the latest AI decision per article (human overrides are ignored on purpose, they
+    are the reviewer's labels). No LLM calls: it only reads existing screening results.
+    """
+    raw = await file.read(5_000_001)
+    if len(raw) > 5_000_000:
+        raise HTTPException(status_code=413, detail="File is larger than 5 MB.")
+    try:
+        rows = parse_labels(raw)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+    ranked = (
+        select(
+            ScreeningResult.article_id.label("article_id"),
+            ScreeningResult.decision.label("decision"),
+            func.row_number()
+            .over(
+                partition_by=ScreeningResult.article_id,
+                order_by=ScreeningResult.screened_at.desc(),
+            )
+            .label("rn"),
+        )
+        .where(ScreeningResult.project_id == project_id, ScreeningResult.decision != "error")
+        .subquery()
+    )
+    found = (
+        await db.execute(
+            select(Article.id, Article.title, Article.doi, ranked.c.decision)
+            .join(ranked, ranked.c.article_id == Article.id)
+            .where(ranked.c.rn == 1)
+        )
+    ).all()
+    if not found:
+        raise HTTPException(status_code=409, detail="Screen some articles first.")
+
+    result = compare(rows, [(a, t, d, dec) for a, t, d, dec in found])
+    m = result.metrics
+    return LabelCheckOut(
+        uploaded=result.uploaded,
+        matched=result.matched,
+        unmatched=result.unmatched,
+        relevant=m.relevant if m else 0,
+        recall=m.recall if m else None,
+        precision=m.precision if m else None,
+        specificity=m.specificity if m else None,
+        work_saved=m.work_saved if m else 0.0,
+        missed=result.missed_total,
+        missed_titles=result.missed_titles,
+    )

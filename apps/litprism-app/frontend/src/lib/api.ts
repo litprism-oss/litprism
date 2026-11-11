@@ -22,6 +22,7 @@ import type {
   FulltextScreeningEligibilityOut,
   FulltextStatusOut,
   RetryFailedOut,
+  LabelCheckOut,
 } from '@/lib/types'
 import { getAccessToken } from '@/lib/supabase'
 
@@ -149,6 +150,19 @@ export const api = {
       }),
   },
   screening: {
+    labelCheck: async (projectId: string, file: File): Promise<LabelCheckOut> => {
+      const form = new FormData()
+      form.append('file', file)
+      const res = await authFetch(`/projects/${projectId}/screening/label-check`, {
+        method: 'POST',
+        body: form,
+      })
+      if (!res.ok) {
+        const error = await res.json().catch(() => ({ detail: res.statusText }))
+        throw new Error((error as { detail?: string }).detail ?? 'Request failed')
+      }
+      return res.json() as Promise<LabelCheckOut>
+    },
     start: (projectId: string, body: ScreeningRunCreate) =>
       request<ScreeningRunOut>(`/projects/${projectId}/screening/run`, {
         method: 'POST',
