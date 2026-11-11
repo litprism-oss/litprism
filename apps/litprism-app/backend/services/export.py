@@ -18,7 +18,7 @@ from db.models import (
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.shared import Inches, Pt
-from sqlalchemy import func, select
+from sqlalchemy import case, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 _EXPORT_FORMATS = {"ris", "nbib", "csv", "json", "asreview", "prisma-s"}
@@ -256,11 +256,77 @@ def _to_asreview(articles_with_decisions: list[tuple]) -> bytes:
 # ---------------------------------------------------------------------------
 
 
+async def load_ai_use(project_id: str, db: AsyncSession) -> list[dict]:
+    """Summarise which models screened this project's records, for the AI-use disclosure.
+
+    One row per (provider, model, stage): record count, date range, and how many of those
+    decisions a human later overrode.
+    """
+    rows = (
+        await db.execute(
+            select(
+                ScreeningResult.llm_provider,
+                ScreeningResult.model_used,
+                ScreeningResult.stage,
+                func.count(ScreeningResult.id),
+                func.min(ScreeningResult.screened_at),
+                func.max(ScreeningResult.screened_at),
+                func.sum(case((ScreeningResult.human_override.is_(True), 1), else_=0)),
+            )
+            .where(ScreeningResult.project_id == project_id)
+            .group_by(
+                ScreeningResult.llm_provider, ScreeningResult.model_used, ScreeningResult.stage
+            )
+            .order_by(ScreeningResult.stage, ScreeningResult.model_used)
+        )
+    ).all()
+    return [
+        {
+            "provider": r[0],
+            "model": r[1],
+            "stage": r[2],
+            "records": r[3],
+            "first": r[4],
+            "last": r[5],
+            "overridden": int(r[6] or 0),
+        }
+        for r in rows
+    ]
+
+
+def _add_ai_disclosure(doc: Document, ai_use: list[dict]) -> None:
+    """A ready-to-paste statement on AI-assisted screening (reporting guidance asks for it)."""
+    doc.add_paragraph()
+    doc.add_heading("AI-assisted screening disclosure", level=2)
+    stage_names = {"abstract": "title and abstract", "fulltext": "full-text"}
+    parts = []
+    for u in ai_use:
+        first, last = u["first"], u["last"]
+        when = first.strftime("%d %B %Y") if first else "an unrecorded date"
+        if first and last and first.date() != last.date():
+            when = f"{first.strftime('%d %B %Y')} to {last.strftime('%d %B %Y')}"
+        parts.append(
+            f"{u['records']:,} {stage_names.get(u['stage'], u['stage'])} records were screened "
+            f"by the large language model {u['model']} ({u['provider']}) on {when}; "
+            f"{u['overridden']:,} of these decisions were overridden by a human reviewer"
+        )
+    doc.add_paragraph(
+        "Screening used LitPrism's criteria-based LLM screening. Each record was assessed "
+        "against every eligibility criterion, each confirmed or refuted criterion was "
+        "supported by a quotation from the record, and records the model could not assess "
+        "were routed to full-text review rather than excluded. "
+        + "; ".join(parts)
+        + ". The model's output is a screening aid, and a human reviewer should verify "
+        "included, excluded and uncertain records before reporting."
+    )
+
+
 def generate_prisma_s_docx(
     project: Project,
     source_queries: list[SourceQuery],
     upload_records: list[UploadRecord],
     prisma_counts: dict,
+    ai_use: list[dict] | None = None,
 ) -> bytes:
     """
     Generate a PRISMA-S supplementary search strategy document.
@@ -311,6 +377,9 @@ def generate_prisma_s_docx(
         summary_tbl.rows[i].cells[0].text = label
         summary_tbl.rows[i].cells[1].text = value
         summary_tbl.rows[i].cells[1].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.RIGHT
+
+    if ai_use:
+        _add_ai_disclosure(doc, ai_use)
 
     # Reference
     doc.add_paragraph()
@@ -460,4 +529,5 @@ async def _to_prisma_s(project_id: str, db: AsyncSession) -> bytes:
         "records_screened": records_screened,
     }
 
-    return generate_prisma_s_docx(project, source_queries, upload_records, prisma_counts)
+    ai_use = await load_ai_use(project_id, db)
+    return generate_prisma_s_docx(project, source_queries, upload_records, prisma_counts, ai_use)
