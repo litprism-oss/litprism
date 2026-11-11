@@ -24,11 +24,11 @@ const STATUS_COLOURS = {
   draft:     { bg: 'var(--color-background-secondary)', text: 'var(--color-text-secondary)' },
 }
 
-function statusBadge(run?: SearchRunOut) {
-  if (!run)                  return { label: 'Draft',      colours: STATUS_COLOURS.draft }
-  if (run.status === 'locked')    return { label: '● Searching…', colours: STATUS_COLOURS.searching }
-  if (run.status === 'completed') return { label: '✓ Complete',   colours: STATUS_COLOURS.complete }
-  if (run.status === 'failed')    return { label: 'Search failed', colours: STATUS_COLOURS.failed }
+function statusBadge(project: ProjectOut, run?: SearchRunOut) {
+  if (run?.status === 'locked') return { label: '● Searching…', colours: STATUS_COLOURS.searching }
+  if (project.screened_count > 0) return { label: '✓ Screened', colours: STATUS_COLOURS.complete }
+  if (project.article_count > 0) return { label: 'Ready to screen', colours: STATUS_COLOURS.searching }
+  if (run?.status === 'failed') return { label: 'Search failed', colours: STATUS_COLOURS.failed }
   return { label: 'Draft', colours: STATUS_COLOURS.draft }
 }
 
@@ -68,9 +68,9 @@ export function ProjectCard(props: ProjectCardProps) {
 
   const { project, latestRun } = props
   const reviewColours = REVIEW_TYPE_COLOURS[project.review_type]
-  const { label: statusLabel, colours: statusColours } = statusBadge(latestRun)
+  const { label: statusLabel, colours: statusColours } = statusBadge(project, latestRun)
 
-  const articleCount = latestRun?.source_queries?.reduce((sum, sq) => sum + sq.result_count, 0) ?? 0
+  const articleCount = project.article_count
 
   return (
     <div
@@ -129,7 +129,7 @@ export function ProjectCard(props: ProjectCardProps) {
         {articleCount.toLocaleString()}
       </p>
       <p style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>
-        articles
+        articles{project.screened_count > 0 ? ` · ${project.included_count} included` : ''}
       </p>
 
       <div style={{

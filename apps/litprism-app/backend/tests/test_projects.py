@@ -29,3 +29,43 @@ async def test_delete_project(client, project_id):
     assert resp.status_code == 204
     get = await client.get(f"/projects/{project_id}")
     assert get.status_code == 404
+
+
+async def test_project_stats_reflect_articles_and_screening(client, db, project_id):
+    from datetime import UTC, datetime
+
+    from db.models import Article, Criteria, ScreeningResult
+
+    now = datetime.now(UTC)
+    crit = Criteria(
+        id="c1", project_id=project_id, version=1, inclusion=["a"], exclusion=[], created_at=now
+    )
+    db.add(crit)
+    for i, (d, human) in enumerate([("include", None), ("exclude", "include"), ("exclude", None)]):
+        db.add(Article(id=f"a{i}", project_id=project_id, title=f"t{i}", source="upload"))
+        db.add(
+            ScreeningResult(
+                id=f"r{i}",
+                article_id=f"a{i}",
+                project_id=project_id,
+                criteria_id="c1",
+                stage="abstract",
+                decision=d,
+                human_decision=human,
+                confidence=0.9,
+                reasoning="x",
+                criteria_hits=[],
+                model_used="m",
+                llm_provider="p",
+                screened_at=now,
+            )
+        )
+    await db.commit()
+
+    body = (await client.get(f"/projects/{project_id}")).json()
+    assert body["article_count"] == 3
+    assert body["screened_count"] == 3
+    assert body["included_count"] == 2  # one model include + one human override to include
+    assert body["has_criteria"] is True
+    listed = (await client.get("/projects")).json()
+    assert next(p for p in listed if p["id"] == project_id)["article_count"] == 3
