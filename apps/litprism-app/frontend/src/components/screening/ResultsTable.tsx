@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useScreeningResults } from '@/hooks/useScreeningResults'
 import { DecisionBadge } from './DecisionBadge'
 import { ScreeningDetailPanel } from './ScreeningDetailPanel'
-import { ResultCard } from './ResultCard'
+import { ResultCard, OverrideButtons } from './ResultCard'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import type { ArticleWithResult, ScreeningDecision } from '@/lib/types'
 
@@ -120,63 +120,96 @@ export function ResultsTable({ projectId, runId, activeTab: controlledTab, onTab
           ))}
         </div>
       )}
-      {data && !isMobile && data.items.map(article => {
-        const result = article.screening_result
-        const srcColour = SOURCE_COLOURS[article.source] ?? SOURCE_COLOURS.upload
-        const srcLabel  = SOURCE_LABELS[article.source]  ?? article.source
+      {data && !isMobile && (
+        <div
+          style={{
+            background: 'var(--color-background-primary)',
+            border: '0.5px solid var(--color-border-tertiary)',
+            borderRadius: 'var(--border-radius-lg)',
+            overflow: 'hidden',
+          }}
+        >
+          {data.items.map((article, idx) => {
+            const result = article.screening_result
+            const srcColour = SOURCE_COLOURS[article.source] ?? SOURCE_COLOURS.upload
+            const srcLabel  = SOURCE_LABELS[article.source]  ?? article.source
+            const quote = result?.criteria_hits.find(h => h.supporting_quote)?.supporting_quote ?? null
 
-        return (
-          <div
-            key={article.id}
-            onClick={() => setSelected(article)}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 12,
-              padding: '10px 0',
-              borderBottom: '0.5px solid var(--color-border-tertiary)',
-              cursor: 'pointer',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.background = 'var(--color-background-secondary)')}
-            onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
-          >
-            <span style={{ flex: 1, fontSize: 13, color: 'var(--color-text-primary)', lineHeight: 1.4 }}>
-              {article.title}
-            </span>
-            {result ? (
-              <>
-                <DecisionBadge decision={result.decision} human_override={result.human_override} size="sm" />
-                <span
-                  style={{
-                    fontSize: 12,
-                    width: 36,
-                    textAlign: 'right',
-                    flexShrink: 0,
-                    color: confidenceColour(result.confidence),
-                    fontWeight: result.confidence < 0.75 ? 500 : undefined,
-                  }}
-                >
-                  {Math.round(result.confidence * 100)}%
-                </span>
-              </>
-            ) : (
-              <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>—</span>
-            )}
-            <span
-              style={{
-                fontSize: 11,
-                padding: '1px 7px',
-                borderRadius: 99,
-                background: srcColour.bg,
-                color: srcColour.text,
-                flexShrink: 0,
-              }}
-            >
-              {srcLabel}
-            </span>
-          </div>
-        )
-      })}
+            return (
+              <div
+                key={article.id}
+                onClick={() => setSelected(article)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 16,
+                  padding: '12px 16px',
+                  borderTop: idx === 0 ? 'none' : '0.5px solid var(--color-border-tertiary)',
+                  cursor: 'pointer',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'var(--color-background-secondary)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+              >
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-text-primary)', lineHeight: 1.4, margin: 0 }}>
+                    {article.title}
+                  </p>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 4 }}>
+                    <span
+                      style={{
+                        fontSize: 11,
+                        padding: '1px 7px',
+                        borderRadius: 99,
+                        background: srcColour.bg,
+                        color: srcColour.text,
+                        flexShrink: 0,
+                      }}
+                    >
+                      {srcLabel}
+                    </span>
+                    {quote && (
+                      <span
+                        style={{
+                          fontSize: 12,
+                          color: 'var(--color-text-secondary)',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                        }}
+                        title={quote}
+                      >
+                        “{quote}”
+                      </span>
+                    )}
+                  </div>
+                </div>
+                {result ? (
+                  <>
+                    <DecisionBadge decision={result.decision} human_override={result.human_override} size="sm" />
+                    <span
+                      style={{
+                        fontSize: 12,
+                        width: 36,
+                        textAlign: 'right',
+                        flexShrink: 0,
+                        color: confidenceColour(result.confidence),
+                        fontWeight: result.confidence < 0.75 ? 500 : undefined,
+                      }}
+                    >
+                      {Math.round(result.confidence * 100)}%
+                    </span>
+                    <div onClick={e => e.stopPropagation()} style={{ flexShrink: 0 }}>
+                      <OverrideButtons projectId={projectId} article={article} compact />
+                    </div>
+                  </>
+                ) : (
+                  <span style={{ fontSize: 11, color: 'var(--color-text-secondary)' }}>—</span>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      )}
 
       {/* Pagination */}
       {data && totalPages > 1 && (
