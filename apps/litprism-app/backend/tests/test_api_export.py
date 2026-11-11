@@ -121,3 +121,17 @@ async def test_prisma_s_export_still_builds(client, project_id, articles_with_de
     assert resp.headers["content-type"].startswith(
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     )
+
+
+async def test_prisma_s_includes_ai_use_disclosure(client, project_id, articles_with_decisions):
+    import io
+
+    from docx import Document
+
+    resp = await client.get(f"/projects/{project_id}/export/prisma-s")
+    assert resp.status_code == 200
+    doc = Document(io.BytesIO(resp.content))
+    text = "\n".join(p.text for p in doc.paragraphs)
+    assert "AI-assisted screening disclosure" in text
+    assert "large language model" in text
+    assert "overridden by a human reviewer" in text

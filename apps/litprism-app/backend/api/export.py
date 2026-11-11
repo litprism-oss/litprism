@@ -13,7 +13,7 @@ from db.models import (
 )
 from dependencies import get_owned_project
 from fastapi import APIRouter, Depends, HTTPException, Query
-from services.export import export_articles, generate_prisma_s_docx
+from services.export import export_articles, generate_prisma_s_docx, load_ai_use
 from sqlalchemy import case, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.responses import Response
@@ -146,7 +146,10 @@ async def export_prisma_s(project_id: str, db: DB) -> Response:
     counts = await _prisma_counts(project_id, source_queries, upload_records, db)
     prisma_counts = counts.model_dump()
 
-    docx_bytes = generate_prisma_s_docx(project, source_queries, upload_records, prisma_counts)
+    ai_use = await load_ai_use(project_id, db)
+    docx_bytes = generate_prisma_s_docx(
+        project, source_queries, upload_records, prisma_counts, ai_use
+    )
     safe_name = project.name.replace(" ", "_")
     filename = f"PRISMA-S_{safe_name}_{date.today()}.docx"
 
