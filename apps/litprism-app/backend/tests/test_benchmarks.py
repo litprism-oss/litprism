@@ -84,6 +84,8 @@ async def test_task_scores_the_run(db):
     assert run.status == "completed", run.error
     assert run.processed == 150 and run.model_used == "fake-model"
     assert run.metrics["n"] == 150 and run.metrics["recall"] is not None
+    assert run.metrics["kept"] + (run.metrics["n"] - run.metrics["kept"]) == 150
+    assert len(run.metrics["missed_records"]) == min(10, run.metrics["missed"])
 
 
 class _Ctx:

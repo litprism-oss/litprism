@@ -50,7 +50,12 @@ async def _run(run_id: str) -> None:
 
             if results:
                 run.model_used = results[0].model_used
-            run.metrics = score(results, {r.id: r.label for r in records}, error_count)
+            run.metrics = score(
+                results,
+                {r.id: r.label for r in records},
+                error_count,
+                {r.id: r.title for r in records},
+            )
             run.status = "completed"
         except Exception as exc:  # noqa: BLE001 - surface any failure on the run
             run.status = "failed"

@@ -306,6 +306,9 @@ export interface BenchmarkMetrics {
   specificity: number | null
   work_saved: number
   missed: number
+  kept?: number
+  uncertain?: number
+  missed_records?: { title: string; reasoning: string }[]
 }
 
 export interface BenchmarkRunOut {
