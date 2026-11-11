@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       dataset_url:
-        description: Leave empty to use the built-in sample review (datasets/probiotics-crohns). Or a raw CSV URL with title, abstract and a label column (label, label_included, included)
+        description: Leave empty to use the Wilson-disease sample (real records). Or a raw CSV URL with title, abstract and a label column (label, label_included, included)
         default: ""
       criteria_json:
         description: 'Leave empty for the sample criteria. Or JSON: {"inclusion": [...], "exclusion": [...]}'
@@ -34,7 +34,7 @@ jobs:
           if [[ -n "$DATASET_URL" ]]; then
             curl -fsSL "$DATASET_URL" -o data.csv
           else
-            cp datasets/probiotics-crohns/records.csv data.csv
+            cp apps/litprism-app/frontend/public/samples/records.csv data.csv
           fi
       - name: Run benchmark
         shell: bash
@@ -47,8 +47,8 @@ jobs:
           LIMIT: ${{ inputs.limit }}
         run: |
           if [[ -n "$CRITERIA" ]]; then printf '%s' "$CRITERIA" > criteria.json
-          else cp datasets/probiotics-crohns/criteria.json criteria.json; fi
+          else cp apps/litprism-app/frontend/public/samples/criteria.json criteria.json; fi
           args=(data.csv criteria.json)
           if [[ "$LIMIT" != "0" ]]; then args+=(--limit "$LIMIT"); fi
           uv run --package litprism-screen python -m litprism.screen.benchmark "${args[@]}" | tee bench.log
-          { echo '### Screening benchmark'; echo "Dataset: ${{ inputs.dataset_url || 'built-in sample review (65 synthetic records)' }}"; echo '```'; cat bench.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          { echo '### Screening benchmark'; echo "Dataset: ${{ inputs.dataset_url || 'Wilson-disease sample (150 real records)' }}"; echo '```'; cat bench.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

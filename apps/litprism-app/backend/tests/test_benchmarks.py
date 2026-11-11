@@ -11,7 +11,7 @@ from sqlalchemy import func, select
 
 async def test_seed_is_idempotent_and_complete(db):
     first = await seed_datasets(db)
-    assert first >= 3
+    assert first == 4
     assert await seed_datasets(db) == 0
     ds = (await db.execute(select(BenchmarkDataset))).scalars().all()
     assert len(ds) == first
@@ -21,13 +21,13 @@ async def test_seed_is_idempotent_and_complete(db):
             .select_from(BenchmarkRecord)
             .where(BenchmarkRecord.dataset_id == d.id)
         )
-        assert n == d.record_count == 65 and d.relevant_count == 25
+        assert n == d.record_count == 150 and d.relevant_count >= 29
 
 
 async def test_list_and_start_benchmark(client, db):
     await seed_datasets(db)
     listing = (await client.get("/benchmarks")).json()
-    assert len(listing) >= 3 and listing[0]["latest_run"] is None
+    assert len(listing) == 4 and listing[0]["latest_run"] is None
 
     with patch("api.benchmarks.run_benchmark.delay") as delay:
         resp = await client.post(f"/benchmarks/{listing[0]['slug']}/run")
@@ -37,7 +37,7 @@ async def test_list_and_start_benchmark(client, db):
         assert again.status_code == 409  # one at a time
 
     run = (await client.get(f"/benchmarks/runs/{resp.json()['id']}")).json()
-    assert run["status"] == "pending" and run["total"] == 65
+    assert run["status"] == "pending" and run["total"] == 150
 
 
 async def test_unknown_benchmark_is_404(client, db):
@@ -82,8 +82,8 @@ async def test_task_scores_the_run(db):
 
     await db.refresh(run)
     assert run.status == "completed", run.error
-    assert run.processed == 65 and run.model_used == "fake-model"
-    assert run.metrics["n"] == 65 and run.metrics["recall"] is not None
+    assert run.processed == 150 and run.model_used == "fake-model"
+    assert run.metrics["n"] == 150 and run.metrics["recall"] is not None
 
 
 class _Ctx:
@@ -97,3 +97,16 @@ class _Ctx:
 
     async def __aexit__(self, *exc):
         return False
+
+
+async def test_seed_removes_datasets_that_are_no_longer_bundled(db):
+    await seed_datasets(db)
+    db.add(
+        BenchmarkDataset(
+            slug="old", name="Old", description="x", criteria={}, record_count=0, relevant_count=0
+        )
+    )
+    await db.commit()
+    await seed_datasets(db)
+    slugs = set((await db.execute(select(BenchmarkDataset.slug))).scalars())
+    assert "old" not in slugs and len(slugs) == 4

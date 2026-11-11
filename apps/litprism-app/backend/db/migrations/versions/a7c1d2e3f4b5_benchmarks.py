@@ -24,6 +24,7 @@ def upgrade() -> None:
         sa.Column("slug", sa.String(), nullable=False),
         sa.Column("name", sa.String(), nullable=False),
         sa.Column("description", sa.Text(), nullable=False),
+        sa.Column("source", sa.Text(), nullable=True),
         sa.Column("criteria", sa.JSON(), nullable=False),
         sa.Column("record_count", sa.Integer(), nullable=False),
         sa.Column("relevant_count", sa.Integer(), nullable=False),

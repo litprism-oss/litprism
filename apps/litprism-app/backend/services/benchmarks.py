@@ -17,10 +17,18 @@ CHUNK = 10  # records screened between progress updates
 
 async def seed_datasets(db: AsyncSession) -> int:
     """Insert any bundled dataset that is not in the database yet. Safe to call on every start."""
+    bundled = {
+        p: json.loads(p.read_text(encoding="utf-8")) for p in sorted(DATA_DIR.glob("*.json"))
+    }
+    wanted = {d["slug"] for d in bundled.values()}
     existing = set((await db.execute(select(BenchmarkDataset.slug))).scalars())
+    # Drop datasets that are no longer bundled (records and runs go with them, by cascade).
+    for ds in (
+        await db.execute(select(BenchmarkDataset).where(BenchmarkDataset.slug.not_in(wanted)))
+    ).scalars():
+        await db.delete(ds)
     added = 0
-    for path in sorted(DATA_DIR.glob("*.json")):
-        data = json.loads(path.read_text(encoding="utf-8"))
+    for data in bundled.values():
         if data["slug"] in existing:
             continue
         records = data["records"]
@@ -28,6 +36,7 @@ async def seed_datasets(db: AsyncSession) -> int:
             slug=data["slug"],
             name=data["name"],
             description=data["description"],
+            source=data.get("source"),
             criteria=data["criteria"],
             record_count=len(records),
             relevant_count=sum(1 for r in records if r["label"]),

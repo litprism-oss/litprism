@@ -54,6 +54,7 @@ async def list_benchmarks(_: CurrentUser, db: DB) -> list[BenchmarkDatasetOut]:
                 slug=ds.slug,
                 name=ds.name,
                 description=ds.description,
+                source=ds.source,
                 criteria=ds.criteria,
                 record_count=ds.record_count,
                 relevant_count=ds.relevant_count,

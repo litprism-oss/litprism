@@ -16,10 +16,11 @@ export function SampleData() {
         padding: 16,
       }}
     >
-      <p style={{ fontSize: 14, fontWeight: 500, margin: '0 0 4px' }}>No data? Try the sample review</p>
+      <p style={{ fontSize: 14, fontWeight: 500, margin: '0 0 4px' }}>No data? Try a real sample review</p>
       <p style={{ fontSize: 13, lineHeight: 1.6, color: 'var(--color-text-secondary)', margin: '0 0 12px' }}>
-        65 invented records about probiotics in Crohn&apos;s disease, with known answers (25 relevant). Not real
-        publications; for testing only. Upload the .ris, screen it with the criteria, then compare with the labels.
+        150 real records from a published review on Wilson disease therapies (29 relevant), with the review
+        authors&apos; decisions. Upload the .ris, screen it with the criteria, then compare with the labels. Source and
+        licence (CC-BY 4.0): see the Benchmarks page.
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {FILES.map(({ file, label, note }) => (
