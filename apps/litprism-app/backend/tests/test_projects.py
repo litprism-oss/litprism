@@ -69,3 +69,41 @@ async def test_project_stats_reflect_articles_and_screening(client, db, project_
     assert body["has_criteria"] is True
     listed = (await client.get("/projects")).json()
     assert next(p for p in listed if p["id"] == project_id)["article_count"] == 3
+
+
+async def test_delete_project_removes_children_in_database(client, db, project_id):
+    from datetime import UTC, datetime
+
+    from db.models import Article, Criteria, Project, ScreeningResult
+    from sqlalchemy import func, select
+
+    now = datetime.now(UTC)
+    db.add(
+        Criteria(
+            id="dc", project_id=project_id, version=1, inclusion=["a"], exclusion=[], created_at=now
+        )
+    )
+    db.add(Article(id="da", project_id=project_id, title="t", source="upload"))
+    await db.flush()
+    db.add(
+        ScreeningResult(
+            id="dr",
+            article_id="da",
+            project_id=project_id,
+            criteria_id="dc",
+            stage="abstract",
+            decision="include",
+            confidence=0.9,
+            reasoning="x",
+            criteria_hits=[],
+            model_used="m",
+            llm_provider="p",
+            screened_at=now,
+        )
+    )
+    await db.commit()
+
+    assert (await client.delete(f"/projects/{project_id}")).status_code == 204
+    db.expire_all()
+    for model in (Project, Article, Criteria, ScreeningResult):
+        assert (await db.execute(select(func.count()).select_from(model))).scalar() == 0

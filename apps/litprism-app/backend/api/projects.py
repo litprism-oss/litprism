@@ -4,7 +4,7 @@ from db.engine import get_db
 from db.models import Article, Criteria, Project, ScreeningResult
 from dependencies import CurrentUser, OwnedProject
 from fastapi import APIRouter, Depends, status
-from sqlalchemy import func, select
+from sqlalchemy import delete, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.schemas import ProjectCreate, ProjectOut, ProjectUpdate
@@ -111,5 +111,8 @@ async def update_project(project: OwnedProject, body: ProjectUpdate, db: DB) -> 
 
 @router.delete("/{project_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_project(project: OwnedProject, db: DB) -> None:
-    await db.delete(project)
+    # One DELETE: every table references projects with ON DELETE CASCADE, so the database
+    # removes the children itself. `db.delete(project)` would first load every article and
+    # result into memory (thousands of rows), which timed out at the gateway.
+    await db.execute(delete(Project).where(Project.id == project.id))
     await db.commit()
