@@ -172,6 +172,13 @@ Do the steps in this order: the site keeps working on the old addresses until th
    `https://litprism.org,https://www.litprism.org` (add the `*.vercel.app` address while testing),
    then re-run **Deploy to Azure**.
 
+Set the GitHub variable `API_CUSTOM_DOMAIN=api.litprism.org` as well. After every deploy the script
+then checks the API still has that name bound and, if not, binds it again. (A deploy that hits an
+Azure hiccup can otherwise leave the app without its custom domain; the symptom is the connection
+being reset during the TLS handshake while the old `*.azurecontainerapps.io` address keeps working.)
+The deploy also retries Azure calls that fail transiently, and decides whether an app exists from the
+list of apps, never from the error text of `show`.
+
 Cloudflare notes: leave records on DNS only unless you know you need the proxy. If you turn the
 proxy on later, set SSL/TLS mode to **Full (strict)** or the browser gets redirect loops.
 

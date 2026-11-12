@@ -82,4 +82,5 @@ jobs:
           ADMIN_EMAILS: ${{ vars.ADMIN_EMAILS }}
           BOOTSTRAP_OWNER_EMAIL: ${{ vars.BOOTSTRAP_OWNER_EMAIL }}
           LLM_CONCURRENCY: ${{ vars.LLM_CONCURRENCY }}
+          API_CUSTOM_DOMAIN: ${{ vars.API_CUSTOM_DOMAIN }}
         run: bash apps/litprism-app/azure/deploy.sh apps
