@@ -4,6 +4,7 @@ on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:   # lets a run be started by hand, e.g. when a queued run gets stuck
 
 jobs:
   ci:
