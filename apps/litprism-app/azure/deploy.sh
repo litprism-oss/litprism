@@ -32,7 +32,31 @@ SUB_ID="$(az account show --query id -o tsv)"
 SUFFIX="$(printf '%s' "$SUB_ID" | tr -d '-' | cut -c1-8)"
 ACR_NAME="${ACR_NAME:-litprism${SUFFIX}}"   # globally unique, alphanumeric only
 
-app_exists() { az containerapp show -n "$1" -g "$RG" -o none 2>/dev/null; }
+RETRY_ATTEMPTS="${RETRY_ATTEMPTS:-3}"
+RETRY_DELAY="${RETRY_DELAY:-20}"   # seconds; multiplied by the attempt number
+
+# Azure's management API fails now and then with InternalServerError or a misleading
+# "does not exist". Retry with a growing pause instead of failing the whole deploy.
+retry() {
+  local n=1
+  until "$@"; do
+    if (( n >= RETRY_ATTEMPTS )); then echo "giving up after $n attempts: ${*:1:4}" >&2; return 1; fi
+    echo "attempt $n failed, retrying in $((n * RETRY_DELAY))s: ${*:1:4}" >&2
+    sleep $((n * RETRY_DELAY))
+    n=$((n + 1))
+  done
+}
+
+# Decide from the list of apps, never from the error text of `show`. During a hiccup `show`
+# fails with misleading messages, and wrongly concluding "absent" sends us down the create path,
+# which resets the app's ingress and silently drops its custom domain. If the list itself cannot
+# be read, stop rather than guess.
+app_exists() {
+  local names
+  names="$(retry az containerapp list -g "$RG" --query "[].name" -o tsv)" \
+    || { echo "Cannot list container apps; refusing to guess whether $1 exists." >&2; exit 1; }
+  grep -qxF "$1" <<<"$names"
+}
 
 export_var() {  # make a value available to later workflow steps, if running in Actions
   if [[ -n "${GITHUB_ENV:-}" ]]; then echo "$1=$2" >> "$GITHUB_ENV"; fi
@@ -73,6 +97,13 @@ apps() {
   # visitor shares one account. Only for a short-lived demo; never with real users' data.
   if [[ "${AUTH_DISABLED:-}" != "true" ]]; then
     : "${SUPABASE_URL:?SUPABASE_URL is required (the API refuses to start without it). Set it as a GitHub variable, or set AUTH_DISABLED=true for an open demo.}"
+  fi
+
+  # Same rule as the Azure ops workflow: only a name under litprism.org.
+  if [[ -n "${API_CUSTOM_DOMAIN:-}" ]] \
+     && [[ ! "$API_CUSTOM_DOMAIN" =~ ^([a-z0-9]([a-z0-9-]*[a-z0-9])?\.)+litprism\.org$ ]]; then
+    echo "API_CUSTOM_DOMAIN must be a name under litprism.org (got: $API_CUSTOM_DOMAIN)" >&2
+    exit 2
   fi
 
   local acr_server acr_user acr_pass
@@ -126,27 +157,48 @@ apps() {
     fi
   done
 
+  # Inside a function that runs under `retry`, `set -e` is switched off, so every command
+  # reports failure explicitly with `|| return 1`.
   upsert() {  # upsert <app-name> <role> [extra create flags...]
     local app="$1" role="$2"; shift 2
     if app_exists "$app"; then
       echo "Updating $app"
       az containerapp registry set -n "$app" -g "$RG" \
-        --server "$acr_server" --username "$acr_user" --password "$acr_pass" -o none
-      az containerapp secret set -n "$app" -g "$RG" --secrets "${secrets[@]}" -o none
+        --server "$acr_server" --username "$acr_user" --password "$acr_pass" -o none || return 1
+      az containerapp secret set -n "$app" -g "$RG" --secrets "${secrets[@]}" -o none || return 1
       az containerapp update -n "$app" -g "$RG" --image "$IMAGE" \
-        --set-env-vars "${envvars[@]}" "LITPRISM_ROLE=${role}" -o none
+        --set-env-vars "${envvars[@]}" "LITPRISM_ROLE=${role}" -o none || return 1
     else
       echo "Creating $app"
       az containerapp create -n "$app" -g "$RG" --environment "$ENV_NAME" --image "$IMAGE" \
         --registry-server "$acr_server" --registry-username "$acr_user" --registry-password "$acr_pass" \
         --cpu 0.5 --memory 1.0Gi --min-replicas 1 --max-replicas 1 \
         --secrets "${secrets[@]}" --env-vars "${envvars[@]}" "LITPRISM_ROLE=${role}" \
-        "$@" -o none
+        "$@" -o none || return 1
     fi
   }
 
-  upsert "$API_APP" api --ingress external --target-port 8000
-  upsert "$WORKER_APP" worker
+  # After a deploy the API must still have its custom domain. A failed or partial deploy can
+  # leave the app without it (the connection then resets during the TLS handshake), so check and
+  # re-bind. The domain's DNS records and managed certificate are kept by Azure and reused.
+  ensure_custom_domain() {
+    local host="${API_CUSTOM_DOMAIN:-}" bound
+    [[ -n "$host" ]] || return 0
+    bound="$(retry az containerapp hostname list -n "$API_APP" -g "$RG" --query "[].name" -o tsv)" \
+      || return 1
+    if grep -qxF "$host" <<<"$bound"; then
+      echo "Custom domain $host is bound"
+      return 0
+    fi
+    echo "Custom domain $host is not bound to $API_APP: binding it again"
+    retry az containerapp hostname add -n "$API_APP" -g "$RG" --hostname "$host" -o none || return 1
+    retry az containerapp hostname bind -n "$API_APP" -g "$RG" --hostname "$host" \
+      --environment "$ENV_NAME" --validation-method CNAME -o none || return 1
+  }
+
+  retry upsert "$API_APP" api --ingress external --target-port 8000
+  retry upsert "$WORKER_APP" worker
+  ensure_custom_domain
 
   local fqdn
   fqdn="$(az containerapp show -n "$API_APP" -g "$RG" --query properties.configuration.ingress.fqdn -o tsv)"
