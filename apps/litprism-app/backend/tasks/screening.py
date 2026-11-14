@@ -1,10 +1,13 @@
 import contextlib
+import logging
 
 from celery.exceptions import MaxRetriesExceededError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from tasks._async import run_async
 from tasks.celery_app import celery_app
+
+logger = logging.getLogger(__name__)
 
 
 def _exc_str(exc: BaseException) -> str:
@@ -74,6 +77,7 @@ async def _dispatch_unscreened(screening_run_id: str) -> None:
             run.status = "completed"
             run.completed_at = datetime.now(UTC)
             await db.commit()
+            await _publish_complete(db, run)
             return
 
         now = datetime.now(UTC)
@@ -163,6 +167,8 @@ async def _run_chunk(screening_run_id: str, article_ids: list[str]) -> None:
         results, errors = await screener.ascreen_batch(screenable, screen_criteria, stage=run.stage)
 
         now = datetime.now(UTC)
+        decisions: list[tuple[str, str, float]] = []  # announced to the browser after the commit
+        failures: list[tuple[str, str]] = []
 
         # Write immediate uncertain results for articles with no full text.
         for article in no_fulltext:
@@ -188,6 +194,7 @@ async def _run_chunk(screening_run_id: str, article_ids: list[str]) -> None:
                     screened_at=now,
                 )
             )
+            decisions.append((article.id, "uncertain", 0.0))
 
         for result in results:
             db.add(
@@ -207,6 +214,7 @@ async def _run_chunk(screening_run_id: str, article_ids: list[str]) -> None:
                     screened_at=now,
                 )
             )
+            decisions.append((result.article_id, result.decision, result.confidence))
 
         from litellm import ContentPolicyViolationError
 
@@ -237,6 +245,7 @@ async def _run_chunk(screening_run_id: str, article_ids: list[str]) -> None:
                     screened_at=now,
                 )
             )
+            decisions.append((error.article_id, "uncertain", 0.0))
 
         for error in real_errors:
             await write_tombstone(
@@ -247,15 +256,82 @@ async def _run_chunk(screening_run_id: str, article_ids: list[str]) -> None:
                 db,
                 screening_run_id=run.id,
             )
+            failures.append((error.article_id, type(error.cause).__name__))
 
-        run.screened_count = (
-            (run.screened_count or 0) + len(results) + len(errors) + len(no_fulltext)
-        )
-        run.error_count = (run.error_count or 0) + len(real_errors)
-        await db.commit()
+        done = len(results) + len(errors) + len(no_fulltext)
+        processed_after = await _add_progress(db, run.id, done=done, failed=len(real_errors))
+        _publish_progress(run, processed_after, decisions, failures)
 
         # Mark run completed if no articles remain unscreened.
         await _maybe_complete_run(run.id, run.project_id, run.criteria_id, run.stage, db)
+
+
+async def _add_progress(db: AsyncSession, run_id: str, *, done: int, failed: int) -> int:
+    """Add to the run's counters in SQL, commit, and return the run's new screened_count.
+
+    Chunks run concurrently and each loaded the run long before it finishes. Writing back
+    `loaded value + n` would drop whatever the other chunks added meanwhile. The returned value
+    is this chunk's own share of the total, so concurrent chunks report disjoint ranges.
+    """
+    from db.models import ScreeningRun
+    from sqlalchemy import func, update
+
+    new_count = await db.scalar(
+        update(ScreeningRun)
+        .where(ScreeningRun.id == run_id)
+        .values(
+            screened_count=func.coalesce(ScreeningRun.screened_count, 0) + done,
+            error_count=func.coalesce(ScreeningRun.error_count, 0) + failed,
+        )
+        .returning(ScreeningRun.screened_count)
+    )
+    await db.commit()
+    return new_count or 0
+
+
+def _publish_progress(
+    run, processed_after: int, decisions: list[tuple[str, str, float]], failures: list
+) -> None:
+    """Tell the browsers watching this project about a finished chunk (best effort)."""
+    from services.events import progress_events, publish_events
+
+    done = len(decisions) + len(failures)
+    publish_events(
+        run.project_id,
+        progress_events(
+            processed_before=processed_after - done,
+            total=run.total_articles or 0,
+            decisions=decisions,
+            errors=failures,
+        ),
+    )
+
+
+async def _publish_complete(db: AsyncSession, run) -> None:
+    """Announce a finished run with its decision counts. Never fails the task: the run is
+    already marked completed, and a retry would only repeat the work."""
+    try:
+        from db.models import ScreeningResult
+        from services.events import complete_event, publish_events
+        from sqlalchemy import func, select
+
+        # _add_progress updated the counters in SQL, so this object's copy is expired; reading
+        # it lazily would fail in an async session. Load it explicitly.
+        await db.refresh(run)
+        rows = (
+            await db.execute(
+                select(ScreeningResult.decision, func.count())
+                .where(ScreeningResult.screening_run_id == run.id)
+                .group_by(ScreeningResult.decision)
+            )
+        ).all()
+        counts = {decision: count for decision, count in rows}
+        publish_events(
+            run.project_id,
+            [complete_event(total_processed=run.screened_count or 0, counts=counts)],
+        )
+    except Exception:  # noqa: BLE001
+        logger.warning("Could not announce completion of run %s", run.id, exc_info=True)
 
 
 async def _maybe_complete_run(
@@ -284,6 +360,7 @@ async def _maybe_complete_run(
         run.status = "completed"
         run.completed_at = datetime.now(UTC)
         await db.commit()
+        await _publish_complete(db, run)
 
 
 # ~15k tokens; keeps a single paper from blowing the model's context window.
@@ -355,6 +432,7 @@ async def _write_chunk_tombstones(
                 screening_run_id=run.id,
             )
 
-        run.screened_count = (run.screened_count or 0) + len(remaining_ids)
-        run.error_count = (run.error_count or 0) + len(remaining_ids)
-        await db.commit()
+        processed_after = await _add_progress(
+            db, run.id, done=len(remaining_ids), failed=len(remaining_ids)
+        )
+        _publish_progress(run, processed_after, [], [(aid, "ChunkFailed") for aid in remaining_ids])

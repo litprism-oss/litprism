@@ -37,6 +37,20 @@ async def _test_current_user(request: Request) -> AuthUser:
     return TEST_USERS[request.headers.get("X-Test-User", "member")]
 
 
+@pytest.fixture(autouse=True)
+def published_events(monkeypatch):
+    """Progress events that tasks publish to Redis, captured as (project_id, [events]).
+
+    Autouse so that no test ever opens a Redis connection. Tests that care read the list.
+    """
+    captured: list[tuple[str, list[dict]]] = []
+    monkeypatch.setattr(
+        "services.events.publish_events",
+        lambda project_id, events: captured.append((project_id, list(events))),
+    )
+    return captured
+
+
 @pytest.fixture
 def seed_test_users():
     """Returns an async fn(session): insert the TEST_USERS rows and make requests act as
