@@ -1,3 +1,5 @@
+import asyncio
+import contextlib
 import logging
 from contextlib import asynccontextmanager
 
@@ -19,6 +21,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from services.auth import check_auth_config
 from services.benchmarks import seed_datasets
+from services.event_bridge import run_bridge
+from ws import ws_manager
 
 
 @asynccontextmanager
@@ -31,7 +35,14 @@ async def lifespan(app: FastAPI):  # type: ignore[type-arg]
             await seed_datasets(db)
     except Exception:  # noqa: BLE001 - the benchmarks are optional; never keep the API down
         logging.getLogger(__name__).exception("Could not seed the benchmark datasets")
-    yield
+    # Forwards screening progress published by the Celery worker to this project's sockets.
+    bridge = asyncio.create_task(run_bridge(ws_manager, settings.celery_broker_url))
+    try:
+        yield
+    finally:
+        bridge.cancel()
+        with contextlib.suppress(asyncio.CancelledError):
+            await bridge
     await engine.dispose()
 
 

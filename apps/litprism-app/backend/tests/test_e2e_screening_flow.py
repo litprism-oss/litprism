@@ -10,6 +10,8 @@ Everything else (routes, coordinator, chunks, completion, eligibility, PRISMA co
 is the production code path against a shared in-memory SQLite DB.
 """
 
+import asyncio
+import json
 import uuid
 from collections import deque
 from datetime import UTC, datetime, timedelta
@@ -27,7 +29,7 @@ from litprism.screen.exceptions import ScreeningError
 from sqlalchemy import event, func, select
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.pool import StaticPool
-from tasks.screening import _run_chunk, _run_coordinator
+from tasks.screening import _run_chunk, _run_coordinator, _write_chunk_tombstones
 from tasks.watchdog import _run_watchdog
 
 from main import app
@@ -56,6 +58,10 @@ class FakeScreener:
         results, errors = [], []
         for a in articles:
             self.calls.append((a.id, stage))
+            if "ERR" in a.title:  # a real provider failure, unlike BLOCK (a content-policy hit)
+                cause = RuntimeError("provider exploded: key sk-secret-123")
+                errors.append(ScreeningError(article_id=a.id, cause=cause))
+                continue
             decision = _decide(a, stage)
             if decision is None:
                 cause = ContentPolicyViolationError(
@@ -550,3 +556,178 @@ async def test_watchdog_redispatch_decision(
     if expect_redispatch:
         await h.drain()
         assert (await h.run(run_id)).status == "completed"
+
+
+# ---------------------------------------------------------------------------
+# Live progress: what the worker tells the browser while a run is processed
+# ---------------------------------------------------------------------------
+
+
+def _flat(published) -> list[dict]:
+    return [event for _, events in published for event in events]
+
+
+async def _start_run(h: Harness, project_id: str, **body) -> str:
+    resp = await h.client.post(f"/projects/{project_id}/screening/run", json=body)
+    assert resp.status_code == 202, resp.text
+    return resp.json()["id"]
+
+
+async def test_a_run_announces_every_article_and_then_its_completion(harness, published_events):
+    h = harness
+    project_id, _ = await _project_with_criteria(h)
+    ids = await _add_articles(h, project_id, ["INC a", "INC b", "EXC c", "UNC d", "BLOCK e"])
+    await _start_run(h, project_id, stage="abstract", chunk_size=2)
+    await h.drain()
+
+    events = _flat(published_events)
+    progress = [e for e in events if e["event"] == "screening_progress"]
+    assert sorted(e["processed"] for e in progress) == [1, 2, 3, 4, 5]
+    assert {e["total"] for e in progress} == {5}
+    decisions = {e["article_id"]: e["decision"] for e in progress}
+    assert decisions == {
+        ids["INC a"]: "include",
+        ids["INC b"]: "include",
+        ids["EXC c"]: "exclude",
+        ids["UNC d"]: "uncertain",
+        ids["BLOCK e"]: "uncertain",  # a content-policy hit is routed to review, not an error
+    }
+    assert [e for e in events if e["event"] == "screening_complete"] == [
+        {
+            "event": "screening_complete",
+            "total_processed": 5,
+            "included": 2,
+            "excluded": 1,
+            "uncertain": 2,
+        }
+    ]
+    assert events[-1]["event"] == "screening_complete"  # and it comes last
+    assert {pid for pid, _ in published_events} == {project_id}
+
+
+async def test_failed_articles_are_announced_without_provider_details(harness, published_events):
+    h = harness
+    project_id, _ = await _project_with_criteria(h)
+    ids = await _add_articles(h, project_id, ["INC ok", "ERR bad"])
+    run_id = await _start_run(h, project_id, stage="abstract")
+    await h.drain()
+
+    events = _flat(published_events)
+    progress = {e["article_id"]: e for e in events if e["event"] == "screening_progress"}
+    assert progress[ids["ERR bad"]]["decision"] == "error"
+    assert max(e["processed"] for e in progress.values()) == 2  # errors advance the count too
+    errors = [e for e in events if e["event"] == "screening_error"]
+    assert errors == [
+        {
+            "event": "screening_error",
+            "article_id": ids["ERR bad"],
+            "message": "Screening failed (RuntimeError)",
+        }
+    ]
+    assert "sk-secret" not in json.dumps(events)  # the provider's message never reaches a browser
+    done = next(e for e in events if e["event"] == "screening_complete")
+    assert (done["included"], done["excluded"], done["uncertain"]) == (1, 0, 0)  # errors excluded
+    assert (await h.run(run_id)).error_count == 1
+
+
+async def test_concurrent_chunks_neither_lose_progress_nor_report_overlapping_counts(
+    harness, published_events
+):
+    """Two worker processes finish chunks at the same time. Each loaded the run at the start;
+    writing back `loaded + n` used to make one overwrite the other (screened_count 2, not 4)."""
+    h = harness
+    project_id, _ = await _project_with_criteria(h)
+    await _add_articles(h, project_id, ["INC a", "INC b", "INC c", "INC d"])
+    run_id = await _start_run(h, project_id, stage="abstract", chunk_size=2)
+    await h.step()  # the coordinator queues two chunks
+    chunks = [args for kind, args in h.queue if kind == "chunk"]
+    h.queue.clear()
+    assert len(chunks) == 2
+
+    await asyncio.gather(*(_run_chunk(*args) for args in chunks))
+
+    assert (await h.run(run_id)).screened_count == 4
+    progress = [e for e in _flat(published_events) if e["event"] == "screening_progress"]
+    assert sorted(e["processed"] for e in progress) == [1, 2, 3, 4]  # disjoint, nothing repeated
+
+
+async def test_a_chunk_that_exhausted_its_retries_is_announced_as_failed(harness, published_events):
+    h = harness
+    project_id, _ = await _project_with_criteria(h)
+    ids = await _add_articles(h, project_id, ["INC a", "INC b"])
+    run_id = await _start_run(h, project_id, stage="abstract")
+    await h.step()  # coordinator: the run is now running and its chunk is queued
+    h.queue.clear()
+
+    await _write_chunk_tombstones(run_id, list(ids.values()), "boom")
+
+    events = _flat(published_events)
+    assert [e["decision"] for e in events if e["event"] == "screening_progress"] == ["error"] * 2
+    assert {e["message"] for e in events if e["event"] == "screening_error"} == {
+        "Screening failed (ChunkFailed)"
+    }
+    run = await h.run(run_id)
+    assert (run.screened_count, run.error_count) == (2, 2)
+    assert "boom" not in json.dumps(events)
+
+
+async def test_a_late_duplicate_chunk_announces_nothing(harness, published_events):
+    h = harness
+    project_id, _ = await _project_with_criteria(h)
+    ids = await _add_articles(h, project_id, ["INC a", "EXC b"])
+    run_id = await _start_run(h, project_id, stage="abstract")
+    await h.drain()
+    published_events.clear()
+
+    await _run_chunk(run_id, list(ids.values()))
+
+    assert published_events == []
+
+
+async def test_a_run_with_nothing_to_screen_still_announces_completion(harness, published_events):
+    h = harness
+    project_id, _ = await _project_with_criteria(h)
+    await _add_articles(h, project_id, ["INC a"])
+    await _start_run(h, project_id, stage="abstract")
+    await h.drain()
+    published_events.clear()
+
+    again = await _start_run(h, project_id, stage="abstract")  # nothing left to screen
+    await h.drain()
+
+    complete = [e for e in _flat(published_events) if e["event"] == "screening_complete"]
+    assert len(complete) == 1
+    assert (await h.run(again)).status == "completed"
+
+
+async def test_fulltext_runs_announce_progress_too(harness, published_events):
+    h = harness
+    project_id, _ = await _project_with_criteria(h)
+    ids = await _add_articles(h, project_id, ["UNC four", "UNC five", "UNC six"])
+    await _start_run(h, project_id, stage="abstract")
+    await h.drain()
+    await _retrieve_fulltext(
+        h,
+        {
+            ids["UNC four"]: "Full paper ... FT-INC ...",
+            ids["UNC five"]: "Full paper ... FT-EXC ...",
+            ids["UNC six"]: "Full paper ... FT-INC ...",
+        },
+    )
+    published_events.clear()
+
+    resp = await h.client.post(f"/projects/{project_id}/screening/fulltext-run", json={})
+    assert resp.status_code == 202
+    await h.drain()
+
+    events = _flat(published_events)
+    progress = [e for e in events if e["event"] == "screening_progress"]
+    assert sorted(e["processed"] for e in progress) == [1, 2, 3]
+    assert {e["total"] for e in progress} == {3}
+    assert {e["article_id"]: e["decision"] for e in progress} == {
+        ids["UNC four"]: "include",
+        ids["UNC five"]: "exclude",
+        ids["UNC six"]: "include",
+    }
+    done = next(e for e in events if e["event"] == "screening_complete")
+    assert (done["included"], done["excluded"]) == (2, 1)

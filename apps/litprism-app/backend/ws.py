@@ -20,9 +20,16 @@ class ConnectionManager:
         if websocket in conns:
             conns.remove(websocket)
 
+    def has_connections(self, project_id: str) -> bool:
+        return bool(self._connections.get(project_id))
+
     async def broadcast(self, project_id: str, message: Any) -> None:
-        for connection in self._connections.get(project_id, []):
-            await connection.send_json(message)
+        # Iterate a copy: a failed send drops its socket, and sockets can come and go meanwhile.
+        for connection in list(self._connections.get(project_id, [])):
+            try:
+                await connection.send_json(message)
+            except Exception:  # noqa: BLE001 - one dead socket must not stop the others
+                self.disconnect(project_id, connection)
 
 
 ws_manager = ConnectionManager()
